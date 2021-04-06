@@ -13,9 +13,13 @@ Download and install npm and Node.js from https://www.npmjs.com/get-npm
 Open the file 'backend/.env' and adjust the below parameters.
 
 BASE_URL=<apigee_host>
+
 TENANT_ID=<tenant_id>
+
 CLIENT_ID=<client_id>
+
 CLIENT_SECRET=<client_secret>
+
 MANAGER_GROUP=<group>
 
 ### Run
