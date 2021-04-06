@@ -1,3 +1,5 @@
+This is a demo app to demonstrate workflow functionalities in May 2021 summit.  
+
 ## Prerequisites
 use npm v14.2.0
 
@@ -10,7 +12,7 @@ Download and install npm and Node.js from https://www.npmjs.com/get-npm
 
 ### Setup environment variables
 
-Open the file 'backend/.env' and adjust the below parameters.
+Create a `.env` file in `backend` directory (`backend/.env`) and adjust the below parameters.
 
 BASE_URL=<apigee_host>
 
