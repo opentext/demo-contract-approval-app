@@ -1,0 +1,57 @@
+{
+  "name": "contract-approval",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.9.13",
+    "@material-ui/icons": "^4.9.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.19.2",
+    "bulma": "^0.9.0",
+    "bulma-helpers": "^0.3.12",
+    "concurrently": "^5.2.0",
+    "cross-env": "^7.0.2",
+    "express": "^4.17.1",
+    "material-design-icons": "^3.0.1",
+    "node-sass": "^4.14.1",
+    "pdf-viewer-reactjs": "^2.0.7",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-scripts": "3.4.1",
+    "redux": "^4.0.5"
+  },
+  "proxy": "http://localhost:3001/",
+  "scripts": {
+    "start": "concurrently \"react-scripts start\" \"npm start --prefix ../backend\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react-app": "^9.1.2",
+    "nodemon": "^2.0.3",
+    "npm-run-all": "^4.1.5",
+    "webpack-cli": "^3.3.11",
+    "webpack-node-externals": "^1.7.2"
+  }
+}

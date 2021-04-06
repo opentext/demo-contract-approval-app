@@ -1,0 +1,11 @@
+docs/.trash
+backend/node_modules
+frontend/node_modules
+
+# IntelliJ
+.idea
+
+# Node
+node_modules
+
+.env
