@@ -27,7 +27,7 @@ MANAGER_GROUP=<group>
 Open a command prompt and run the following command from project root,
 
 ```
-cd contract-signing-demo-app
+cd contract-approval-demo-app
 ./setup.sh
 ```
 

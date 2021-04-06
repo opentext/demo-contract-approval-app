@@ -75,7 +75,7 @@ class CreatedContractList extends React.Component {
 			axios.defaults.baseURL = '';
 			axios({
 				method: 'get',
-				url: '/api/cms/instances/file/ot2_sign_contract/?include-total=true&sortby=create_time desc&filter=contract_status eq "CREATED"&page=' + (this.state.pageNumber + 1),
+				url: '/api/cms/instances/file/ot2_app_contract/?include-total=true&sortby=create_time desc&filter=contract_status eq "CREATED"&page=' + (this.state.pageNumber + 1),
 			}).then(res => {
 				this.setState({
 					contracts: res.data && res.data._embedded ? res.data._embedded.collection : [],
@@ -104,7 +104,7 @@ class CreatedContractList extends React.Component {
 			method: 'post',
 			url: '/api/workflow/createinstance',
 			data: {
-				"processDefinitionKey": "signContractId",
+				"processDefinitionKey": "approveContractId",
 				"name": "Sign contract",
 				"outcome": "none",
 				"variables": [

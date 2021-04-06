@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:workflow="http://workflow.opentext.com" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://opentext.com/devx/contract">
-  <message id="contractId" name="contract"></message>
+  <message id="contractId" name="contractApproval"></message>
   <process id="approveContractId" name="approveContract" isExecutable="true">
     <documentation>My Process</documentation>
     <serviceTask id="sid-E590B3E4-B9A9-4E78-844D-D2586FBF303F" name="get contract from cms" workflow:type="http">
@@ -10,7 +10,7 @@
           <workflow:string><![CDATA[GET]]></workflow:string>
         </workflow:field>
         <workflow:field name="requestUrl">
-          <workflow:expression><![CDATA[{{apigee_host}}/cms/instances/file/ot2_sign_contract/${contract_id}]]></workflow:expression>
+          <workflow:expression><![CDATA[{{apigee_host}}/cms/instances/file/ot2_app_contract/${contract_id}]]></workflow:expression>
         </workflow:field>
         <workflow:field name="responseVariableName">
           <workflow:string><![CDATA[cmsContract]]></workflow:string>
@@ -38,7 +38,7 @@
           <workflow:string><![CDATA[PUT]]></workflow:string>
         </workflow:field>
         <workflow:field name="requestUrl">
-          <workflow:expression><![CDATA[{{apigee_host}}/cms/instances/file/ot2_sign_contract/${contract_id}]]></workflow:expression>
+          <workflow:expression><![CDATA[{{apigee_host}}/cms/instances/file/ot2_app_contract/${contract_id}]]></workflow:expression>
         </workflow:field>
         <workflow:field name="requestHeaders">
           <workflow:string><![CDATA[Content-Type:  application/json]]></workflow:string>
@@ -66,7 +66,7 @@
           <workflow:string><![CDATA[PUT]]></workflow:string>
         </workflow:field>
         <workflow:field name="requestUrl">
-          <workflow:expression><![CDATA[{{apigee_host}}/cms/instances/file/ot2_sign_contract/${contract_id}]]></workflow:expression>
+          <workflow:expression><![CDATA[{{apigee_host}}/cms/instances/file/ot2_app_contract/${contract_id}]]></workflow:expression>
         </workflow:field>
         <workflow:field name="requestHeaders">
           <workflow:string><![CDATA[Content-Type:  application/json]]></workflow:string>
@@ -94,7 +94,7 @@
           <workflow:string><![CDATA[PUT]]></workflow:string>
         </workflow:field>
         <workflow:field name="requestUrl">
-          <workflow:expression><![CDATA[{{apigee_host}}/cms/instances/file/ot2_sign_contract/${contract_id}]]></workflow:expression>
+          <workflow:expression><![CDATA[{{apigee_host}}/cms/instances/file/ot2_app_contract/${contract_id}]]></workflow:expression>
         </workflow:field>
         <workflow:field name="requestHeaders">
           <workflow:string><![CDATA[Content-Type: application/json]]></workflow:string>
@@ -153,7 +153,7 @@ Contract has status CREATED</text>
   <bpmndi:BPMNDiagram id="BPMNDiagram_approveContractId">
     <bpmndi:BPMNPlane bpmnElement="approveContractId" id="BPMNPlane_approveContractId">
       <bpmndi:BPMNShape bpmnElement="sid-E590B3E4-B9A9-4E78-844D-D2586FBF303F" id="BPMNShape_sid-E590B3E4-B9A9-4E78-844D-D2586FBF303F">
-        <omgdc:Bounds height="80.0" width="100.0" x="90.0" y="195.0"></omgdc:Bounds>
+        <omgdc:Bounds height="80.0" width="100.0" x="75.0" y="195.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-55562E44-0DCE-4F56-80CF-19B2947514B3" id="BPMNShape_sid-55562E44-0DCE-4F56-80CF-19B2947514B3">
         <omgdc:Bounds height="28.0" width="28.0" x="915.0" y="221.00000000000026"></omgdc:Bounds>
@@ -177,7 +177,7 @@ Contract has status CREATED</text>
         <omgdc:Bounds height="80.0" width="100.0" x="270.0" y="30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-136B973F-1CF8-44AC-87D6-E6370732659A" id="BPMNShape_sid-136B973F-1CF8-44AC-87D6-E6370732659A">
-        <omgdc:Bounds height="30.0" width="30.5" x="45.0" y="220.0"></omgdc:Bounds>
+        <omgdc:Bounds height="30.0" width="30.5" x="15.0" y="220.00000000000026"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-DF059491-6002-439D-9796-82A3D4528966" id="BPMNShape_sid-DF059491-6002-439D-9796-82A3D4528966">
         <omgdc:Bounds height="125.47686207809261" width="243.05179499090536" x="525.9979071896178" y="352.30608245355216"></omgdc:Bounds>
@@ -186,11 +186,11 @@ Contract has status CREATED</text>
         <omgdc:Bounds height="141.7875631075671" width="185.15843336546962" x="60.0" y="345.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-B969B23B-BEDA-4DB4-AC37-D79971886D84" id="BPMNShape_sid-B969B23B-BEDA-4DB4-AC37-D79971886D84">
-        <omgdc:Bounds height="98.06217745085246" width="82.30912754764134" x="70.27008913509346" y="246.93782254914754"></omgdc:Bounds>
+        <omgdc:Bounds height="99.44854622105208" width="110.59511599507341" x="41.98410068766138" y="245.55145377894792"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="sid-B969B23B-BEDA-4DB4-AC37-D79971886D84" id="BPMNEdge_sid-B969B23B-BEDA-4DB4-AC37-D79971886D84">
-        <omgdi:waypoint x="69.92713117330592" y="246.5288196623155"></omgdi:waypoint>
-        <omgdi:waypoint x="152.5792166827348" y="345.0"></omgdi:waypoint>
+        <omgdi:waypoint x="41.4680741602274" y="245.08764649802453"></omgdi:waypoint>
+        <omgdi:waypoint x="152.573615039535" y="345.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-B25D7EC4-1121-469A-A69F-01277AC0C46B" id="BPMNEdge_sid-B25D7EC4-1121-469A-A69F-01277AC0C46B">
         <omgdi:waypoint x="264.94697818842775" y="235.0"></omgdi:waypoint>
@@ -205,7 +205,7 @@ Contract has status CREATED</text>
         <omgdi:waypoint x="671.4580772751376" y="70.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-99C737E9-4482-4CD5-B3A0-58AB9E3C41AE" id="BPMNEdge_sid-99C737E9-4482-4CD5-B3A0-58AB9E3C41AE">
-        <omgdi:waypoint x="189.95" y="235.0"></omgdi:waypoint>
+        <omgdi:waypoint x="174.94999999997563" y="235.0"></omgdi:waypoint>
         <omgdi:waypoint x="225.0" y="235.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-7C01B07B-1C54-4B87-AFF9-502E66391F4F" id="BPMNEdge_sid-7C01B07B-1C54-4B87-AFF9-502E66391F4F">
@@ -217,8 +217,8 @@ Contract has status CREATED</text>
         <omgdi:waypoint x="915.0" y="235.00000000000026"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-C6429308-25D1-47EF-B842-94D95EFD9F21" id="BPMNEdge_sid-C6429308-25D1-47EF-B842-94D95EFD9F21">
-        <omgdi:waypoint x="75.44999698166518" y="235.0"></omgdi:waypoint>
-        <omgdi:waypoint x="90.0" y="235.0"></omgdi:waypoint>
+        <omgdi:waypoint x="45.44999786125848" y="235.00000000000023"></omgdi:waypoint>
+        <omgdi:waypoint x="75.0" y="235.0000000000001"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-7F2E4301-E7FE-4A6D-9709-72F8BF2BF041" id="BPMNEdge_sid-7F2E4301-E7FE-4A6D-9709-72F8BF2BF041">
         <omgdi:waypoint x="245.0" y="215.0"></omgdi:waypoint>
