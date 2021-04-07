@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -24,13 +24,13 @@ export default class AddContract extends React.Component {
 			}
 		};
 		axios.interceptors.request.use(request => {
-			console.log('Starting Request', JSON.stringify(request, null, 2))
-			return request
+			console.log('Starting Request', JSON.stringify(request, null, 2));
+			return request;
 		})
 
 		axios.interceptors.response.use(response => {
-			console.log('Response:', JSON.stringify(response, null, 2))
-			return response
+			console.log('Response:', JSON.stringify(response, null, 2));
+			return response;
 		})
 	}
 
