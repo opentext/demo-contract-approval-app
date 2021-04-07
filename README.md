@@ -1,7 +1,7 @@
 This is a demo app to demonstrate workflow functionalities in May 2021 summit.  
 
 ## Prerequisites
-use npm v14.2.0
+use node v14.2.0
 
 
 ## Installation steps
