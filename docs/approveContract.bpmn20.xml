@@ -129,6 +129,41 @@
     </sequenceFlow>
     <sequenceFlow id="sid-E2C4C011-B360-416C-B7CE-74D5C7DB76BA" sourceRef="sid-954EEBE4-464A-4885-BD09-2364A6A772E7" targetRef="sid-55562E44-0DCE-4F56-80CF-19B2947514B3"></sequenceFlow>
     <sequenceFlow id="sid-B25D7EC4-1121-469A-A69F-01277AC0C46B" name="Contract value &lt;= 1000" sourceRef="sid-EA6DB01D-341E-406A-A5E6-D30EC878B545" targetRef="sid-954EEBE4-464A-4885-BD09-2364A6A772E7"></sequenceFlow>
+    <serviceTask id="sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32" name="update cms status EXPIRED" workflow:type="http">
+      <extensionElements>
+        <workflow:authenticationDetails authenticationUrl="{{apigee_host}}/oauth2/token" contentType="application/json" clientId="{{client_id}}" clientSecret="{{client_secret}}" grantType="password" username="{{username}}" password="{{password}}" useCurrentAuthToken="false"></workflow:authenticationDetails>
+        <workflow:field name="requestMethod">
+          <workflow:string><![CDATA[PUT]]></workflow:string>
+        </workflow:field>
+        <workflow:field name="requestUrl">
+          <workflow:expression><![CDATA[{{apigee_host}}/cms/instances/file/ot2_app_contract/${contract_id}]]></workflow:expression>
+        </workflow:field>
+        <workflow:field name="requestHeaders">
+          <workflow:string><![CDATA[Content-Type:  application/json]]></workflow:string>
+        </workflow:field>
+        <workflow:field name="requestBody">
+          <workflow:expression><![CDATA[{
+   "name":  "${cmsContract.name}",
+   "properties": {
+  		"contract_status": "EXPIRED"
+	}
+}]]></workflow:expression>
+        </workflow:field>
+        <workflow:field name="responseVariableName">
+          <workflow:string><![CDATA[cmsContract]]></workflow:string>
+        </workflow:field>
+        <workflow:field name="saveResponseVariableAsJson">
+          <workflow:string><![CDATA[true]]></workflow:string>
+        </workflow:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="sid-4A7129F3-684D-4630-90A9-F6A8CF446A08" sourceRef="sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32" targetRef="sid-55562E44-0DCE-4F56-80CF-19B2947514B3"></sequenceFlow>
+    <sequenceFlow id="sid-B8956DEF-DE76-4561-83A7-CC8FE3476947" sourceRef="sid-7E40452A-DFA8-46EF-A96F-A45D63BC6734" targetRef="sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32"></sequenceFlow>
+    <intermediateCatchEvent id="sid-7E40452A-DFA8-46EF-A96F-A45D63BC6734">
+      <timerEventDefinition>
+        <timeDuration>${contract_poller_interval}</timeDuration>
+      </timerEventDefinition>
+    </intermediateCatchEvent>
     <textAnnotation id="sid-DF059491-6002-439D-9796-82A3D4528966">
       <text>CMS CONTRACT STATES :
 
@@ -145,10 +180,21 @@ tenant_id
 client_id
 client_secret
 manager_group
+contract_poller_interval
+contract_auto_expire_days
 
 Contract has status CREATED</text>
     </textAnnotation>
     <association id="sid-B969B23B-BEDA-4DB4-AC37-D79971886D84" sourceRef="sid-136B973F-1CF8-44AC-87D6-E6370732659A" targetRef="sid-F28F0926-548C-42FE-9AEC-DB70028E8113" associationDirection="None"></association>
+    <textAnnotation id="sid-054998D0-8F73-4F9F-9809-07A3045117AF">
+      <text>Poll interval (input var contract_poller_interval)</text>
+    </textAnnotation>
+    <textAnnotation id="sid-CEAE74E9-4EA9-4E01-8E24-F6F9CAF05AFD">
+      <text>Expired after input var 
+contract_auto_expire_days</text>
+    </textAnnotation>
+    <association id="sid-131FD931-7FD6-4B16-8EF8-0CAFAB9C036A" sourceRef="sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32" targetRef="sid-CEAE74E9-4EA9-4E01-8E24-F6F9CAF05AFD" associationDirection="None"></association>
+    <association id="sid-EE72D42C-7DD7-468F-AD89-76BA0B3CA9AD" sourceRef="sid-7E40452A-DFA8-46EF-A96F-A45D63BC6734" targetRef="sid-054998D0-8F73-4F9F-9809-07A3045117AF" associationDirection="None"></association>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_approveContractId">
     <bpmndi:BPMNPlane bpmnElement="approveContractId" id="BPMNPlane_approveContractId">
@@ -180,7 +226,7 @@ Contract has status CREATED</text>
         <omgdc:Bounds height="30.0" width="30.5" x="15.0" y="220.00000000000026"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-DF059491-6002-439D-9796-82A3D4528966" id="BPMNShape_sid-DF059491-6002-439D-9796-82A3D4528966">
-        <omgdc:Bounds height="125.47686207809261" width="243.05179499090536" x="525.9979071896178" y="352.30608245355216"></omgdc:Bounds>
+        <omgdc:Bounds height="125.47686207809261" width="243.05179499090536" x="345.0" y="345.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-F28F0926-548C-42FE-9AEC-DB70028E8113" id="BPMNShape_sid-F28F0926-548C-42FE-9AEC-DB70028E8113">
         <omgdc:Bounds height="141.7875631075671" width="185.15843336546962" x="60.0" y="345.0"></omgdc:Bounds>
@@ -188,9 +234,60 @@ Contract has status CREATED</text>
       <bpmndi:BPMNShape bpmnElement="sid-B969B23B-BEDA-4DB4-AC37-D79971886D84" id="BPMNShape_sid-B969B23B-BEDA-4DB4-AC37-D79971886D84">
         <omgdc:Bounds height="99.44854622105208" width="110.59511599507341" x="41.98410068766138" y="245.55145377894792"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32" id="BPMNShape_sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32">
+        <omgdc:Bounds height="80.0" width="100.0" x="879.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-054998D0-8F73-4F9F-9809-07A3045117AF" id="BPMNShape_sid-054998D0-8F73-4F9F-9809-07A3045117AF">
+        <omgdc:Bounds height="36.47686207809261" width="174.05179499090536" x="603.4741025045473" y="420.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-CEAE74E9-4EA9-4E01-8E24-F6F9CAF05AFD" id="BPMNShape_sid-CEAE74E9-4EA9-4E01-8E24-F6F9CAF05AFD">
+        <omgdc:Bounds height="36.47686207809261" width="174.05179499090536" x="1020.0" y="360.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-131FD931-7FD6-4B16-8EF8-0CAFAB9C036A" id="BPMNShape_sid-131FD931-7FD6-4B16-8EF8-0CAFAB9C036A">
+        <omgdc:Bounds height="35.02203808514446" width="40.149081596274755" x="979.4254592018626" y="341.24342785617"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-EE72D42C-7DD7-468F-AD89-76BA0B3CA9AD" id="BPMNShape_sid-EE72D42C-7DD7-468F-AD89-76BA0B3CA9AD">
+        <omgdc:Bounds height="67.47470358901796" width="60.18323740983442" x="620.6873586311809" y="351.85662618166543"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-7E40452A-DFA8-46EF-A96F-A45D63BC6734" id="BPMNShape_sid-7E40452A-DFA8-46EF-A96F-A45D63BC6734">
+        <omgdc:Bounds height="31.0" width="31.0" x="675.0" y="324.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="sid-B969B23B-BEDA-4DB4-AC37-D79971886D84" id="BPMNEdge_sid-B969B23B-BEDA-4DB4-AC37-D79971886D84">
         <omgdi:waypoint x="41.4680741602274" y="245.08764649802453"></omgdi:waypoint>
         <omgdi:waypoint x="152.573615039535" y="345.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-87065CE0-E606-434C-9477-5F5A6B5ACA2E" id="BPMNEdge_sid-87065CE0-E606-434C-9477-5F5A6B5ACA2E">
+        <omgdi:waypoint x="594.943193824465" y="70.0"></omgdi:waypoint>
+        <omgdi:waypoint x="671.4580772751376" y="70.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-131FD931-7FD6-4B16-8EF8-0CAFAB9C036A" id="BPMNEdge_sid-131FD931-7FD6-4B16-8EF8-0CAFAB9C036A">
+        <omgdi:waypoint x="978.9499999999999" y="340.8286848629676"></omgdi:waypoint>
+        <omgdi:waypoint x="1020.0" y="376.636593941729"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-EE72D42C-7DD7-468F-AD89-76BA0B3CA9AD" id="BPMNEdge_sid-EE72D42C-7DD7-468F-AD89-76BA0B3CA9AD">
+        <omgdi:waypoint x="680.3497502465661" y="352.40326045853294"></omgdi:waypoint>
+        <omgdi:waypoint x="620.0463495013923" y="420.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-C6429308-25D1-47EF-B842-94D95EFD9F21" id="BPMNEdge_sid-C6429308-25D1-47EF-B842-94D95EFD9F21">
+        <omgdi:waypoint x="45.44999786125848" y="235.00000000000023"></omgdi:waypoint>
+        <omgdi:waypoint x="75.0" y="235.0000000000001"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-7F2E4301-E7FE-4A6D-9709-72F8BF2BF041" id="BPMNEdge_sid-7F2E4301-E7FE-4A6D-9709-72F8BF2BF041">
+        <omgdi:waypoint x="245.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="245.0" y="70.0"></omgdi:waypoint>
+        <omgdi:waypoint x="269.99999999999187" y="70.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-B8956DEF-DE76-4561-83A7-CC8FE3476947" id="BPMNEdge_sid-B8956DEF-DE76-4561-83A7-CC8FE3476947">
+        <omgdi:waypoint x="706.9499654810272" y="340.46638662736757"></omgdi:waypoint>
+        <omgdi:waypoint x="878.9999999999966" y="340.10493697478995"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-E03766E6-2675-443F-827D-55A24E6B8CC3" id="BPMNEdge_sid-E03766E6-2675-443F-827D-55A24E6B8CC3">
+        <omgdi:waypoint x="575.0" y="89.94395820714719"></omgdi:waypoint>
+        <omgdi:waypoint x="575.0" y="195.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-4A7129F3-684D-4630-90A9-F6A8CF446A08" id="BPMNEdge_sid-4A7129F3-684D-4630-90A9-F6A8CF446A08">
+        <omgdi:waypoint x="929.0" y="300.0"></omgdi:waypoint>
+        <omgdi:waypoint x="929.0" y="248.94993398916824"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-B25D7EC4-1121-469A-A69F-01277AC0C46B" id="BPMNEdge_sid-B25D7EC4-1121-469A-A69F-01277AC0C46B">
         <omgdi:waypoint x="264.94697818842775" y="235.0"></omgdi:waypoint>
@@ -199,10 +296,6 @@ Contract has status CREATED</text>
       <bpmndi:BPMNEdge bpmnElement="sid-88DFC27F-4003-44AA-99B8-69CD31ED088B" id="BPMNEdge_sid-88DFC27F-4003-44AA-99B8-69CD31ED088B">
         <omgdi:waypoint x="505.9479071896178" y="70.00000000000001"></omgdi:waypoint>
         <omgdi:waypoint x="555.0" y="70.00000000000001"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="sid-87065CE0-E606-434C-9477-5F5A6B5ACA2E" id="BPMNEdge_sid-87065CE0-E606-434C-9477-5F5A6B5ACA2E">
-        <omgdi:waypoint x="594.943193824465" y="70.0"></omgdi:waypoint>
-        <omgdi:waypoint x="671.4580772751376" y="70.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-99C737E9-4482-4CD5-B3A0-58AB9E3C41AE" id="BPMNEdge_sid-99C737E9-4482-4CD5-B3A0-58AB9E3C41AE">
         <omgdi:waypoint x="174.94999999997563" y="235.0"></omgdi:waypoint>
@@ -216,23 +309,10 @@ Contract has status CREATED</text>
         <omgdi:waypoint x="614.3333333333334" y="235.00000000000003"></omgdi:waypoint>
         <omgdi:waypoint x="915.0" y="235.00000000000026"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="sid-C6429308-25D1-47EF-B842-94D95EFD9F21" id="BPMNEdge_sid-C6429308-25D1-47EF-B842-94D95EFD9F21">
-        <omgdi:waypoint x="45.44999786125848" y="235.00000000000023"></omgdi:waypoint>
-        <omgdi:waypoint x="75.0" y="235.0000000000001"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="sid-7F2E4301-E7FE-4A6D-9709-72F8BF2BF041" id="BPMNEdge_sid-7F2E4301-E7FE-4A6D-9709-72F8BF2BF041">
-        <omgdi:waypoint x="245.0" y="215.0"></omgdi:waypoint>
-        <omgdi:waypoint x="245.0" y="70.0"></omgdi:waypoint>
-        <omgdi:waypoint x="269.99999999999187" y="70.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-AEABE21D-4CB9-49F6-BBAD-5E5CAE0604F4" id="BPMNEdge_sid-AEABE21D-4CB9-49F6-BBAD-5E5CAE0604F4">
         <omgdi:waypoint x="771.4080772751375" y="70.0"></omgdi:waypoint>
         <omgdi:waypoint x="929.0" y="70.0"></omgdi:waypoint>
         <omgdi:waypoint x="929.0" y="221.00000000000026"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="sid-E03766E6-2675-443F-827D-55A24E6B8CC3" id="BPMNEdge_sid-E03766E6-2675-443F-827D-55A24E6B8CC3">
-        <omgdi:waypoint x="575.0" y="89.94395820714719"></omgdi:waypoint>
-        <omgdi:waypoint x="575.0" y="195.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
