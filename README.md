@@ -1,7 +1,7 @@
-This is a demo app to demonstrate workflow functionalities in May 2021 summit.  
+This is a demo app to demonstrate how to consume OT2 services.
 
 ## Prerequisites
-use node v14.2.0
+NodeJs version 14.2.0
 
 
 ## Installation steps
@@ -28,11 +28,16 @@ MANAGER_GROUP=<group>
 
 ### Run
 
-Open a command prompt and run the following command from project root,
+Open a command prompt and run the command for your OS from the project root.
 
+*nix. Please note you might need to add execution permissions by running `chmod +x run.sh`
 ```
-cd contract-approval-demo-app
-./setup.sh
+./run.sh
+```
+
+Windows.
+```
+run.bat
 ```
 
 Site will be automatically opened in the browser at http://localhost:3000

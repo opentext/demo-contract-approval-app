@@ -16,6 +16,8 @@ import ContractDetails from './ContractDetails';
 import AddContract from './AddContract';
 import Pagination from './Pagination';
 import DocumentDialogView from './DocumentDialogView';
+import {Backdrop, CircularProgress, Slide, Snackbar} from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
 
 class CreatedContractList extends React.Component {
 	constructor(props) {
@@ -30,16 +32,22 @@ class CreatedContractList extends React.Component {
 			pageNumber: 0,
 			count: -1,
 			openDocumentDialogView: false,
-			downloadHref: ''
+			downloadHref: '',
+			showBackdrop: false,
+			showSnackBar: false,
+			snackBarMessage: ''
 		};
 		this.handleContractAdded = this.handleContractAdded.bind(this);
 		this.handleCloseAddContract = this.handleCloseAddContract.bind(this);
 		this.handleCloseContractDetails = this.handleCloseContractDetails.bind(this);
 		this.handleCloseDocumentDialogView = this.handleCloseDocumentDialogView.bind(this);
+		this.handleSnackBarClose = this.handleSnackBarClose.bind(this);
 	}
 
 	handleContractAdded() {
-		this.setState({ addNumberOfContracts: this.state.addNumberOfContracts + 1 })
+		this.setState({ addNumberOfContracts: this.state.addNumberOfContracts + 1 });
+		this.setState({ snackBarMessage: 'Contract added successfully' });
+		this.setState({ showSnackBar: true });
 	}
 
 	handleCloseAddContract() {
@@ -52,6 +60,10 @@ class CreatedContractList extends React.Component {
 
 	handleCloseDocumentDialogView() {
 		this.setState({ openDocumentDialogView: false })
+	}
+
+	handleSnackBarClose() {
+		this.setState({ showSnackBar: false })
 	}
 
 	componentDidMount() {
@@ -82,11 +94,13 @@ class CreatedContractList extends React.Component {
 					count: res.data.total
 				});
 			}).catch(error => {
+				this.setState({showBackdrop: false});
 				alert(error.message);
 			});
 		} else {
 			this.setState({ contracts: [], count: -1 });
 		}
+		this.setState({showBackdrop: false});
 	}
 
 	openDocumentDialogView(downloadHref) {
@@ -96,8 +110,8 @@ class CreatedContractList extends React.Component {
 		});
 	}
 
-
-	startContractForSignature(contractId) {
+	startContractForApproval(contractId) {
+		this.setState({showBackdrop: true});
 		axios.defaults.baseURL = '';
 		console.log(contractId);
 		axios({
@@ -123,9 +137,12 @@ class CreatedContractList extends React.Component {
 				],
 				"returnVariables": true
 			}
-		}).then(res => {
+		}).then(() => {
+			this.setState({snackBarMessage: 'Approval requested successfully. A manager will review your request shortly.'});
+			this.setState({ showSnackBar: true });
 			this.getContracts();
 		}).catch(error => {
+			this.setState({showBackdrop: false});
 			alert(error.message);
 		});
 	}
@@ -161,7 +178,7 @@ class CreatedContractList extends React.Component {
 								<TableCell align="left">Value</TableCell>
 								<TableCell align="left">View document</TableCell>
 								<TableCell align="left">Action</TableCell>
-								<TableCell align="left"></TableCell>
+								<TableCell align="left"/>
 							</TableRow>
 						</TableHead>
 						<TableBody>
@@ -176,7 +193,7 @@ class CreatedContractList extends React.Component {
 										<Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentDialogView(row._links['urn:eim:linkrel:download-media'].href) }}>Original</Button>
 									</TableCell>
 									<TableCell align="left">
-										<Button size="small" variant="outlined" color="primary" onClick={() => { this.startContractForSignature(row.id) }}>Request signature</Button>
+										<Button size="small" variant="outlined" color="primary" onClick={() => { this.startContractForApproval(row.id) }}>Request approval</Button>
 									</TableCell>
 									<TableCell align="left">
 										<IconButton size="small" variant="outlined" color="primary" title="Show details" onClick={() => { this.showDetails(row) }}>
@@ -192,6 +209,27 @@ class CreatedContractList extends React.Component {
 				<ContractDetails open={this.state.openContractDetails} selectedContract={this.state.selectedContract} onClose={this.handleCloseContractDetails} />
 				<AddContract open={this.state.openAddContract} onAddContract={this.handleContractAdded} onClose={this.handleCloseAddContract} />
 				<DocumentDialogView open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
+				<Backdrop style={{zIndex: 9999}} open={this.state.showBackdrop}>
+					<CircularProgress color="inherit" />
+				</Backdrop>
+				<Snackbar
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'center',
+					}}
+					open={this.state.showSnackBar}
+					autoHideDuration={5000}
+					onClose={this.handleSnackBarClose}
+					message={this.state.snackBarMessage}
+					TransitionComponent={Slide}
+					action={
+						<React.Fragment>
+							<IconButton size="small" aria-label="close" color="inherit">
+								<CloseIcon fontSize="small" />
+							</IconButton>
+						</React.Fragment>
+					}
+				/>
 			</div>
 		);
 	}
