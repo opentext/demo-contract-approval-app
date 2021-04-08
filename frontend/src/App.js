@@ -8,6 +8,7 @@ import ContractList from './ContractList';
 import './style/App.scss';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import axios from "axios";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -33,6 +34,15 @@ TabPanel.propTypes = {
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    axios.interceptors.request.use(request => {
+      console.log('Starting Request', JSON.stringify(request, null, 2))
+      return request
+    })
+
+    axios.interceptors.response.use(response => {
+      console.log('Response:', JSON.stringify(response, null, 2))
+      return response
+    })
     this.state = {
       accessToken: '',
       value: 0
@@ -52,9 +62,9 @@ export default class App extends React.Component {
           <Tabs orientation="horizontal"
               value={this.state.value}
               onChange={this.handleChange}>
-            <Tab className="tab-caption" label="Created Contracts"></Tab>
-            <Tab className="tab-caption" label="Manager Tasks"></Tab>
-            <Tab className="tab-caption" label="All Contracts"></Tab>
+            <Tab className="tab-caption" label="Created Contracts"/>
+            <Tab className="tab-caption" label="Manager Tasks"/>
+            <Tab className="tab-caption" label="All Contracts"/>
           </Tabs>
           <TabPanel value={this.state.value} index={0}>
             <CreatedContractList/>

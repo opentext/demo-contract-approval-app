@@ -1,8 +1,5 @@
-const request = require("request");
 const axios = require("axios");
 const FormData = require('form-data');
-const multer = require("multer");
-var upload = multer();
 require("dotenv").config();
 
 const cssDownloadContent = async (req, contentId, authorization) => {
@@ -42,7 +39,7 @@ const cssUploadContent = async (req, authorization) => {
   return new Promise((resolve, reject) => {
     axios(postRequest).then((postResponse) => {
       resolve(postResponse);
-    }).catch((response) => {
+    }).catch(response => {
       reject(response.response);
     });
   });

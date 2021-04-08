@@ -1,11 +1,12 @@
-docs/.trash
-backend/node_modules
-frontend/node_modules
-
 # IntelliJ
 .idea
+*.iml
 
 # Node
 node_modules
 
+# App specific
 .env
+
+# Test dump
+docs/.trash

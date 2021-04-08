@@ -126,7 +126,7 @@ export default class ContractList extends React.Component {
                 <TableCell align="left">Status</TableCell>
                 <TableCell align="left">Value</TableCell>
                 <TableCell align="left">View document</TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell align="left"/>
               </TableRow>
             </TableHead>
             <TableBody>
