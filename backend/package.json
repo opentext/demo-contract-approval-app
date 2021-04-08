@@ -3,15 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "express": "^4.17.1",
-    "axios": "^0.21.1",
+    "express": "4.17.1",
+    "axios": "0.21.1",
     "babel-core": "6.26.3",
-    "body-parser": "^1.19.0",
-    "dotenv": "^8.2.0",
-    "express-fileupload": "^1.1.7-alpha.3",
-    "form-data": "^4.0.0",
-    "multer": "^1.4.2",
-    "request": "^2.88.2"
+    "body-parser": "1.19.0",
+    "dotenv": "8.2.0",
+    "express-fileupload": "1.2.1",
+    "form-data": "4.0.0",
+    "multer": "1.4.2",
+    "request": "2.88.2"
   },
   "scripts": {
     "start": "npm run server",
@@ -20,6 +20,6 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "eslint": "^7.23.0"
+    "eslint": "7.23.0"
   }
 }

@@ -42,8 +42,6 @@ export default class Tasks {
           value: approve ? "accepted" : "rejected"
         }]
       }
-    }).catch(error => {
-      alert(error.message);
     });
   }
 

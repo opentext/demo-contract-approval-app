@@ -67,14 +67,6 @@ export default class ContractDetails extends React.Component {
 					/>
 					<TextField
 						margin="dense"
-						id="contract-email"
-						label="Signer email address"
-							value={this.state.selectedContract.properties.contract_signer_email}
-						type="text"
-						fullWidth
-					/>
-					<TextField
-						margin="dense"
 						id="createTime"
 						label="Creation date"
 						value={this.getDateValue(this.state.selectedContract.create_time)}

@@ -15,6 +15,8 @@ import { connect } from 'react-redux';
 import Tasks from './services/workflow/Tasks';
 import TaskDetails from './TaskDetails';
 import DocumentDialogView from './DocumentDialogView';
+import {Backdrop, CircularProgress, Slide, Snackbar} from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 
 class TasksList extends React.Component {
   constructor(props) {
@@ -26,11 +28,15 @@ class TasksList extends React.Component {
       count: -1,
       page: 0,
       openDocumentDialogView: false,
-      downloadHref: ''
+      downloadHref: '',
+      showBackdrop: false,
+      showSnackBar: false,
+      snackBarMessage: ''
     };
     this.handleCloseTaskDetails = this.handleCloseTaskDetails.bind(this);
     this.onChangePage = this.onChangePage.bind(this);
     this.handleCloseDocumentDialogView = this.handleCloseDocumentDialogView.bind(this);
+    this.handleSnackBarClose = this.handleSnackBarClose.bind(this);
   }
 
   componentDidMount(){
@@ -56,6 +62,7 @@ class TasksList extends React.Component {
           this.props.dispatch({type: "SET_TASKS", tasks: []});
         }
       })
+      this.setState({showBackdrop: false});
     }
 
   onChangePage(page) {
@@ -63,16 +70,27 @@ class TasksList extends React.Component {
   }
 
   claimTask(taskId) {
-    let claimPromise = this.taskService.claimTask(taskId);
-    claimPromise.then(res => {
-      this.getTasks();
+    this.setState({showBackdrop: true});
+    this.taskService.claimTask(taskId)
+        .then(() => {
+          this.getTasks();
     })
   }
 
   completeTask(taskId, approve) {
-    this.taskService.completeTask(taskId, approve).then(res => {
-      this.getTasks();
-    })
+    this.setState({showBackdrop: true});
+    this.taskService.completeTask(taskId, approve)
+        .then(() => {
+          this.getTasks();
+          this.setState({snackBarMessage: 'Contract ' + (approve ? 'approved' : 'rejected') + ' successfully.'});
+          this.setState({showSnackBar: true});
+        })
+        .catch(error => {
+          alert(error.message);
+        })
+        .finally(() => {
+          this.setState({showBackdrop: false})
+        });
   }
 
   showDetails(task) {
@@ -107,12 +125,16 @@ class TasksList extends React.Component {
   handleCloseDocumentDialogView() {
 	  this.setState({openDocumentDialogView: false})
   }
-  
+
+  handleSnackBarClose() {
+    this.setState({ showSnackBar: false })
+  }
+
   openDocumentDialogView(downloadHref) {
-	  this.setState({
-		  openDocumentDialogView: true,
-		  downloadHref: downloadHref
-	  });
+    this.setState({
+        openDocumentDialogView: true,
+        downloadHref: downloadHref
+    });
   }
 
   render() {
@@ -129,7 +151,7 @@ class TasksList extends React.Component {
                   <TableCell align="left">Assignee</TableCell>
                   <TableCell align="left">View document</TableCell>
                   <TableCell align="left">Action</TableCell>
-                  <TableCell align="center"></TableCell>
+                  <TableCell align="center"/>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -164,6 +186,27 @@ class TasksList extends React.Component {
           <Pagination pageNumber={this.state.page} count={this.state.count} handlePageNumber={this.onChangePage}/>
           <TaskDetails open={this.state.detailsOpen} selectedTask={this.state.selectedTask} onClose={this.handleCloseTaskDetails}/>
           <DocumentDialogView open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView}/>
+        <Backdrop style={{zIndex: 9999}} open={this.state.showBackdrop}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            open={this.state.showSnackBar}
+            autoHideDuration={5000}
+            onClose={this.handleSnackBarClose}
+            message={this.state.snackBarMessage}
+            TransitionComponent={Slide}
+            action={
+              <React.Fragment>
+                <IconButton size="small" aria-label="close" color="inherit">
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </React.Fragment>
+            }
+        />
       </div>
     );
   }
