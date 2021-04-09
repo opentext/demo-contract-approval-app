@@ -19,7 +19,6 @@ class LoginDialog extends React.Component {
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
-    this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -36,14 +35,7 @@ class LoginDialog extends React.Component {
     });
   };
 
-  handleClickOpen() {
-    this.setState({
-      open: true
-    });
-  };
-
   handleClose() {
-    this.setState({open: false});
     axios({
       method: 'post',
       url: '/api/token',
@@ -54,17 +46,17 @@ class LoginDialog extends React.Component {
         username: this.state.username,
         password: this.state.password,
       },
-    }).then(res => {
+    }).then(() => {
       this.props.dispatch({type: "SET_USER_NAME", name: this.state.username});
+      this.setState({open: false});
     }).catch(error => {
-      alert("error in receiving token: " + error);
+      alert("Error logging in: " + error);
       this.setState({open: true});
    });
   };
 
   handleCancel() {
     this.setState({open: false});
-    axios.post('/api/cleartoken');
   };
 
   handleKeyDown(event) {
@@ -76,7 +68,7 @@ class LoginDialog extends React.Component {
   render() {
     return (
       <div>
-        <Dialog open={this.state.open} aria-labelledby="form-dialog-title" onKeyDown={this.handleKeyDown}>
+        <Dialog open={this.props.open} aria-labelledby="form-dialog-title" onKeyDown={this.handleKeyDown}>
           <DialogTitle id="form-dialog-title">Login</DialogTitle>
           <DialogContent>
             <TextField

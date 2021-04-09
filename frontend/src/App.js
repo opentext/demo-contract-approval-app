@@ -9,6 +9,8 @@ import './style/App.scss';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import axios from "axios";
+import {connect} from "react-redux";
+import {Backdrop, CircularProgress} from "@material-ui/core";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -31,21 +33,15 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired,
 }
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
-    axios.interceptors.request.use(request => {
-      console.log('Starting Request', JSON.stringify(request, null, 2))
-      return request
-    })
-
-    axios.interceptors.response.use(response => {
-      console.log('Response:', JSON.stringify(response, null, 2))
-      return response
-    })
+    axios.defaults.withCredentials = true;
     this.state = {
       accessToken: '',
-      value: 0
+      value: 0,
+      isLoaded: false,
+      openLoginDialog: false
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -54,7 +50,34 @@ export default class App extends React.Component {
     this.setState({value: newValue});
   }
 
+  async componentDidMount() {
+    await axios.get('/session')
+        .then(res => {
+          if (res.data.email) {
+            console.log('There is a session - No login needed');
+            this.props.dispatch({type: "SET_USER_NAME", name: res.data.email});
+            this.setState({openLoginDialog: false});
+          } else {
+            console.log('No session - Displaying login dialog');
+            this.setState({openLoginDialog: true});
+          }
+        })
+        .catch((err) => console.log(err))
+        .finally(() => this.setState({isLoaded: true}));
+  }
+
   render() {
+    const isLoggedIn = Boolean(this.props.username);
+    console.log('Username in props -> ' + this.props.username);
+    console.log('Is user logged in? ' + isLoggedIn);
+    console.log('Show login? ' + this.state.openLoginDialog);
+    if (!this.state.isLoaded) {
+      return (
+        <Backdrop open={true}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      )
+    }
     return (
       <div className="App">
         <Header />
@@ -76,8 +99,14 @@ export default class App extends React.Component {
             <ContractList/>
           </TabPanel>
         </div>
-        <LoginDialog/>
+        <LoginDialog open={!isLoggedIn}/>
       </div>
     )
   }
 }
+
+const mapStateToProps = state => ({
+  username: state.username
+})
+
+export default connect(mapStateToProps)(App);

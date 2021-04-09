@@ -28,11 +28,11 @@
 
   .header-menu {
     position: absolute;
-    right: 10px;
+    right: 50px;
     top: 15px;
   }
 
-  .header-menu .label {
+  .header-menu > button > span.MuiButton-label {
     color: white;
   }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Menu, MenuItem} from "@material-ui/core";
 import {connect} from "react-redux";
+import axios from "axios";
 
 class Header extends React.Component {
 
@@ -13,6 +14,7 @@ class Header extends React.Component {
 
         this.handleClick = this.handleClick.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.logUserOut = this.logUserOut.bind(this);
     }
 
     handleClick(event) {
@@ -22,7 +24,18 @@ class Header extends React.Component {
     handleClose() {
         this.setState({anchorEl: null});
     }
-    // TODO Implement log out after session management is added
+
+    logUserOut() {
+        console.log('Logging out');
+        axios.post('/logout')
+            .then(() => {
+                console.log('User logged out');
+                this.props.dispatch({type: "SET_USER_NAME", name: null});
+            })
+            .catch(err => console.log(err));
+        this.handleClose();
+    }
+
     render() {
       return <header className="page-header">
           <div className="logo logo-ot-appworks"/>
@@ -32,11 +45,13 @@ class Header extends React.Component {
                   {this.props.username}
               </Button>
               <Menu
+                  anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                  getContentAnchorEl={null}
                   anchorEl={this.state.anchorEl}
                   keepMounted
                   open={Boolean(this.state.anchorEl)}
                   onClose={this.handleClose}>
-                  <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+                  <MenuItem onClick={this.logUserOut}>Logout</MenuItem>
               </Menu>
           </div>
       </header>

@@ -1,19 +1,38 @@
 const express = require("express");
+const session = require("express-session");
 const request = require("request");
+const cors = require('cors');
 const fileUpload = require("express-fileupload");
-const axios = require("axios");
 const { tasksGetObjects, tasksUpdate } = require("./services/Tasks");
 const { cmsGetObjects, cmsGetInstanceRenditions, cmsCreateInstance } = require("./services/CMS");
 const { cssDownloadContent, cssUploadContent } = require("./services/CSS");
 const { workflowCreateInstance } = require("./services/Workflow");
 
 const bodyParser = require("body-parser");
-const { default: Axios } = require("axios");
+const cookieParser = require('cookie-parser');
 
 const app = express();
 require("dotenv").config();
 
 app.set("port", process.env.PORT || 3001);
+app.use(cookieParser())
+app.use(session({
+  key: 'session_id',
+  secret: 'my secret string',
+  resave: false,
+  unset: 'destroy',
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 20 * 60 * 1000 // 20 minutes session timeout
+  }
+}));
+app.use(cors({
+  origin: [
+    'http://localhost:3000'
+  ],
+  credentials: true,
+  exposedHeaders: ['set-cookie']
+}));
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
@@ -22,9 +41,30 @@ if (process.env.NODE_ENV === "production") {
 app.use(bodyParser.json());
 app.use(fileUpload());
 
-const getAuthorizationWithToken = (req) => {
+const getAuthorizationWithToken = () => {
   return `Bearer ` + app.get("access_token");
 }
+
+app.use((req, res, next) => {
+  if (req.cookies.session_id && !req.session.user) {
+    res.clearCookie('session_id');
+  }
+  next();
+});
+
+app.get("/session", async (req, res) => {
+  if (req.session.user && req.cookies.session_id) {
+    res.send(req.session.user);
+  } else {
+    res.sendStatus(204);
+  }
+});
+
+app.post("/logout", async (req, res) => {
+  console.log('Logging user out');
+  res.clearCookie('session_id');
+  res.sendStatus(200);
+});
 
 app.get("/api/tasks", async (req, res) => {
   try {
@@ -98,7 +138,9 @@ app.post("/api/css/uploadcontent", async (req, res) => {
   }
 });
 
-const getToken = async (username, password) => {
+const getToken = async (req) => {
+  const username = req.body.username;
+  const password = req.body.password;
   let postRequest = {
     method: "post",
     url: process.env.BASE_URL + "/oauth2/token",
@@ -125,6 +167,9 @@ const getToken = async (username, password) => {
         console.log('Authentication with ot2 failed: ', responseBody);
         return reject({status:response.statusCode, description:responseBody.error_description});
       }
+      req.session.user = {
+        email: username
+      };
       resolve(response);
     });
   });
@@ -132,7 +177,7 @@ const getToken = async (username, password) => {
 
 app.post("/api/token", async (req, res) => {
   try {
-    let responseBody = await getToken(req.body.username, req.body.password);
+    let responseBody = await getToken(req);
     let response = JSON.parse(responseBody.body);
     app.set("access_token", response.access_token);
     res.sendStatus(200);
