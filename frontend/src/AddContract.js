@@ -14,6 +14,7 @@ export default class AddContract extends React.Component {
 
 		this.handleChangeContractName = this.handleChangeContractName.bind(this);
 		this.handleChangeContractValue = this.handleChangeContractValue.bind(this);
+		this.handleChangeContractRequesterEmail = this.handleChangeContractRequesterEmail.bind(this);
 
 		this.state = {
 			showBackdrop: false,
@@ -63,6 +64,12 @@ export default class AddContract extends React.Component {
 		});
 	}
 
+	handleChangeContractRequesterEmail(event) {
+		this.setState({
+			newContractRequesterEmail: event.target.value
+		});
+	}
+
 	submitContract() {
 		this.setState({showBackdrop: true});
 		const formData = new FormData();
@@ -91,7 +98,8 @@ export default class AddContract extends React.Component {
 					],
 					"properties": {
 						"contract_value": parseInt(this.state.newContractValue, 10),
-						"contract_status": "CREATED"
+						"contract_status": "CREATED",
+						"contract_requester_email": this.state.newContractRequesterEmail
 					}
 				},
 			}).then(() => {
@@ -122,7 +130,7 @@ export default class AddContract extends React.Component {
 					<TextField
 						margin="dense"
 						id="contract-name"
-	            label="Document name"
+	            		label="Document name"
 						type="text"
 						fullWidth
 						onChange={this.handleChangeContractName}
@@ -130,11 +138,19 @@ export default class AddContract extends React.Component {
 					<TextField
 						margin="dense"
 						id="contract-value"
-	            label="Contract value"
+	            		label="Contract value"
 						type="number"
 						InputProps={{ inputProps: { min: 1 } }}
 						fullWidth
 						onChange={this.handleChangeContractValue}
+					/>
+					<TextField
+						margin="dense"
+						id="contract-requester-email"
+	            		label="Contract requester email"
+						type="text"
+						fullWidth
+						onChange={this.handleChangeContractRequesterEmail}
 					/>
 				</DialogContent>
 				<DialogActions>

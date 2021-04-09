@@ -30,16 +30,16 @@ export default class Tasks {
     });
   }
   
-  async completeTask(taskId, approve) {
+  async completeTask(taskId, approved) {
     return axios({
       method: 'post',
       url: this.url + '/' + taskId,
       data: {
         "action": "complete",
-        "outcome": approve ? "accepted" : "rejected",
+        "outcome": approved ? "approved" : "rejected",
         "variables": [{
           name: "approvalStatus",
-          value: approve ? "accepted" : "rejected"
+          value: approved ? "approved" : "rejected"
         }]
       }
     });

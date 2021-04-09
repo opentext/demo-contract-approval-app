@@ -74,6 +74,14 @@ export default class ContractDetails extends React.Component {
 						InputLabelProps={{shrink: true,}}
 						fullWidth
 					/>
+					<TextField
+						margin="dense"
+						id="contract-requester-email"
+						label="Contract requester email"
+						value={this.state.selectedContract.properties.contract_requester_email}
+						type="text"
+						fullWidth
+					/>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={() => {this.closeDialog()}} variant="contained" color="primary">

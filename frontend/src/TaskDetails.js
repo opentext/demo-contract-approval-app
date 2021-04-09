@@ -38,9 +38,9 @@ export default class TaskDetails extends React.Component {
       return "";
     }
   
-    getSignatureEmail(task) {
+    getRequesterEmail(task) {
       if (task && task.variables[0]) {
-        return task.variables.find(q => q.name==="cmsContract").value.properties.contract_signer_email;
+        return task.variables.find(q => q.name==="cmsContract").value.properties.contract_requester_email;
       }
       return "";
     }
@@ -95,8 +95,8 @@ export default class TaskDetails extends React.Component {
             <TextField
               margin="dense"
               id="cmsEmail"
-              label="Signer email address"
-              value={this.getSignatureEmail(this.state.selectedTask)}
+              label="Requester email address"
+              value={this.getRequesterEmail(this.state.selectedTask)}
               type="text"
               fullWidth
             />

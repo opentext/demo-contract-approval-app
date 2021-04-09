@@ -59,7 +59,7 @@
         </workflow:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="sid-954EEBE4-464A-4885-BD09-2364A6A772E7" name="update cms status ACCEPTED" workflow:type="http">
+    <serviceTask id="sid-954EEBE4-464A-4885-BD09-2364A6A772E7" name="update cms status APPROVED" workflow:type="http">
       <extensionElements>
         <workflow:authenticationDetails authenticationUrl="{{apigee_host}}/oauth2/token" contentType="application/json" clientId="{{client_id}}" clientSecret="{{client_secret}}" grantType="password" username="{{username}}" password="{{password}}" useCurrentAuthToken="false"></workflow:authenticationDetails>
         <workflow:field name="requestMethod">
@@ -75,7 +75,7 @@
           <workflow:expression><![CDATA[{
    "name": "${cmsContract.name}",
    "properties": {
-  		"contract_status": "ACCEPTED"
+  		"contract_status": "APPROVED"
 	}
 }]]></workflow:expression>
         </workflow:field>
@@ -123,7 +123,7 @@
     <sequenceFlow id="sid-7F2E4301-E7FE-4A6D-9709-72F8BF2BF041" name="Contract value &gt; 1000" sourceRef="sid-EA6DB01D-341E-406A-A5E6-D30EC878B545" targetRef="sid-F93E8184-419E-4025-9A7C-4C78D3264E0D">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${cmsContract.properties.contract_value > 1000}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="sid-E03766E6-2675-443F-827D-55A24E6B8CC3" name="Accepted" sourceRef="sid-9199CA54-7287-4F51-B61C-E08A2FF4B035" targetRef="sid-954EEBE4-464A-4885-BD09-2364A6A772E7"></sequenceFlow>
+    <sequenceFlow id="sid-E03766E6-2675-443F-827D-55A24E6B8CC3" name="Approved" sourceRef="sid-9199CA54-7287-4F51-B61C-E08A2FF4B035" targetRef="sid-954EEBE4-464A-4885-BD09-2364A6A772E7"></sequenceFlow>
     <sequenceFlow id="sid-87065CE0-E606-434C-9477-5F5A6B5ACA2E" name="Rejected" sourceRef="sid-9199CA54-7287-4F51-B61C-E08A2FF4B035" targetRef="sid-813D6462-240D-4F87-86A6-F0B343DB651B">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approvalStatus == "rejected"}]]></conditionExpression>
     </sequenceFlow>
@@ -170,7 +170,7 @@
 CREATED
 WAIT FOR APPROVAL
 REJECTED (By manager)
-ACCEPTED (By manager)
+APPROVED (By manager)
 EXPIRED (Configurable after n  days)</text>
     </textAnnotation>
     <textAnnotation id="sid-F28F0926-548C-42FE-9AEC-DB70028E8113">
