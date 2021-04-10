@@ -7,11 +7,11 @@ export default class Tasks {
     this.props = props;
     axios.defaults.baseURL = '';
   }
-  
+
   async getTasks(offset) {
     return axios({
       method: 'get',
-      url: this.url + '?candidateOrAssigned=' + this.props.username + '&includeProcessVariables=true' + (offset ? '&offset='+offset : ''),
+      url: this.url + '?candidateOrAssigned=' + this.props.username + '&includeProcessVariables=true' + (offset ? '&offset=' + offset : ''),
     }).catch(error => {
       alert(error.message);
     });
@@ -29,7 +29,7 @@ export default class Tasks {
       alert(error.message);
     });
   }
-  
+
   async completeTask(taskId, approved) {
     return axios({
       method: 'post',

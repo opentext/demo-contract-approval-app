@@ -1,19 +1,21 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import axios from 'axios';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import {
+  Button,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper
+} from '@material-ui/core';
+
 import ContractDetails from './ContractDetails';
 import Pagination from './Pagination';
 import DocumentDialogView from './DocumentDialogView';
-
 
 export default class ContractList extends React.Component {
   constructor(props) {
@@ -111,7 +113,6 @@ export default class ContractList extends React.Component {
     this.setState({ contractDetailsOpen: false })
   }
 
-
   render() {
     return (
       <div>
@@ -126,7 +127,7 @@ export default class ContractList extends React.Component {
                 <TableCell align="left">Status</TableCell>
                 <TableCell align="left">Value</TableCell>
                 <TableCell align="left">View document</TableCell>
-                <TableCell align="left"/>
+                <TableCell align="left" />
               </TableRow>
             </TableHead>
             <TableBody>

@@ -1,12 +1,14 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle
+} from '@material-ui/core';
 
 class LoginDialog extends React.Component {
   constructor(props) {
@@ -40,23 +42,23 @@ class LoginDialog extends React.Component {
       method: 'post',
       url: '/api/token',
       headers: {
-          "Content-Type": "application/json"
+        "Content-Type": "application/json"
       },
       data: {
         username: this.state.username,
         password: this.state.password,
       },
     }).then(() => {
-      this.props.dispatch({type: "SET_USER_NAME", name: this.state.username});
-      this.setState({open: false});
+      this.props.dispatch({ type: "SET_USER_NAME", name: this.state.username });
+      this.setState({ open: false });
     }).catch(error => {
       alert("Error logging in: " + error);
-      this.setState({open: true});
-   });
+      this.setState({ open: true });
+    });
   };
 
   handleCancel() {
-    this.setState({open: false});
+    this.setState({ open: false });
   };
 
   handleKeyDown(event) {

@@ -1,12 +1,15 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
-import {Backdrop, CircularProgress} from "@material-ui/core";
+import {
+	Button,
+	Backdrop,
+	CircularProgress,
+	TextField,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogTitle
+} from "@material-ui/core";
 
 export default class AddContract extends React.Component {
 	constructor(props) {
@@ -71,7 +74,7 @@ export default class AddContract extends React.Component {
 	}
 
 	submitContract() {
-		this.setState({showBackdrop: true});
+		this.setState({ showBackdrop: true });
 		const formData = new FormData();
 		formData.append(
 			'file',
@@ -107,11 +110,11 @@ export default class AddContract extends React.Component {
 				this.props.onAddContract();
 			}).catch(error => {
 				alert("Error in cms contract file: " + error.response.data);
-				this.setState({showBackdrop: false});
+				this.setState({ showBackdrop: false });
 			});
 		}).catch(error => {
 			alert("Error in add css document: " + error.response.data);
-			this.setState({showBackdrop: false});
+			this.setState({ showBackdrop: false });
 		});
 	}
 
@@ -125,12 +128,12 @@ export default class AddContract extends React.Component {
 							<label htmlFor="files" className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary">Select Document</label>
 							<input id="files" type="file" accept="application/pdf" className="file-input" onChange={this.selectFile} />
 						</div>
-	            <div id="fileName" className="inline margin-start" ref={this.setFileNameInputRef}/>
+						<div id="fileName" className="inline margin-start" ref={this.setFileNameInputRef} />
 					</div>
 					<TextField
 						margin="dense"
 						id="contract-name"
-	            		label="Document name"
+						label="Document name"
 						type="text"
 						fullWidth
 						onChange={this.handleChangeContractName}
@@ -138,7 +141,7 @@ export default class AddContract extends React.Component {
 					<TextField
 						margin="dense"
 						id="contract-value"
-	            		label="Contract value"
+						label="Contract value"
 						type="number"
 						InputProps={{ inputProps: { min: 1 } }}
 						fullWidth
@@ -147,7 +150,7 @@ export default class AddContract extends React.Component {
 					<TextField
 						margin="dense"
 						id="contract-requester-email"
-	            		label="Contract requester email"
+						label="Contract requester email"
 						type="text"
 						fullWidth
 						onChange={this.handleChangeContractRequesterEmail}
@@ -162,9 +165,9 @@ export default class AddContract extends React.Component {
 						Cancel
 	          </Button>
 				</DialogActions>
-			<Backdrop style={{zIndex: 9999}} open={this.state.showBackdrop}>
-				<CircularProgress color="inherit" />
-			</Backdrop>
+				<Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
+					<CircularProgress color="inherit" />
+				</Backdrop>
 			</Dialog>
 		)
 	}

@@ -1,16 +1,20 @@
 import React from 'react';
+import axios from "axios";
+import { connect } from "react-redux";
 import PropTypes from 'prop-types';
+import {
+  Backdrop,
+  CircularProgress,
+  Tab,
+  Tabs
+} from "@material-ui/core";
+
+import './style/App.scss';
 import Header from './Header.js';
 import LoginDialog from './LoginDialog.js';
 import TasksList from './TasksList.js';
 import CreatedContractList from './CreatedContractList';
 import ContractList from './ContractList';
-import './style/App.scss';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import axios from "axios";
-import {connect} from "react-redux";
-import {Backdrop, CircularProgress} from "@material-ui/core";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -21,7 +25,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-          <div>{children}</div>
+        <div>{children}</div>
       )}
     </div>
   );
@@ -47,23 +51,23 @@ class App extends React.Component {
   }
 
   handleChange = (event, newValue) => {
-    this.setState({value: newValue});
+    this.setState({ value: newValue });
   }
 
   async componentDidMount() {
     await axios.get('/session')
-        .then(res => {
-          if (res.data.email) {
-            console.log('There is a session - No login needed');
-            this.props.dispatch({type: "SET_USER_NAME", name: res.data.email});
-            this.setState({openLoginDialog: false});
-          } else {
-            console.log('No session - Displaying login dialog');
-            this.setState({openLoginDialog: true});
-          }
-        })
-        .catch((err) => console.log(err))
-        .finally(() => this.setState({isLoaded: true}));
+      .then(res => {
+        if (res.data.email) {
+          console.log('There is a session - No login needed');
+          this.props.dispatch({ type: "SET_USER_NAME", name: res.data.email });
+          this.setState({ openLoginDialog: false });
+        } else {
+          console.log('No session - Displaying login dialog');
+          this.setState({ openLoginDialog: true });
+        }
+      })
+      .catch((err) => console.log(err))
+      .finally(() => this.setState({ isLoaded: true }));
   }
 
   render() {
@@ -83,23 +87,23 @@ class App extends React.Component {
         <Header />
         <div className="page-content">
           <Tabs orientation="horizontal"
-              value={this.state.value}
-              onChange={this.handleChange}>
-            <Tab className="tab-caption" label="Created Contracts"/>
-            <Tab className="tab-caption" label="Manager Tasks"/>
-            <Tab className="tab-caption" label="All Contracts"/>
+            value={this.state.value}
+            onChange={this.handleChange}>
+            <Tab className="tab-caption" label="Created Contracts" />
+            <Tab className="tab-caption" label="Manager Tasks" />
+            <Tab className="tab-caption" label="All Contracts" />
           </Tabs>
           <TabPanel value={this.state.value} index={0}>
-            <CreatedContractList/>
+            <CreatedContractList />
           </TabPanel>
           <TabPanel value={this.state.value} index={1}>
-            <TasksList/>
+            <TasksList />
           </TabPanel>
           <TabPanel value={this.state.value} index={2}>
-            <ContractList/>
+            <ContractList />
           </TabPanel>
         </div>
-        <LoginDialog open={!isLoggedIn}/>
+        <LoginDialog open={!isLoggedIn} />
       </div>
     )
   }

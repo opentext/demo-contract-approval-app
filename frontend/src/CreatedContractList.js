@@ -1,23 +1,29 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import AddIcon from '@material-ui/icons/Add';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import {
+	Button,
+	Backdrop,
+	CircularProgress,
+	Slide,
+	Snackbar,
+	IconButton,
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	Paper,
+	TableRow
+} from '@material-ui/core';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import AddIcon from '@material-ui/icons/Add';
+import CloseIcon from '@material-ui/icons/Close';
+
 import ContractDetails from './ContractDetails';
 import AddContract from './AddContract';
 import Pagination from './Pagination';
 import DocumentDialogView from './DocumentDialogView';
-import { Backdrop, CircularProgress, Slide, Snackbar } from "@material-ui/core";
-import CloseIcon from '@material-ui/icons/Close';
 
 class CreatedContractList extends React.Component {
 	constructor(props) {

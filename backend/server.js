@@ -70,7 +70,7 @@ app.get("/api/tasks", async (req, res) => {
   try {
     let responseBody = await tasksGetObjects(req, getAuthorizationWithToken(req));
     res.send(responseBody);
-  } catch(err) {
+  } catch (err) {
     res.status(err.status).send(err.description);
   }
 });
@@ -79,7 +79,7 @@ app.post("/api/tasks/:task_id", async (req, res) => {
   try {
     let responseBody = await tasksUpdate(req, req.params.task_id, getAuthorizationWithToken(req));
     res.send(responseBody);
-  } catch(err) {
+  } catch (err) {
     res.status(err.status).send(err.description);
   }
 });
@@ -88,7 +88,7 @@ app.get("/api/cms/instances/:category/:type", async (req, res) => {
   try {
     let responseBody = await cmsGetObjects(req, req.params.category, req.params.type, getAuthorizationWithToken(req));
     res.send(responseBody);
-  } catch(err) {
+  } catch (err) {
     res.status(err.status).send(err.description);
   }
 });
@@ -97,7 +97,7 @@ app.get("/api/cms/instances/:category/:type/:instanceId/contents", async (req, r
   try {
     let responseBody = await cmsGetInstanceRenditions(req, req.params.category, req.params.type, req.params.instanceId, getAuthorizationWithToken(req));
     res.send(responseBody);
-  } catch(err) {
+  } catch (err) {
     res.status(err.status).send(err.description);
   }
 });
@@ -106,7 +106,7 @@ app.post("/api/cms/instances/:category/:type", async (req, res) => {
   try {
     let responseBody = await cmsCreateInstance(req, req.params.category, req.params.type, getAuthorizationWithToken(req));
     res.send(responseBody);
-  } catch(err) {
+  } catch (err) {
     res.status(err.status).send(err.description);
   }
 });
@@ -115,7 +115,7 @@ app.post("/api/workflow/createinstance", async (req, res) => {
   try {
     let responseBody = await workflowCreateInstance(req, getAuthorizationWithToken(req));
     res.send(responseBody);
-  } catch(err) {
+  } catch (err) {
     res.status(err.status).send(err.description);
   }
 });
@@ -160,12 +160,12 @@ const getToken = async (req) => {
     request(postRequest, (error, response) => {
       if (error) {
         console.log('Authentication with ot2 failed, error: ' + error);
-        return reject({status:response.statusCode, description:error});
+        return reject({ status: response.statusCode, description: error });
       }
       if (response.statusCode !== 200) {
         let responseBody = JSON.parse(response.body);
         console.log('Authentication with ot2 failed: ', responseBody);
-        return reject({status:response.statusCode, description:responseBody.error_description});
+        return reject({ status: response.statusCode, description: responseBody.error_description });
       }
       req.session.user = {
         email: username
@@ -188,7 +188,7 @@ app.post("/api/token", async (req, res) => {
 
 });
 app.post("/api/cleartoken", async (req, res) => {
-    app.set("access_token", "");
+  app.set("access_token", "");
 });
 
 app.listen(app.get("port"), () => {

@@ -7,7 +7,7 @@ const cmsGetObjects = async (req, category, type, authorization) => {
     url: process.env.BASE_URL + '/cms/instances/' + category + '/' + type + req.originalUrl.replace(/[^?]*/, ""),
     headers: {
       'Authorization': authorization
-    },
+    }
   };
 
   return new Promise((resolve, reject) => {
