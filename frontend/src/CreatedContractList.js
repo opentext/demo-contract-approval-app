@@ -16,7 +16,7 @@ import ContractDetails from './ContractDetails';
 import AddContract from './AddContract';
 import Pagination from './Pagination';
 import DocumentDialogView from './DocumentDialogView';
-import {Backdrop, CircularProgress, Slide, Snackbar} from "@material-ui/core";
+import { Backdrop, CircularProgress, Slide, Snackbar } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 
 class CreatedContractList extends React.Component {
@@ -94,13 +94,13 @@ class CreatedContractList extends React.Component {
 					count: res.data.total
 				});
 			}).catch(error => {
-				this.setState({showBackdrop: false});
+				this.setState({ showBackdrop: false });
 				alert(error.message);
 			});
 		} else {
 			this.setState({ contracts: [], count: -1 });
 		}
-		this.setState({showBackdrop: false});
+		this.setState({ showBackdrop: false });
 	}
 
 	openDocumentDialogView(downloadHref) {
@@ -111,7 +111,7 @@ class CreatedContractList extends React.Component {
 	}
 
 	startContractForApproval(contractId) {
-		this.setState({showBackdrop: true});
+		this.setState({ showBackdrop: true });
 		axios.defaults.baseURL = '';
 		console.log(contractId);
 		axios({
@@ -125,24 +125,16 @@ class CreatedContractList extends React.Component {
 					{
 						"name": "contract_id",
 						"value": contractId
-					},
-					{
-						"name": "signature_poller_interval",
-						"value": "PT2M"
-					},
-					{
-						"name": "signature_auto_expire_days",
-						"value": 10
 					}
 				],
 				"returnVariables": true
 			}
 		}).then(() => {
-			this.setState({snackBarMessage: 'Approval requested successfully. A manager will review your request shortly.'});
+			this.setState({ snackBarMessage: 'Approval requested successfully. A manager will review your request shortly.' });
 			this.setState({ showSnackBar: true });
 			this.getContracts();
 		}).catch(error => {
-			this.setState({showBackdrop: false});
+			this.setState({ showBackdrop: false });
 			alert(error.message);
 		});
 	}
@@ -178,7 +170,7 @@ class CreatedContractList extends React.Component {
 								<TableCell align="left">Value</TableCell>
 								<TableCell align="left">View document</TableCell>
 								<TableCell align="left">Action</TableCell>
-								<TableCell align="left"/>
+								<TableCell align="left" />
 							</TableRow>
 						</TableHead>
 						<TableBody>
@@ -209,7 +201,7 @@ class CreatedContractList extends React.Component {
 				<ContractDetails open={this.state.openContractDetails} selectedContract={this.state.selectedContract} onClose={this.handleCloseContractDetails} />
 				<AddContract open={this.state.openAddContract} onAddContract={this.handleContractAdded} onClose={this.handleCloseAddContract} />
 				<DocumentDialogView open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
-				<Backdrop style={{zIndex: 9999}} open={this.state.showBackdrop}>
+				<Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
 					<CircularProgress color="inherit" />
 				</Backdrop>
 				<Snackbar
