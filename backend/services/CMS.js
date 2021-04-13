@@ -16,7 +16,10 @@ const cmsGetObjects = async (req, category, type, authorization) => {
       if (response.statusCode !== 200) {
         let responseBody = JSON.parse(response.body);
         console.log('Request failed: ', responseBody);
-        return reject({ status: response.statusCode, description: responseBody.fault.faultstring });
+        return reject({
+          status: response.statusCode,
+          description: responseBody != null && responseBody.fault != null ? responseBody.fault.faultstring : responseBody.details
+        });
       }
       resolve(response.body);
     });
@@ -38,7 +41,10 @@ const cmsGetInstanceRenditions = async (req, category, type, instanceId, authori
       if (response.statusCode !== 200) {
         let responseBody = JSON.parse(response.body);
         console.log('Request failed: ', responseBody);
-        return reject({ status: response.statusCode, description: responseBody.fault.faultstring });
+        return reject({
+          status: response.statusCode,
+          description: responseBody != null && responseBody.fault != null ? responseBody.fault.faultstring : responseBody.details
+        });
       }
       resolve(response.body);
     });

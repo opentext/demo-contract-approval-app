@@ -93,7 +93,8 @@ class CreatedContractList extends React.Component {
 			axios.defaults.baseURL = '';
 			axios({
 				method: 'get',
-				url: '/api/cms/instances/file/ot2_app_contract/?include-total=true&sortby=create_time desc&filter=contract_status eq "CREATED"&page=' + (this.state.pageNumber + 1),
+				url: '/api/cms/instances/file/ot2_app_contract/?include-total=true&sortby=create_time desc&filter=contract_status eq "CREATED"&page='
+					+ (this.state.pageNumber + 1),
 			}).then(res => {
 				this.setState({
 					contracts: res.data && res.data._embedded ? res.data._embedded.collection : [],
@@ -101,7 +102,7 @@ class CreatedContractList extends React.Component {
 				});
 			}).catch(error => {
 				this.setState({ showBackdrop: false });
-				alert(error.message);
+				alert(error.response != null && error.response.data != null ? error.response.data : error.message);
 			});
 		} else {
 			this.setState({ contracts: [], count: -1 });
@@ -141,7 +142,7 @@ class CreatedContractList extends React.Component {
 			this.getContracts();
 		}).catch(error => {
 			this.setState({ showBackdrop: false });
-			alert(error.message);
+			alert(error.response != null && error.response.data != null ? error.response.data : error.message);
 		});
 	}
 

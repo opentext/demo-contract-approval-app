@@ -13,7 +13,7 @@ export default class Tasks {
       method: 'get',
       url: this.url + '?candidateOrAssigned=' + this.props.username + '&includeProcessVariables=true' + (offset ? '&offset=' + offset : ''),
     }).catch(error => {
-      alert(error.message);
+      alert(error.response != null && error.response.data != null ? error.response.data : error.message);
     });
   }
 
@@ -26,7 +26,7 @@ export default class Tasks {
         "assignee": this.props.username
       }
     }).catch(error => {
-      alert(error.message);
+      alert(error.response != null && error.response.data != null ? error.response.data : error.message);
     });
   }
 
@@ -44,5 +44,4 @@ export default class Tasks {
       }
     });
   }
-
 }

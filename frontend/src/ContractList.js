@@ -90,7 +90,7 @@ export default class ContractList extends React.Component {
         count: res.data.total
       });
     }).catch(error => {
-      alert(error.message);
+      alert(error.response != null && error.response.data != null ? error.response.data : error.message);
     });
   }
 

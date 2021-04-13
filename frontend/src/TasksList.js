@@ -92,7 +92,7 @@ class TasksList extends React.Component {
         this.setState({ showSnackBar: true });
       })
       .catch(error => {
-        alert(error.message);
+        alert(error.response != null && error.response.data != null ? error.response.data : error.message);
       })
       .finally(() => {
         this.setState({ showBackdrop: false })
