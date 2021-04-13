@@ -21,7 +21,6 @@
         <workflow:field name="useCurrentAuthToken">
           <workflow:string><![CDATA[true]]></workflow:string>
         </workflow:field>
-        <workflow:executionListener event="end" expression="${execution.setVariable(&quot;contractDownloadLink&quot; , cmsContract._links['urn:eim:linkrel:download-media'].href)}" isMailNotification="false" isExecuteScriptEnabled="false"></workflow:executionListener>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="sid-C6429308-25D1-47EF-B842-94D95EFD9F21" sourceRef="sid-136B973F-1CF8-44AC-87D6-E6370732659A" targetRef="sid-E590B3E4-B9A9-4E78-844D-D2586FBF303F"></sequenceFlow>
@@ -188,7 +187,7 @@ CREATED
 WAIT FOR APPROVAL
 REJECTED (By manager)
 APPROVED (By manager)
-EXPIRED (Configurable after n  days)</text>
+EXPIRED</text>
     </textAnnotation>
     <textAnnotation id="sid-F28F0926-548C-42FE-9AEC-DB70028E8113">
       <text>Input :
@@ -241,7 +240,7 @@ Contract has status CREATED</text>
         <omgdc:Bounds height="79.99999999999997" width="100.0" x="879.0" y="195.00000000000026"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-DF059491-6002-439D-9796-82A3D4528966" id="BPMNShape_sid-DF059491-6002-439D-9796-82A3D4528966">
-        <omgdc:Bounds height="125.47686207809261" width="243.05179499090536" x="345.0" y="345.0"></omgdc:Bounds>
+        <omgdc:Bounds height="125.47686207809261" width="243.05179499090536" x="345.0" y="353.1553505147373"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-F28F0926-548C-42FE-9AEC-DB70028E8113" id="BPMNShape_sid-F28F0926-548C-42FE-9AEC-DB70028E8113">
         <omgdc:Bounds height="141.7875631075671" width="185.15843336546962" x="60.0" y="345.0"></omgdc:Bounds>
