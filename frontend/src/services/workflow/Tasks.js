@@ -7,13 +7,13 @@ export default class Tasks {
     this.props = props;
     axios.defaults.baseURL = '';
   }
-  
+
   async getTasks(offset) {
     return axios({
       method: 'get',
-      url: this.url + '?candidateOrAssigned=' + this.props.username + '&includeProcessVariables=true' + (offset ? '&offset='+offset : ''),
+      url: this.url + '?candidateOrAssigned=' + this.props.username + '&includeProcessVariables=true' + (offset ? '&offset=' + offset : ''),
     }).catch(error => {
-      alert(error.message);
+      alert(error.response != null && error.response.data != null ? error.response.data : error.message);
     });
   }
 
@@ -26,25 +26,22 @@ export default class Tasks {
         "assignee": this.props.username
       }
     }).catch(error => {
-      alert(error.message);
+      alert(error.response != null && error.response.data != null ? error.response.data : error.message);
     });
   }
-  
-  async completeTask(taskId, approve) {
+
+  async completeTask(taskId, approved) {
     return axios({
       method: 'post',
       url: this.url + '/' + taskId,
       data: {
         "action": "complete",
-        "outcome": approve ? "accepted" : "rejected",
+        "outcome": approved ? "approved" : "rejected",
         "variables": [{
           name: "approvalStatus",
-          value: approve ? "accepted" : "rejected"
+          value: approved ? "approved" : "rejected"
         }]
       }
-    }).catch(error => {
-      alert(error.message);
     });
   }
-
 }

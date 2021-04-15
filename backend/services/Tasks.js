@@ -17,7 +17,10 @@ const tasksGetObjects = async (req, authorization) => {
       if (!String(response.statusCode).startsWith('2')) {
         let responseBody = JSON.parse(response.body);
         console.log('Request failed: ', responseBody);
-        return reject({ status: response.statusCode, description: responseBody.fault.faultstring });
+        return reject({
+          status: response.statusCode,
+          description: responseBody != null && responseBody.fault != null ? responseBody.fault.faultstring : responseBody.details
+        });
       }
       resolve(response.body);
     });

@@ -1,22 +1,19 @@
-const request = require("request");
 const axios = require("axios");
 const FormData = require('form-data');
-const multer = require("multer");
-var upload = multer();
 require("dotenv").config();
 
 const cssDownloadContent = async (req, contentId, authorization) => {
   let getRequest = {
     method: 'get',
-    url:  process.env.BASE_URL + '/css/v2/content/'+contentId + "/download"+ req.originalUrl.replace(/[^?]*/,""),
+    url: process.env.BASE_URL + '/css/v2/content/' + contentId + "/download" + req.originalUrl.replace(/[^?]*/, ""),
     headers: {
-      'Authorization' : authorization,
+      'Authorization': authorization,
       'Content-Type': 'application/json',
     },
     responseEncoding: 'binary',
     responseType: 'arraybuffer'
   };
-    
+
   return new Promise((resolve, reject) => {
     axios(getRequest).then((getResponse) => {
       resolve(getResponse);
@@ -31,10 +28,10 @@ const cssUploadContent = async (req, authorization) => {
   form.append('file', req.files.file.data, req.files.file.name);
   let postRequest = {
     method: "post",
-    url: process.env.BASE_URL + '/css/v2/tenant/'+process.env.TENANT_ID+'/content'+ req.originalUrl.replace(/[^?]*/,""),
+    url: process.env.BASE_URL + '/css/v2/tenant/' + process.env.TENANT_ID + '/content' + req.originalUrl.replace(/[^?]*/, ""),
     data: form,
     headers: {
-      'Authorization' : authorization,
+      'Authorization': authorization,
       ...form.getHeaders(),
     },
   };
@@ -42,7 +39,7 @@ const cssUploadContent = async (req, authorization) => {
   return new Promise((resolve, reject) => {
     axios(postRequest).then((postResponse) => {
       resolve(postResponse);
-    }).catch((response) => {
+    }).catch(response => {
       reject(response.response);
     });
   });
@@ -52,4 +49,3 @@ module.exports = {
   cssDownloadContent,
   cssUploadContent
 };
-  

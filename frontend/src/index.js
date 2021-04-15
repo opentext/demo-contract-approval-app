@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './style/index.scss';
-import App from './App';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+
+import './style/index.scss';
+import App from './App';
 
 const initialState = {
   username: '',
