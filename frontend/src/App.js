@@ -44,8 +44,7 @@ class App extends React.Component {
     this.state = {
       accessToken: '',
       value: 0,
-      isLoaded: false,
-      openLoginDialog: false
+      isLoaded: false
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -60,10 +59,8 @@ class App extends React.Component {
         if (res.data.email) {
           console.log('There is a session - No login needed');
           this.props.dispatch({ type: "SET_USER_NAME", name: res.data.email });
-          this.setState({ openLoginDialog: false });
         } else {
           console.log('No session - Displaying login dialog');
-          this.setState({ openLoginDialog: true });
         }
       })
       .catch((err) => console.log(err))
@@ -74,7 +71,6 @@ class App extends React.Component {
     const isLoggedIn = Boolean(this.props.username);
     console.log('Username in props -> ' + this.props.username);
     console.log('Is user logged in? ' + isLoggedIn);
-    console.log('Show login? ' + this.state.openLoginDialog);
     if (!this.state.isLoaded) {
       return (
         <Backdrop open={true}>

@@ -2,7 +2,8 @@ import React from 'react'
 import axios from 'axios';
 import PDFViewer from 'pdf-viewer-reactjs';
 import {
-	Button,
+	Backdrop,
+	Button, CircularProgress,
 	Dialog,
 	DialogActions,
 	DialogContent,
@@ -80,7 +81,11 @@ export default class DocumentDialogView extends React.Component {
 			)
 		}
 		else {
-			return '';
+			return (
+				<Backdrop style={{zIndex: 9999}} open={this.props.open}>
+					<CircularProgress color="inherit"/>
+				</Backdrop>
+			)
 		}
 
 	}

@@ -6,8 +6,7 @@ const workflowCreateInstance = async (req, authorization) => {
     req.body.variables.push(
       { name: 'tenant_id', value: process.env.TENANT_ID },
       { name: 'client_id', value: process.env.CLIENT_ID },
-      { name: 'client_secret', value: process.env.CLIENT_SECRET },
-      { name: 'manager_group', value: process.env.MANAGER_GROUP }
+      { name: 'client_secret', value: process.env.CLIENT_SECRET }
     );
   }
 

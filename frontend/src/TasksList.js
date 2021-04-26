@@ -57,6 +57,7 @@ class TasksList extends React.Component {
   }
 
   getTasks() {
+    this.setState({ showBackdrop: true });
     this.taskService.getTasks(this.state.page * 10).then(res => {
       if (res && res.data && res.data._embedded) {
         if (!res.data._links.next || res.data._embedded.tasks.length < 10) {
@@ -67,8 +68,9 @@ class TasksList extends React.Component {
         this.setState({ count: 0 });
         this.props.dispatch({ type: "SET_TASKS", tasks: [] });
       }
+    }).finally(() => {
+      this.setState({ showBackdrop: false });
     })
-    this.setState({ showBackdrop: false });
   }
 
   onChangePage(page) {
