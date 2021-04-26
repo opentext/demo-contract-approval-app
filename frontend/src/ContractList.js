@@ -10,7 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper
+  Paper, Backdrop, CircularProgress
 } from '@material-ui/core';
 
 import ContractDetails from './ContractDetails';
@@ -28,7 +28,8 @@ export default class ContractList extends React.Component {
       pageNumber: 0,
       count: -1,
       openDocumentDialogView: false,
-      downloadHref: ''
+      downloadHref: '',
+      showBackdrop: false
     };
 
     this.handleCloseContractDetails = this.handleCloseContractDetails.bind(this);
@@ -72,7 +73,6 @@ export default class ContractList extends React.Component {
   }
 
   getContractDetails(contract) {
-    axios.defaults.baseURL = '';
     return axios({
       method: 'get',
       url: '/api/cms/instances/file/ot2_app_contract/' + contract.id + '/contents',
@@ -80,7 +80,7 @@ export default class ContractList extends React.Component {
   }
 
   getContracts() {
-    axios.defaults.baseURL = '';
+    this.setState({ showBackdrop: true });
     axios({
       method: 'get',
       url: '/api/cms/instances/file/ot2_app_contract/?include-total=true&sortby=create_time desc&page=' + (this.state.pageNumber + 1),
@@ -91,7 +91,9 @@ export default class ContractList extends React.Component {
       });
     }).catch(error => {
       alert(error.response != null && error.response.data != null ? error.response.data : error.message);
-    });
+    }).finally(() => {
+      this.setState({ showBackdrop: false });
+    })
   }
 
   showDetails(contract) {
@@ -162,6 +164,9 @@ export default class ContractList extends React.Component {
         <Pagination pageNumber={this.state.pageNumber} count={this.state.count} handlePageNumber={this.handlePageNumber} />
         <ContractDetails open={this.state.contractDetailsOpen} selectedContract={this.state.selectedContract} onClose={this.handleCloseContractDetails} />
         <DocumentDialogView open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
+        <Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
       </div>
 
     );

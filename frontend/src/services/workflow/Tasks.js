@@ -5,7 +5,6 @@ export default class Tasks {
 
   constructor(props) {
     this.props = props;
-    axios.defaults.baseURL = '';
   }
 
   async getTasks(offset) {

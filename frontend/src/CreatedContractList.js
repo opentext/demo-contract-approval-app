@@ -90,7 +90,7 @@ class CreatedContractList extends React.Component {
 
 	getContracts() {
 		if (this.props.username) {
-			axios.defaults.baseURL = '';
+			this.setState({ showBackdrop: true });
 			axios({
 				method: 'get',
 				url: '/api/cms/instances/file/ot2_app_contract/?include-total=true&sortby=create_time desc&filter=contract_status eq "CREATED"&page='
@@ -101,13 +101,13 @@ class CreatedContractList extends React.Component {
 					count: res.data.total
 				});
 			}).catch(error => {
-				this.setState({ showBackdrop: false });
 				alert(error.response != null && error.response.data != null ? error.response.data : error.message);
-			});
+			}).finally(() => {
+				this.setState({ showBackdrop: false });
+			})
 		} else {
 			this.setState({ contracts: [], count: -1 });
 		}
-		this.setState({ showBackdrop: false });
 	}
 
 	openDocumentDialogView(downloadHref) {
@@ -119,7 +119,6 @@ class CreatedContractList extends React.Component {
 
 	startContractForApproval(contractId) {
 		this.setState({ showBackdrop: true });
-		axios.defaults.baseURL = '';
 		console.log(contractId);
 		axios({
 			method: 'post',
@@ -137,13 +136,14 @@ class CreatedContractList extends React.Component {
 				"returnVariables": true
 			}
 		}).then(() => {
-			this.setState({ snackBarMessage: 'Approval requested successfully. A manager will review your request shortly.' });
+			this.setState({ snackBarMessage: 'Approval requested successfully.' });
 			this.setState({ showSnackBar: true });
 			this.getContracts();
 		}).catch(error => {
-			this.setState({ showBackdrop: false });
 			alert(error.response != null && error.response.data != null ? error.response.data : error.message);
-		});
+		}).finally(() => {
+			this.setState({ showBackdrop: false });
+		})
 	}
 
 	showDetails(contract) {

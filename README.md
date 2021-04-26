@@ -22,8 +22,6 @@ TENANT_ID=<tenant_id>
 CLIENT_ID=<client_id>
 
 CLIENT_SECRET=<client_secret>
-
-MANAGER_GROUP=<group>
 ```
 
 ### Run

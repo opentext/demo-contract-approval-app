@@ -81,7 +81,6 @@ export default class AddContract extends React.Component {
 			this.state.selectedFile,
 			this.state.selectedFile.name,
 		);
-		axios.defaults.baseURL = '';
 		axios.post('/api/css/uploadcontent?avs-scan=false', formData, {
 			headers: {
 				'Content-Type': 'multipart/form-data'
