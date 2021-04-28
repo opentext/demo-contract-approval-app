@@ -1,9 +1,6 @@
 {
   "name": "contract-approval",
   "version": "0.1.0",
-  "config": {
-    "port": "3001"
-  },
   "private": true,
   "dependencies": {
     "@material-ui/core": "4.11.3",
@@ -33,7 +30,7 @@
     "react-dev-utils": "11.0.4"
   },
   "scripts": {
-    "start": "concurrently \"react-scripts start\" \"cross-env PORT=$npm_package_config_port npm start --prefix ../backend\"",
+    "start": "concurrently \"react-scripts start\" \"npm start --prefix ../backend\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

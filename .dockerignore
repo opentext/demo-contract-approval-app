@@ -1,0 +1,8 @@
+**/node_modules
+**/server.bundle*
+**/.env
+**/build
+
+.idea
+docs
+.git
