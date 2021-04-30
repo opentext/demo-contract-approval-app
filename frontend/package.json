@@ -29,6 +29,7 @@
     "pdfjs-dist": "2.6.347",
     "react-dev-utils": "11.0.4"
   },
+  "proxy": "http://localhost:3001/",
   "scripts": {
     "start": "concurrently \"react-scripts start\" \"npm start --prefix ../backend\"",
     "build": "react-scripts build",

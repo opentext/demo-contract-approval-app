@@ -117,7 +117,8 @@ class TasksList extends React.Component {
 
   getContractValue(task) {
     if (task && task.variables) {
-      return task.variables.find((q) => q.name === "cmsContract").value.properties.contract_value;
+      const found = task.variables.find((q) => q.name === "cmsContract");
+      return found.value.properties ? found.value.properties.contract_value : "";
     }
     return "";
   }

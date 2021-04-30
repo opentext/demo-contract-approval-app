@@ -47,7 +47,9 @@
           <workflow:expression><![CDATA[{
    "name": "${cmsContract.name}",
    "properties": {
-  		"contract_status": "REJECTED"
+  		"contract_status": "REJECTED",
+"contract_value": ${cmsContract.properties.contract_value},
+  		"contract_requester_email": "${cmsContract.properties.contract_requester_email}"
 	}
 }]]></workflow:expression>
         </workflow:field>
@@ -75,7 +77,9 @@
           <workflow:expression><![CDATA[{
    "name": "${cmsContract.name}",
    "properties": {
-  		"contract_status": "APPROVED"
+  		"contract_status": "APPROVED",
+"contract_value": ${cmsContract.properties.contract_value},
+  		"contract_requester_email": "${cmsContract.properties.contract_requester_email}"
 	}
 }]]></workflow:expression>
         </workflow:field>
@@ -103,7 +107,9 @@
           <workflow:expression><![CDATA[{
    "name":  "${cmsContract.name}",
    "properties": {
-  		"contract_status": "WAIT FOR APPROVAL"
+  		"contract_status": "WAIT FOR APPROVAL",
+  		"contract_value": ${cmsContract.properties.contract_value},
+  		"contract_requester_email": "${cmsContract.properties.contract_requester_email}"
 	}
 }]]></workflow:expression>
         </workflow:field>
@@ -134,7 +140,9 @@
           <workflow:expression><![CDATA[{
    "name":  "${cmsContract.name}",
    "properties": {
-  		"contract_status": "EXPIRED"
+  		"contract_status": "EXPIRED",
+"contract_value": ${cmsContract.properties.contract_value},
+  		"contract_requester_email": "${cmsContract.properties.contract_requester_email}"
 	}
 }]]></workflow:expression>
         </workflow:field>
@@ -189,20 +197,20 @@
     <textAnnotation id="sid-DF059491-6002-439D-9796-82A3D4528966">
       <text>CMS CONTRACT STATES :
 
-CREATED
-WAIT FOR APPROVAL
-REJECTED (By manager)
-APPROVED (By manager)
-EXPIRED</text>
+        CREATED
+        WAIT FOR APPROVAL
+        REJECTED (By manager)
+        APPROVED (By manager)
+        EXPIRED</text>
     </textAnnotation>
     <textAnnotation id="sid-F28F0926-548C-42FE-9AEC-DB70028E8113">
       <text>Input :
-contract_id
-tenant_id
-client_id
-client_secret
+        contract_id
+        tenant_id
+        client_id
+        client_secret
 
-Contract has status CREATED</text>
+        Contract has status CREATED</text>
     </textAnnotation>
     <association id="sid-B969B23B-BEDA-4DB4-AC37-D79971886D84" sourceRef="sid-136B973F-1CF8-44AC-87D6-E6370732659A" targetRef="sid-F28F0926-548C-42FE-9AEC-DB70028E8113" associationDirection="None"></association>
   </process>
@@ -241,6 +249,9 @@ Contract has status CREATED</text>
       <bpmndi:BPMNShape bpmnElement="sid-B29D9B58-4814-4B98-83A2-5A63665280AD" id="BPMNShape_sid-B29D9B58-4814-4B98-83A2-5A63665280AD">
         <omgdc:Bounds height="80.0" width="100.0" x="879.0" y="355.0000000000002"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-D8B65818-C1ED-45AE-BE4E-E6DC8586ABD9" id="BPMNShape_sid-D8B65818-C1ED-45AE-BE4E-E6DC8586ABD9">
+        <omgdc:Bounds height="31.0" width="31.0" x="500.49790718961776" y="173.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-DF059491-6002-439D-9796-82A3D4528966" id="BPMNShape_sid-DF059491-6002-439D-9796-82A3D4528966">
         <omgdc:Bounds height="94.47686207809261" width="244.05179499090536" x="357.9741025045473" y="513.1553505147373"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -249,9 +260,6 @@ Contract has status CREATED</text>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-B969B23B-BEDA-4DB4-AC37-D79971886D84" id="BPMNShape_sid-B969B23B-BEDA-4DB4-AC37-D79971886D84">
         <omgdc:Bounds height="98.52729592951943" width="92.10440602091356" x="65.97481066182124" y="406.4727040704806"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="sid-D8B65818-C1ED-45AE-BE4E-E6DC8586ABD9" id="BPMNShape_sid-D8B65818-C1ED-45AE-BE4E-E6DC8586ABD9">
-        <omgdc:Bounds height="31.0" width="31.0" x="500.19433402765924" y="173.9856237742716"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="sid-B969B23B-BEDA-4DB4-AC37-D79971886D84" id="BPMNEdge_sid-B969B23B-BEDA-4DB4-AC37-D79971886D84">
         <omgdi:waypoint x="65.53789633574041" y="406.00516180557963"></omgdi:waypoint>
@@ -262,9 +270,9 @@ Contract has status CREATED</text>
         <omgdi:waypoint x="751.4580772751376" y="230.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-9199CA54-7287-4F51-B61C-E08A2FF4B057" id="BPMNEdge_sid-9199CA54-7287-4F51-B61C-E08A2FF4B057">
-        <omgdi:waypoint x="516.1943340276592" y="173.9856237742716"></omgdi:waypoint>
-        <omgdi:waypoint x="516.1943340276592" y="100.5"></omgdi:waypoint>
-        <omgdi:waypoint x="878.9999999999999" y="100.5"></omgdi:waypoint>
+        <omgdi:waypoint x="515.9979071896178" y="173.5"></omgdi:waypoint>
+        <omgdi:waypoint x="516.0" y="100.0"></omgdi:waypoint>
+        <omgdi:waypoint x="878.9999999999909" y="100.43946731234868"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-C6429308-25D1-47EF-B842-94D95EFD9F21" id="BPMNEdge_sid-C6429308-25D1-47EF-B842-94D95EFD9F21">
         <omgdi:waypoint x="70.44999840569433" y="395.0"></omgdi:waypoint>
