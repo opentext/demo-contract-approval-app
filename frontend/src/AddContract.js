@@ -18,12 +18,14 @@ export default class AddContract extends React.Component {
 		this.handleChangeContractName = this.handleChangeContractName.bind(this);
 		this.handleChangeContractValue = this.handleChangeContractValue.bind(this);
 		this.handleChangeContractRequesterEmail = this.handleChangeContractRequesterEmail.bind(this);
+		this.canSubmit = this.canSubmit.bind(this);
 
 		this.state = {
 			showBackdrop: false,
 			selectedContract: {
 				newContractName: '',
 				newContractValue: '',
+				newContractRequesterEmail: '',
 				selectedFile: ''
 			}
 		};
@@ -117,6 +119,10 @@ export default class AddContract extends React.Component {
 		});
 	}
 
+	canSubmit() {
+		return this.state.newContractName && this.state.newContractValue > 0 && this.state.selectedFile && this.state.newContractRequesterEmail;
+	}
+
 	render() {
 		return (
 			<Dialog open={this.props.open} aria-labelledby="form-dialog-title">
@@ -157,7 +163,7 @@ export default class AddContract extends React.Component {
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={() => { this.submitContract() }} variant="contained" color="primary"
-						disabled={!(this.state.newContractName && this.state.newContractValue > 0 && this.state.selectedFile)}>
+						disabled={!this.canSubmit()}>
 						Add
 	          </Button>
 					<Button onClick={() => { this.closeDialog() }} color="primary">
