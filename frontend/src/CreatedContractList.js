@@ -1,19 +1,18 @@
 import React from 'react';
 import axios from 'axios';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {
-	Button,
 	Backdrop,
+	Button,
 	CircularProgress,
-	Slide,
-	Snackbar,
 	IconButton,
+	Paper,
+	Snackbar,
 	Table,
 	TableBody,
 	TableCell,
 	TableContainer,
 	TableHead,
-	Paper,
 	TableRow
 } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -24,7 +23,16 @@ import ContractDetails from './ContractDetails';
 import AddContract from './AddContract';
 import Pagination from './Pagination';
 import DocumentDialogView from './DocumentDialogView';
+import MuiAlert from '@material-ui/lab/Alert';
 
+function Alert(props) {
+	return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+
+/**
+ * This view displays the list of created contracts. From here the user can request approval for any of them.
+ */
 class CreatedContractList extends React.Component {
 	constructor(props) {
 		super(props);
@@ -41,19 +49,30 @@ class CreatedContractList extends React.Component {
 			downloadHref: '',
 			showBackdrop: false,
 			showSnackBar: false,
-			snackBarMessage: ''
+			snackBarMessage: '',
+			snackBarSeverity: 'success'
 		};
-		this.handleContractAdded = this.handleContractAdded.bind(this);
 		this.handleCloseAddContract = this.handleCloseAddContract.bind(this);
 		this.handleCloseContractDetails = this.handleCloseContractDetails.bind(this);
 		this.handleCloseDocumentDialogView = this.handleCloseDocumentDialogView.bind(this);
 		this.handleSnackBarClose = this.handleSnackBarClose.bind(this);
+		this.handlePageNumber = this.handlePageNumber.bind(this);
 	}
 
-	handleContractAdded() {
-		this.setState({ addNumberOfContracts: this.state.addNumberOfContracts + 1 });
-		this.setState({ snackBarMessage: 'Contract added successfully' });
-		this.setState({ showSnackBar: true });
+	handleContractAdded = (errorMessage) => {
+		if (!errorMessage) {
+			this.setState({
+				addNumberOfContracts: this.state.addNumberOfContracts + 1,
+				snackBarSeverity: 'success',
+				snackBarMessage: 'Contract added successfully'
+			});
+		} else {
+			this.setState({
+				snackBarSeverity: 'error',
+				snackBarMessage: errorMessage
+			});
+		}
+		this.setState({showSnackBar: true});
 	}
 
 	handleCloseAddContract() {
@@ -69,7 +88,7 @@ class CreatedContractList extends React.Component {
 	}
 
 	handleSnackBarClose() {
-		this.setState({ showSnackBar: false })
+		this.setState({showSnackBar: false});
 	}
 
 	componentDidMount() {
@@ -84,7 +103,7 @@ class CreatedContractList extends React.Component {
 		}
 	}
 
-	handlePageNumber = (pageNumber) => {
+	handlePageNumber(pageNumber) {
 		this.setState({ pageNumber: pageNumber });
 	}
 
@@ -101,7 +120,17 @@ class CreatedContractList extends React.Component {
 					count: res.data.total
 				});
 			}).catch(error => {
-				alert(error.response != null && error.response.data != null ? error.response.data : error.message);
+				let errorMessage = 'Could not get contracts: ';
+				if (error.response != null && error.response.data != null) {
+					errorMessage += error.response.data.exception;
+				} else {
+					errorMessage += error.message;
+				}
+				this.setState({
+					snackBarSeverity: 'error',
+					snackBarMessage: errorMessage,
+					showSnackBar: true
+				});
 			}).finally(() => {
 				this.setState({ showBackdrop: false });
 			})
@@ -125,7 +154,7 @@ class CreatedContractList extends React.Component {
 			url: '/api/workflow/createinstance',
 			data: {
 				"processDefinitionKey": "approveContractId",
-				"name": "Sign contract",
+				"name": "Approve contract",
 				"outcome": "none",
 				"variables": [
 					{
@@ -140,7 +169,18 @@ class CreatedContractList extends React.Component {
 			this.setState({ showSnackBar: true });
 			this.getContracts();
 		}).catch(error => {
-			alert(error.response != null && error.response.data != null ? error.response.data : error.message);
+			const statusCode = error.response.status;
+			let errorMessage = 'Error requesting approval: ';
+			if (statusCode === 400) {
+				errorMessage += error.response.data.exception;
+			} else {
+				errorMessage += error.message;
+			}
+			this.setState({
+				snackBarSeverity: 'error',
+				snackBarMessage: errorMessage,
+				showSnackBar: true
+			});
 		}).finally(() => {
 			this.setState({ showBackdrop: false });
 		})
@@ -219,16 +259,18 @@ class CreatedContractList extends React.Component {
 					open={this.state.showSnackBar}
 					autoHideDuration={5000}
 					onClose={this.handleSnackBarClose}
-					message={this.state.snackBarMessage}
-					TransitionComponent={Slide}
 					action={
 						<React.Fragment>
-							<IconButton size="small" aria-label="close" color="inherit">
+							<IconButton size="small" aria-label="close" color="inherit" onClick={this.handleSnackBarClose}>
 								<CloseIcon fontSize="small" />
 							</IconButton>
 						</React.Fragment>
 					}
-				/>
+				>
+					<Alert onClose={this.handleSnackBarClose} severity={this.state.snackBarSeverity}>
+						{this.state.snackBarMessage}
+					</Alert>
+				</Snackbar>
 			</div>
 		);
 	}

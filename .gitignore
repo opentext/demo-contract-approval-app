@@ -14,3 +14,6 @@ build
 
 # Test dump
 docs/.trash
+
+# Sonarqube local scans
+.scannerwork

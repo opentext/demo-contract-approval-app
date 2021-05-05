@@ -10,13 +10,22 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper, Backdrop, CircularProgress
+  Paper, Backdrop, CircularProgress, Snackbar
 } from '@material-ui/core';
 
 import ContractDetails from './ContractDetails';
 import Pagination from './Pagination';
 import DocumentDialogView from './DocumentDialogView';
+import MuiAlert from "@material-ui/lab/Alert";
+import CloseIcon from "@material-ui/icons/Close";
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+/**
+ * This view displays all the contracts.
+ */
 export default class ContractList extends React.Component {
   constructor(props) {
     super(props);
@@ -29,11 +38,15 @@ export default class ContractList extends React.Component {
       count: -1,
       openDocumentDialogView: false,
       downloadHref: '',
-      showBackdrop: false
+      showBackdrop: false,
+      showSnackBar: false,
+      snackBarMessage: '',
+      snackBarSeverity: 'success'
     };
 
     this.handleCloseContractDetails = this.handleCloseContractDetails.bind(this);
     this.handleCloseDocumentDialogView = this.handleCloseDocumentDialogView.bind(this);
+    this.handleSnackBarClose = this.handleSnackBarClose.bind(this);
   }
 
   componentDidMount() {
@@ -57,28 +70,6 @@ export default class ContractList extends React.Component {
     });
   }
 
-  openSignedDocument(contract) {
-    this.getContractDetails(contract).then((res) => {
-      let href = res.data._embedded.collection.find((q) => q.name.endsWith('_signed'))._links['urn:eim:linkrel:download-media'].href;
-      this.openDocumentDialogView(href);
-    })
-  }
-
-  openDocumentLog(contract) {
-    this.getContractDetails(contract).then((res) => {
-      let href = res.data._embedded.collection.find((q) => q.name.endsWith('_signing_log'))._links['urn:eim:linkrel:download-media'].href;
-      this.openDocumentDialogView(href);
-    })
-
-  }
-
-  getContractDetails(contract) {
-    return axios({
-      method: 'get',
-      url: '/api/cms/instances/file/ot2_app_contract/' + contract.id + '/contents',
-    });
-  }
-
   getContracts() {
     this.setState({ showBackdrop: true });
     axios({
@@ -90,7 +81,17 @@ export default class ContractList extends React.Component {
         count: res.data.total
       });
     }).catch(error => {
-      alert(error.response != null && error.response.data != null ? error.response.data : error.message);
+      let errorMessage = 'Could not get contracts: ';
+      if (error.response != null && error.response.data != null) {
+        errorMessage += error.response.data.exception;
+      } else {
+        errorMessage += error.message;
+      }
+      this.setState({
+        snackBarSeverity: 'error',
+        snackBarMessage: errorMessage,
+        showSnackBar: true
+      });
     }).finally(() => {
       this.setState({ showBackdrop: false });
     })
@@ -115,6 +116,10 @@ export default class ContractList extends React.Component {
     this.setState({ contractDetailsOpen: false })
   }
 
+  handleSnackBarClose() {
+    this.setState({ showSnackBar: false });
+  }
+
   render() {
     return (
       <div>
@@ -137,19 +142,10 @@ export default class ContractList extends React.Component {
                 <TableRow key={row.id}>
                   <TableCell component="th" scope="row">{row.name}</TableCell>
                   <TableCell align="left">{this.getDateValue(row.create_time)}</TableCell>
-                  <TableCell align="left">{row.properties.contract_status}</TableCell>
-                  <TableCell align="left">{row.properties.contract_value}</TableCell>
+                  <TableCell align="left">{row.properties ? row.properties.contract_status : ''}</TableCell>
+                  <TableCell align="left">{row.properties ? row.properties.contract_value : ''}</TableCell>
                   <TableCell align="left">
                     <Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentDialogView(row._links['urn:eim:linkrel:download-media'].href) }}>Original</Button>
-                    {row.properties.contract_status === "SIGNED" ?
-                      <span>
-                        <Button size="small" variant="outlined" color="primary" onClick={() => { this.openSignedDocument(row) }}>Signed</Button>
-                        <Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentLog(row) }}>Log</Button>
-                      </span>
-                      : row.properties.contract_status === "DECLINED" ?
-                        <Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentLog(row) }}>Log</Button>
-                        : null
-                    }
                   </TableCell>
                   <TableCell align="left">
                     <IconButton size="small" variant="outlined" color="primary" title="Show details" onClick={() => { this.showDetails(row) }}>
@@ -167,6 +163,26 @@ export default class ContractList extends React.Component {
         <Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
           <CircularProgress color="inherit" />
         </Backdrop>
+        <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            open={this.state.showSnackBar}
+            autoHideDuration={5000}
+            onClose={this.handleSnackBarClose}
+            action={
+              <React.Fragment>
+                <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleSnackBarClose}>
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </React.Fragment>
+            }
+        >
+          <Alert onClose={this.handleSnackBarClose} severity={this.state.snackBarSeverity}>
+            {this.state.snackBarMessage}
+          </Alert>
+        </Snackbar>
       </div>
 
     );

@@ -18,6 +18,7 @@ export default class AddContract extends React.Component {
 		this.handleChangeContractName = this.handleChangeContractName.bind(this);
 		this.handleChangeContractValue = this.handleChangeContractValue.bind(this);
 		this.handleChangeContractRequesterEmail = this.handleChangeContractRequesterEmail.bind(this);
+		this.handleChangeContractRequesterEmail = this.handleChangeContractRequesterEmail.bind(this);
 		this.canSubmit = this.canSubmit.bind(this);
 
 		this.state = {
@@ -38,10 +39,6 @@ export default class AddContract extends React.Component {
 			showBackdrop: false
 		});
 		this.props.onClose();
-	}
-
-	getDateValue(dt) {
-		return dt ? dt.replace(/Z$/, '') : '';
 	}
 
 	selectFile = event => {
@@ -88,7 +85,7 @@ export default class AddContract extends React.Component {
 				'Content-Type': 'multipart/form-data'
 			},
 		}).then(res => {
-			axios({
+			return axios({
 				method: 'post',
 				url: '/api/cms/instances/file/ot2_app_contract',
 				data: {
@@ -106,17 +103,26 @@ export default class AddContract extends React.Component {
 						"contract_requester_email": this.state.newContractRequesterEmail
 					}
 				},
-			}).then(() => {
-				this.closeDialog();
-				this.props.onAddContract();
-			}).catch(error => {
-				alert("Error in cms contract file: " + error.response.data);
-				this.setState({ showBackdrop: false });
 			});
+		}).then(() => {
+			this.closeDialog();
+			this.props.onAddContract();
 		}).catch(error => {
-			alert("Error in add css document: " + error.response.data);
+			const statusCode = error.response.status;
+			let errorMessage;
+			if (statusCode === 400) {
+				// Validation error
+				errorMessage = 'The parameter name is mandatory';
+			} else if (statusCode === 401) {
+				// Unauthorized access
+				errorMessage = 'You are not authorized to access this resource. Your session might have timed out.';
+			} else {
+				errorMessage = JSON.stringify(error.response.data, null, 2);
+			}
+			this.props.onAddContract("Error creating contract: " + errorMessage);
+		}).finally(() => {
 			this.setState({ showBackdrop: false });
-		});
+		})
 	}
 
 	canSubmit() {

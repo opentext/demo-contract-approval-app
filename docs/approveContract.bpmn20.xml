@@ -21,10 +21,11 @@
         <workflow:field name="useCurrentAuthToken">
           <workflow:string><![CDATA[true]]></workflow:string>
         </workflow:field>
+        <workflow:executionListener event="end" expression="${execution.setVariable(&quot;contractDownloadLink&quot; , cmsContract._links['urn:eim:linkrel:download-media'].href)}" isMailNotification="false" isExecuteScriptEnabled="false"></workflow:executionListener>
       </extensionElements>
     </serviceTask>
     <endEvent id="sid-55562E44-0DCE-4F56-80CF-19B2947514B3"></endEvent>
-    <userTask id="sid-3A3D6A3F-01DB-4341-9A5C-8D2E43D3CC5C" name="manager approval" workflow:assignee="$INITIATOR" workflow:category="http://opentext.com/devx/contract" workflow:formFieldValidation="true" xmlns:workflow="http://workflow.opentext.com" workflow:completioncondition="" workflow:taskType="default" workflow:outcomeVariable="" workflow:possibleOutcomes="">
+    <userTask id="sid-3A3D6A3F-01DB-4341-9A5C-8D2E43D3CC5C" name="manager approval" workflow:assignee="$INITIATOR" workflow:category="http://opentext.com/devx/contract" workflow:formFieldValidation="true" xmlns:workflow="http://workflow.opentext.com" workflow:completioncondition="" workflow:taskType="approval" workflow:outcomeVariable="approvalStatus" workflow:possibleOutcomes="Approve:approved,Reject:rejected">
       <extensionElements>
         <modeler:initiator-can-complete xmlns:modeler="http://workflow.opentext.com"><![CDATA[true]]></modeler:initiator-can-complete>
       </extensionElements>

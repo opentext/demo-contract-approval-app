@@ -10,7 +10,7 @@ export default class Tasks {
   async getTasks(offset) {
     return axios({
       method: 'get',
-      url: this.url + '?candidateOrAssigned=' + this.props.username + '&includeProcessVariables=true' + (offset ? '&offset=' + offset : ''),
+      url: this.url + '?sort=createTime&order=desc&candidateOrAssigned=' + this.props.username + '&includeProcessVariables=true' + (offset ? '&offset=' + offset : ''),
     }).catch(error => {
       alert(error.response != null && error.response.data != null ? error.response.data : error.message);
     });
@@ -35,11 +35,7 @@ export default class Tasks {
       url: this.url + '/' + taskId,
       data: {
         "action": "complete",
-        "outcome": approved ? "approved" : "rejected",
-        "variables": [{
-          name: "approvalStatus",
-          value: approved ? "approved" : "rejected"
-        }]
+        "outcome": approved ? "approved" : "rejected"
       }
     });
   }

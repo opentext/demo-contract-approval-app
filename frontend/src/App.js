@@ -42,7 +42,6 @@ class App extends React.Component {
     super(props);
     axios.defaults.withCredentials = true;
     this.state = {
-      accessToken: '',
       value: 0,
       isLoaded: false
     };
@@ -54,6 +53,7 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
+    // Check whether there is an existing session in the backend
     await axios.get('/session')
       .then(res => {
         if (res.data.email) {
@@ -69,8 +69,7 @@ class App extends React.Component {
 
   render() {
     const isLoggedIn = Boolean(this.props.username);
-    console.log('Username in props -> ' + this.props.username);
-    console.log('Is user logged in? ' + isLoggedIn);
+    // Display a backdrop and spinning circle while the view initialises
     if (!this.state.isLoaded) {
       return (
         <Backdrop open={true}>
