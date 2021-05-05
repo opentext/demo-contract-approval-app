@@ -17,7 +17,7 @@ const app = express();
 require("dotenv").config();
 
 app.set("port", process.env.PORT || 3001);
-app.use(cookieParser())
+app.use(cookieParser());
 app.use(session({
   key: 'session_id',
   secret: 'my secret string',
@@ -29,6 +29,8 @@ app.use(session({
   }
 }));
 
+app.disable('x-powered-by');
+
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("./static"));
@@ -36,10 +38,16 @@ if (process.env.NODE_ENV === "production") {
 app.use(bodyParser.json());
 app.use(fileUpload());
 
+/**
+ * Returns the Authorization header
+ */
 const getAuthorizationWithToken = () => {
   return `Bearer ` + app.get("access_token");
 }
 
+/**
+ * Saves the OT2 configuration to a file and to the environment.
+ */
 const saveConfiguration = async configuration => {
   const file = '.env';
   let newFile = false;
@@ -103,6 +111,10 @@ app.use(async (req, res, next) => {
   next();
 });
 
+/**
+ * Gets the session user.
+ * @returns the session user if any otherwise a 204 status code.
+ */
 app.get("/session", async (req, res) => {
   if (req.session.user && req.cookies.session_id) {
     res.send(req.session.user);
@@ -111,25 +123,42 @@ app.get("/session", async (req, res) => {
   }
 });
 
+/**
+ * Logs the user out and clears the cookie.
+ * @returns a 200 status code
+ */
 app.post("/logout", async (req, res) => {
   console.log('Logging user out');
   res.clearCookie('session_id');
   res.sendStatus(200);
 });
 
+/**
+ * Saves the configuration and sets it in the environment.
+ * @param e.Request.body the configuration as JSON
+ * @returns 200 status code
+ */
 app.post("/configuration", async (req, res) => {
-  console.log('Setting configuration');
+  console.log('Saving configuration...');
   let configuration = req.body;
   await saveConfiguration(configuration);
-  res.status(200).send({message: `Configuration processed successfully.`});
+  res.status(200).send({message: `Configuration saved successfully.`});
 });
 
+/**
+ * Checks whether there is a configuration set in the server.
+ * @returns 200 when there is a configuration, 204 otherwise.
+ */
 app.get("/configuration", async (req, res) => {
   process.env.CLIENT_ID && process.env.CLIENT_SECRET && process.env.TENANT_ID ? res.sendStatus(200) : res.sendStatus(204);
 });
 
+/**
+ * Saves the configuration to the .env file based on an ot2_config.json file uploaded.
+ * @returns 200 when the configuration was saved successfully
+ */
 app.put("/configuration", async (req, res) => {
-  let errorMessage = 'The file does not appear to be valid JSON.';
+  const errorMessage = 'The file does not appear to be valid JSON.';
   try {
     const file = req.files.file;
     console.log(`Processing configuration file ${file.name}...`);
@@ -146,6 +175,9 @@ app.put("/configuration", async (req, res) => {
   }
 });
 
+/**
+ * Gets the list of tasks from the Workflow service.
+ */
 app.get("/api/tasks", async (req, res) => {
   try {
     let responseBody = await tasksGetObjects(req, getAuthorizationWithToken());
@@ -155,6 +187,9 @@ app.get("/api/tasks", async (req, res) => {
   }
 });
 
+/**
+ * Updates a task in the Workflow service based on the parameters passed in the body as JSON.
+ */
 app.post("/api/tasks/:task_id", async (req, res) => {
   try {
     let responseBody = await tasksUpdate(req, req.params.task_id, getAuthorizationWithToken());
@@ -164,6 +199,9 @@ app.post("/api/tasks/:task_id", async (req, res) => {
   }
 });
 
+/**
+ * Gets the contract metadata from the OT2 Content Metadata service.
+ */
 app.get("/api/cms/instances/:category/:type", async (req, res) => {
   try {
     let responseBody = await cmsGetObjects(req, req.params.category, req.params.type, getAuthorizationWithToken());
@@ -173,15 +211,9 @@ app.get("/api/cms/instances/:category/:type", async (req, res) => {
   }
 });
 
-app.get("/api/cms/instances/:category/:type/:instanceId/contents", async (req, res) => {
-  try {
-    let responseBody = await cmsGetInstanceRenditions(req, req.params.category, req.params.type, req.params.instanceId, getAuthorizationWithToken());
-    res.send(responseBody);
-  } catch (err) {
-    res.status(err.status).send(err.description);
-  }
-});
-
+/**
+ * Links a file uploaded to the OT2 Content Storage service to a contract in the OT2 Content Metadata service.
+ */
 app.post("/api/cms/instances/:category/:type", async (req, res) => {
   try {
     let responseBody = await cmsCreateInstance(req, req.params.category, req.params.type, getAuthorizationWithToken());
@@ -191,6 +223,9 @@ app.post("/api/cms/instances/:category/:type", async (req, res) => {
   }
 });
 
+/**
+ * Creates a new instance of a workflow in the Workflow service which in this context will request a contract approval.
+ */
 app.post("/api/workflow/createinstance", async (req, res) => {
   try {
     let responseBody = await workflowCreateInstance(req, getAuthorizationWithToken());
@@ -200,6 +235,9 @@ app.post("/api/workflow/createinstance", async (req, res) => {
   }
 });
 
+/**
+ * Downloads the contract from the OT2 Content Storage service.
+ */
 app.get("/api/css/downloadcontent/:contentId/download", async (req, res) => {
   try {
     let responseBody = await cssDownloadContent(req, req.params.contentId, getAuthorizationWithToken());
@@ -209,6 +247,9 @@ app.get("/api/css/downloadcontent/:contentId/download", async (req, res) => {
   }
 });
 
+/**
+ * Uploads a contract to the OT2 Content Storage service.
+ */
 app.post("/api/css/uploadcontent", async (req, res) => {
   try {
     let responseBody = await cssUploadContent(req, getAuthorizationWithToken());
@@ -218,6 +259,9 @@ app.post("/api/css/uploadcontent", async (req, res) => {
   }
 });
 
+/**
+ * Gets an authorization token from OT2.
+ */
 const getToken = async (req) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -255,6 +299,9 @@ const getToken = async (req) => {
   });
 };
 
+/**
+ * Requests and sets an access token.
+ */
 app.post("/api/token", async (req, res) => {
   try {
     let responseBody = await getToken(req);
@@ -266,9 +313,6 @@ app.post("/api/token", async (req, res) => {
     res.status(err.status).send(err.description);
   }
 
-});
-app.post("/api/cleartoken", async (req, res) => {
-  app.set("access_token", "");
 });
 
 app.listen(app.get("port"), () => {

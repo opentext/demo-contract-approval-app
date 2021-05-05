@@ -1,20 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {
+  Backdrop,
   Button,
-  IconButton,
   ButtonGroup,
+  CircularProgress,
+  IconButton,
+  Paper,
+  Snackbar,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
-  Paper,
-  Backdrop,
-  CircularProgress,
-  Slide,
-  Snackbar
+  TableRow
 } from "@material-ui/core";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import CloseIcon from "@material-ui/icons/Close";
@@ -23,7 +22,15 @@ import Pagination from './Pagination';
 import Tasks from './services/workflow/Tasks';
 import TaskDetails from './TaskDetails';
 import DocumentDialogView from './DocumentDialogView';
+import MuiAlert from "@material-ui/lab/Alert";
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+/**
+ * This view displays the list of contracts pending for approval.
+ */
 class TasksList extends React.Component {
   constructor(props) {
     super(props);
@@ -37,7 +44,8 @@ class TasksList extends React.Component {
       downloadHref: '',
       showBackdrop: false,
       showSnackBar: false,
-      snackBarMessage: ''
+      snackBarMessage: '',
+      snackBarSeverity: 'success'
     };
     this.handleCloseTaskDetails = this.handleCloseTaskDetails.bind(this);
     this.onChangePage = this.onChangePage.bind(this);
@@ -90,11 +98,23 @@ class TasksList extends React.Component {
     this.taskService.completeTask(taskId, approve)
       .then(() => {
         this.getTasks();
-        this.setState({ snackBarMessage: 'Contract ' + (approve ? 'approved' : 'rejected') + ' successfully.' });
-        this.setState({ showSnackBar: true });
+        this.setState({
+          snackBarMessage: 'Contract ' + (approve ? 'approved' : 'rejected') + ' successfully.',
+          showSnackBar: true
+        });
       })
       .catch(error => {
-        alert(error.response != null && error.response.data != null ? error.response.data : error.message);
+        let errorMessage = 'Could not ' + (approve ? 'approve ' : 'reject ') + 'task: ';
+        if (error.response != null && error.response.data != null) {
+          errorMessage += error.response.data.exception;
+        } else {
+          errorMessage += error.message;
+        }
+        this.setState({
+          snackBarSeverity: 'error',
+          snackBarMessage: errorMessage,
+          showSnackBar: true
+        });
       })
       .finally(() => {
         this.setState({ showBackdrop: false })
@@ -136,7 +156,7 @@ class TasksList extends React.Component {
   }
 
   handleSnackBarClose() {
-    this.setState({ showSnackBar: false })
+    this.setState({ showSnackBar: false });
   }
 
   openDocumentDialogView(downloadHref) {
@@ -199,23 +219,25 @@ class TasksList extends React.Component {
           <CircularProgress color="inherit" />
         </Backdrop>
         <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          open={this.state.showSnackBar}
-          autoHideDuration={5000}
-          onClose={this.handleSnackBarClose}
-          message={this.state.snackBarMessage}
-          TransitionComponent={Slide}
-          action={
-            <React.Fragment>
-              <IconButton size="small" aria-label="close" color="inherit">
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </React.Fragment>
-          }
-        />
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            open={this.state.showSnackBar}
+            autoHideDuration={5000}
+            onClose={this.handleSnackBarClose}
+            action={
+              <React.Fragment>
+                <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleSnackBarClose}>
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </React.Fragment>
+            }
+        >
+          <Alert onClose={this.handleSnackBarClose} severity={this.state.snackBarSeverity}>
+            {this.state.snackBarMessage}
+          </Alert>
+        </Snackbar>
       </div>
     );
   }

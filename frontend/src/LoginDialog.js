@@ -55,12 +55,13 @@ class LoginDialog extends React.Component {
     this.setState({
       username: event.target.value
     });
-  };
+  }
+
   handleChangePassword(event) {
     this.setState({
       password: event.target.value
     });
-  };
+  }
 
   async componentDidMount() {
     await this.isAppConfigured();
@@ -104,17 +105,17 @@ class LoginDialog extends React.Component {
         this.setState({showBackdrop: false});
       })
     }
-  };
+  }
 
   handleCancel() {
     this.setState({ open: false });
-  };
+  }
 
   handleKeyDown(event) {
     if (event.keyCode === 13) {
       this.handleClose();
     }
-  };
+  }
 
   canSubmit() {
     return this.state.username && this.state.password;

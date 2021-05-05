@@ -28,19 +28,19 @@ class UploadConfigurationDialog extends React.Component {
         this.setState({
             tenantId: event.target.value
         });
-    };
+    }
 
     handleChangeClientId(event) {
         this.setState({
             clientId: event.target.value
         });
-    };
+    }
 
     handleChangeClientSecret(event) {
         this.setState({
             clientSecret: event.target.value
         });
-    };
+    }
 
     canSubmit() {
         return this.state.tenantId && this.state.clientId && this.state.clientSecret;

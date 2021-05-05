@@ -22,7 +22,7 @@ const workflowCreateInstance = async (req, authorization) => {
 
   return new Promise((resolve, reject) => {
     request(postRequest, (error, response) => {
-      if (error) throw new Error("Error in creating workflow instance: " + error);
+      if (error) throw new Error("Error creating workflow instance: " + error);
       if (response.statusCode !== 200 && response.statusCode !== 201) {
         console.log('Request failed: ', response.body);
         return reject({
