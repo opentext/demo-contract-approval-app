@@ -284,7 +284,7 @@ const getToken = async (req) => {
     request(postRequest, (error, response) => {
       if (error) {
         console.log('Authentication with ot2 failed, error: ' + error);
-        return reject({ status: response.statusCode, description: error });
+        return reject({status: response ? response.statusCode : error.code, description: error.message ? error.message : error});
       }
       if (response.statusCode !== 200) {
         let responseBody = JSON.parse(response.body);
@@ -310,9 +310,9 @@ app.post("/api/token", async (req, res) => {
     res.sendStatus(200);
   } catch (err) {
     console.log('Error getting token. Error: ' + JSON.stringify(err));
-    res.status(err.status).send(err.description);
+    const errorMessage = isNaN(err.status) ? err.status + ' ' + err.description : err.description;
+    res.status(isNaN(err.status) ? 500 : err.status).send(errorMessage);
   }
-
 });
 
 app.listen(app.get("port"), () => {

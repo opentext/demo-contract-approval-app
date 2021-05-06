@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import BuildIcon from '@material-ui/icons/Build';
-import Alert from '@material-ui/lab/Alert';
 import {
   Backdrop,
   Button, CircularProgress, Collapse,
@@ -12,7 +11,7 @@ import {
   DialogTitle,
   IconButton,
   Menu,
-  MenuItem,
+  MenuItem, Snackbar,
   TextField,
   Tooltip,
   Typography
@@ -20,6 +19,11 @@ import {
 import UploadConfigurationDialog from "./UploadConfigurationDialog";
 import ManualConfigurationDialog from "./ManualConfigurationDialog";
 import CloseIcon from "@material-ui/icons/Close";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 class LoginDialog extends React.Component {
   constructor(props) {
@@ -34,7 +38,9 @@ class LoginDialog extends React.Component {
       anchorEl: null,
       isAppConfigured: false,
       showAlert: false,
-      showBackdrop: false
+      showBackdrop: false,
+      snackBarMessage: '',
+      snackBarSeverity: 'success'
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -49,6 +55,7 @@ class LoginDialog extends React.Component {
     this.canSubmit = this.canSubmit.bind(this);
     this.handleOpenMenu = this.handleOpenMenu.bind(this);
     this.handleCloseMenu = this.handleCloseMenu.bind(this);
+    this.handleSnackBarClose = this.handleSnackBarClose.bind(this);
   }
 
   handleChangeName(event) {
@@ -99,8 +106,12 @@ class LoginDialog extends React.Component {
         this.props.dispatch({type: "SET_USER_NAME", name: this.state.username});
         this.setState({open: false});
       }).catch(error => {
-        alert("Error logging in: " + error);
-        this.setState({open: true});
+        const errorMessage = error.response && error.response.data ? error.response.data : error;
+        this.setState({
+          snackBarSeverity: 'error',
+          snackBarMessage: errorMessage,
+          showSnackBar: true
+        });
       }).finally(() => {
         this.setState({showBackdrop: false});
       })
@@ -160,6 +171,10 @@ class LoginDialog extends React.Component {
       showAlert: false
     });
     this.handleCloseMenu();
+  }
+
+  handleSnackBarClose() {
+    this.setState({ showSnackBar: false });
   }
 
   render() {
@@ -242,6 +257,26 @@ class LoginDialog extends React.Component {
           <Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
             <CircularProgress color="inherit" />
           </Backdrop>
+          <Snackbar
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              open={this.state.showSnackBar}
+              autoHideDuration={5000}
+              onClose={this.handleSnackBarClose}
+              action={
+                <React.Fragment>
+                  <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleSnackBarClose}>
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </React.Fragment>
+              }
+          >
+            <Alert onClose={this.handleSnackBarClose} severity={this.state.snackBarSeverity}>
+              {this.state.snackBarMessage}
+            </Alert>
+          </Snackbar>
         </Dialog>
       </div>
     );
