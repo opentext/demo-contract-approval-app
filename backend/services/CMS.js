@@ -26,31 +26,6 @@ const cmsGetObjects = async (req, category, type, authorization) => {
   });
 }
 
-const cmsGetInstanceRenditions = async (req, category, type, instanceId, authorization) => {
-  let getRequest = {
-    method: "get",
-    url: process.env.BASE_URL + '/cms/instances/' + category + '/' + type + '/' + instanceId + '/contents' + req.originalUrl.replace(/[^?]*/, ""),
-    headers: {
-      'Authorization': authorization
-    },
-  };
-
-  return new Promise((resolve, reject) => {
-    request(getRequest, (error, response) => {
-      if (error) throw new Error("Error in receiving cms instance renditions: " + error);
-      if (response.statusCode !== 200) {
-        let responseBody = JSON.parse(response.body);
-        console.log('Request failed: ', responseBody);
-        return reject({
-          status: response.statusCode,
-          description: responseBody != null && responseBody.fault != null ? responseBody.fault.faultstring : responseBody.details
-        });
-      }
-      resolve(response.body);
-    });
-  });
-}
-
 const cmsCreateInstance = async (req, category, type, authorization) => {
   let postRequest = {
     method: "post",
@@ -87,6 +62,5 @@ const cmsCreateInstance = async (req, category, type, authorization) => {
 
 module.exports = {
   cmsGetObjects,
-  cmsCreateInstance,
-  cmsGetInstanceRenditions
+  cmsCreateInstance
 };

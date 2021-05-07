@@ -6,7 +6,7 @@ const replace = require('replace-in-file');
 const fs = require('fs')
 
 const { tasksGetObjects, tasksUpdate } = require("./services/Tasks");
-const { cmsGetObjects, cmsGetInstanceRenditions, cmsCreateInstance } = require("./services/CMS");
+const { cmsGetObjects, cmsCreateInstance } = require("./services/CMS");
 const { cssDownloadContent, cssUploadContent } = require("./services/CSS");
 const { workflowCreateInstance } = require("./services/Workflow");
 
