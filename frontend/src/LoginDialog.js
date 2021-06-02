@@ -40,7 +40,8 @@ class LoginDialog extends React.Component {
       showAlert: false,
       showBackdrop: false,
       snackBarMessage: '',
-      snackBarSeverity: 'success'
+      snackBarSeverity: 'success',
+      displayConfiguration: false
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -72,6 +73,7 @@ class LoginDialog extends React.Component {
 
   async componentDidMount() {
     await this.isAppConfigured();
+    await this.shouldDisplayConfiguration();
   }
 
   async isAppConfigured() {
@@ -84,11 +86,25 @@ class LoginDialog extends React.Component {
           if (res.status === 200) {
             this.setState({isAppConfigured: true});
           }
+        }).catch(error => {
+          console.log(error);
+        });
+  }
+
+  async shouldDisplayConfiguration() {
+    await axios.get('/display-configuration')
+        .then(res => {
+          if (res.status === 200) {
+            this.setState({displayConfiguration: true});
+          }
+        })
+        .catch(error => {
+          console.error(error);
         });
   }
 
   handleClose() {
-    if (!this.state.isAppConfigured) {
+    if (!this.state.isAppConfigured && this.state.displayConfiguration) {
       this.setState({showAlert: true});
     } else {
       this.setState({showBackdrop: true});
@@ -186,29 +202,34 @@ class LoginDialog extends React.Component {
           <DialogTitle id="form-dialog-title">
             <div className="login-dialog">
               Login
-              <Tooltip
-                  title={
-                    <React.Fragment>
-                      <Typography variant="subtitle1">Click here to configure the application</Typography>
-                      <Typography variant="subtitle2">You can either upload a JSON file or manually edit the configuration.</Typography>
-                      {<span style={{color: "yellow"}}><b>WARNING: You need to do this before you can log in to the application.</b></span>}
-                    </React.Fragment>
-                  }
-              >
-                <IconButton className="title-icon" onClick={event => this.handleOpenMenu(event)}>
-                  <BuildIcon/>
-                </IconButton>
-              </Tooltip>
-              <Menu
-                  anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-                  getContentAnchorEl={null}
-                  anchorEl={this.state.anchorEl}
-                  keepMounted
-                  open={Boolean(this.state.anchorEl)}
-                  onClose={this.handleCloseMenu}>
-                <MenuItem onClick={this.showUploadConfigurationDialog}>Upload JSON file</MenuItem>
-                <MenuItem onClick={this.showManualConfigurationDialog}>Manually edit configuration</MenuItem>
-              </Menu>
+              {this.state.displayConfiguration
+              ? <React.Fragment>
+                  <Tooltip
+                      title={
+                        <React.Fragment>
+                          <Typography variant="subtitle1">Click here to configure the application</Typography>
+                          <Typography variant="subtitle2">You can either upload a JSON file or manually edit the configuration.</Typography>
+                          {<span style={{color: "yellow"}}><b>WARNING: You need to do this before you can log in to the application.</b></span>}
+                        </React.Fragment>
+                      }
+                  >
+                    <IconButton className="title-icon" onClick={event => this.handleOpenMenu(event)}>
+                      <BuildIcon/>
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                      getContentAnchorEl={null}
+                      anchorEl={this.state.anchorEl}
+                      keepMounted
+                      open={Boolean(this.state.anchorEl)}
+                      onClose={this.handleCloseMenu}>
+                    <MenuItem onClick={this.showUploadConfigurationDialog}>Upload JSON file</MenuItem>
+                    <MenuItem onClick={this.showManualConfigurationDialog}>Manually edit configuration</MenuItem>
+                  </Menu>
+                </React.Fragment>
+                  : ''
+              }
             </div>
           </DialogTitle>
           <DialogContent>
