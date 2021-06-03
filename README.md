@@ -14,6 +14,12 @@ displays the following 2 options.
 
 - manually configure the credentials. This option allows the user to manually enter the details. Bear in mind that once
 entered, the details cannot be recovered for security reasons.
+  
+The configuration dialog can be disabled by running the backend using the following flag.
+
+```--no-config-allowed```
+
+More information on this flag and how to run a production build can be found at https://confluence.opentext.com/x/USoFHg
 
 ## Installation steps
 
