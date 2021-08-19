@@ -289,9 +289,8 @@ app.post("/api/css/uploadcontent", async (req, res) => {
  * Gets an authorization token from OT2.
  */
 const getToken = async (req) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  let postRequest = {
+  // Old authentication endpoint request - Endpoint to be deprecated soon
+  let oldAuthEndpointRequest = {
     method: "post",
     url: process.env.BASE_URL + "/oauth2/token",
     headers: {
@@ -300,30 +299,59 @@ const getToken = async (req) => {
     body: JSON.stringify({
       client_id: process.env.CLIENT_ID,
       client_secret: process.env.CLIENT_SECRET,
-      username: username,
-      password: password,
-      grant_type: "password"
+      grant_type: "client_credentials"
+    }),
+  };
+  // New authentication endpoint request
+  let newAuthEndpointRequest = {
+    method: "post",
+    url: process.env.BASE_URL + "/tenants/" + process.env.TENANT_ID + "/oauth2/token",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      client_id: process.env.CLIENT_ID,
+      client_secret: process.env.CLIENT_SECRET,
+      grant_type: "client_credentials"
     }),
   };
 
   return new Promise((resolve, reject) => {
-    request(postRequest, (error, response) => {
-      if (error) {
-        console.log('Authentication with ot2 failed, error: ' + error);
-        return reject({status: response ? response.statusCode : error.code, description: error.message ? error.message : error});
+    request(newAuthEndpointRequest, (error, response) => {
+      if (response && response.statusCode === 404) {
+        // New endpoint not available. Trying the old one.
+        console.log('New auth endpoint not available - Trying the old one.');
+        return request(oldAuthEndpointRequest, (error, response) => {
+          return processTokenResponse(error, response, req, resolve, reject);
+        });
       }
-      if (response.statusCode !== 200) {
-        let responseBody = JSON.parse(response.body);
-        console.log('Authentication with ot2 failed: ', responseBody);
-        return reject({ status: response.statusCode, description: responseBody.error_description });
-      }
-      req.session.user = {
-        email: username
-      };
-      resolve(response);
+      return processTokenResponse(error, response, req, resolve, reject);
     });
   });
-};
+}
+
+/**
+ * Processes the authorization token endpoint response
+ */
+function processTokenResponse(error, response, request, resolve, reject) {
+  const username = request.body.username;
+  if (error) {
+    console.log('Authentication with ot2 failed, error: ' + error);
+    return reject({
+      status: response ? response.statusCode : error.code,
+      description: error.message ? error.message : error
+    });
+  }
+  if (response.statusCode !== 200) {
+    let responseBody = JSON.parse(response.body);
+    console.log('Authentication with ot2 failed: ', responseBody);
+    return reject({ status: response.statusCode, description: responseBody.error_description });
+  }
+  request.session.user = {
+    email: username
+  };
+  resolve(response);
+}
 
 /**
  * Requests and sets an access token.
