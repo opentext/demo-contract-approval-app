@@ -10,13 +10,11 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-  Menu,
-  MenuItem, Snackbar,
+  Snackbar,
   TextField,
   Tooltip,
   Typography
 } from '@material-ui/core';
-import UploadConfigurationDialog from "./UploadConfigurationDialog";
 import ManualConfigurationDialog from "./ManualConfigurationDialog";
 import CloseIcon from "@material-ui/icons/Close";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -33,7 +31,6 @@ class LoginDialog extends React.Component {
       open: true,
       username: '',
       password: '',
-      showUploadConfigurationDialog: false,
       showManualConfigurationDialog: false,
       anchorEl: null,
       isAppConfigured: false,
@@ -49,9 +46,7 @@ class LoginDialog extends React.Component {
     this.handleCancel = this.handleCancel.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleConfigurationClick = this.handleConfigurationClick.bind(this);
-    this.closeUploadConfigurationDialog = this.closeUploadConfigurationDialog.bind(this);
     this.closeManualConfigurationDialog = this.closeManualConfigurationDialog.bind(this);
-    this.showUploadConfigurationDialog = this.showUploadConfigurationDialog.bind(this);
     this.showManualConfigurationDialog = this.showManualConfigurationDialog.bind(this);
     this.canSubmit = this.canSubmit.bind(this);
     this.handleOpenMenu = this.handleOpenMenu.bind(this);
@@ -153,12 +148,6 @@ class LoginDialog extends React.Component {
     this.setState({showConfigurationDialog: true});
   }
 
-  async closeUploadConfigurationDialog() {
-    console.log('Closing upload configuration dialog');
-    this.setState({showUploadConfigurationDialog: false});
-    await this.isAppConfigured();
-  }
-
   async closeManualConfigurationDialog() {
     console.log('Closing manual configuration dialog');
     this.setState({showManualConfigurationDialog: false});
@@ -171,14 +160,6 @@ class LoginDialog extends React.Component {
 
   handleCloseMenu() {
     this.setState({ anchorEl: null });
-  }
-
-  showUploadConfigurationDialog() {
-    this.setState({
-      showUploadConfigurationDialog: true,
-      showAlert: false
-    });
-    this.handleCloseMenu();
   }
 
   showManualConfigurationDialog() {
@@ -196,7 +177,6 @@ class LoginDialog extends React.Component {
   render() {
     return (
       <div>
-        <UploadConfigurationDialog open={this.state.showUploadConfigurationDialog} closeDialog={this.closeUploadConfigurationDialog}/>
         <ManualConfigurationDialog open={this.state.showManualConfigurationDialog} closeDialog={this.closeManualConfigurationDialog}/>
         <Dialog open={this.props.open} aria-labelledby="form-dialog-title" onKeyDown={this.handleKeyDown} maxWidth="xs">
           <DialogTitle id="form-dialog-title">
@@ -208,25 +188,14 @@ class LoginDialog extends React.Component {
                       title={
                         <React.Fragment>
                           <Typography variant="subtitle1">Click here to configure the application</Typography>
-                          <Typography variant="subtitle2">You can either upload a JSON file or manually edit the configuration.</Typography>
                           {<span style={{color: "yellow"}}><b>WARNING: You need to do this before you can log in to the application.</b></span>}
                         </React.Fragment>
                       }
                   >
-                    <IconButton className="title-icon" onClick={event => this.handleOpenMenu(event)}>
+                    <IconButton className="title-icon" onClick={this.showManualConfigurationDialog}>
                       <BuildIcon/>
                     </IconButton>
                   </Tooltip>
-                  <Menu
-                      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-                      getContentAnchorEl={null}
-                      anchorEl={this.state.anchorEl}
-                      keepMounted
-                      open={Boolean(this.state.anchorEl)}
-                      onClose={this.handleCloseMenu}>
-                    <MenuItem onClick={this.showUploadConfigurationDialog}>Upload JSON file</MenuItem>
-                    <MenuItem onClick={this.showManualConfigurationDialog}>Manually edit configuration</MenuItem>
-                  </Menu>
                 </React.Fragment>
                   : ''
               }
