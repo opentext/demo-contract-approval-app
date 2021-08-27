@@ -5,7 +5,7 @@
     <documentation>My Process</documentation>
     <serviceTask id="sid-E590B3E4-B9A9-4E78-844D-D2586FBF303F" name="get contract from cms" workflow:type="http">
       <extensionElements>
-        <workflow:authenticationDetails authenticationUrl="{{apigee_host}}/oauth2/token" contentType="application/json" clientId="${client_id}" clientSecret="${client_secret}" grantType="password" username="{{username}}" password="{{password}}" useCurrentAuthToken="false"></workflow:authenticationDetails>
+        <workflow:authenticationDetails authenticationUrl="{{apigee_host}}/tenants/{{tenant_id}}/oauth2/token" contentType="application/json" clientId="${client_id}" clientSecret="${client_secret}" grantType="password" username="{{username}}" password="{{password}}" useCurrentAuthToken="false"></workflow:authenticationDetails>
         <workflow:field name="requestMethod">
           <workflow:string><![CDATA[GET]]></workflow:string>
         </workflow:field>
@@ -34,7 +34,7 @@
     <exclusiveGateway id="sid-9199CA54-7287-4F51-B61C-E08A2FF4B035" default="sid-E03766E6-2675-443F-827D-55A24E6B8CC3"></exclusiveGateway>
     <serviceTask id="sid-813D6462-240D-4F87-86A6-F0B343DB651B" name="update cms status REJECTED" workflow:type="http">
       <extensionElements>
-        <workflow:authenticationDetails authenticationUrl="{{apigee_host}}/oauth2/token" contentType="application/json" clientId="${client_id}" clientSecret="${client_secret}" grantType="password" username="{{username}}" password="{{password}}" useCurrentAuthToken="false"></workflow:authenticationDetails>
+        <workflow:authenticationDetails authenticationUrl="{{apigee_host}}/tenants/{{tenant_id}}/oauth2/token" contentType="application/json" clientId="${client_id}" clientSecret="${client_secret}" grantType="password" username="{{username}}" password="{{password}}" useCurrentAuthToken="false"></workflow:authenticationDetails>
         <workflow:field name="requestMethod">
           <workflow:string><![CDATA[PUT]]></workflow:string>
         </workflow:field>
@@ -64,7 +64,7 @@
     </serviceTask>
     <serviceTask id="sid-954EEBE4-464A-4885-BD09-2364A6A772E7" name="update cms status APPROVED" workflow:type="http">
       <extensionElements>
-        <workflow:authenticationDetails authenticationUrl="{{apigee_host}}/oauth2/token" contentType="application/json" clientId="${client_id}" clientSecret="${client_secret}" grantType="password" username="{{username}}" password="{{password}}" useCurrentAuthToken="false"></workflow:authenticationDetails>
+        <workflow:authenticationDetails authenticationUrl="{{apigee_host}}/tenants/{{tenant_id}}/oauth2/token" contentType="application/json" clientId="${client_id}" clientSecret="${client_secret}" grantType="password" username="{{username}}" password="{{password}}" useCurrentAuthToken="false"></workflow:authenticationDetails>
         <workflow:field name="requestMethod">
           <workflow:string><![CDATA[PUT]]></workflow:string>
         </workflow:field>
@@ -94,7 +94,7 @@
     </serviceTask>
     <serviceTask id="sid-F93E8184-419E-4025-9A7C-4C78D3264E0D" name="update  cms status WAIT FOR APPROVAL" workflow:type="http">
       <extensionElements>
-        <workflow:authenticationDetails authenticationUrl="{{apigee_host}}/oauth2/token" contentType="application/json" clientId="${client_id}" clientSecret="${client_secret}" grantType="password" username="{{username}}" password="{{password}}" useCurrentAuthToken="false"></workflow:authenticationDetails>
+        <workflow:authenticationDetails authenticationUrl="{{apigee_host}}/tenants/{{tenant_id}}/oauth2/token" contentType="application/json" clientId="${client_id}" clientSecret="${client_secret}" grantType="password" username="{{username}}" password="{{password}}" useCurrentAuthToken="false"></workflow:authenticationDetails>
         <workflow:field name="requestMethod">
           <workflow:string><![CDATA[PUT]]></workflow:string>
         </workflow:field>
@@ -127,7 +127,7 @@
     </startEvent>
     <serviceTask id="sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32" name="update cms status EXPIRED" workflow:type="http">
       <extensionElements>
-        <workflow:authenticationDetails authenticationUrl="{{apigee_host}}/oauth2/token" contentType="application/json" clientId="${client_id}" clientSecret="${client_secret}" grantType="password" username="{{username}}" password="{{password}}" useCurrentAuthToken="false"></workflow:authenticationDetails>
+        <workflow:authenticationDetails authenticationUrl="{{apigee_host}}/tenants/{{tenant_id}}/oauth2/token" contentType="application/json" clientId="${client_id}" clientSecret="${client_secret}" grantType="password" username="{{username}}" password="{{password}}" useCurrentAuthToken="false"></workflow:authenticationDetails>
         <workflow:field name="requestMethod">
           <workflow:string><![CDATA[PUT]]></workflow:string>
         </workflow:field>

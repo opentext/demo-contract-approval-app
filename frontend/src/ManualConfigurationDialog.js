@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography} from '@material-ui/core';
 import axios from "axios";
 
-class UploadConfigurationDialog extends React.Component {
+class ManualConfigurationDialog extends React.Component {
     constructor(props) {
         super(props);
 
@@ -146,4 +146,4 @@ class UploadConfigurationDialog extends React.Component {
 const mapStateToProps = state => ({
 })
 
-export default connect(mapStateToProps)(UploadConfigurationDialog);
+export default connect(mapStateToProps)(ManualConfigurationDialog);
