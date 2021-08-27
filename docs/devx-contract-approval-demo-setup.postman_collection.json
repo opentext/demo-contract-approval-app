@@ -31,14 +31,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"client_id\": \"{{client_id}}\",\n    \"client_secret\": \"{{client_secret}}\",\n    \"grant_type\": \"password\",\n    \"username\": \"{{username}}\",\n    \"password\": \"{{password}}\"\n}"
+					"raw": "{\n    \"client_id\": \"{{client_id}}\",\n    \"client_secret\": \"{{client_secret}}\",\n    \"grant_type\": \"client_credentials\"\n}"
 				},
 				"url": {
-					"raw": "{{apigee_host}}/oauth2/token",
+					"raw": "{{apigee_host}}/tenants/{{tenant_id}}/oauth2/token",
 					"host": [
 						"{{apigee_host}}"
 					],
 					"path": [
+						"tenants",
+						"{{tenant_id}}",
 						"oauth2",
 						"token"
 					]
