@@ -23,6 +23,7 @@ import Tasks from './services/workflow/Tasks';
 import TaskDetails from './TaskDetails';
 import DocumentDialogView from './DocumentDialogView';
 import MuiAlert from "@material-ui/lab/Alert";
+import RiskClassification from './RiskClassification';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -143,6 +144,14 @@ class TasksList extends React.Component {
     return "";
   }
 
+  getContract(task) {
+    if (task && task.variables) {
+      const found = task.variables.find((q) => q.name === "cmsContract");
+      return found.value.properties ? found.value : "";
+    }
+    return "";
+  }
+
   getDateValue(task) {
     return task && task.createTime ? new Date(Date.parse(task.createTime)).toLocaleString() : '';
   }
@@ -176,7 +185,8 @@ class TasksList extends React.Component {
               <TableRow>
                 <TableCell align="left">Contract name</TableCell>
                 <TableCell align="left">Creation date</TableCell>
-                <TableCell align="left">Contract value</TableCell>
+                <TableCell align="left">Value</TableCell>
+                <TableCell align="left">Risk classification</TableCell>
                 <TableCell align="left">Assignee</TableCell>
                 <TableCell align="left">View document</TableCell>
                 <TableCell align="left">Action</TableCell>
@@ -189,6 +199,7 @@ class TasksList extends React.Component {
                   <TableCell align="left">{this.getContractName(row)}</TableCell>
                   <TableCell align="left">{this.getDateValue(row)}</TableCell>
                   <TableCell align="left">{this.getContractValue(row)}</TableCell>
+                  <TableCell align="left"><RiskClassification row={this.getContract(row)} /></TableCell>
                   <TableCell align="left">{row.assignee || ""}</TableCell>
                   <TableCell align="left">
                     <Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentDialogView(row.variables.find((q) => q.name === "contractDownloadLink").value) }}>Original</Button>

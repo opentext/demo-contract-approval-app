@@ -8,6 +8,7 @@ const fs = require('fs')
 const { tasksGetObjects, tasksUpdate } = require("./services/Tasks");
 const { cmsGetObjects, cmsCreateInstance } = require("./services/CMS");
 const { cssDownloadContent, cssUploadContent } = require("./services/CSS");
+const { rgGetToken, rgProcessDoc } = require("./services/RiskGuard");
 const { workflowCreateInstance } = require("./services/Workflow");
 
 const bodyParser = require("body-parser");
@@ -61,14 +62,17 @@ const saveConfiguration = async configuration => {
     fs.closeSync(fs.openSync(file, 'w'));
     console.log(`File ${file} created`);
   }
+
+  let rgToken = Buffer.from(configuration.client_id + ":" + configuration.client_secret).toString('base64');
   try {
     if (newFile) {
       // Appending configuration to new .env file
       let stream = fs.createWriteStream(file, {flags:'a'});
-      stream.write( 'BASE_URL=https://na-1-dev.api.opentext.com\n');
-      stream.write( `TENANT_ID=${configuration.tenantId}\n`);
-      stream.write( `CLIENT_ID=${configuration.client_id}\n`);
-      stream.write( `CLIENT_SECRET=${configuration.client_secret}\n`);
+      stream.write( 'BASE_URL=https://na-1-dev.api.opentext.com\r\n');
+      stream.write( `TENANT_ID=${configuration.tenantId}\r\n`);
+      stream.write( `CLIENT_ID=${configuration.client_id}\r\n`);
+      stream.write( `CLIENT_SECRET=${configuration.client_secret}\r\n`);
+      stream.write( `RG_TOKEN_AUTH=${rgToken}\r\n`);
       stream.end();
     } else {
       // Replacing configuration in .env file
@@ -77,12 +81,14 @@ const saveConfiguration = async configuration => {
         from: [
             /TENANT_ID=.*/g,
             /CLIENT_ID=.*/g,
-            /CLIENT_SECRET=.*/g
+            /CLIENT_SECRET=.*/g,
+            /RG_TOKEN_AUTH=.*/g
         ],
         to: [
             `TENANT_ID=${configuration.tenantId}`,
             `CLIENT_ID=${configuration.client_id}`,
-            `CLIENT_SECRET=${configuration.client_secret}`
+            `CLIENT_SECRET=${configuration.client_secret}`,
+            `RG_TOKEN_AUTH=${rgToken}`
         ]
       });
       if (!results[0].hasChanged) {
@@ -98,6 +104,7 @@ const saveConfiguration = async configuration => {
     process.env.CLIENT_ID = configuration.client_id;
     process.env.CLIENT_SECRET = configuration.client_secret;
     process.env.TENANT_ID = configuration.tenantId;
+    process.env.RG_TOKEN_AUTH = rgToken;
     process.env.BASE_URL = 'https://api.developer.opentext.com';
   }
 }
@@ -284,6 +291,24 @@ app.post("/api/css/uploadcontent", async (req, res) => {
     res.status(err.status).send(err.description);
   }
 });
+
+/**
+ * Processes file with Risk Guard.
+ */
+ /**/
+ app.post("/api/rg/process", async (req, res) => {
+  try {
+    let rgToken = await rgGetToken();
+    console.log(rgToken);
+    let responseBody = await rgProcessDoc(req, rgToken);
+    res.send(responseBody.data);
+  } catch (err) {
+    console.log(err);
+    res.status(err.status).send(err.description);
+  }
+});
+
+/**/
 
 /**
  * Gets an authorization token from OT2.

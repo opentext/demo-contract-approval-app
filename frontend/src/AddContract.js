@@ -28,6 +28,10 @@ export default class AddContract extends React.Component {
 				newContractValue: '',
 				newContractRequesterEmail: '',
 				selectedFile: ''
+			},
+			riskGuard: {
+				contractRisk: '',
+				extractedTerms: ''
 			}
 		};
 	}
@@ -72,7 +76,7 @@ export default class AddContract extends React.Component {
 		});
 	}
 
-	submitContract() {
+	async submitContract() {
 		this.setState({ showBackdrop: true });
 		const formData = new FormData();
 		formData.append(
@@ -80,11 +84,31 @@ export default class AddContract extends React.Component {
 			this.state.selectedFile,
 			this.state.selectedFile.name,
 		);
-		axios.post('/api/css/uploadcontent?avs-scan=false', formData, {
-			headers: {
-				'Content-Type': 'multipart/form-data'
-			},
-		}).then(res => {
+
+		await axios.post(
+			'/api/rg/process',
+			formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				},
+			}
+		).then(res => {
+			this.setState({
+				contractRisk: res.data.riskClassification,
+				extractedTerms: res.data.extractedTerms
+			});
+		});
+
+		// Adding Contract
+		axios.post(
+			'/api/css/uploadcontent?avs-scan=false',
+			formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data'
+				},
+			}
+		).then(res => {
+			// Setting metadata
 			return axios({
 				method: 'post',
 				url: '/api/cms/instances/file/ot2_app_contract',
@@ -100,10 +124,12 @@ export default class AddContract extends React.Component {
 					"properties": {
 						"contract_value": parseInt(this.state.newContractValue, 10),
 						"contract_status": "CREATED",
-						"contract_requester_email": this.state.newContractRequesterEmail
+						"contract_requester_email": this.state.newContractRequesterEmail,
+						"contract_risk": this.state.contractRisk,
+						"extracted_terms": this.state.extractedTerms
 					}
 				},
-			});
+			})
 		}).then(() => {
 			this.closeDialog();
 			this.props.onAddContract();
@@ -148,6 +174,7 @@ export default class AddContract extends React.Component {
 						type="text"
 						fullWidth
 						onChange={this.handleChangeContractName}
+
 					/>
 					<TextField
 						margin="dense"
@@ -157,6 +184,7 @@ export default class AddContract extends React.Component {
 						InputProps={{ inputProps: { min: 1 } }}
 						fullWidth
 						onChange={this.handleChangeContractValue}
+
 					/>
 					<TextField
 						margin="dense"
@@ -165,6 +193,7 @@ export default class AddContract extends React.Component {
 						type="text"
 						fullWidth
 						onChange={this.handleChangeContractRequesterEmail}
+
 					/>
 				</DialogContent>
 				<DialogActions>

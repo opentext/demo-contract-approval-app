@@ -46,6 +46,7 @@ export default class DocumentDialogView extends React.Component {
 
 	downloadDocument(downloadHref) {
 		axios.defaults.baseURL = '';
+		// Calling /api/css/downloadcontent
 		axios({
 			method: 'get',
 			url: '/api/css/downloadcontent/' + this.getContentId(downloadHref),

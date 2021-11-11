@@ -18,6 +18,7 @@ import Pagination from './Pagination';
 import DocumentDialogView from './DocumentDialogView';
 import MuiAlert from "@material-ui/lab/Alert";
 import CloseIcon from "@material-ui/icons/Close";
+import RiskClassification from './RiskClassification';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -133,6 +134,7 @@ export default class ContractList extends React.Component {
                 <TableCell align="left">Creation date</TableCell>
                 <TableCell align="left">Status</TableCell>
                 <TableCell align="left">Value</TableCell>
+                <TableCell align="left">Risk classification</TableCell>
                 <TableCell align="left">View document</TableCell>
                 <TableCell align="left" />
               </TableRow>
@@ -144,6 +146,7 @@ export default class ContractList extends React.Component {
                   <TableCell align="left">{this.getDateValue(row.create_time)}</TableCell>
                   <TableCell align="left">{row.properties ? row.properties.contract_status : ''}</TableCell>
                   <TableCell align="left">{row.properties ? row.properties.contract_value : ''}</TableCell>
+                  <TableCell align="left"><RiskClassification row={row} /></TableCell>
                   <TableCell align="left">
                     <Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentDialogView(row._links['urn:eim:linkrel:download-media'].href) }}>Original</Button>
                   </TableCell>

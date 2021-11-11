@@ -47,6 +47,7 @@ class ManualConfigurationDialog extends React.Component {
     }
 
     submit() {
+		// Manual Config Dialog - calling /configuration
         axios.post("/configuration",{
             tenantId: this.state.tenantId,
             client_id: this.state.clientId,
