@@ -2,6 +2,9 @@
   "name": "contract-approval",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=14.2.0 <15"
+  },
   "dependencies": {
     "@material-ui/core": "4.11.3",
     "@material-ui/icons": "4.11.2",
