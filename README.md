@@ -4,7 +4,7 @@ OT2 Contract Approval Demo Application
 This is a demo application to demonstrate how to consume OT2 services.
 
 ## Prerequisites
-NodeJs version 14.2.0
+NodeJs version >= 14.2.0 and < 15 
 
 ## Credentials
 
