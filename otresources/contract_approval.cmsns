@@ -1,0 +1,11 @@
+{
+  "id": "9d95fbc9-b1e9-4946-956f-d38bcc4569f4",
+  "schemaId": "https://www.opentext.com/ot2/devx/cms/1.0.0/CMSNamespace",
+  "data": {
+    "display_name": "Contract Approval",
+    "prefix": "ca",
+    "name": "contract_approval",
+    "description": "Contract Approval Namespace"
+  },
+  "serviceName": "cms"
+}

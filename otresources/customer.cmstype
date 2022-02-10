@@ -1,0 +1,31 @@
+{
+  "id": "dbe64f37-2afd-4b64-908d-66dc466a79f3",
+  "schemaId": "https://www.opentext.com/ot2/devx/cms/1.0.0/CMSType",
+  "data": {
+    "category": "folder",
+    "name": "customer",
+    "display_name": "Customer",
+    "namespace": "9d95fbc9-b1e9-4946-956f-d38bcc4569f4",
+    "attributes": [
+      {
+        "data_type": "string",
+        "display_name": "Customer email",
+        "name": "customer_email",
+        "size": 256,
+        "searchable": true,
+        "sortable": true,
+        "required": true,
+        "validators": [],
+        "ot2mc-row-id": "af24e535-a021-42bf-a259-791f4256b1b3"
+      }
+    ],
+    "description": "Customer Type",
+    "operations": [],
+    "indexes": [],
+    "methods": [],
+    "scripts": [],
+    "required_traits": [],
+    "non_auditable_actions": []
+  },
+  "serviceName": "cms"
+}

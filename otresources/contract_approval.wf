@@ -1,0 +1,2947 @@
+{
+  "id": "592d28e7-3051-4b78-9e72-ba1f7351f853",
+  "schemaId": "https://www.opentext.com/ot2/devx/workflow/1.0.0/Flow",
+  "data": {
+    "modelId": 1,
+    "bounds": {
+      "lowerRight": {
+        "x": 1624,
+        "y": 1050
+      },
+      "upperLeft": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    "properties": {
+      "generalgroupheader": "",
+      "process_id": "contract_approval",
+      "name": "Contract Approval",
+      "detailsgroupheader": "",
+      "process_version": "",
+      "process_namespace": "http://opentext.com/devx/contract",
+      "process_historylevel": "",
+      "dataproperties": "",
+      "process_potentialstarteruser": "",
+      "process_potentialstartergroup": "",
+      "signaldefinitions": "[]",
+      "messagedefinitions": "[{\"id\":\"contractId\",\"name\":\"contractApproval\"}]",
+      "escalationdefinitions": "[]",
+      "duedatedefinition": "",
+      "executiongroupheader": "",
+      "isasynchistoryenable": true,
+      "isexecutable": true,
+      "eventlisteners": "{\"eventListeners\":[]}",
+      "executionlisteners": "{\"executionListeners\":[]}",
+      "process_author": "",
+      "documentation": "My Process",
+      "iseagerexecutionfetch": false,
+      "messages": [
+        {
+          "message_id": "contractId",
+          "message_name": "contractApproval"
+        }
+      ]
+    },
+    "childShapes": [
+      {
+        "resourceId": "sid-E590B3E4-B9A9-4E78-844D-D2586FBF303F",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-E590B3E4-B9A9-4E78-844D-D2586FBF303F",
+          "name": "Get contract from cms",
+          "detailsgroupheader": "",
+          "authenticationdetails": {
+            "useCurrentAuthToken": true
+          },
+          "httptaskrequestmethod": "GET",
+          "httptaskrequesturl": "{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}",
+          "httptaskrequestheaders": "",
+          "httptaskrequestbody": "",
+          "httptaskrequestbodyencoding": "",
+          "httptaskrequesttimeout": "",
+          "httptaskdisallowredirects": "",
+          "httptaskfailstatuscodes": "",
+          "httptaskhandlestatuscodes": "",
+          "httptaskignoreexception": "",
+          "httptaskresponsevariablename": "cmsContract",
+          "httptasksaverequestvariables": "",
+          "httptasksaveresponseparameters": "",
+          "httptaskresultvariableprefix": "",
+          "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasjson": true,
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "isforcompensation": false,
+          "exclusivedefinition": true,
+          "skipexpression": "",
+          "executionlisteners": {
+            "executionListeners": [
+              {
+                "event": "end",
+                "expression": "${execution.setVariable(\"contractDownloadLink\" , cmsContract._links['urn:eim:linkrel:download-media'].href)}",
+                "isMailNotification": false,
+                "isExecuteScriptEnabled": false,
+                "publishToEventService": false,
+                "publishToApplicationContext": false
+              }
+            ]
+          },
+          "multiinstancegroupheader": "",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": "",
+          "useCurrentAuthToken": "true"
+        },
+        "stencil": {
+          "id": "HttpTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-0F987CCC-F755-4012-A5DA-7BB22B01D828"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 205,
+            "y": 635.0000000000002
+          },
+          "upperLeft": {
+            "x": 105,
+            "y": 555.0000000000002
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-55562E44-0DCE-4F56-80CF-19B2947514B3",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-55562E44-0DCE-4F56-80CF-19B2947514B3",
+          "name": "",
+          "executiongroupheader": "",
+          "executionlisteners": {
+            "executionListeners": []
+          }
+        },
+        "stencil": {
+          "id": "EndNoneEvent"
+        },
+        "childShapes": [],
+        "outgoing": [],
+        "bounds": {
+          "lowerRight": {
+            "x": 1133,
+            "y": 609
+          },
+          "upperLeft": {
+            "x": 1105,
+            "y": 581
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-3A3D6A3F-01DB-4341-9A5C-8D2E43D3CC5C",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-3A3D6A3F-01DB-4341-9A5C-8D2E43D3CC5C",
+          "name": "\nLine Manager Approval",
+          "detailsgroupheader": "",
+          "usertaskassignment": {
+            "assignment": {
+              "type": "static",
+              "assignee": "$INITIATOR"
+            }
+          },
+          "usertasknature": "",
+          "duedatedefinition": "",
+          "prioritydefinition": "",
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "isforcompensation": false,
+          "exclusivedefinition": true,
+          "skipexpression": "",
+          "tasklisteners": {
+            "taskListeners": []
+          },
+          "executionlisteners": {
+            "executionListeners": []
+          },
+          "completioncondition": "",
+          "tasktype": "approval",
+          "outcomevariable": "approvalStatus",
+          "possibleoutcomes": "Approve:approved,Reject:rejected",
+          "categorydefinition": "http://opentext.com/devx/contract",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": "",
+          "formkeydefinition": "",
+          "formfieldvalidation": "true",
+          "formproperties": "",
+          "formreference": ""
+        },
+        "stencil": {
+          "id": "UserTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-298526A9-750D-44DC-AB64-6AC732CC98FC"
+          },
+          {
+            "resourceId": "sid-D8B65818-C1ED-45AE-BE4E-E6DC8586ABD9"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 360,
+            "y": 292.49999403953575
+          },
+          "upperLeft": {
+            "x": 260,
+            "y": 212.49999403953575
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-EA6DB01D-341E-406A-A5E6-D30EC878B545",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-EA6DB01D-341E-406A-A5E6-D30EC878B545",
+          "name": "",
+          "detailsgroupheader": "",
+          "sequencefloworder": "",
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "exclusivedefinition": true,
+          "executionlisteners": {
+            "executionListeners": []
+          }
+        },
+        "stencil": {
+          "id": "ExclusiveGateway"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-7F2E4301-E7FE-4A6D-9709-72F8BF2BF041"
+          },
+          {
+            "resourceId": "sid-B25D7EC4-1121-469A-A69F-01277AC0C46B"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 330,
+            "y": 615
+          },
+          "upperLeft": {
+            "x": 290,
+            "y": 575
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-9199CA54-7287-4F51-B61C-E08A2FF4B035",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-9199CA54-7287-4F51-B61C-E08A2FF4B035",
+          "name": "",
+          "detailsgroupheader": "",
+          "sequencefloworder": "",
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "exclusivedefinition": true,
+          "executionlisteners": {
+            "executionListeners": []
+          }
+        },
+        "stencil": {
+          "id": "ExclusiveGateway"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-87065CE0-E606-434C-9477-5F5A6B5ACA2E"
+          },
+          {
+            "resourceId": "sid-E03766E6-2675-443F-827D-55A24E6B8CC3"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 465,
+            "y": 365
+          },
+          "upperLeft": {
+            "x": 425,
+            "y": 325
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-813D6462-240D-4F87-86A6-F0B343DB651B",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-813D6462-240D-4F87-86A6-F0B343DB651B",
+          "name": "Set contract status to REJECTED",
+          "detailsgroupheader": "",
+          "authenticationdetails": {
+            "useCurrentAuthToken": true
+          },
+          "httptaskrequestmethod": "PATCH",
+          "httptaskrequesturl": "{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}",
+          "httptaskrequestheaders": "Content-Type:  application/json",
+          "httptaskrequestbody": "{\n  \"properties\": {\n    \"status\": \"REJECTED\"\n  }\n}",
+          "httptaskrequestbodyencoding": "",
+          "httptaskrequesttimeout": "",
+          "httptaskdisallowredirects": "",
+          "httptaskfailstatuscodes": "",
+          "httptaskhandlestatuscodes": "",
+          "httptaskignoreexception": "",
+          "httptaskresponsevariablename": "cmsContract",
+          "httptasksaverequestvariables": "",
+          "httptasksaveresponseparameters": "",
+          "httptaskresultvariableprefix": "",
+          "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasjson": true,
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "isforcompensation": false,
+          "exclusivedefinition": true,
+          "skipexpression": "",
+          "executionlisteners": {
+            "executionListeners": []
+          },
+          "multiinstancegroupheader": "",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": ""
+        },
+        "stencil": {
+          "id": "HttpTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-AEABE21D-4CB9-49F6-BBAD-5E5CAE0604F4"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 940,
+            "y": 210
+          },
+          "upperLeft": {
+            "x": 840,
+            "y": 130
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-954EEBE4-464A-4885-BD09-2364A6A772E7",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-954EEBE4-464A-4885-BD09-2364A6A772E7",
+          "name": "Set contract status to APPROVED",
+          "detailsgroupheader": "",
+          "authenticationdetails": {
+            "useCurrentAuthToken": true
+          },
+          "httptaskrequestmethod": "PATCH",
+          "httptaskrequesturl": "{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}",
+          "httptaskrequestheaders": "Content-Type:  application/json",
+          "httptaskrequestbody": "{\n  \"properties\": {\n    \"status\": \"APPROVED\"\n  }\n}",
+          "httptaskrequestbodyencoding": "",
+          "httptaskrequesttimeout": "",
+          "httptaskdisallowredirects": "",
+          "httptaskfailstatuscodes": "",
+          "httptaskhandlestatuscodes": "",
+          "httptaskignoreexception": "",
+          "httptaskresponsevariablename": "cmsContract",
+          "httptasksaverequestvariables": "",
+          "httptasksaveresponseparameters": "",
+          "httptaskresultvariableprefix": "",
+          "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasjson": true,
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "isforcompensation": false,
+          "exclusivedefinition": true,
+          "skipexpression": "",
+          "executionlisteners": {
+            "executionListeners": []
+          },
+          "multiinstancegroupheader": "",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": ""
+        },
+        "stencil": {
+          "id": "HttpTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-E2C4C011-B360-416C-B7CE-74D5C7DB76BA"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 765.1851831683842,
+            "y": 635.0000000000002
+          },
+          "upperLeft": {
+            "x": 665.1851831683842,
+            "y": 555.0000000000002
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-F93E8184-419E-4025-9A7C-4C78D3264E0D",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-F93E8184-419E-4025-9A7C-4C78D3264E0D",
+          "name": "Set  contract status to\nLINE MANAGER\nAPPROVAL",
+          "detailsgroupheader": "",
+          "authenticationdetails": {
+            "useCurrentAuthToken": true
+          },
+          "httptaskrequestmethod": "PATCH",
+          "httptaskrequesturl": "{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}",
+          "httptaskrequestheaders": "Content-Type: application/json",
+          "httptaskrequestbody": "{\n  \"properties\": {\n    \"status\": \"LINE MANAGER APPROVAL\"\n  },\n  \"traits\": {\n    \"ca_approval\": {\n      \"Line Manager Approval\": {\n        \"is_required\": true,\n        \"has_been_granted\": false,\n        \"approver\": \"${cmsContract.updated_by.email}\",\n        \"approver_role\": \"Line Manager\"\n      }\n    }\n  }\n}",
+          "httptaskrequestbodyencoding": "",
+          "httptaskrequesttimeout": "",
+          "httptaskdisallowredirects": "",
+          "httptaskfailstatuscodes": "",
+          "httptaskhandlestatuscodes": "",
+          "httptaskignoreexception": "",
+          "httptaskresponsevariablename": "cmsContract",
+          "httptasksaverequestvariables": "",
+          "httptasksaveresponseparameters": "",
+          "httptaskresultvariableprefix": "",
+          "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasjson": true,
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "isforcompensation": false,
+          "exclusivedefinition": true,
+          "skipexpression": "",
+          "executionlisteners": {
+            "executionListeners": []
+          },
+          "multiinstancegroupheader": "",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": ""
+        },
+        "stencil": {
+          "id": "HttpTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-7C01B07B-1C54-4B87-AFF9-502E66391F4F"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 360,
+            "y": 407.5
+          },
+          "upperLeft": {
+            "x": 260,
+            "y": 327.5
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-136B973F-1CF8-44AC-87D6-E6370732659A",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-136B973F-1CF8-44AC-87D6-E6370732659A",
+          "name": "messageEvent",
+          "detailsgroupheader": "",
+          "messageref": "contractId",
+          "interrupting": true,
+          "executiongroupheader": "",
+          "executionlisteners": {
+            "executionListeners": []
+          }
+        },
+        "stencil": {
+          "id": "StartMessageEvent"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-C6429308-25D1-47EF-B842-94D95EFD9F21"
+          },
+          {
+            "resourceId": "sid-B969B23B-BEDA-4DB4-AC37-D79971886D84"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 70.5,
+            "y": 610
+          },
+          "upperLeft": {
+            "x": 40,
+            "y": 580
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32",
+          "name": "Set contract status to EXPIRED",
+          "detailsgroupheader": "",
+          "authenticationdetails": {
+            "useCurrentAuthToken": true
+          },
+          "httptaskrequestmethod": "PATCH",
+          "httptaskrequesturl": "{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}",
+          "httptaskrequestheaders": "Content-Type:  application/json",
+          "httptaskrequestbody": "{\n  \"properties\": {\n    \"status\": \"EXPIRED\"\n  }\n}",
+          "httptaskrequestbodyencoding": "",
+          "httptaskrequesttimeout": "",
+          "httptaskdisallowredirects": "",
+          "httptaskfailstatuscodes": "",
+          "httptaskhandlestatuscodes": "",
+          "httptaskignoreexception": "",
+          "httptaskresponsevariablename": "cmsContract",
+          "httptasksaverequestvariables": "",
+          "httptasksaveresponseparameters": "",
+          "httptaskresultvariableprefix": "",
+          "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasjson": true,
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "isforcompensation": false,
+          "exclusivedefinition": true,
+          "skipexpression": "",
+          "executionlisteners": {
+            "executionListeners": []
+          },
+          "multiinstancegroupheader": "",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": ""
+        },
+        "stencil": {
+          "id": "HttpTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-1D9A199D-4F5F-4AF9-BACD-B6C5BBF8E739"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 1059,
+            "y": 120
+          },
+          "upperLeft": {
+            "x": 959,
+            "y": 40
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-B29D9B58-4814-4B98-83A2-5A63665280AD",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-B29D9B58-4814-4B98-83A2-5A63665280AD",
+          "name": "Send Email on contract status",
+          "detailsgroupheader": "",
+          "mailtaskheaders": "",
+          "mailtaskto": "${cmsContract.properties.requester_email}",
+          "mailtaskfrom": "noreply@opentext.com",
+          "mailtasksubject": "Contract Status",
+          "mailtaskcc": "",
+          "mailtaskbcc": "",
+          "mailtasktext": "Contract: ${cmsContract.name}\nStatus: ${cmsContract.properties.status}",
+          "mailtasktextvar": "",
+          "mailtaskhtml": "",
+          "mailtaskhtmlvar": "",
+          "mailtaskcharset": "",
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "isforcompensation": false,
+          "exclusivedefinition": true,
+          "executionlisteners": {
+            "executionListeners": []
+          },
+          "multiinstancegroupheader": "",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": ""
+        },
+        "stencil": {
+          "id": "MailTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-7DE0E9C5-F4BE-4268-8EC3-F93A5B67A621"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 1059,
+            "y": 635.0000000000002
+          },
+          "upperLeft": {
+            "x": 959,
+            "y": 555.0000000000002
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-1D9A199D-4F5F-4AF9-BACD-B6C5BBF8E739",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-1D9A199D-4F5F-4AF9-BACD-B6C5BBF8E739",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": ""
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-B29D9B58-4814-4B98-83A2-5A63665280AD"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 1009,
+            "y": 554.7714843750002
+          },
+          "upperLeft": {
+            "x": 1009,
+            "y": 120.22851562500003
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 40
+          },
+          {
+            "x": 50,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-B29D9B58-4814-4B98-83A2-5A63665280AD"
+        }
+      },
+      {
+        "resourceId": "sid-C6429308-25D1-47EF-B842-94D95EFD9F21",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-C6429308-25D1-47EF-B842-94D95EFD9F21",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": ""
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-E590B3E4-B9A9-4E78-844D-D2586FBF303F"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 104.125,
+            "y": 595.0000000000001
+          },
+          "upperLeft": {
+            "x": 71.056640625,
+            "y": 595
+          }
+        },
+        "dockers": [
+          {
+            "x": 15.25,
+            "y": 15
+          },
+          {
+            "x": 50,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-E590B3E4-B9A9-4E78-844D-D2586FBF303F"
+        }
+      },
+      {
+        "resourceId": "sid-7C01B07B-1C54-4B87-AFF9-502E66391F4F",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-7C01B07B-1C54-4B87-AFF9-502E66391F4F",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": ""
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-3A3D6A3F-01DB-4341-9A5C-8D2E43D3CC5C"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 310,
+            "y": 326.96874795109045
+          },
+          "upperLeft": {
+            "x": 310,
+            "y": 293.0312460884453
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 40
+          },
+          {
+            "x": 50,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-3A3D6A3F-01DB-4341-9A5C-8D2E43D3CC5C"
+        }
+      },
+      {
+        "resourceId": "sid-7DE0E9C5-F4BE-4268-8EC3-F93A5B67A621",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-7DE0E9C5-F4BE-4268-8EC3-F93A5B67A621",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": ""
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-55562E44-0DCE-4F56-80CF-19B2947514B3"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 1104.25,
+            "y": 595.0000000000002
+          },
+          "upperLeft": {
+            "x": 1059.84375,
+            "y": 595
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 40
+          },
+          {
+            "x": 14,
+            "y": 14
+          }
+        ],
+        "target": {
+          "resourceId": "sid-55562E44-0DCE-4F56-80CF-19B2947514B3"
+        }
+      },
+      {
+        "resourceId": "sid-00FA21DA-98F9-454E-8445-BACFE3A7B8DF",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-00FA21DA-98F9-454E-8445-BACFE3A7B8DF",
+          "name": "",
+          "detailsgroupheader": "",
+          "sequencefloworder": "",
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "exclusivedefinition": true,
+          "executionlisteners": {
+            "executionListeners": []
+          }
+        },
+        "stencil": {
+          "id": "ExclusiveGateway"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-8C1AE1DC-47D4-4965-85F9-A415364A3E90"
+          },
+          {
+            "resourceId": "sid-29CC5B28-7D23-4689-A25D-15387F2F999E"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 535,
+            "y": 615
+          },
+          "upperLeft": {
+            "x": 495,
+            "y": 575
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-29CC5B28-7D23-4689-A25D-15387F2F999E",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-29CC5B28-7D23-4689-A25D-15387F2F999E",
+          "name": "Contract risk <= 3",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": true,
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-954EEBE4-464A-4885-BD09-2364A6A772E7"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 664.8068403417494,
+            "y": 595.0000000000002
+          },
+          "upperLeft": {
+            "x": 535.1312594707233,
+            "y": 595
+          }
+        },
+        "dockers": [
+          {
+            "x": 36.984375,
+            "y": 20
+          },
+          {
+            "x": 50,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-954EEBE4-464A-4885-BD09-2364A6A772E7"
+        }
+      },
+      {
+        "resourceId": "sid-DF059491-6002-439D-9796-82A3D4528966",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-DF059491-6002-439D-9796-82A3D4528966",
+          "name": "",
+          "detailsgroupheader": "",
+          "text": "CMS CONTRACT STATES :\n\n    CREATED\n    SOLVENCY CHECK\n    LINE MANAGER APPROVAL\n    RISK MANAGER APPROVAL\n    REJECTED\n    APPROVED\n    EXPIRED"
+        },
+        "stencil": {
+          "id": "TextAnnotation"
+        },
+        "childShapes": [],
+        "outgoing": [],
+        "bounds": {
+          "lowerRight": {
+            "x": 532.0258974954527,
+            "y": 752.6322125928299
+          },
+          "upperLeft": {
+            "x": 357.9741025045473,
+            "y": 633.1553505147373
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-F28F0926-548C-42FE-9AEC-DB70028E8113",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-F28F0926-548C-42FE-9AEC-DB70028E8113",
+          "name": "",
+          "detailsgroupheader": "",
+          "text": "Input :\n    contract_id\n    Contract has status CREATED"
+        },
+        "stencil": {
+          "id": "TextAnnotation"
+        },
+        "childShapes": [],
+        "outgoing": [],
+        "bounds": {
+          "lowerRight": {
+            "x": 255.1584333654696,
+            "y": 715.7875631075672
+          },
+          "upperLeft": {
+            "x": 60,
+            "y": 665
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-16239016-00AA-4E10-A05C-B135C9E63654",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-16239016-00AA-4E10-A05C-B135C9E63654",
+          "name": "Set contract status to RISK MANAGER\nAPPROVAL",
+          "detailsgroupheader": "",
+          "authenticationdetails": {
+            "useCurrentAuthToken": true
+          },
+          "httptaskrequestmethod": "PATCH",
+          "httptaskrequesturl": "{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}",
+          "httptaskrequestheaders": "Content-Type: application/json",
+          "httptaskrequestbody": "{\n  \"properties\": {\n    \"status\": \"RISK MANAGER APPROVAL\"\n  },\n  \"traits\": {\n    \"ca_approval\": {\n      \"Risk Manager Approval\": {\n        \"is_required\": true,\n        \"has_been_granted\": false,\n        \"approver\": \"${cmsContract.updated_by.email}\",\n        \"approver_role\": \"Risk Manager\"\n      }\n    }\n  }\n}",
+          "httptaskrequestbodyencoding": "",
+          "httptaskrequesttimeout": "",
+          "httptaskdisallowredirects": "",
+          "httptaskfailstatuscodes": "",
+          "httptaskhandlestatuscodes": "",
+          "httptaskignoreexception": "",
+          "httptaskresponsevariablename": "cmsContract",
+          "httptasksaverequestvariables": "",
+          "httptasksaveresponseparameters": "",
+          "httptaskresultvariableprefix": "",
+          "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasjson": true,
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "isforcompensation": false,
+          "exclusivedefinition": true,
+          "skipexpression": "",
+          "executionlisteners": {
+            "executionListeners": []
+          },
+          "multiinstancegroupheader": "",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": ""
+        },
+        "stencil": {
+          "id": "HttpTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-5B0968EE-D880-4C1D-8BBB-216EAA13D97C"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 565,
+            "y": 450
+          },
+          "upperLeft": {
+            "x": 465,
+            "y": 370
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-8C1AE1DC-47D4-4965-85F9-A415364A3E90",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-8C1AE1DC-47D4-4965-85F9-A415364A3E90",
+          "name": "Contract risk > 3",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "${cmsContract.properties.risk_classification > 3}",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-16239016-00AA-4E10-A05C-B135C9E63654"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 515,
+            "y": 574.609375
+          },
+          "upperLeft": {
+            "x": 515,
+            "y": 450.5703125
+          }
+        },
+        "dockers": [
+          {
+            "x": 20,
+            "y": 20
+          },
+          {
+            "x": 50,
+            "y": 79
+          }
+        ],
+        "target": {
+          "resourceId": "sid-16239016-00AA-4E10-A05C-B135C9E63654"
+        }
+      },
+      {
+        "resourceId": "sid-7E2E0213-11EA-4AF7-8CF1-C554A5E0917C",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-7E2E0213-11EA-4AF7-8CF1-C554A5E0917C",
+          "name": "\nRisk Manager Approval",
+          "detailsgroupheader": "",
+          "usertaskassignment": {
+            "assignment": {
+              "type": "static",
+              "assignee": "$INITIATOR"
+            }
+          },
+          "usertasknature": "",
+          "duedatedefinition": "",
+          "prioritydefinition": "",
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "isforcompensation": false,
+          "exclusivedefinition": true,
+          "skipexpression": "",
+          "tasklisteners": {
+            "taskListeners": []
+          },
+          "executionlisteners": {
+            "executionListeners": []
+          },
+          "completioncondition": "",
+          "tasktype": "approval",
+          "outcomevariable": "approvalStatus",
+          "possibleoutcomes": "Approve:approved,Reject:rejected",
+          "categorydefinition": "http://opentext.com/devx/contract",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": "",
+          "formkeydefinition": "",
+          "formfieldvalidation": "true",
+          "formproperties": "",
+          "formreference": ""
+        },
+        "stencil": {
+          "id": "UserTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-6EC99527-2F85-4CE4-82FE-4113AEFCE928"
+          },
+          {
+            "resourceId": "sid-32478872-C584-4B6A-84D7-1679CADF7CC0"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 705,
+            "y": 450
+          },
+          "upperLeft": {
+            "x": 605,
+            "y": 370
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-5B0968EE-D880-4C1D-8BBB-216EAA13D97C",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": ""
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-7E2E0213-11EA-4AF7-8CF1-C554A5E0917C"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 604.78125,
+            "y": 410
+          },
+          "upperLeft": {
+            "x": 565.21875,
+            "y": 410
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 40
+          },
+          {
+            "x": 50,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-7E2E0213-11EA-4AF7-8CF1-C554A5E0917C"
+        }
+      },
+      {
+        "resourceId": "sid-AEABE21D-4CB9-49F6-BBAD-5E5CAE0604F4",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-AEABE21D-4CB9-49F6-BBAD-5E5CAE0604F4",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-B29D9B58-4814-4B98-83A2-5A63665280AD"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 1009,
+            "y": 554.1562500000002
+          },
+          "upperLeft": {
+            "x": 940.546875,
+            "y": 170
+          }
+        },
+        "dockers": [
+          {
+            "x": 99,
+            "y": 40
+          },
+          {
+            "x": 1009,
+            "y": 170
+          },
+          {
+            "x": 50,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-B29D9B58-4814-4B98-83A2-5A63665280AD"
+        }
+      },
+      {
+        "resourceId": "sid-6EC99527-2F85-4CE4-82FE-4113AEFCE928",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-6EC99527-2F85-4CE4-82FE-4113AEFCE928",
+          "name": "Wait",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "timercycledefinition": "",
+          "timerdatedefinition": "",
+          "timerdurationdefinition": "PT5M",
+          "timerenddatedefinition": "",
+          "cancelactivity": true,
+          "executiongroupheader": "",
+          "executionlisteners": {
+            "executionListeners": []
+          }
+        },
+        "stencil": {
+          "id": "BoundaryTimerEvent"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-9608443B-A9B9-4476-9863-3BC649920E67"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 670.5,
+            "y": 385.31201171875
+          },
+          "upperLeft": {
+            "x": 639.5,
+            "y": 354.31201171875
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 6
+          }
+        ]
+      },
+      {
+        "resourceId": "sid-B969B23B-BEDA-4DB4-AC37-D79971886D84",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-B969B23B-BEDA-4DB4-AC37-D79971886D84",
+          "name": ""
+        },
+        "stencil": {
+          "id": "Association"
+        },
+        "childShapes": [],
+        "outgoing": [],
+        "bounds": {
+          "lowerRight": {
+            "x": 68,
+            "y": 665
+          },
+          "upperLeft": {
+            "x": 58.01903837793994,
+            "y": 610.2025636435918
+          }
+        },
+        "dockers": [
+          {
+            "x": 15.25,
+            "y": 15
+          },
+          {
+            "x": 68,
+            "y": 665
+          }
+        ]
+      },
+      {
+        "resourceId": "sid-FADFD865-1F38-4E89-A316-64F9F902FC97",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-FADFD865-1F38-4E89-A316-64F9F902FC97",
+          "name": "",
+          "detailsgroupheader": "",
+          "sequencefloworder": "",
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "exclusivedefinition": true,
+          "executionlisteners": {
+            "executionListeners": []
+          }
+        },
+        "stencil": {
+          "id": "ExclusiveGateway"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-AC8797D2-D4F9-4A2B-BB7E-2F5E6332096D"
+          },
+          {
+            "resourceId": "sid-07F352C7-FFC8-45EF-8EB3-8B6662823623"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 910,
+            "y": 430
+          },
+          "upperLeft": {
+            "x": 870,
+            "y": 390
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-E2C4C011-B360-416C-B7CE-74D5C7DB76BA",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-E2C4C011-B360-416C-B7CE-74D5C7DB76BA",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-71E692E1-6548-4A4E-8B8F-7B2508E1E261"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 810.370367808488,
+            "y": 595.0000000000002
+          },
+          "upperLeft": {
+            "x": 765.7806689984378,
+            "y": 595.0000000000002
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 40
+          },
+          {
+            "x": 1,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-71E692E1-6548-4A4E-8B8F-7B2508E1E261"
+        }
+      },
+      {
+        "resourceId": "sid-71E692E1-6548-4A4E-8B8F-7B2508E1E261",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-71E692E1-6548-4A4E-8B8F-7B2508E1E261",
+          "name": "Update Automatic Approval trait",
+          "detailsgroupheader": "",
+          "authenticationdetails": {
+            "useCurrentAuthToken": true
+          },
+          "httptaskrequestmethod": "PATCH",
+          "httptaskrequesturl": "{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}",
+          "httptaskrequestheaders": "Content-Type:  application/json",
+          "httptaskrequestbody": "{\n  \"traits\": {\n    \"ca_approval\": {\n      \"Automatic Approval\": {\n        \"has_been_granted\": true,\n        \"approver\": \"SYSTEM\",\n        \"approver_role\": \"Automatic Approval\",\n        \"approval_date\": \"${cmsContract.update_time}\"\n      }\n    }\n  }\n}",
+          "httptaskrequestbodyencoding": "",
+          "httptaskrequesttimeout": "",
+          "httptaskdisallowredirects": "",
+          "httptaskfailstatuscodes": "",
+          "httptaskhandlestatuscodes": "",
+          "httptaskignoreexception": "",
+          "httptaskresponsevariablename": "cmsContract",
+          "httptasksaverequestvariables": "",
+          "httptasksaveresponseparameters": "",
+          "httptaskresultvariableprefix": "",
+          "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasjson": true,
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "isforcompensation": false,
+          "exclusivedefinition": true,
+          "skipexpression": "",
+          "executionlisteners": {
+            "executionListeners": []
+          },
+          "multiinstancegroupheader": "",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": ""
+        },
+        "stencil": {
+          "id": "HttpTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-D67C2135-D0BD-407A-BA05-4AFD32BBF255"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 910.370367808488,
+            "y": 635.0000000000002
+          },
+          "upperLeft": {
+            "x": 810.370367808488,
+            "y": 555.0000000000002
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-D67C2135-D0BD-407A-BA05-4AFD32BBF255",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": ""
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-B29D9B58-4814-4B98-83A2-5A63665280AD"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 958.069732935664,
+            "y": 595.0000000000002
+          },
+          "upperLeft": {
+            "x": 911.300634872824,
+            "y": 595.0000000000002
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 40
+          },
+          {
+            "x": 50,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-B29D9B58-4814-4B98-83A2-5A63665280AD"
+        }
+      },
+      {
+        "resourceId": "sid-080878C5-DEF7-45E3-87E6-8BA7F86A180E",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-080878C5-DEF7-45E3-87E6-8BA7F86A180E",
+          "name": "Update Line Manager Approval trait",
+          "detailsgroupheader": "",
+          "authenticationdetails": {
+            "useCurrentAuthToken": true
+          },
+          "httptaskrequestmethod": "PATCH",
+          "httptaskrequesturl": "{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}",
+          "httptaskrequestheaders": "Content-Type:  application/json",
+          "httptaskrequestbody": "{\n  \"traits\": {\n    \"ca_approval\": {\n      \"Line Manager Approval\": {\n        \"is_required\": true,\n        \"has_been_granted\": ${approvalStatus == \"approved\"},\n        \"approver\": \"${cmsContract.updated_by.email}\",\n        \"approver_role\": \"Line Manager\",\n        \"approval_date\": \"${cmsContract.update_time}\"\n      }\n    }\n  }\n}",
+          "httptaskrequestbodyencoding": "",
+          "httptaskrequesttimeout": "",
+          "httptaskdisallowredirects": "",
+          "httptaskfailstatuscodes": "",
+          "httptaskhandlestatuscodes": "",
+          "httptaskignoreexception": "",
+          "httptaskresponsevariablename": "cmsContract",
+          "httptasksaverequestvariables": "",
+          "httptasksaveresponseparameters": "",
+          "httptaskresultvariableprefix": "",
+          "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasjson": true,
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "isforcompensation": false,
+          "exclusivedefinition": true,
+          "skipexpression": "",
+          "executionlisteners": {
+            "executionListeners": []
+          },
+          "multiinstancegroupheader": "",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": ""
+        },
+        "stencil": {
+          "id": "HttpTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-88DFC27F-4003-44AA-99B8-69CD31ED088B"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 495,
+            "y": 292.49999403953575
+          },
+          "upperLeft": {
+            "x": 395,
+            "y": 212.49999403953575
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-1A9380E9-CC92-44FC-82AB-1CDBD83551D5",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-1A9380E9-CC92-44FC-82AB-1CDBD83551D5",
+          "name": "Update Risk Manager Approval trait",
+          "detailsgroupheader": "",
+          "authenticationdetails": {
+            "useCurrentAuthToken": true
+          },
+          "httptaskrequestmethod": "PATCH",
+          "httptaskrequesturl": "{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}",
+          "httptaskrequestheaders": "Content-Type:  application/json",
+          "httptaskrequestbody": "{\n  \"traits\": {\n    \"ca_approval\": {\n      \"Risk Manager Approval\": {\n        \"is_required\": true,\n        \"has_been_granted\": ${approvalStatus == \"approved\"},\n        \"approver\": \"${cmsContract.updated_by.email}\",\n        \"approver_role\": \"Risk Manager\",\n        \"approval_date\": \"${cmsContract.update_time}\"\n      }\n    }\n  }\n}",
+          "httptaskrequestbodyencoding": "",
+          "httptaskrequesttimeout": "",
+          "httptaskdisallowredirects": "",
+          "httptaskfailstatuscodes": "",
+          "httptaskhandlestatuscodes": "",
+          "httptaskignoreexception": "",
+          "httptaskresponsevariablename": "cmsContract",
+          "httptasksaverequestvariables": "",
+          "httptasksaveresponseparameters": "",
+          "httptaskresultvariableprefix": "",
+          "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasjson": true,
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "isforcompensation": false,
+          "exclusivedefinition": true,
+          "skipexpression": "",
+          "executionlisteners": {
+            "executionListeners": []
+          },
+          "multiinstancegroupheader": "",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": ""
+        },
+        "stencil": {
+          "id": "HttpTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-B95D272A-3391-4D1C-8D05-E9451BC3E836"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 835,
+            "y": 450
+          },
+          "upperLeft": {
+            "x": 735,
+            "y": 370
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-6DA2389F-EF4F-44CC-86F1-E35A702CDA2F",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "Calculate solvency",
+          "detailsgroupheader": "",
+          "scriptformat": "JavaScript",
+          "scripttext": "var contractDetails = JSON.parse(execution.getVariable(\"cmsContract\"));\nvar monthlyPayments = contractDetails.properties.value / contractDetails.properties.monthly_installments;\nvar monthlyBudget = contractDetails.properties.yearly_income / 12 / 4;\n\nexecution.setVariable(\"solvent\", monthlyBudget >= monthlyPayments);",
+          "scriptautostorevariables": "false",
+          "executiongroupheader": "",
+          "asynchronousdefinition": "false",
+          "isforcompensation": "false",
+          "exclusivedefinition": "false",
+          "executionlisteners": "",
+          "multiinstancegroupheader": "",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": ""
+        },
+        "stencil": {
+          "id": "ScriptTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-6E8BB12E-6806-426B-9B1D-A6318821D419"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 205,
+            "y": 270
+          },
+          "upperLeft": {
+            "x": 105,
+            "y": 190
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-D0D99437-FA0B-4D80-8680-32CA98439388",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "sequencefloworder": "",
+          "executiongroupheader": "",
+          "asynchronousdefinition": "false",
+          "exclusivedefinition": true
+        },
+        "stencil": {
+          "id": "ExclusiveGateway"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-B73560BD-2B5A-4344-8A7F-570815FC192A"
+          },
+          {
+            "resourceId": "sid-304ACB7C-9B0C-44FB-B644-E197BFBACFCC"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 175,
+            "y": 530
+          },
+          "upperLeft": {
+            "x": 135,
+            "y": 490
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-B25D7EC4-1121-469A-A69F-01277AC0C46B",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-B25D7EC4-1121-469A-A69F-01277AC0C46B",
+          "name": "Contract value <= 1000",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": true,
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": ""
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-00FA21DA-98F9-454E-8445-BACFE3A7B8DF"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 494.78125,
+            "y": 595
+          },
+          "upperLeft": {
+            "x": 330.21875,
+            "y": 595
+          }
+        },
+        "dockers": [
+          {
+            "x": 20,
+            "y": 20
+          },
+          {
+            "x": 20,
+            "y": 20
+          }
+        ],
+        "target": {
+          "resourceId": "sid-00FA21DA-98F9-454E-8445-BACFE3A7B8DF"
+        }
+      },
+      {
+        "resourceId": "sid-7F2E4301-E7FE-4A6D-9709-72F8BF2BF041",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-7F2E4301-E7FE-4A6D-9709-72F8BF2BF041",
+          "name": "Contract value > 1000",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "${cmsContract.properties.value > 1000}",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-F93E8184-419E-4025-9A7C-4C78D3264E0D"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 310,
+            "y": 574.85546875
+          },
+          "upperLeft": {
+            "x": 310,
+            "y": 408.236328125
+          }
+        },
+        "dockers": [
+          {
+            "x": 20,
+            "y": 20
+          },
+          {
+            "x": 50,
+            "y": 79
+          }
+        ],
+        "target": {
+          "resourceId": "sid-F93E8184-419E-4025-9A7C-4C78D3264E0D"
+        }
+      },
+      {
+        "resourceId": "sid-7B796F07-D6FF-4A9F-B9F4-2F0DE0708DE6",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "sequencefloworder": "",
+          "executiongroupheader": "",
+          "asynchronousdefinition": "false",
+          "exclusivedefinition": true
+        },
+        "stencil": {
+          "id": "ExclusiveGateway"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-338BF5D8-4C4D-4F7B-806E-A220CC32F253"
+          },
+          {
+            "resourceId": "sid-C0207950-4C48-4DC2-B473-89B477285B77"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 175,
+            "y": 49.250506933109534
+          },
+          "upperLeft": {
+            "x": 135,
+            "y": 9.250506933109534
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-0F987CCC-F755-4012-A5DA-7BB22B01D828",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-D0D99437-FA0B-4D80-8680-32CA98439388"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 155,
+            "y": 555.0000000000002
+          },
+          "upperLeft": {
+            "x": 155,
+            "y": 529.6875
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 1
+          },
+          {
+            "x": 20,
+            "y": 20
+          }
+        ],
+        "target": {
+          "resourceId": "sid-D0D99437-FA0B-4D80-8680-32CA98439388"
+        }
+      },
+      {
+        "resourceId": "sid-64212D03-EFF1-4823-ADA4-60E31D2E416B",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-64212D03-EFF1-4823-ADA4-60E31D2E416B",
+          "name": "Update Solvency Check trait",
+          "detailsgroupheader": "",
+          "authenticationdetails": {
+            "useCurrentAuthToken": true
+          },
+          "httptaskrequestmethod": "PATCH",
+          "httptaskrequesturl": "{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}",
+          "httptaskrequestheaders": "Content-Type:  application/json",
+          "httptaskrequestbody": "{\n  \"traits\": {\n    \"ca_approval\": {\n      \"Solvency Check\": {\n        \"is_required\": true,\n        \"has_been_granted\": ${solvent},\n        \"approver\": \"SYSTEM\",\n        \"approver_role\": \"Solvency Check\",\n        \"approval_date\": \"${cmsContract.update_time}\"\n      }\n    }\n  }\n}",
+          "httptaskrequestbodyencoding": "",
+          "httptaskrequesttimeout": "",
+          "httptaskdisallowredirects": "",
+          "httptaskfailstatuscodes": "",
+          "httptaskhandlestatuscodes": "",
+          "httptaskignoreexception": "",
+          "httptaskresponsevariablename": "cmsContract",
+          "httptasksaverequestvariables": "",
+          "httptasksaveresponseparameters": "",
+          "httptaskresultvariableprefix": "",
+          "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasjson": true,
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "isforcompensation": false,
+          "exclusivedefinition": true,
+          "skipexpression": "",
+          "executionlisteners": {
+            "executionListeners": []
+          },
+          "multiinstancegroupheader": "",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": ""
+        },
+        "stencil": {
+          "id": "HttpTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-B7874D60-0F3E-4E56-BDCB-8AD5CB1DEE6A"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 205,
+            "y": 159.25050693310953
+          },
+          "upperLeft": {
+            "x": 105,
+            "y": 79.25050693310953
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-07F352C7-FFC8-45EF-8EB3-8B6662823623",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "Rejected",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": {
+            "expression": {
+              "type": "static",
+              "staticValue": "${approvalStatus == \"rejected\"}"
+            }
+          },
+          "defaultflow": false,
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-813D6462-240D-4F87-86A6-F0B343DB651B"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 890,
+            "y": 389.58344099987784
+          },
+          "upperLeft": {
+            "x": 890,
+            "y": 210.73219129435435
+          }
+        },
+        "dockers": [
+          {
+            "x": 20,
+            "y": 6.4409713547125875
+          },
+          {
+            "x": 50,
+            "y": 79
+          }
+        ],
+        "target": {
+          "resourceId": "sid-813D6462-240D-4F87-86A6-F0B343DB651B"
+        }
+      },
+      {
+        "resourceId": "sid-B7874D60-0F3E-4E56-BDCB-8AD5CB1DEE6A",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-7B796F07-D6FF-4A9F-B9F4-2F0DE0708DE6"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 155,
+            "y": 79.25050693310953
+          },
+          "upperLeft": {
+            "x": 155,
+            "y": 49.3727373463426
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 1
+          },
+          {
+            "x": 20,
+            "y": 7.244460826466138
+          }
+        ],
+        "target": {
+          "resourceId": "sid-7B796F07-D6FF-4A9F-B9F4-2F0DE0708DE6"
+        }
+      },
+      {
+        "resourceId": "sid-C0189B7A-A2C5-44AB-8379-3390F082F0F9",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-6DA2389F-EF4F-44CC-86F1-E35A702CDA2F"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 155,
+            "y": 305
+          },
+          "upperLeft": {
+            "x": 155,
+            "y": 270.578125
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 1
+          },
+          {
+            "x": 50,
+            "y": 79
+          }
+        ],
+        "target": {
+          "resourceId": "sid-6DA2389F-EF4F-44CC-86F1-E35A702CDA2F"
+        }
+      },
+      {
+        "resourceId": "sid-304ACB7C-9B0C-44FB-B644-E197BFBACFCC",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "Standard contract",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": true,
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": ""
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-EA6DB01D-341E-406A-A5E6-D30EC878B545"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 289.96875,
+            "y": 595
+          },
+          "upperLeft": {
+            "x": 166.05311641828598,
+            "y": 519.7408117859603
+          }
+        },
+        "dockers": [
+          {
+            "x": 20.5,
+            "y": 20.5
+          },
+          {
+            "x": 252,
+            "y": 595
+          },
+          {
+            "x": 20,
+            "y": 20
+          }
+        ],
+        "target": {
+          "resourceId": "sid-EA6DB01D-341E-406A-A5E6-D30EC878B545"
+        }
+      },
+      {
+        "resourceId": "sid-E03766E6-2675-443F-827D-55A24E6B8CC3",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-E03766E6-2675-443F-827D-55A24E6B8CC3",
+          "name": "Approved",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": true,
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-00FA21DA-98F9-454E-8445-BACFE3A7B8DF"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 504.35812947754533,
+            "y": 585.7110708981292
+          },
+          "upperLeft": {
+            "x": 445.5,
+            "y": 365.64453125
+          }
+        },
+        "dockers": [
+          {
+            "x": 20.5,
+            "y": 20.5
+          },
+          {
+            "x": 445.5,
+            "y": 534
+          },
+          {
+            "x": 20.5,
+            "y": 20.5
+          }
+        ],
+        "target": {
+          "resourceId": "sid-00FA21DA-98F9-454E-8445-BACFE3A7B8DF"
+        }
+      },
+      {
+        "resourceId": "sid-C0207950-4C48-4DC2-B473-89B477285B77",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "Solvent",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": true,
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-EA6DB01D-341E-406A-A5E6-D30EC878B545"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 301.78551746192005,
+            "y": 582.8084381827963
+          },
+          "upperLeft": {
+            "x": 166.3113213254748,
+            "y": 39.31946548992124
+          }
+        },
+        "dockers": [
+          {
+            "x": 20.5,
+            "y": 20.5
+          },
+          {
+            "x": 236,
+            "y": 101
+          },
+          {
+            "x": 236,
+            "y": 487
+          },
+          {
+            "x": 20.5,
+            "y": 20.5
+          }
+        ],
+        "target": {
+          "resourceId": "sid-EA6DB01D-341E-406A-A5E6-D30EC878B545"
+        }
+      },
+      {
+        "resourceId": "sid-298526A9-750D-44DC-AB64-6AC732CC98FC",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-080878C5-DEF7-45E3-87E6-8BA7F86A180E"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 394.28125,
+            "y": 252.49999403953575
+          },
+          "upperLeft": {
+            "x": 360.671875,
+            "y": 252.49999403953575
+          }
+        },
+        "dockers": [
+          {
+            "x": 99,
+            "y": 40
+          },
+          {
+            "x": 50,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-080878C5-DEF7-45E3-87E6-8BA7F86A180E"
+        }
+      },
+      {
+        "resourceId": "sid-88DFC27F-4003-44AA-99B8-69CD31ED088B",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-88DFC27F-4003-44AA-99B8-69CD31ED088B",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-9199CA54-7287-4F51-B61C-E08A2FF4B035"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 445,
+            "y": 325.2656236961484
+          },
+          "upperLeft": {
+            "x": 445,
+            "y": 293.195306632668
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 79
+          },
+          {
+            "x": 20,
+            "y": 11
+          }
+        ],
+        "target": {
+          "resourceId": "sid-9199CA54-7287-4F51-B61C-E08A2FF4B035"
+        }
+      },
+      {
+        "resourceId": "sid-9199CA54-7287-4F51-B61C-E08A2FF4B057",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-9199CA54-7287-4F51-B61C-E08A2FF4B057",
+          "name": "Wait timeout exceeded",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": {
+            "expression": {
+              "type": "static",
+              "staticValue": "${cmsContract.properties.status == \"LINE MANAGER APPROVAL\"}"
+            }
+          },
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 958.96875,
+            "y": 203.39824607925175
+          },
+          "upperLeft": {
+            "x": 315.6346845216448,
+            "y": 80
+          }
+        },
+        "dockers": [
+          {
+            "x": 15.999999999999998,
+            "y": 15.999999999999998
+          },
+          {
+            "x": 486,
+            "y": 80
+          },
+          {
+            "x": 50,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32"
+        }
+      },
+      {
+        "resourceId": "sid-9608443B-A9B9-4476-9863-3BC649920E67",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "Wait timeout exceeded",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": {
+            "expression": {
+              "type": "static",
+              "staticValue": "${cmsContract.properties.status == \"RISK MANAGER APPROVAL\"}"
+            }
+          },
+          "defaultflow": false,
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 959,
+            "y": 354.5696048736572
+          },
+          "upperLeft": {
+            "x": 655.5,
+            "y": 80
+          }
+        },
+        "dockers": [
+          {
+            "x": 16,
+            "y": 16
+          },
+          {
+            "x": 655.5,
+            "y": 80
+          },
+          {
+            "x": 1,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32"
+        }
+      },
+      {
+        "resourceId": "sid-338BF5D8-4C4D-4F7B-806E-A220CC32F253",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "Not solvent",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": {
+            "expression": {
+              "type": "static",
+              "staticValue": "${!solvent}"
+            }
+          },
+          "defaultflow": false,
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-813D6462-240D-4F87-86A6-F0B343DB651B"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 890,
+            "y": 130
+          },
+          "upperLeft": {
+            "x": 175.1494140625,
+            "y": 29.750506933109534
+          }
+        },
+        "dockers": [
+          {
+            "x": 20.5,
+            "y": 20.5
+          },
+          {
+            "x": 890,
+            "y": 29.750506933109534
+          },
+          {
+            "x": 50,
+            "y": 1
+          }
+        ],
+        "target": {
+          "resourceId": "sid-813D6462-240D-4F87-86A6-F0B343DB651B"
+        }
+      },
+      {
+        "resourceId": "sid-D8B65818-C1ED-45AE-BE4E-E6DC8586ABD9",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-D8B65818-C1ED-45AE-BE4E-E6DC8586ABD9",
+          "name": "Wait",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "timercycledefinition": "",
+          "timerdatedefinition": "",
+          "timerdurationdefinition": "PT5M",
+          "timerenddatedefinition": "",
+          "cancelactivity": true,
+          "executiongroupheader": "",
+          "executionlisteners": {
+            "executionListeners": []
+          }
+        },
+        "stencil": {
+          "id": "BoundaryTimerEvent"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-9199CA54-7287-4F51-B61C-E08A2FF4B057"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 318.4131314527657,
+            "y": 227.25050693310953
+          },
+          "upperLeft": {
+            "x": 287.4131314527657,
+            "y": 196.25050693310953
+          }
+        },
+        "dockers": [
+          {
+            "x": 44,
+            "y": 5.50000596046425
+          }
+        ]
+      },
+      {
+        "resourceId": "sid-32478872-C584-4B6A-84D7-1679CADF7CC0",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": ""
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-1A9380E9-CC92-44FC-82AB-1CDBD83551D5"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 734.234375,
+            "y": 410
+          },
+          "upperLeft": {
+            "x": 705.765625,
+            "y": 410
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 40
+          },
+          {
+            "x": 50,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-1A9380E9-CC92-44FC-82AB-1CDBD83551D5"
+        }
+      },
+      {
+        "resourceId": "sid-B95D272A-3391-4D1C-8D05-E9451BC3E836",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": ""
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-FADFD865-1F38-4E89-A316-64F9F902FC97"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 870.1328125,
+            "y": 410
+          },
+          "upperLeft": {
+            "x": 835.21875,
+            "y": 410
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 40
+          },
+          {
+            "x": 20,
+            "y": 20
+          }
+        ],
+        "target": {
+          "resourceId": "sid-FADFD865-1F38-4E89-A316-64F9F902FC97"
+        }
+      },
+      {
+        "resourceId": "sid-AC8797D2-D4F9-4A2B-BB7E-2F5E6332096D",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "Approved",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": true,
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-954EEBE4-464A-4885-BD09-2364A6A772E7"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 890.5,
+            "y": 555.0000000000002
+          },
+          "upperLeft": {
+            "x": 715.1851831683842,
+            "y": 430.27734375
+          }
+        },
+        "dockers": [
+          {
+            "x": 20.5,
+            "y": 20.5
+          },
+          {
+            "x": 890.5,
+            "y": 515
+          },
+          {
+            "x": 715.1851831683842,
+            "y": 515
+          },
+          {
+            "x": 50,
+            "y": 1
+          }
+        ],
+        "target": {
+          "resourceId": "sid-954EEBE4-464A-4885-BD09-2364A6A772E7"
+        }
+      },
+      {
+        "resourceId": "sid-87065CE0-E606-434C-9477-5F5A6B5ACA2E",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-87065CE0-E606-434C-9477-5F5A6B5ACA2E",
+          "name": "Rejected",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "${approvalStatus == \"rejected\"}",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-813D6462-240D-4F87-86A6-F0B343DB651B"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 840,
+            "y": 345.5
+          },
+          "upperLeft": {
+            "x": 465.0859375,
+            "y": 170
+          }
+        },
+        "dockers": [
+          {
+            "x": 20.5,
+            "y": 20.5
+          },
+          {
+            "x": 537,
+            "y": 345.5
+          },
+          {
+            "x": 537,
+            "y": 170
+          },
+          {
+            "x": 1,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-813D6462-240D-4F87-86A6-F0B343DB651B"
+        }
+      },
+      {
+        "resourceId": "sid-10D73B06-6109-4372-B7D4-1A42D0BC5D6F",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-10D73B06-6109-4372-B7D4-1A42D0BC5D6F",
+          "name": "Set  contract status to\nSOLVENCY CHECK",
+          "detailsgroupheader": "",
+          "authenticationdetails": {
+            "useCurrentAuthToken": true
+          },
+          "httptaskrequestmethod": "PATCH",
+          "httptaskrequesturl": "{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}",
+          "httptaskrequestheaders": "Content-Type: application/json",
+          "httptaskrequestbody": "{\n  \"properties\": {\n    \"status\": \"SOLVENCY CHECK\"\n  }\n}",
+          "httptaskrequestbodyencoding": "",
+          "httptaskrequesttimeout": "",
+          "httptaskdisallowredirects": "",
+          "httptaskfailstatuscodes": "",
+          "httptaskhandlestatuscodes": "",
+          "httptaskignoreexception": "",
+          "httptaskresponsevariablename": "cmsContract",
+          "httptasksaverequestvariables": "",
+          "httptasksaveresponseparameters": "",
+          "httptaskresultvariableprefix": "",
+          "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasjson": true,
+          "executiongroupheader": "",
+          "asynchronousdefinition": false,
+          "isforcompensation": false,
+          "exclusivedefinition": true,
+          "skipexpression": "",
+          "executionlisteners": {
+            "executionListeners": []
+          },
+          "multiinstancegroupheader": "",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": ""
+        },
+        "stencil": {
+          "id": "HttpTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-C0189B7A-A2C5-44AB-8379-3390F082F0F9"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 205,
+            "y": 385
+          },
+          "upperLeft": {
+            "x": 105,
+            "y": 305
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-B73560BD-2B5A-4344-8A7F-570815FC192A",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "Loan contract",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": {
+            "expression": {
+              "type": "static",
+              "staticValue": "${cmsContract.type == \"ca_loan_contract\"}"
+            }
+          },
+          "defaultflow": false,
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-10D73B06-6109-4372-B7D4-1A42D0BC5D6F"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 155.4179224617048,
+            "y": 489.73438281131
+          },
+          "upperLeft": {
+            "x": 155.0078587882952,
+            "y": 385.98827343869
+          }
+        },
+        "dockers": [
+          {
+            "x": 20.5,
+            "y": 20.5
+          },
+          {
+            "x": 50,
+            "y": 79
+          }
+        ],
+        "target": {
+          "resourceId": "sid-10D73B06-6109-4372-B7D4-1A42D0BC5D6F"
+        }
+      },
+      {
+        "resourceId": "sid-6E8BB12E-6806-426B-9B1D-A6318821D419",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-64212D03-EFF1-4823-ADA4-60E31D2E416B"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 155,
+            "y": 190
+          },
+          "upperLeft": {
+            "x": 155,
+            "y": 159.48851095406525
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 1
+          },
+          {
+            "x": 50,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-64212D03-EFF1-4823-ADA4-60E31D2E416B"
+        }
+      }
+    ],
+    "stencil": {
+      "id": "BPMNDiagram"
+    },
+    "stencilset": {
+      "namespace": "http://b3mn.org/stencilset/bpmn2.0#",
+      "url": "../editor/stencilsets/bpmn2.0/bpmn2.0.json"
+    }
+  },
+  "serviceName": "workflow"
+}

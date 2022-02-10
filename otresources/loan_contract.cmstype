@@ -1,0 +1,44 @@
+{
+  "id": "9a533f00-5d4d-4578-9c9d-e20eacd2e26d",
+  "schemaId": "https://www.opentext.com/ot2/devx/cms/1.0.0/CMSType",
+  "data": {
+    "category": "file",
+    "name": "loan_contract",
+    "display_name": "Loan Contract",
+    "namespace": "9d95fbc9-b1e9-4946-956f-d38bcc4569f4",
+    "attributes": [
+      {
+        "data_type": "integer",
+        "display_name": "Monthly installments",
+        "name": "monthly_installments",
+        "validators": [],
+        "ot2mc-row-id": "eff8d5f5-4eb7-4357-b90b-b50b803c675d",
+        "required": true,
+        "default_value": "12"
+      },
+      {
+        "data_type": "integer",
+        "display_name": "Yearly income",
+        "name": "yearly_income",
+        "required": true,
+        "validators": [],
+        "ot2mc-row-id": "58e392a2-a7cd-4d30-823c-6c068f436c6d"
+      }
+    ],
+    "description": "Loan Contract Type",
+    "parent": "a29fb0c2-f754-4a89-b1c2-c211131b0883",
+    "operations": [],
+    "indexes": [],
+    "methods": [],
+    "scripts": [],
+    "required_traits": [
+      {
+        "instance_name": "Solvency Check",
+        "trait_name": "c59a5284-c317-4ba4-b94b-faa7db0d0081",
+        "ot2mc-row-id": "5dd5a118-9481-43de-8597-9ab8e1112948"
+      }
+    ],
+    "non_auditable_actions": []
+  },
+  "serviceName": "cms"
+}

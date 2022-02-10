@@ -75,7 +75,7 @@ export default class ContractList extends React.Component {
     this.setState({ showBackdrop: true });
     axios({
       method: 'get',
-      url: '/api/cms/instances/file/ot2_app_contract/?include-total=true&sortby=create_time desc&page=' + (this.state.pageNumber + 1),
+      url: '/api/cms/instances/file/ca_contract/?include-total=true&sortby=create_time desc&page=' + (this.state.pageNumber + 1),
     }).then(res => {
       this.setState({
         contracts: res.data && res.data._embedded ? res.data._embedded.collection : [],
@@ -88,11 +88,7 @@ export default class ContractList extends React.Component {
       } else {
         errorMessage += error.message;
       }
-      this.setState({
-        snackBarSeverity: 'error',
-        snackBarMessage: errorMessage,
-        showSnackBar: true
-      });
+      this.raiseError(errorMessage);
     }).finally(() => {
       this.setState({ showBackdrop: false });
     })
@@ -114,11 +110,19 @@ export default class ContractList extends React.Component {
   }
 
   handleCloseContractDetails() {
-    this.setState({ contractDetailsOpen: false })
+    this.setState({ contractDetailsOpen: false });
   }
 
   handleSnackBarClose() {
     this.setState({ showSnackBar: false });
+  }
+
+  raiseError(errorMessage) {
+    this.setState({
+      snackBarSeverity: 'error',
+      snackBarMessage: errorMessage,
+      showSnackBar: true
+    });
   }
 
   render() {
@@ -144,8 +148,8 @@ export default class ContractList extends React.Component {
                 <TableRow key={row.id}>
                   <TableCell component="th" scope="row">{row.name}</TableCell>
                   <TableCell align="left">{this.getDateValue(row.create_time)}</TableCell>
-                  <TableCell align="left">{row.properties ? row.properties.contract_status : ''}</TableCell>
-                  <TableCell align="left">{row.properties ? row.properties.contract_value : ''}</TableCell>
+                  <TableCell align="left">{row.properties ? row.properties.status : ''}</TableCell>
+                  <TableCell align="left">{row.properties ? row.properties.value : ''}</TableCell>
                   <TableCell align="left"><RiskClassification row={row} /></TableCell>
                   <TableCell align="left">
                     <Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentDialogView(row._links['urn:eim:linkrel:download-media'].href) }}>Original</Button>
@@ -161,7 +165,8 @@ export default class ContractList extends React.Component {
           </Table>
         </TableContainer>
         <Pagination pageNumber={this.state.pageNumber} count={this.state.count} handlePageNumber={this.handlePageNumber} />
-        <ContractDetails open={this.state.contractDetailsOpen} selectedContract={this.state.selectedContract} onClose={this.handleCloseContractDetails} />
+        <ContractDetails
+          open={this.state.contractDetailsOpen} selectedContract={this.state.selectedContract} raiseError={this.raiseError} onClose={this.handleCloseContractDetails} />
         <DocumentDialogView open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
         <Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
           <CircularProgress color="inherit" />

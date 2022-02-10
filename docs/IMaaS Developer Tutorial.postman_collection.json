@@ -1,0 +1,3002 @@
+{
+	"info": {
+		"_postman_id": "1485083e-0b29-4662-aa83-c5d7895766dc",
+		"name": "IMaaS Developer Tutorial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Content Metadata Service (CMS)",
+			"item": [
+				{
+					"name": "namespaces",
+					"item": [
+						{
+							"name": "Create 'Contract Approval' namespace",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"display_name\": \"Contract Approval\",\r\n    \"prefix\": \"ca\",\r\n    \"name\": \"contract_approval\",\r\n    \"description\": \"Contract Approval Namespace\"\r\n}"
+								},
+								"url": {
+									"raw": "{{apigee_host}}/cms/namespaces",
+									"host": [
+										"{{apigee_host}}"
+									],
+									"path": [
+										"cms",
+										"namespaces"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all namespaces",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{apigee_host}}/cms/namespaces",
+									"host": [
+										"{{apigee_host}}"
+									],
+									"path": [
+										"cms",
+										"namespaces"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get 'Contract Approval' namespace",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{apigee_host}}/cms/namespaces/8a0b8621-3a4b-486f-9ab5-480556bc108e",
+									"host": [
+										"{{apigee_host}}"
+									],
+									"path": [
+										"cms",
+										"namespaces",
+										"8a0b8621-3a4b-486f-9ab5-480556bc108e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update 'Contract Approval' namespace (passing all properties)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"display_name\": \"Contract Approval MODIFIED WITH PUT\",\r\n    \"prefix\": \"ca\",\r\n    \"name\": \"contract_approval\",\r\n    \"description\": \"Contract Approval Namespace MODIFIED WITH PUT\"\r\n}"
+								},
+								"url": {
+									"raw": "{{apigee_host}}/cms/namespaces/8a0b8621-3a4b-486f-9ab5-480556bc108e",
+									"host": [
+										"{{apigee_host}}"
+									],
+									"path": [
+										"cms",
+										"namespaces",
+										"8a0b8621-3a4b-486f-9ab5-480556bc108e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update 'Contract Approval' namespace (passing only updated properties)",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"display_name\": \"Contract Approval MODIFIED WITH PATCH\",\r\n    \"description\": \"Contract Approval Namespace MODIFIED WITH PATCH\"\r\n}"
+								},
+								"url": {
+									"raw": "{{apigee_host}}/cms/namespaces/8a0b8621-3a4b-486f-9ab5-480556bc108e",
+									"host": [
+										"{{apigee_host}}"
+									],
+									"path": [
+										"cms",
+										"namespaces",
+										"8a0b8621-3a4b-486f-9ab5-480556bc108e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete 'Contract Approval' namespace",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{apigee_host}}/cms/namespaces/8a0b8621-3a4b-486f-9ab5-480556bc108e",
+									"host": [
+										"{{apigee_host}}"
+									],
+									"path": [
+										"cms",
+										"namespaces",
+										"8a0b8621-3a4b-486f-9ab5-480556bc108e"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "traits",
+					"item": [
+						{
+							"name": "Create 'Approval' trait definition",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"approval\",\r\n  \"display_name\": \"Approval\",\r\n  \"namespace\": \"contract_approval\",\r\n  \"attributes\": [\r\n      {\r\n      \"data_type\": \"boolean\",\r\n      \"display_name\": \"Is required\",\r\n      \"name\": \"is_required\",\r\n      \"searchable\": true,\r\n      \"sortable\": true,\r\n      \"validators\": []\r\n      },\r\n      {\r\n      \"data_type\": \"boolean\",\r\n      \"display_name\": \"Has been granted\",\r\n      \"name\": \"has_been_granted\",\r\n      \"searchable\": true,\r\n      \"sortable\": true,\r\n      \"validators\": []\r\n      },\r\n      {\r\n      \"data_type\": \"string\",\r\n      \"display_name\": \"Approver\",\r\n      \"name\": \"approver\",\r\n      \"size\": 128,\r\n      \"searchable\": true,\r\n      \"sortable\": true,\r\n      \"validators\": []\r\n      },\r\n      {\r\n      \"data_type\": \"string\",\r\n      \"display_name\": \"Approver role\",\r\n      \"name\": \"approver_role\",\r\n      \"size\": 64,\r\n      \"searchable\": true,\r\n      \"sortable\": true,\r\n      \"validators\": []\r\n      },\r\n      {\r\n      \"data_type\": \"date\",\r\n      \"display_name\": \"Approval date\",\r\n      \"name\": \"approval_date\",\r\n      \"searchable\": true,\r\n      \"sortable\": true,\r\n      \"validators\": []\r\n      }\r\n  ],\r\n  \"description\": \"Approval Trait\",\r\n  \"indexes\": [],\r\n  \"methods\": []\r\n}"
+								},
+								"url": {
+									"raw": "{{apigee_host}}/cms/trait-definitions",
+									"host": [
+										"{{apigee_host}}"
+									],
+									"path": [
+										"cms",
+										"trait-definitions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all trait definitions",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{apigee_host}}/cms/trait-definitions/?items-per-page=20",
+									"host": [
+										"{{apigee_host}}"
+									],
+									"path": [
+										"cms",
+										"trait-definitions",
+										""
+									],
+									"query": [
+										{
+											"key": "items-per-page",
+											"value": "20"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get 'Approval' trait definition",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{apigee_host}}/cms/trait-definitions/ca_approval",
+									"host": [
+										"{{apigee_host}}"
+									],
+									"path": [
+										"cms",
+										"trait-definitions",
+										"ca_approval"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get attributes for 'Approval' trait definition",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{apigee_host}}/cms/trait-definitions/ca_approval/attributes",
+									"host": [
+										"{{apigee_host}}"
+									],
+									"path": [
+										"cms",
+										"trait-definitions",
+										"ca_approval",
+										"attributes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update 'Approval' trait definition (passing all properties)",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"approval\",\r\n  \"display_name\": \"Approval MODIFIED WITH PUT\",\r\n  \"description\": \"Approval Trait MODIFIED WITH PUT\",\r\n  \"methods\": []\r\n}"
+								},
+								"url": {
+									"raw": "{{apigee_host}}/cms/trait-definitions/ca_approval",
+									"host": [
+										"{{apigee_host}}"
+									],
+									"path": [
+										"cms",
+										"trait-definitions",
+										"ca_approval"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update 'Approval' trait definition (passing only updated properties)",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"display_name\": \"Approval MODIFIED WITH PATCH\",\r\n  \"description\": \"Approval Trait MODIFIED WITH PATCH\"\r\n}"
+								},
+								"url": {
+									"raw": "{{apigee_host}}/cms/trait-definitions/ca_approval",
+									"host": [
+										"{{apigee_host}}"
+									],
+									"path": [
+										"cms",
+										"trait-definitions",
+										"ca_approval"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete 'Approval' trait definition",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{apigee_host}}/cms/trait-definitions/ca_approval",
+									"host": [
+										"{{apigee_host}}"
+									],
+									"path": [
+										"cms",
+										"trait-definitions",
+										"ca_approval"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "types",
+					"item": [
+						{
+							"name": "file",
+							"item": [
+								{
+									"name": "Contract",
+									"item": [
+										{
+											"name": "type definitions",
+											"item": [
+												{
+													"name": "Create 'Contract' (file) type definition",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"category\": \"file\",\r\n  \"name\": \"contract\",\r\n  \"display_name\": \"Contract\",\r\n  \"namespace\": \"contract_approval\",\r\n  \"attributes\": [\r\n    {\r\n      \"data_type\": \"string\",\r\n      \"display_name\": \"Requester email\",\r\n      \"name\": \"requester_email\",\r\n      \"size\": 256,\r\n      \"searchable\": true,\r\n      \"sortable\": true,\r\n      \"required\": true,\r\n      \"validators\": []\r\n    },\r\n    {\r\n      \"data_type\": \"string\",\r\n      \"display_name\": \"Status\",\r\n      \"name\": \"status\",\r\n      \"size\": 32,\r\n      \"searchable\": true,\r\n      \"sortable\": true,\r\n      \"validators\": []\r\n    },\r\n    {\r\n      \"data_type\": \"integer\",\r\n      \"display_name\": \"Value\",\r\n      \"name\": \"value\",\r\n      \"searchable\": true,\r\n      \"sortable\": true,\r\n      \"required\": true,\r\n      \"validators\": []\r\n    },\r\n    {\r\n      \"data_type\": \"integer\",\r\n      \"display_name\": \"Risk classification\",\r\n      \"name\": \"risk_classification\",\r\n      \"searchable\": true,\r\n      \"sortable\": true,\r\n      \"validators\": []\r\n    },\r\n    {\r\n      \"data_type\": \"string\",\r\n      \"display_name\": \"Extracted terms\",\r\n      \"name\": \"extracted_terms\",\r\n      \"repeating\": true,\r\n      \"size\": 256,\r\n      \"validators\": []\r\n    }\r\n  ],\r\n  \"description\": \"Contract Type\",\r\n  \"operations\": [],\r\n  \"indexes\": [],\r\n  \"methods\": [],\r\n  \"scripts\": [],\r\n  \"required_traits\": [\r\n    {\r\n      \"instance_name\": \"Automatic Approval\",\r\n      \"trait_name\": \"ca_approval\"\r\n    },\r\n    {\r\n      \"instance_name\": \"Line Manager Approval\",\r\n      \"trait_name\": \"ca_approval\"\r\n    },\r\n    {\r\n      \"instance_name\": \"Risk Manager Approval\",\r\n      \"trait_name\": \"ca_approval\"\r\n    }\r\n  ],\r\n  \"non_auditable_actions\": []\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/file",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"file"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get 'Contract' type definition",
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_contract",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_contract"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get attributes for 'Contract' type definition",
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_contract/attributes",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_contract",
+																"attributes"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get required traits for 'Contract' type definition",
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_contract/required-traits",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_contract",
+																"required-traits"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Update 'Contract' type definition (passing all properties)",
+													"request": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"name\": \"contract\",\r\n  \"display_name\": \"Contract MODIFIED WITH PUT\",\r\n  \"description\": \"Contract Type MODIFIED WITH PUT\",\r\n  \"methods\": [],\r\n  \"scripts\": [],\r\n  \"non_auditable_actions\": []\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_contract",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_contract"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Update 'Contract' type definition (passing only updated properties)",
+													"request": {
+														"method": "PATCH",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"display_name\": \"Contract MODIFIED WITH PATCH\",\r\n  \"description\": \"Contract Type MODIFIED WITH PATCH\"\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_contract",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_contract"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete 'Contract' type definition",
+													"request": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_contract",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_contract"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "type instances",
+											"item": [
+												{
+													"name": "Create 'Contract' type instance",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"name\": \"Contract number 1\",\r\n  \"parent_folder_id\": \"8bc52cfa-bedf-47f9-ba99-831c9124ad8c\",\r\n  \"renditions\": [],\r\n  \"properties\": {\r\n    \"value\": 10,\r\n    \"status\": \"CREATED\",\r\n    \"requester_email\": \"demoperson@innovatecorp.com\",\r\n    \"risk_classification\": 1,\r\n    \"extracted_terms\": [\r\n      \"**Social Security Numbers:\",\r\n      \"**Credit Card Numbers:\",\r\n      \"**Bank Accounts:\",\r\n      \"**Person Names:\",\r\n      \"Peter M. Townsend\",\r\n      \"Tomas U. Britton\",\r\n      \"**Phone Numbers:\",\r\n      \"**Addresses:\",\r\n      \"1200 Irwinton Avenue\",\r\n      \"92 Homer Avenue\",\r\n      \"**Geographic Locations:\",\r\n      \"Helena, Georgia\",\r\n      \"State of Georgia\",\r\n      \"**Organization Names:\",\r\n      \"The Company\"\r\n    ]\r\n  },\r\n  \"traits\": {\r\n    \"ca_approval\": {\r\n      \"Automatic Approval\": {\r\n        \"is_required\": true,\r\n        \"has_been_granted\": false,\r\n        \"approver\": \"\",\r\n        \"approver_role\": \"\"\r\n      },\r\n      \"Line Manager Approval\": {\r\n        \"is_required\": false,\r\n        \"has_been_granted\": false,\r\n        \"approver\": \"\",\r\n        \"approver_role\": \"\"\r\n      },\r\n      \"Risk Manager Approval\": {\r\n        \"is_required\": false,\r\n        \"has_been_granted\": false,\r\n        \"approver\": \"\",\r\n        \"approver_role\": \"\"\r\n      }\r\n    }\r\n  }\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_contract",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_contract"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get all 'Contract' type instances",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_contract",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_contract"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get 'Contract' type instance",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_contract/9facf337-dd13-4428-89e5-0ba010b2c002",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_contract",
+																"9facf337-dd13-4428-89e5-0ba010b2c002"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get parent folder for 'Contract' type instance",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_contract/9facf337-dd13-4428-89e5-0ba010b2c002/parent",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_contract",
+																"9facf337-dd13-4428-89e5-0ba010b2c002",
+																"parent"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Update 'Contract' type instance (passing all properties)",
+													"request": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"name\": \"Contract number 1\",\r\n  \"properties\": {\r\n    \"value\": 10,\r\n    \"status\": \"APPROVED\",\r\n    \"requester_email\": \"demoperson@innovatecorp.com\",\r\n    \"risk_classification\": 1,\r\n    \"extracted_terms\": [\r\n      \"**Social Security Numbers:\",\r\n      \"**Credit Card Numbers:\",\r\n      \"**Bank Accounts:\",\r\n      \"**Person Names:\",\r\n      \"Peter M. Townsend\",\r\n      \"Tomas U. Britton\",\r\n      \"**Phone Numbers:\",\r\n      \"**Addresses:\",\r\n      \"1200 Irwinton Avenue\",\r\n      \"92 Homer Avenue\",\r\n      \"**Geographic Locations:\",\r\n      \"Helena, Georgia\",\r\n      \"State of Georgia\",\r\n      \"**Organization Names:\",\r\n      \"The Company\"\r\n    ]\r\n  },\r\n  \"traits\": {\r\n    \"ca_approval\": {\r\n      \"Automatic Approval\": {\r\n        \"is_required\": true\r\n      },\r\n      \"Line Manager Approval\": {\r\n        \"is_required\": true,\r\n        \"has_been_granted\": true,\r\n        \"approver\": \"jaketheboss@innovate.com\",\r\n        \"approver_role\": \"LINE_MANAGER\",\r\n        \"approval_date\": \"2022-01-01\"\r\n      },\r\n      \"Risk Manager Approval\": {\r\n      }\r\n    }\r\n  }\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_contract/9facf337-dd13-4428-89e5-0ba010b2c002",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_contract",
+																"9facf337-dd13-4428-89e5-0ba010b2c002"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Update 'Contract' type instance (passing only updated properties)",
+													"request": {
+														"method": "PATCH",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"properties\": {\r\n    \"status\": \"CREATED\"\r\n  },\r\n  \"traits\": {\r\n    \"ca_approval\": {\r\n      \"Automatic Approval\": {\r\n        \"is_required\": true,\r\n        \"has_been_granted\": true,\r\n        \"approver\": \"Automatic\",\r\n        \"approver_role\": \"SYSTEM\",\r\n        \"approval_date\": \"2022-01-01\"\r\n      }\r\n    }\r\n  }\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_contract/9facf337-dd13-4428-89e5-0ba010b2c002",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_contract",
+																"9facf337-dd13-4428-89e5-0ba010b2c002"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete 'Contract' type instance",
+													"request": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_contract/f46fdd29-677a-4d28-971b-52f82740fa2c",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_contract",
+																"f46fdd29-677a-4d28-971b-52f82740fa2c"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete all 'Contract' type instances",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"let response = pm.response.json();\r",
+																	"var apigee_host = pm.environment.get('apigee_host');\r",
+																	"var access_token = pm.environment.get('access_token');\r",
+																	"\r",
+																	"response._embedded.collection.forEach(function (contract) {\r",
+																	"    pm.sendRequest({\r",
+																	"        url: apigee_host + '/cms/instances/file/ca_contract/' + contract.id,\r",
+																	"        method: 'DELETE',\r",
+																	"        header: {\r",
+																	"            'Authorization' : 'Bearer ' + access_token,\r",
+																	"            'Content-Type': 'application/json'\r",
+																	"        }\r",
+																	"    }, function (err, res) {\r",
+																	"        console.log(res);\r",
+																	"    });\r",
+																	"})"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_contract",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_contract"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Loan Contract",
+									"item": [
+										{
+											"name": "type definitions",
+											"item": [
+												{
+													"name": "Create 'Loan Contract' (file) type definition",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"category\": \"file\",\r\n  \"name\": \"loan_contract\",\r\n  \"display_name\": \"Loan Contract\",\r\n  \"namespace\": \"contract_approval\",\r\n  \"attributes\": [\r\n    {\r\n      \"data_type\": \"integer\",\r\n      \"display_name\": \"Monthly installments\",\r\n      \"name\": \"monthly_installments\",\r\n      \"validators\": [],\r\n      \"required\": true,\r\n      \"default_value\": 12\r\n    },\r\n    {\r\n      \"data_type\": \"integer\",\r\n      \"display_name\": \"Yearly income\",\r\n      \"name\": \"yearly_income\",\r\n      \"required\": true,\r\n      \"validators\": []\r\n    }\r\n  ],\r\n  \"description\": \"Loan Contract Type\",\r\n  \"parent\": \"ca_contract\",\r\n  \"operations\": [],\r\n  \"indexes\": [],\r\n  \"methods\": [],\r\n  \"scripts\": [],\r\n  \"required_traits\": [\r\n    {\r\n      \"instance_name\": \"Solvency Check\",\r\n      \"trait_name\": \"ca_approval\"\r\n    }\r\n  ],\r\n  \"non_auditable_actions\": []\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/file",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"file"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get 'Loan Contract' type definition",
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_loan_contract",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_loan_contract"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get attributes for 'Loan Contract' type definition",
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_loan_contract/attributes",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_loan_contract",
+																"attributes"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get required traits for 'Loan Contract' type definition",
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_loan_contract/required-traits",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_loan_contract",
+																"required-traits"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Update 'Loan Contract' type definition (passing all properties)",
+													"request": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"name\": \"loan_contract\",\r\n  \"display_name\": \"Loan Contract MODIFIED WITH PUT\",\r\n  \"description\": \"Loan Contract Type MODIFIED WITH PUT\",\r\n  \"methods\": [],\r\n  \"scripts\": [],\r\n  \"non_auditable_actions\": []\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_loan_contract",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_loan_contract"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Update 'Loan Contract' type definition (passing only updated properties)",
+													"request": {
+														"method": "PATCH",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"display_name\": \"Loan Contract MODIFIED WITH PATCH\",\r\n  \"description\": \"Loan Contract Type MODIFIED WITH PATCH\"\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_loan_contract",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_loan_contract"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete 'Loan Contract' type definition Copy",
+													"request": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_loan_contract",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_loan_contract"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "type instances",
+											"item": [
+												{
+													"name": "Create 'Loan Contract' type instance",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"name\": \"Loan contract number 1\",\r\n  \"parent_folder_id\": \"8bc52cfa-bedf-47f9-ba99-831c9124ad8c\",\r\n  \"renditions\": [],\r\n  \"properties\": {\r\n    \"value\": 10,\r\n    \"status\": \"CREATED\",\r\n    \"requester_email\": \"demoperson@innovatecorp.com\",\r\n    \"risk_classification\": 1,\r\n    \"extracted_terms\": [\r\n      \"**Social Security Numbers:\",\r\n      \"**Credit Card Numbers:\",\r\n      \"**Bank Accounts:\",\r\n      \"**Person Names:\",\r\n      \"Peter M. Townsend\",\r\n      \"Tomas U. Britton\",\r\n      \"**Phone Numbers:\",\r\n      \"**Addresses:\",\r\n      \"1200 Irwinton Avenue\",\r\n      \"92 Homer Avenue\",\r\n      \"**Geographic Locations:\",\r\n      \"Helena, Georgia\",\r\n      \"State of Georgia\",\r\n      \"**Organization Names:\",\r\n      \"The Company\"\r\n    ],\r\n    \"monthly_installments\": 24,\r\n\t\t\"yearly_income\": 50000\r\n  },\r\n  \"traits\": {\r\n    \"ca_approval\": {\r\n      \"Automatic Approval\": {\r\n        \"is_required\": true,\r\n        \"has_been_granted\": false,\r\n        \"approver\": \"\",\r\n        \"approver_role\": \"\"\r\n      },\r\n      \"Line Manager Approval\": {\r\n        \"is_required\": false,\r\n        \"has_been_granted\": false,\r\n        \"approver\": \"\",\r\n        \"approver_role\": \"\"\r\n      },\r\n      \"Risk Manager Approval\": {\r\n        \"is_required\": false,\r\n        \"has_been_granted\": false,\r\n        \"approver\": \"\",\r\n        \"approver_role\": \"\"\r\n      },\r\n      \"Solvency Check\": {\r\n        \"is_required\": true,\r\n        \"has_been_granted\": false,\r\n        \"approver\": \"\",\r\n        \"approver_role\": \"\"\r\n      }\r\n    }\r\n  }\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_loan_contract",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_loan_contract"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get all 'Loan Contract' type instances",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_loan_contract",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_loan_contract"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get 'Loan Contract' type instance",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_loan_contract/8eb5cba9-ad91-45e2-9f61-303555e802f0",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_loan_contract",
+																"8eb5cba9-ad91-45e2-9f61-303555e802f0"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get parent folder for 'Loan Contract' type instance",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_loan_contract/8eb5cba9-ad91-45e2-9f61-303555e802f0/parent",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_loan_contract",
+																"8eb5cba9-ad91-45e2-9f61-303555e802f0",
+																"parent"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Update 'Loan Contract' type instance (passing all properties)",
+													"request": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"name\": \"Loan Contract number 1\",\r\n  \"properties\": {\r\n    \"value\": 10,\r\n    \"status\": \"APPROVED\",\r\n    \"requester_email\": \"demoperson@innovatecorp.com\",\r\n    \"risk_classification\": 1,\r\n    \"extracted_terms\": [\r\n      \"**Social Security Numbers:\",\r\n      \"**Credit Card Numbers:\",\r\n      \"**Bank Accounts:\",\r\n      \"**Person Names:\",\r\n      \"Peter M. Townsend\",\r\n      \"Tomas U. Britton\",\r\n      \"**Phone Numbers:\",\r\n      \"**Addresses:\",\r\n      \"1200 Irwinton Avenue\",\r\n      \"92 Homer Avenue\",\r\n      \"**Geographic Locations:\",\r\n      \"Helena, Georgia\",\r\n      \"State of Georgia\",\r\n      \"**Organization Names:\",\r\n      \"The Company\"\r\n    ],\r\n    \"monthly_installments\": 12,\r\n\t\t\"yearly_income\": 25000\r\n  },\r\n  \"traits\": {\r\n    \"ca_approval\": {\r\n      \"Automatic Approval\": {\r\n        \"is_required\": true\r\n      },\r\n      \"Line Manager Approval\": {\r\n        \"is_required\": true,\r\n        \"has_been_granted\": true,\r\n        \"approver\": \"jaketheboss@innovate.com\",\r\n        \"approver_role\": \"LINE_MANAGER\",\r\n        \"approval_date\": \"2022-01-01\"\r\n      },\r\n      \"Risk Manager Approval\": {\r\n      },\r\n      \"Solvency Check\": {\r\n        \"is_required\": true,\r\n        \"has_been_granted\": true,\r\n        \"approver\": \"SYSTEM\",\r\n        \"approver_role\": \"Automatic Approval\",\r\n        \"approval_date\": \"2022-01-01\"\r\n      }\r\n    }\r\n  }\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_loan_contract/8eb5cba9-ad91-45e2-9f61-303555e802f0",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_loan_contract",
+																"8eb5cba9-ad91-45e2-9f61-303555e802f0"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Update 'Loan Contract' type instance (passing only updated properties)",
+													"request": {
+														"method": "PATCH",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"properties\": {\r\n    \"status\": \"CREATED\"\r\n  },\r\n  \"traits\": {\r\n    \"ca_approval\": {\r\n      \"Automatic Approval\": {\r\n        \"is_required\": true,\r\n        \"has_been_granted\": true,\r\n        \"approver\": \"Automatic\",\r\n        \"approver_role\": \"SYSTEM\",\r\n        \"approval_date\": \"2022-01-01\"\r\n      },\r\n      \"Solvency Check\": {\r\n        \"is_required\": true,\r\n        \"has_been_granted\": true,\r\n        \"approver\": \"SYSTEM\",\r\n        \"approver_role\": \"Automatic Approval\",\r\n        \"approval_date\": \"2021-12-31\"\r\n      }\r\n    }\r\n  }\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_loan_contract/8eb5cba9-ad91-45e2-9f61-303555e802f0",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_loan_contract",
+																"8eb5cba9-ad91-45e2-9f61-303555e802f0"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete 'Loan Contract' type instance",
+													"request": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_loan_contract/8eb5cba9-ad91-45e2-9f61-303555e802f0",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_loan_contract",
+																"8eb5cba9-ad91-45e2-9f61-303555e802f0"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete all 'Loan Contract' type instances",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"let response = pm.response.json();\r",
+																	"var apigee_host = pm.environment.get('apigee_host');\r",
+																	"var access_token = pm.environment.get('access_token');\r",
+																	"\r",
+																	"response._embedded.collection.forEach(function (contract) {\r",
+																	"    pm.sendRequest({\r",
+																	"        url: apigee_host + '/cms/instances/file/ca_loan_contract/' + contract.id,\r",
+																	"        method: 'DELETE',\r",
+																	"        header: {\r",
+																	"            'Authorization' : 'Bearer ' + access_token,\r",
+																	"            'Content-Type': 'application/json'\r",
+																	"        }\r",
+																	"    }, function (err, res) {\r",
+																	"        console.log(res);\r",
+																	"    });\r",
+																	"})"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/file/ca_loan_contract",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"file",
+																"ca_loan_contract"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Get all type definitions of 'file' category",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{access_token}}"
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{apigee_host}}/cms/type-definitions/?category=file&items-per-page=20",
+											"host": [
+												"{{apigee_host}}"
+											],
+											"path": [
+												"cms",
+												"type-definitions",
+												""
+											],
+											"query": [
+												{
+													"key": "category",
+													"value": "file"
+												},
+												{
+													"key": "items-per-page",
+													"value": "20"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get all type instances of 'file' category",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{access_token}}"
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{apigee_host}}/cms/instances/file/cms_file?items-per-page=20",
+											"host": [
+												"{{apigee_host}}"
+											],
+											"path": [
+												"cms",
+												"instances",
+												"file",
+												"cms_file"
+											],
+											"query": [
+												{
+													"key": "items-per-page",
+													"value": "20"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "folder",
+							"item": [
+								{
+									"name": "Customer",
+									"item": [
+										{
+											"name": "type definitions",
+											"item": [
+												{
+													"name": "Create 'Customer' (folder) type definition",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"category\": \"folder\",\r\n  \"name\": \"customer\",\r\n  \"display_name\": \"Customer\",\r\n  \"namespace\": \"contract_approval\",\r\n  \"attributes\": [\r\n    {\r\n      \"data_type\": \"string\",\r\n      \"display_name\": \"Customer email\",\r\n      \"name\": \"customer_email\",\r\n      \"size\": 256,\r\n      \"searchable\": true,\r\n      \"sortable\": true,\r\n      \"required\": true,\r\n      \"validators\": []\r\n    }\r\n  ],\r\n  \"description\": \"Customer Type\",\r\n  \"operations\": [],\r\n  \"indexes\": [],\r\n  \"methods\": [],\r\n  \"scripts\": [],\r\n  \"required_traits\": [],\r\n  \"non_auditable_actions\": []\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/folder",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"folder"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get 'Customer' type definition",
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_customer",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_customer"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get attributes for 'Customer' type definition",
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_customer/attributes",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_customer",
+																"attributes"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Update 'Customer' type definition (passing all properties)",
+													"request": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"name\": \"customer\",\r\n  \"display_name\": \"Customer MODIFIED WITH PUT\",\r\n  \"description\": \"Customer Type MODIFIED WITH PUT\",\r\n  \"methods\": [],\r\n  \"scripts\": [],\r\n  \"non_auditable_actions\": []\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_customer",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_customer"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Update 'Customer' type definition (passing only updated properties)",
+													"request": {
+														"method": "PATCH",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"display_name\": \"Customer MODIFIED WITH PATCH\",\r\n  \"description\": \"Customer Type MODIFIED WITH PATCH\"\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_customer",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_customer"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete 'Customer' type definition",
+													"request": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/type-definitions/ca_customer",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"type-definitions",
+																"ca_customer"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "type instances",
+											"item": [
+												{
+													"name": "Create 'Customer' type instance",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"name\": \"demoperson@innovatecorp.com\",\r\n  \"parent_folder_id\": \"c83602fb-2799-4545-bd4d-66d4474f9e5a\",\r\n  \"properties\": {\r\n    \"customer_email\": \"demoperson@innovatecorp.com\"\r\n  }\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/folder/ca_customer",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"folder",
+																"ca_customer"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get all 'Customer' type instances",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/folder/ca_customer?filter=parent_folder_id eq 'c83602fb-2799-4545-bd4d-66d4474f9e5a'",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"folder",
+																"ca_customer"
+															],
+															"query": [
+																{
+																	"key": "filter",
+																	"value": "parent_folder_id eq 'c83602fb-2799-4545-bd4d-66d4474f9e5a'"
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get 'Customer' type instance",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/folder/ca_customer?filter=parent_folder_id eq 'c83602fb-2799-4545-bd4d-66d4474f9e5a' and name eq 'demoperson@innovatecorp.com'",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"folder",
+																"ca_customer"
+															],
+															"query": [
+																{
+																	"key": "filter",
+																	"value": "parent_folder_id eq 'c83602fb-2799-4545-bd4d-66d4474f9e5a' and name eq 'demoperson@innovatecorp.com'"
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get files and folders contained in  'Customer' type instance",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/folder/ca_customer/8bc52cfa-bedf-47f9-ba99-831c9124ad8c/items",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"folder",
+																"ca_customer",
+																"8bc52cfa-bedf-47f9-ba99-831c9124ad8c",
+																"items"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Update 'Contract' type instance (passing all properties) Copy",
+													"request": {
+														"method": "PUT",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"name\": \"demoperson_MODIFIED_WITH_PUT@innovatecorp.com\",\r\n  \"properties\": {\r\n    \"customer_email\": \"demoperson_MODIFIED_WITH_PUT@innovatecorp.com\"\r\n  }\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/folder/ca_customer/d4885424-9abb-4adf-af1a-b4e355500ea4",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"folder",
+																"ca_customer",
+																"d4885424-9abb-4adf-af1a-b4e355500ea4"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Update 'Contract' type instance (passing only updated properties) Copy",
+													"request": {
+														"method": "PATCH",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"properties\": {\r\n    \"customer_email\": \"demoperson_MODIFIED_WITH_PATCH@innovatecorp.com\"\r\n  }\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/folder/ca_customer/d4885424-9abb-4adf-af1a-b4e355500ea4",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"folder",
+																"ca_customer",
+																"d4885424-9abb-4adf-af1a-b4e355500ea4"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete 'Customer' type instance",
+													"request": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/folder/ca_customer/d4885424-9abb-4adf-af1a-b4e355500ea4",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"folder",
+																"ca_customer",
+																"d4885424-9abb-4adf-af1a-b4e355500ea4"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete all 'Customer' type instances",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"let response = pm.response.json();\r",
+																	"var apigee_host = pm.environment.get('apigee_host');\r",
+																	"var access_token = pm.environment.get('access_token');\r",
+																	"\r",
+																	"response._embedded.collection.forEach(function (contract) {\r",
+																	"    pm.sendRequest({\r",
+																	"        url: apigee_host + '/cms/instances/folder/ca_customer/' + contract.id,\r",
+																	"        method: 'DELETE',\r",
+																	"        header: {\r",
+																	"            'Authorization' : 'Bearer ' + access_token,\r",
+																	"            'Content-Type': 'application/json'\r",
+																	"        }\r",
+																	"    }, function (err, res) {\r",
+																	"        console.log(res);\r",
+																	"    });\r",
+																	"})"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/folder/ca_customer",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"folder",
+																"ca_customer"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Folder",
+									"item": [
+										{
+											"name": "type instances",
+											"item": [
+												{
+													"name": "Create App root 'Folder' type instance",
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"name\": \"Contract Approval App\"\r\n}"
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/folder/cms_folder",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"folder",
+																"cms_folder"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get App root 'Folder' type instance",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/folder/cms_folder?filter=name eq 'Contract Approval App'",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"folder",
+																"cms_folder"
+															],
+															"query": [
+																{
+																	"key": "filter",
+																	"value": "name eq 'Contract Approval App'"
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get files and folders contained in App root 'Folder' type instance",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disableBodyPruning": true
+													},
+													"request": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/folder/cms_folder/c83602fb-2799-4545-bd4d-66d4474f9e5a/items",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"folder",
+																"cms_folder",
+																"c83602fb-2799-4545-bd4d-66d4474f9e5a",
+																"items"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete App root 'Folder' type instance",
+													"request": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Authorization",
+																"type": "text",
+																"value": "Bearer {{access_token}}"
+															},
+															{
+																"key": "Content-Type",
+																"type": "text",
+																"value": "application/json"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": ""
+														},
+														"url": {
+															"raw": "{{apigee_host}}/cms/instances/folder/cms_folder/e69d3fd4-61b9-4f07-9fe4-98e75c1d14ca",
+															"host": [
+																"{{apigee_host}}"
+															],
+															"path": [
+																"cms",
+																"instances",
+																"folder",
+																"cms_folder",
+																"e69d3fd4-61b9-4f07-9fe4-98e75c1d14ca"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Get all type definitions of 'folder' category",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{access_token}}"
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{apigee_host}}/cms/type-definitions/?category=folder&items-per-page=20",
+											"host": [
+												"{{apigee_host}}"
+											],
+											"path": [
+												"cms",
+												"type-definitions",
+												""
+											],
+											"query": [
+												{
+													"key": "category",
+													"value": "folder"
+												},
+												{
+													"key": "items-per-page",
+													"value": "20"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get all type instances of 'folder' category",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "Bearer {{access_token}}"
+											},
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{apigee_host}}/cms/instances/folder/cms_folder?items-per-page=20",
+											"host": [
+												"{{apigee_host}}"
+											],
+											"path": [
+												"cms",
+												"instances",
+												"folder",
+												"cms_folder"
+											],
+											"query": [
+												{
+													"key": "items-per-page",
+													"value": "20"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Magellan Risk Guard",
+			"item": [
+				{
+					"name": "Process document",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "File",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{apigee_host}}/mtm-riskguard/api/v1/process",
+							"host": [
+								"{{apigee_host}}"
+							],
+							"path": [
+								"mtm-riskguard",
+								"api",
+								"v1",
+								"process"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Workflow Service",
+			"item": [
+				{
+					"name": "Create 'Contract Approval' process model",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"modelType\": \"json\",\r\n  \"modelContent\": {\r\n    \"modelId\": 1,\r\n    \"bounds\": {\r\n      \"lowerRight\": {\r\n        \"x\": 1624,\r\n        \"y\": 1050\r\n      },\r\n      \"upperLeft\": {\r\n        \"x\": 0,\r\n        \"y\": 0\r\n      }\r\n    },\r\n    \"properties\": {\r\n      \"generalgroupheader\": \"\",\r\n      \"process_id\": \"contract_approval\",\r\n      \"name\": \"Contract Approval\",\r\n      \"detailsgroupheader\": \"\",\r\n      \"process_version\": \"\",\r\n      \"process_namespace\": \"http://opentext.com/devx/contract\",\r\n      \"process_historylevel\": \"\",\r\n      \"dataproperties\": \"\",\r\n      \"process_potentialstarteruser\": \"\",\r\n      \"process_potentialstartergroup\": \"\",\r\n      \"signaldefinitions\": \"[]\",\r\n      \"messagedefinitions\": \"[{\\\"id\\\":\\\"contractId\\\",\\\"name\\\":\\\"contractApproval\\\"}]\",\r\n      \"escalationdefinitions\": \"[]\",\r\n      \"duedatedefinition\": \"\",\r\n      \"executiongroupheader\": \"\",\r\n      \"isasynchistoryenable\": true,\r\n      \"isexecutable\": true,\r\n      \"eventlisteners\": \"{\\\"eventListeners\\\":[]}\",\r\n      \"executionlisteners\": \"{\\\"executionListeners\\\":[]}\",\r\n      \"process_author\": \"\",\r\n      \"documentation\": \"My Process\",\r\n      \"iseagerexecutionfetch\": false,\r\n      \"messages\": [\r\n        {\r\n          \"message_id\": \"contractId\",\r\n          \"message_name\": \"contractApproval\"\r\n        }\r\n      ]\r\n    },\r\n    \"childShapes\": [\r\n      {\r\n        \"resourceId\": \"sid-E590B3E4-B9A9-4E78-844D-D2586FBF303F\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-E590B3E4-B9A9-4E78-844D-D2586FBF303F\",\r\n          \"name\": \"Get contract from cms\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"authenticationdetails\": {\r\n            \"useCurrentAuthToken\": true\r\n          },\r\n          \"httptaskrequestmethod\": \"GET\",\r\n          \"httptaskrequesturl\": \"{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}\",\r\n          \"httptaskrequestheaders\": \"\",\r\n          \"httptaskrequestbody\": \"\",\r\n          \"httptaskrequestbodyencoding\": \"\",\r\n          \"httptaskrequesttimeout\": \"\",\r\n          \"httptaskdisallowredirects\": \"\",\r\n          \"httptaskfailstatuscodes\": \"\",\r\n          \"httptaskhandlestatuscodes\": \"\",\r\n          \"httptaskignoreexception\": \"\",\r\n          \"httptaskresponsevariablename\": \"cmsContract\",\r\n          \"httptasksaverequestvariables\": \"\",\r\n          \"httptasksaveresponseparameters\": \"\",\r\n          \"httptaskresultvariableprefix\": \"\",\r\n          \"httptasksaveresponseparameterstransient\": \"\",\r\n          \"httptasksaveresponseasjson\": true,\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"isforcompensation\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": [\r\n              {\r\n                \"event\": \"end\",\r\n                \"expression\": \"${execution.setVariable(\\\"contractDownloadLink\\\" , cmsContract._links['urn:eim:linkrel:download-media'].href)}\",\r\n                \"isMailNotification\": false,\r\n                \"isExecuteScriptEnabled\": false,\r\n                \"publishToEventService\": false,\r\n                \"publishToApplicationContext\": false\r\n              }\r\n            ]\r\n          },\r\n          \"multiinstancegroupheader\": \"\",\r\n          \"multiinstance_type\": \"None\",\r\n          \"multiinstance_cardinality\": \"\",\r\n          \"multiinstance_collection\": \"\",\r\n          \"multiinstance_variable\": \"\",\r\n          \"multiinstance_condition\": \"\",\r\n          \"useCurrentAuthToken\": \"true\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"HttpTask\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-0F987CCC-F755-4012-A5DA-7BB22B01D828\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 205,\r\n            \"y\": 595.0000000000002\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 105,\r\n            \"y\": 515.0000000000002\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-55562E44-0DCE-4F56-80CF-19B2947514B3\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-55562E44-0DCE-4F56-80CF-19B2947514B3\",\r\n          \"name\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          }\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"EndNoneEvent\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 1133,\r\n            \"y\": 569\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 1105,\r\n            \"y\": 541\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-3A3D6A3F-01DB-4341-9A5C-8D2E43D3CC5C\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-3A3D6A3F-01DB-4341-9A5C-8D2E43D3CC5C\",\r\n          \"name\": \"\\nLine Manager Approval\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"usertaskassignment\": {\r\n            \"assignment\": {\r\n              \"type\": \"static\",\r\n              \"assignee\": \"$INITIATOR\"\r\n            }\r\n          },\r\n          \"usertasknature\": \"\",\r\n          \"duedatedefinition\": \"\",\r\n          \"prioritydefinition\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"isforcompensation\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"skipexpression\": \"\",\r\n          \"tasklisteners\": {\r\n            \"taskListeners\": []\r\n          },\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          },\r\n          \"completioncondition\": \"\",\r\n          \"tasktype\": \"approval\",\r\n          \"outcomevariable\": \"approvalStatus\",\r\n          \"possibleoutcomes\": \"Approve:approved,Reject:rejected\",\r\n          \"categorydefinition\": \"http://opentext.com/devx/contract\",\r\n          \"multiinstance_type\": \"None\",\r\n          \"multiinstance_cardinality\": \"\",\r\n          \"multiinstance_collection\": \"\",\r\n          \"multiinstance_variable\": \"\",\r\n          \"multiinstance_condition\": \"\",\r\n          \"formkeydefinition\": \"\",\r\n          \"formfieldvalidation\": \"true\",\r\n          \"formproperties\": \"\",\r\n          \"formreference\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"UserTask\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-298526A9-750D-44DC-AB64-6AC732CC98FC\"\r\n          },\r\n          {\r\n            \"resourceId\": \"sid-D8B65818-C1ED-45AE-BE4E-E6DC8586ABD9\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 360,\r\n            \"y\": 252.49999403953575\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 260,\r\n            \"y\": 172.49999403953575\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-EA6DB01D-341E-406A-A5E6-D30EC878B545\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-EA6DB01D-341E-406A-A5E6-D30EC878B545\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"sequencefloworder\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          }\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"ExclusiveGateway\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-7F2E4301-E7FE-4A6D-9709-72F8BF2BF041\"\r\n          },\r\n          {\r\n            \"resourceId\": \"sid-B25D7EC4-1121-469A-A69F-01277AC0C46B\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 330,\r\n            \"y\": 575\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 290,\r\n            \"y\": 535\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-9199CA54-7287-4F51-B61C-E08A2FF4B035\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-9199CA54-7287-4F51-B61C-E08A2FF4B035\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"sequencefloworder\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          }\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"ExclusiveGateway\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-87065CE0-E606-434C-9477-5F5A6B5ACA2E\"\r\n          },\r\n          {\r\n            \"resourceId\": \"sid-E03766E6-2675-443F-827D-55A24E6B8CC3\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 465,\r\n            \"y\": 325\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 425,\r\n            \"y\": 285\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-813D6462-240D-4F87-86A6-F0B343DB651B\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-813D6462-240D-4F87-86A6-F0B343DB651B\",\r\n          \"name\": \"Set contract status to REJECTED\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"authenticationdetails\": {\r\n            \"useCurrentAuthToken\": true\r\n          },\r\n          \"httptaskrequestmethod\": \"PATCH\",\r\n          \"httptaskrequesturl\": \"{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}\",\r\n          \"httptaskrequestheaders\": \"Content-Type:  application/json\",\r\n          \"httptaskrequestbody\": \"{\\n  \\\"properties\\\": {\\n    \\\"status\\\": \\\"REJECTED\\\"\\n  }\\n}\",\r\n          \"httptaskrequestbodyencoding\": \"\",\r\n          \"httptaskrequesttimeout\": \"\",\r\n          \"httptaskdisallowredirects\": \"\",\r\n          \"httptaskfailstatuscodes\": \"\",\r\n          \"httptaskhandlestatuscodes\": \"\",\r\n          \"httptaskignoreexception\": \"\",\r\n          \"httptaskresponsevariablename\": \"cmsContract\",\r\n          \"httptasksaverequestvariables\": \"\",\r\n          \"httptasksaveresponseparameters\": \"\",\r\n          \"httptaskresultvariableprefix\": \"\",\r\n          \"httptasksaveresponseparameterstransient\": \"\",\r\n          \"httptasksaveresponseasjson\": true,\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"isforcompensation\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          },\r\n          \"multiinstancegroupheader\": \"\",\r\n          \"multiinstance_type\": \"None\",\r\n          \"multiinstance_cardinality\": \"\",\r\n          \"multiinstance_collection\": \"\",\r\n          \"multiinstance_variable\": \"\",\r\n          \"multiinstance_condition\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"HttpTask\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-AEABE21D-4CB9-49F6-BBAD-5E5CAE0604F4\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 940,\r\n            \"y\": 170\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 840,\r\n            \"y\": 90\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-954EEBE4-464A-4885-BD09-2364A6A772E7\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-954EEBE4-464A-4885-BD09-2364A6A772E7\",\r\n          \"name\": \"Set contract status to APPROVED\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"authenticationdetails\": {\r\n            \"useCurrentAuthToken\": true\r\n          },\r\n          \"httptaskrequestmethod\": \"PATCH\",\r\n          \"httptaskrequesturl\": \"{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}\",\r\n          \"httptaskrequestheaders\": \"Content-Type:  application/json\",\r\n          \"httptaskrequestbody\": \"{\\n  \\\"properties\\\": {\\n    \\\"status\\\": \\\"APPROVED\\\"\\n  }\\n}\",\r\n          \"httptaskrequestbodyencoding\": \"\",\r\n          \"httptaskrequesttimeout\": \"\",\r\n          \"httptaskdisallowredirects\": \"\",\r\n          \"httptaskfailstatuscodes\": \"\",\r\n          \"httptaskhandlestatuscodes\": \"\",\r\n          \"httptaskignoreexception\": \"\",\r\n          \"httptaskresponsevariablename\": \"cmsContract\",\r\n          \"httptasksaverequestvariables\": \"\",\r\n          \"httptasksaveresponseparameters\": \"\",\r\n          \"httptaskresultvariableprefix\": \"\",\r\n          \"httptasksaveresponseparameterstransient\": \"\",\r\n          \"httptasksaveresponseasjson\": true,\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"isforcompensation\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          },\r\n          \"multiinstancegroupheader\": \"\",\r\n          \"multiinstance_type\": \"None\",\r\n          \"multiinstance_cardinality\": \"\",\r\n          \"multiinstance_collection\": \"\",\r\n          \"multiinstance_variable\": \"\",\r\n          \"multiinstance_condition\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"HttpTask\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-E2C4C011-B360-416C-B7CE-74D5C7DB76BA\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 765.1851831683842,\r\n            \"y\": 595.0000000000002\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 665.1851831683842,\r\n            \"y\": 515.0000000000002\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-F93E8184-419E-4025-9A7C-4C78D3264E0D\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-F93E8184-419E-4025-9A7C-4C78D3264E0D\",\r\n          \"name\": \"Set  contract status to\\nLINE MANAGER\\nAPPROVAL\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"authenticationdetails\": {\r\n            \"useCurrentAuthToken\": true\r\n          },\r\n          \"httptaskrequestmethod\": \"PATCH\",\r\n          \"httptaskrequesturl\": \"{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}\",\r\n          \"httptaskrequestheaders\": \"Content-Type: application/json\",\r\n          \"httptaskrequestbody\": \"{\\n  \\\"properties\\\": {\\n    \\\"status\\\": \\\"LINE MANAGER APPROVAL\\\"\\n  },\\n  \\\"traits\\\": {\\n    \\\"ca_approval\\\": {\\n      \\\"Line Manager Approval\\\": {\\n        \\\"is_required\\\": true,\\n        \\\"has_been_granted\\\": false,\\n        \\\"approver\\\": \\\"${cmsContract.updated_by.email}\\\",\\n        \\\"approver_role\\\": \\\"Line Manager\\\"\\n      }\\n    }\\n  }\\n}\",\r\n          \"httptaskrequestbodyencoding\": \"\",\r\n          \"httptaskrequesttimeout\": \"\",\r\n          \"httptaskdisallowredirects\": \"\",\r\n          \"httptaskfailstatuscodes\": \"\",\r\n          \"httptaskhandlestatuscodes\": \"\",\r\n          \"httptaskignoreexception\": \"\",\r\n          \"httptaskresponsevariablename\": \"cmsContract\",\r\n          \"httptasksaverequestvariables\": \"\",\r\n          \"httptasksaveresponseparameters\": \"\",\r\n          \"httptaskresultvariableprefix\": \"\",\r\n          \"httptasksaveresponseparameterstransient\": \"\",\r\n          \"httptasksaveresponseasjson\": true,\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"isforcompensation\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          },\r\n          \"multiinstancegroupheader\": \"\",\r\n          \"multiinstance_type\": \"None\",\r\n          \"multiinstance_cardinality\": \"\",\r\n          \"multiinstance_collection\": \"\",\r\n          \"multiinstance_variable\": \"\",\r\n          \"multiinstance_condition\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"HttpTask\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-7C01B07B-1C54-4B87-AFF9-502E66391F4F\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 360,\r\n            \"y\": 367.5\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 260,\r\n            \"y\": 287.5\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-136B973F-1CF8-44AC-87D6-E6370732659A\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-136B973F-1CF8-44AC-87D6-E6370732659A\",\r\n          \"name\": \"messageEvent\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"messageref\": \"contractId\",\r\n          \"interrupting\": true,\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          }\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"StartMessageEvent\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-C6429308-25D1-47EF-B842-94D95EFD9F21\"\r\n          },\r\n          {\r\n            \"resourceId\": \"sid-B969B23B-BEDA-4DB4-AC37-D79971886D84\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 70.5,\r\n            \"y\": 570\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 40,\r\n            \"y\": 540\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32\",\r\n          \"name\": \"Set contract status to EXPIRED\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"authenticationdetails\": {\r\n            \"useCurrentAuthToken\": true\r\n          },\r\n          \"httptaskrequestmethod\": \"PATCH\",\r\n          \"httptaskrequesturl\": \"{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}\",\r\n          \"httptaskrequestheaders\": \"Content-Type:  application/json\",\r\n          \"httptaskrequestbody\": \"{\\n  \\\"properties\\\": {\\n    \\\"status\\\": \\\"EXPIRED\\\"\\n  }\\n}\",\r\n          \"httptaskrequestbodyencoding\": \"\",\r\n          \"httptaskrequesttimeout\": \"\",\r\n          \"httptaskdisallowredirects\": \"\",\r\n          \"httptaskfailstatuscodes\": \"\",\r\n          \"httptaskhandlestatuscodes\": \"\",\r\n          \"httptaskignoreexception\": \"\",\r\n          \"httptaskresponsevariablename\": \"cmsContract\",\r\n          \"httptasksaverequestvariables\": \"\",\r\n          \"httptasksaveresponseparameters\": \"\",\r\n          \"httptaskresultvariableprefix\": \"\",\r\n          \"httptasksaveresponseparameterstransient\": \"\",\r\n          \"httptasksaveresponseasjson\": true,\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"isforcompensation\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          },\r\n          \"multiinstancegroupheader\": \"\",\r\n          \"multiinstance_type\": \"None\",\r\n          \"multiinstance_cardinality\": \"\",\r\n          \"multiinstance_collection\": \"\",\r\n          \"multiinstance_variable\": \"\",\r\n          \"multiinstance_condition\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"HttpTask\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-1D9A199D-4F5F-4AF9-BACD-B6C5BBF8E739\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 1059,\r\n            \"y\": 105\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 959,\r\n            \"y\": 25\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-B29D9B58-4814-4B98-83A2-5A63665280AD\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-B29D9B58-4814-4B98-83A2-5A63665280AD\",\r\n          \"name\": \"Send Email on contract status\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mailtaskheaders\": \"\",\r\n          \"mailtaskto\": \"${cmsContract.properties.requester_email}\",\r\n          \"mailtaskfrom\": \"noreply@opentext.com\",\r\n          \"mailtasksubject\": \"Contract Status\",\r\n          \"mailtaskcc\": \"\",\r\n          \"mailtaskbcc\": \"\",\r\n          \"mailtasktext\": \"Contract: ${cmsContract.name}\\nStatus: ${cmsContract.properties.status}\",\r\n          \"mailtasktextvar\": \"\",\r\n          \"mailtaskhtml\": \"\",\r\n          \"mailtaskhtmlvar\": \"\",\r\n          \"mailtaskcharset\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"isforcompensation\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          },\r\n          \"multiinstancegroupheader\": \"\",\r\n          \"multiinstance_type\": \"None\",\r\n          \"multiinstance_cardinality\": \"\",\r\n          \"multiinstance_collection\": \"\",\r\n          \"multiinstance_variable\": \"\",\r\n          \"multiinstance_condition\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"MailTask\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-7DE0E9C5-F4BE-4268-8EC3-F93A5B67A621\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 1059,\r\n            \"y\": 595.0000000000002\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 959,\r\n            \"y\": 515.0000000000002\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-1D9A199D-4F5F-4AF9-BACD-B6C5BBF8E739\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-1D9A199D-4F5F-4AF9-BACD-B6C5BBF8E739\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-B29D9B58-4814-4B98-83A2-5A63665280AD\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 1009,\r\n            \"y\": 514.7617187500002\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 1009,\r\n            \"y\": 105.23828125000003\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-B29D9B58-4814-4B98-83A2-5A63665280AD\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-C6429308-25D1-47EF-B842-94D95EFD9F21\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-C6429308-25D1-47EF-B842-94D95EFD9F21\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-E590B3E4-B9A9-4E78-844D-D2586FBF303F\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 104.125,\r\n            \"y\": 555.0000000000001\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 71.056640625,\r\n            \"y\": 555\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 15.25,\r\n            \"y\": 15\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-E590B3E4-B9A9-4E78-844D-D2586FBF303F\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-7C01B07B-1C54-4B87-AFF9-502E66391F4F\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-7C01B07B-1C54-4B87-AFF9-502E66391F4F\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-3A3D6A3F-01DB-4341-9A5C-8D2E43D3CC5C\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 310,\r\n            \"y\": 286.96874795109045\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 310,\r\n            \"y\": 253.03124608844536\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-3A3D6A3F-01DB-4341-9A5C-8D2E43D3CC5C\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-7DE0E9C5-F4BE-4268-8EC3-F93A5B67A621\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-7DE0E9C5-F4BE-4268-8EC3-F93A5B67A621\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-55562E44-0DCE-4F56-80CF-19B2947514B3\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 1104.25,\r\n            \"y\": 555.0000000000002\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 1059.84375,\r\n            \"y\": 555\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          },\r\n          {\r\n            \"x\": 14,\r\n            \"y\": 14\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-55562E44-0DCE-4F56-80CF-19B2947514B3\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-00FA21DA-98F9-454E-8445-BACFE3A7B8DF\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-00FA21DA-98F9-454E-8445-BACFE3A7B8DF\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"sequencefloworder\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          }\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"ExclusiveGateway\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-8C1AE1DC-47D4-4965-85F9-A415364A3E90\"\r\n          },\r\n          {\r\n            \"resourceId\": \"sid-29CC5B28-7D23-4689-A25D-15387F2F999E\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 535,\r\n            \"y\": 575\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 495,\r\n            \"y\": 535\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-29CC5B28-7D23-4689-A25D-15387F2F999E\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-29CC5B28-7D23-4689-A25D-15387F2F999E\",\r\n          \"name\": \"Contract risk <= 3\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-954EEBE4-464A-4885-BD09-2364A6A772E7\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 664.8068403417494,\r\n            \"y\": 555.0000000000002\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 535.1312594707233,\r\n            \"y\": 555\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 36.984375,\r\n            \"y\": 20\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-954EEBE4-464A-4885-BD09-2364A6A772E7\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-DF059491-6002-439D-9796-82A3D4528966\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-DF059491-6002-439D-9796-82A3D4528966\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"text\": \"CMS CONTRACT STATES :\\n\\n    CREATED\\n    LINE MANAGER APPROVAL\\n    RISK MANAGER APPROVAL\\n    REJECTED\\n    APPROVED\\n    EXPIRED\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"TextAnnotation\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 586.0258974954527,\r\n            \"y\": 722.6322125928299\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 357.9741025045473,\r\n            \"y\": 613.1553505147373\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-F28F0926-548C-42FE-9AEC-DB70028E8113\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-F28F0926-548C-42FE-9AEC-DB70028E8113\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"text\": \"Input :\\n    contract_id\\n    Contract has status CREATED\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"TextAnnotation\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 255.1584333654696,\r\n            \"y\": 675.7875631075672\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 60,\r\n            \"y\": 625\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-16239016-00AA-4E10-A05C-B135C9E63654\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-16239016-00AA-4E10-A05C-B135C9E63654\",\r\n          \"name\": \"Set contract status to RISK MANAGER\\nAPPROVAL\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"authenticationdetails\": {\r\n            \"useCurrentAuthToken\": true\r\n          },\r\n          \"httptaskrequestmethod\": \"PATCH\",\r\n          \"httptaskrequesturl\": \"{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}\",\r\n          \"httptaskrequestheaders\": \"Content-Type: application/json\",\r\n          \"httptaskrequestbody\": \"{\\n  \\\"properties\\\": {\\n    \\\"status\\\": \\\"RISK MANAGER APPROVAL\\\"\\n  },\\n  \\\"traits\\\": {\\n    \\\"ca_approval\\\": {\\n      \\\"Risk Manager Approval\\\": {\\n        \\\"is_required\\\": true,\\n        \\\"has_been_granted\\\": false,\\n        \\\"approver\\\": \\\"${cmsContract.updated_by.email}\\\",\\n        \\\"approver_role\\\": \\\"Risk Manager\\\"\\n      }\\n    }\\n  }\\n}\",\r\n          \"httptaskrequestbodyencoding\": \"\",\r\n          \"httptaskrequesttimeout\": \"\",\r\n          \"httptaskdisallowredirects\": \"\",\r\n          \"httptaskfailstatuscodes\": \"\",\r\n          \"httptaskhandlestatuscodes\": \"\",\r\n          \"httptaskignoreexception\": \"\",\r\n          \"httptaskresponsevariablename\": \"cmsContract\",\r\n          \"httptasksaverequestvariables\": \"\",\r\n          \"httptasksaveresponseparameters\": \"\",\r\n          \"httptaskresultvariableprefix\": \"\",\r\n          \"httptasksaveresponseparameterstransient\": \"\",\r\n          \"httptasksaveresponseasjson\": true,\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"isforcompensation\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          },\r\n          \"multiinstancegroupheader\": \"\",\r\n          \"multiinstance_type\": \"None\",\r\n          \"multiinstance_cardinality\": \"\",\r\n          \"multiinstance_collection\": \"\",\r\n          \"multiinstance_variable\": \"\",\r\n          \"multiinstance_condition\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"HttpTask\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-5B0968EE-D880-4C1D-8BBB-216EAA13D97C\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 565,\r\n            \"y\": 410\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 465,\r\n            \"y\": 330\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-8C1AE1DC-47D4-4965-85F9-A415364A3E90\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-8C1AE1DC-47D4-4965-85F9-A415364A3E90\",\r\n          \"name\": \"Contract risk > 3\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"${cmsContract.properties.risk_classification > 3}\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-16239016-00AA-4E10-A05C-B135C9E63654\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 515,\r\n            \"y\": 534.609375\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 515,\r\n            \"y\": 410.5703125\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 20,\r\n            \"y\": 20\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 79\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-16239016-00AA-4E10-A05C-B135C9E63654\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-7E2E0213-11EA-4AF7-8CF1-C554A5E0917C\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-7E2E0213-11EA-4AF7-8CF1-C554A5E0917C\",\r\n          \"name\": \"\\nRisk Manager Approval\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"usertaskassignment\": {\r\n            \"assignment\": {\r\n              \"type\": \"static\",\r\n              \"assignee\": \"$INITIATOR\"\r\n            }\r\n          },\r\n          \"usertasknature\": \"\",\r\n          \"duedatedefinition\": \"\",\r\n          \"prioritydefinition\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"isforcompensation\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"skipexpression\": \"\",\r\n          \"tasklisteners\": {\r\n            \"taskListeners\": []\r\n          },\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          },\r\n          \"completioncondition\": \"\",\r\n          \"tasktype\": \"approval\",\r\n          \"outcomevariable\": \"approvalStatus\",\r\n          \"possibleoutcomes\": \"Approve:approved,Reject:rejected\",\r\n          \"categorydefinition\": \"http://opentext.com/devx/contract\",\r\n          \"multiinstance_type\": \"None\",\r\n          \"multiinstance_cardinality\": \"\",\r\n          \"multiinstance_collection\": \"\",\r\n          \"multiinstance_variable\": \"\",\r\n          \"multiinstance_condition\": \"\",\r\n          \"formkeydefinition\": \"\",\r\n          \"formfieldvalidation\": \"true\",\r\n          \"formproperties\": \"\",\r\n          \"formreference\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"UserTask\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-6EC99527-2F85-4CE4-82FE-4113AEFCE928\"\r\n          },\r\n          {\r\n            \"resourceId\": \"sid-32478872-C584-4B6A-84D7-1679CADF7CC0\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 705,\r\n            \"y\": 410\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 605,\r\n            \"y\": 330\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-5B0968EE-D880-4C1D-8BBB-216EAA13D97C\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-7E2E0213-11EA-4AF7-8CF1-C554A5E0917C\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 604.78125,\r\n            \"y\": 370\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 565.21875,\r\n            \"y\": 370\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-7E2E0213-11EA-4AF7-8CF1-C554A5E0917C\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-AEABE21D-4CB9-49F6-BBAD-5E5CAE0604F4\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-AEABE21D-4CB9-49F6-BBAD-5E5CAE0604F4\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-B29D9B58-4814-4B98-83A2-5A63665280AD\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 1009,\r\n            \"y\": 514.1562500000002\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 940.546875,\r\n            \"y\": 130\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 99,\r\n            \"y\": 40\r\n          },\r\n          {\r\n            \"x\": 1009,\r\n            \"y\": 130\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-B29D9B58-4814-4B98-83A2-5A63665280AD\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-6EC99527-2F85-4CE4-82FE-4113AEFCE928\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-6EC99527-2F85-4CE4-82FE-4113AEFCE928\",\r\n          \"name\": \"Wait\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"timercycledefinition\": \"\",\r\n          \"timerdatedefinition\": \"\",\r\n          \"timerdurationdefinition\": \"PT5M\",\r\n          \"timerenddatedefinition\": \"\",\r\n          \"cancelactivity\": true,\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          }\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"BoundaryTimerEvent\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-9608443B-A9B9-4476-9863-3BC649920E67\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 670.5,\r\n            \"y\": 345.31201171875\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 639.5,\r\n            \"y\": 314.31201171875\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 6\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-B969B23B-BEDA-4DB4-AC37-D79971886D84\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-B969B23B-BEDA-4DB4-AC37-D79971886D84\",\r\n          \"name\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"Association\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 68,\r\n            \"y\": 625\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 58.01903837793994,\r\n            \"y\": 570.2025636435918\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 15.25,\r\n            \"y\": 15\r\n          },\r\n          {\r\n            \"x\": 68,\r\n            \"y\": 625\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-FADFD865-1F38-4E89-A316-64F9F902FC97\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-FADFD865-1F38-4E89-A316-64F9F902FC97\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"sequencefloworder\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          }\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"ExclusiveGateway\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-AC8797D2-D4F9-4A2B-BB7E-2F5E6332096D\"\r\n          },\r\n          {\r\n            \"resourceId\": \"sid-07F352C7-FFC8-45EF-8EB3-8B6662823623\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 910,\r\n            \"y\": 390\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 870,\r\n            \"y\": 350\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-E2C4C011-B360-416C-B7CE-74D5C7DB76BA\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-E2C4C011-B360-416C-B7CE-74D5C7DB76BA\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-71E692E1-6548-4A4E-8B8F-7B2508E1E261\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 810.370367808488,\r\n            \"y\": 555.0000000000002\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 765.7806689984378,\r\n            \"y\": 555.0000000000002\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          },\r\n          {\r\n            \"x\": 1,\r\n            \"y\": 40\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-71E692E1-6548-4A4E-8B8F-7B2508E1E261\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-71E692E1-6548-4A4E-8B8F-7B2508E1E261\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-71E692E1-6548-4A4E-8B8F-7B2508E1E261\",\r\n          \"name\": \"Update Automatic Approval trait\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"authenticationdetails\": {\r\n            \"useCurrentAuthToken\": true\r\n          },\r\n          \"httptaskrequestmethod\": \"PATCH\",\r\n          \"httptaskrequesturl\": \"{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}\",\r\n          \"httptaskrequestheaders\": \"Content-Type:  application/json\",\r\n          \"httptaskrequestbody\": \"{\\n  \\\"traits\\\": {\\n    \\\"ca_approval\\\": {\\n      \\\"Automatic Approval\\\": {\\n        \\\"has_been_granted\\\": true,\\n        \\\"approver\\\": \\\"SYSTEM\\\",\\n        \\\"approver_role\\\": \\\"Automatic Approval\\\",\\n        \\\"approval_date\\\": \\\"${cmsContract.update_time}\\\"\\n      }\\n    }\\n  }\\n}\",\r\n          \"httptaskrequestbodyencoding\": \"\",\r\n          \"httptaskrequesttimeout\": \"\",\r\n          \"httptaskdisallowredirects\": \"\",\r\n          \"httptaskfailstatuscodes\": \"\",\r\n          \"httptaskhandlestatuscodes\": \"\",\r\n          \"httptaskignoreexception\": \"\",\r\n          \"httptaskresponsevariablename\": \"cmsContract\",\r\n          \"httptasksaverequestvariables\": \"\",\r\n          \"httptasksaveresponseparameters\": \"\",\r\n          \"httptaskresultvariableprefix\": \"\",\r\n          \"httptasksaveresponseparameterstransient\": \"\",\r\n          \"httptasksaveresponseasjson\": true,\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"isforcompensation\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          },\r\n          \"multiinstancegroupheader\": \"\",\r\n          \"multiinstance_type\": \"None\",\r\n          \"multiinstance_cardinality\": \"\",\r\n          \"multiinstance_collection\": \"\",\r\n          \"multiinstance_variable\": \"\",\r\n          \"multiinstance_condition\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"HttpTask\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-D67C2135-D0BD-407A-BA05-4AFD32BBF255\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 910.370367808488,\r\n            \"y\": 595.0000000000002\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 810.370367808488,\r\n            \"y\": 515.0000000000002\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-D67C2135-D0BD-407A-BA05-4AFD32BBF255\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-B29D9B58-4814-4B98-83A2-5A63665280AD\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 958.069732935664,\r\n            \"y\": 555.0000000000002\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 911.300634872824,\r\n            \"y\": 555.0000000000002\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-B29D9B58-4814-4B98-83A2-5A63665280AD\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-080878C5-DEF7-45E3-87E6-8BA7F86A180E\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-080878C5-DEF7-45E3-87E6-8BA7F86A180E\",\r\n          \"name\": \"Update Line Manager Approval trait\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"authenticationdetails\": {\r\n            \"useCurrentAuthToken\": true\r\n          },\r\n          \"httptaskrequestmethod\": \"PATCH\",\r\n          \"httptaskrequesturl\": \"{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}\",\r\n          \"httptaskrequestheaders\": \"Content-Type:  application/json\",\r\n          \"httptaskrequestbody\": \"{\\n  \\\"traits\\\": {\\n    \\\"ca_approval\\\": {\\n      \\\"Line Manager Approval\\\": {\\n        \\\"is_required\\\": true,\\n        \\\"has_been_granted\\\": ${approvalStatus == \\\"approved\\\"},\\n        \\\"approver\\\": \\\"${cmsContract.updated_by.email}\\\",\\n        \\\"approver_role\\\": \\\"Line Manager\\\",\\n        \\\"approval_date\\\": \\\"${cmsContract.update_time}\\\"\\n      }\\n    }\\n  }\\n}\",\r\n          \"httptaskrequestbodyencoding\": \"\",\r\n          \"httptaskrequesttimeout\": \"\",\r\n          \"httptaskdisallowredirects\": \"\",\r\n          \"httptaskfailstatuscodes\": \"\",\r\n          \"httptaskhandlestatuscodes\": \"\",\r\n          \"httptaskignoreexception\": \"\",\r\n          \"httptaskresponsevariablename\": \"cmsContract\",\r\n          \"httptasksaverequestvariables\": \"\",\r\n          \"httptasksaveresponseparameters\": \"\",\r\n          \"httptaskresultvariableprefix\": \"\",\r\n          \"httptasksaveresponseparameterstransient\": \"\",\r\n          \"httptasksaveresponseasjson\": true,\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"isforcompensation\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          },\r\n          \"multiinstancegroupheader\": \"\",\r\n          \"multiinstance_type\": \"None\",\r\n          \"multiinstance_cardinality\": \"\",\r\n          \"multiinstance_collection\": \"\",\r\n          \"multiinstance_variable\": \"\",\r\n          \"multiinstance_condition\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"HttpTask\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-88DFC27F-4003-44AA-99B8-69CD31ED088B\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 495,\r\n            \"y\": 252.49999403953575\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 395,\r\n            \"y\": 172.49999403953575\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-1A9380E9-CC92-44FC-82AB-1CDBD83551D5\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-1A9380E9-CC92-44FC-82AB-1CDBD83551D5\",\r\n          \"name\": \"Update Risk Manager Approval trait\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"authenticationdetails\": {\r\n            \"useCurrentAuthToken\": true\r\n          },\r\n          \"httptaskrequestmethod\": \"PATCH\",\r\n          \"httptaskrequesturl\": \"{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}\",\r\n          \"httptaskrequestheaders\": \"Content-Type:  application/json\",\r\n          \"httptaskrequestbody\": \"{\\n  \\\"traits\\\": {\\n    \\\"ca_approval\\\": {\\n      \\\"Risk Manager Approval\\\": {\\n        \\\"is_required\\\": true,\\n        \\\"has_been_granted\\\": ${approvalStatus == \\\"approved\\\"},\\n        \\\"approver\\\": \\\"${cmsContract.updated_by.email}\\\",\\n        \\\"approver_role\\\": \\\"Risk Manager\\\",\\n        \\\"approval_date\\\": \\\"${cmsContract.update_time}\\\"\\n      }\\n    }\\n  }\\n}\",\r\n          \"httptaskrequestbodyencoding\": \"\",\r\n          \"httptaskrequesttimeout\": \"\",\r\n          \"httptaskdisallowredirects\": \"\",\r\n          \"httptaskfailstatuscodes\": \"\",\r\n          \"httptaskhandlestatuscodes\": \"\",\r\n          \"httptaskignoreexception\": \"\",\r\n          \"httptaskresponsevariablename\": \"cmsContract\",\r\n          \"httptasksaverequestvariables\": \"\",\r\n          \"httptasksaveresponseparameters\": \"\",\r\n          \"httptaskresultvariableprefix\": \"\",\r\n          \"httptasksaveresponseparameterstransient\": \"\",\r\n          \"httptasksaveresponseasjson\": true,\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"isforcompensation\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          },\r\n          \"multiinstancegroupheader\": \"\",\r\n          \"multiinstance_type\": \"None\",\r\n          \"multiinstance_cardinality\": \"\",\r\n          \"multiinstance_collection\": \"\",\r\n          \"multiinstance_variable\": \"\",\r\n          \"multiinstance_condition\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"HttpTask\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-B95D272A-3391-4D1C-8D05-E9451BC3E836\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 835,\r\n            \"y\": 410\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 735,\r\n            \"y\": 330\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-6DA2389F-EF4F-44CC-86F1-E35A702CDA2F\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"Calculate solvency\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"scriptformat\": \"JavaScript\",\r\n          \"scripttext\": \"var contractDetails = JSON.parse(execution.getVariable(\\\"cmsContract\\\"));\\nvar monthlyPayments = contractDetails.properties.value / contractDetails.properties.monthly_installments;\\nvar monthlyBudget = contractDetails.properties.yearly_income / 12 / 4;\\n\\nexecution.setVariable(\\\"solvent\\\", monthlyBudget >= monthlyPayments);\",\r\n          \"scriptautostorevariables\": \"false\",\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": \"false\",\r\n          \"isforcompensation\": \"false\",\r\n          \"exclusivedefinition\": \"false\",\r\n          \"executionlisteners\": \"\",\r\n          \"multiinstancegroupheader\": \"\",\r\n          \"multiinstance_type\": \"None\",\r\n          \"multiinstance_cardinality\": \"\",\r\n          \"multiinstance_collection\": \"\",\r\n          \"multiinstance_variable\": \"\",\r\n          \"multiinstance_condition\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"ScriptTask\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-C0189B7A-A2C5-44AB-8379-3390F082F0F9\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 205,\r\n            \"y\": 320\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 105,\r\n            \"y\": 240\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-D0D99437-FA0B-4D80-8680-32CA98439388\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"sequencefloworder\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": \"false\",\r\n          \"exclusivedefinition\": true\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"ExclusiveGateway\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-B73560BD-2B5A-4344-8A7F-570815FC192A\"\r\n          },\r\n          {\r\n            \"resourceId\": \"sid-304ACB7C-9B0C-44FB-B644-E197BFBACFCC\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 175,\r\n            \"y\": 460\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 135,\r\n            \"y\": 420\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-B25D7EC4-1121-469A-A69F-01277AC0C46B\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-B25D7EC4-1121-469A-A69F-01277AC0C46B\",\r\n          \"name\": \"Contract value <= 1000\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-00FA21DA-98F9-454E-8445-BACFE3A7B8DF\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 494.78125,\r\n            \"y\": 555\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 330.21875,\r\n            \"y\": 555\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 20,\r\n            \"y\": 20\r\n          },\r\n          {\r\n            \"x\": 20,\r\n            \"y\": 20\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-00FA21DA-98F9-454E-8445-BACFE3A7B8DF\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-7F2E4301-E7FE-4A6D-9709-72F8BF2BF041\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-7F2E4301-E7FE-4A6D-9709-72F8BF2BF041\",\r\n          \"name\": \"Contract value > 1000\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"${cmsContract.properties.value > 1000}\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-F93E8184-419E-4025-9A7C-4C78D3264E0D\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 310,\r\n            \"y\": 534.85546875\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 310,\r\n            \"y\": 368.236328125\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 20,\r\n            \"y\": 20\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 79\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-F93E8184-419E-4025-9A7C-4C78D3264E0D\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-B73560BD-2B5A-4344-8A7F-570815FC192A\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"Loan contract\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": {\r\n            \"expression\": {\r\n              \"type\": \"static\",\r\n              \"staticValue\": \"${cmsContract.type == \\\"ca_loan_contract\\\"}\"\r\n            }\r\n          },\r\n          \"defaultflow\": false,\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-6DA2389F-EF4F-44CC-86F1-E35A702CDA2F\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 155.434384750319,\r\n            \"y\": 419.43750485240207\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 155.126162124681,\r\n            \"y\": 320.49804202259793\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 20.5,\r\n            \"y\": 20.5\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-6DA2389F-EF4F-44CC-86F1-E35A702CDA2F\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-7B796F07-D6FF-4A9F-B9F4-2F0DE0708DE6\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"sequencefloworder\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": \"false\",\r\n          \"exclusivedefinition\": true\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"ExclusiveGateway\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-338BF5D8-4C4D-4F7B-806E-A220CC32F253\"\r\n          },\r\n          {\r\n            \"resourceId\": \"sid-C0207950-4C48-4DC2-B473-89B477285B77\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 175,\r\n            \"y\": 70\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 135,\r\n            \"y\": 30\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-0F987CCC-F755-4012-A5DA-7BB22B01D828\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-D0D99437-FA0B-4D80-8680-32CA98439388\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 155,\r\n            \"y\": 515.0000000000002\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 155,\r\n            \"y\": 460.00000000000006\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 1\r\n          },\r\n          {\r\n            \"x\": 20,\r\n            \"y\": 20\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-D0D99437-FA0B-4D80-8680-32CA98439388\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-64212D03-EFF1-4823-ADA4-60E31D2E416B\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-64212D03-EFF1-4823-ADA4-60E31D2E416B\",\r\n          \"name\": \"Update Solvency Check trait\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"authenticationdetails\": {\r\n            \"useCurrentAuthToken\": true\r\n          },\r\n          \"httptaskrequestmethod\": \"PATCH\",\r\n          \"httptaskrequesturl\": \"{{apigee_host}}/cms/instances/file/ca_contract/${contract_id}\",\r\n          \"httptaskrequestheaders\": \"Content-Type:  application/json\",\r\n          \"httptaskrequestbody\": \"{\\n  \\\"traits\\\": {\\n    \\\"ca_approval\\\": {\\n      \\\"Solvency Check\\\": {\\n        \\\"is_required\\\": true,\\n        \\\"has_been_granted\\\": ${solvent},\\n        \\\"approver\\\": \\\"SYSTEM\\\",\\n        \\\"approver_role\\\": \\\"Solvency Check\\\",\\n        \\\"approval_date\\\": \\\"${cmsContract.update_time}\\\"\\n      }\\n    }\\n  }\\n}\",\r\n          \"httptaskrequestbodyencoding\": \"\",\r\n          \"httptaskrequesttimeout\": \"\",\r\n          \"httptaskdisallowredirects\": \"\",\r\n          \"httptaskfailstatuscodes\": \"\",\r\n          \"httptaskhandlestatuscodes\": \"\",\r\n          \"httptaskignoreexception\": \"\",\r\n          \"httptaskresponsevariablename\": \"cmsContract\",\r\n          \"httptasksaverequestvariables\": \"\",\r\n          \"httptasksaveresponseparameters\": \"\",\r\n          \"httptaskresultvariableprefix\": \"\",\r\n          \"httptasksaveresponseparameterstransient\": \"\",\r\n          \"httptasksaveresponseasjson\": true,\r\n          \"executiongroupheader\": \"\",\r\n          \"asynchronousdefinition\": false,\r\n          \"isforcompensation\": false,\r\n          \"exclusivedefinition\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          },\r\n          \"multiinstancegroupheader\": \"\",\r\n          \"multiinstance_type\": \"None\",\r\n          \"multiinstance_cardinality\": \"\",\r\n          \"multiinstance_collection\": \"\",\r\n          \"multiinstance_variable\": \"\",\r\n          \"multiinstance_condition\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"HttpTask\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-B7874D60-0F3E-4E56-BDCB-8AD5CB1DEE6A\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 205,\r\n            \"y\": 200\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 105,\r\n            \"y\": 120\r\n          }\r\n        },\r\n        \"dockers\": []\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-07F352C7-FFC8-45EF-8EB3-8B6662823623\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"Rejected\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": {\r\n            \"expression\": {\r\n              \"type\": \"static\",\r\n              \"staticValue\": \"${approvalStatus == \\\"rejected\\\"}\"\r\n            }\r\n          },\r\n          \"defaultflow\": false,\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-813D6462-240D-4F87-86A6-F0B343DB651B\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 890,\r\n            \"y\": 349.58344099987784\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 890,\r\n            \"y\": 170.73219129435435\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 20,\r\n            \"y\": 6.4409713547125875\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 79\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-813D6462-240D-4F87-86A6-F0B343DB651B\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-B7874D60-0F3E-4E56-BDCB-8AD5CB1DEE6A\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-7B796F07-D6FF-4A9F-B9F4-2F0DE0708DE6\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 155,\r\n            \"y\": 120\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 155,\r\n            \"y\": 69.65278801654134\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 1\r\n          },\r\n          {\r\n            \"x\": 20,\r\n            \"y\": 7.244460826466138\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-7B796F07-D6FF-4A9F-B9F4-2F0DE0708DE6\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-C0189B7A-A2C5-44AB-8379-3390F082F0F9\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-64212D03-EFF1-4823-ADA4-60E31D2E416B\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 155,\r\n            \"y\": 239.765625\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 155,\r\n            \"y\": 200.6328125\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 79\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-64212D03-EFF1-4823-ADA4-60E31D2E416B\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-304ACB7C-9B0C-44FB-B644-E197BFBACFCC\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"Standard contract\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-EA6DB01D-341E-406A-A5E6-D30EC878B545\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 289.96875,\r\n            \"y\": 555\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 164.43741291677446,\r\n            \"y\": 451.10449511886713\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 20.5,\r\n            \"y\": 20.5\r\n          },\r\n          {\r\n            \"x\": 252,\r\n            \"y\": 555\r\n          },\r\n          {\r\n            \"x\": 20,\r\n            \"y\": 20\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-EA6DB01D-341E-406A-A5E6-D30EC878B545\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-E03766E6-2675-443F-827D-55A24E6B8CC3\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-E03766E6-2675-443F-827D-55A24E6B8CC3\",\r\n          \"name\": \"Approved\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-00FA21DA-98F9-454E-8445-BACFE3A7B8DF\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 504.35812947754533,\r\n            \"y\": 545.7110708981292\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 445.5,\r\n            \"y\": 325.64453125\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 20.5,\r\n            \"y\": 20.5\r\n          },\r\n          {\r\n            \"x\": 445.5,\r\n            \"y\": 494\r\n          },\r\n          {\r\n            \"x\": 20.5,\r\n            \"y\": 20.5\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-00FA21DA-98F9-454E-8445-BACFE3A7B8DF\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-C0207950-4C48-4DC2-B473-89B477285B77\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"Solvent\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-EA6DB01D-341E-406A-A5E6-D30EC878B545\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 301.78551746192005,\r\n            \"y\": 542.8084381827963\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 165.65399676147265,\r\n            \"y\": 60.275586944274906\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 20.5,\r\n            \"y\": 20.5\r\n          },\r\n          {\r\n            \"x\": 236,\r\n            \"y\": 128\r\n          },\r\n          {\r\n            \"x\": 236,\r\n            \"y\": 447\r\n          },\r\n          {\r\n            \"x\": 20.5,\r\n            \"y\": 20.5\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-EA6DB01D-341E-406A-A5E6-D30EC878B545\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-298526A9-750D-44DC-AB64-6AC732CC98FC\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-080878C5-DEF7-45E3-87E6-8BA7F86A180E\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 394.28125,\r\n            \"y\": 212.49999403953575\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 360.671875,\r\n            \"y\": 212.49999403953575\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 99,\r\n            \"y\": 40\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-080878C5-DEF7-45E3-87E6-8BA7F86A180E\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-88DFC27F-4003-44AA-99B8-69CD31ED088B\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-88DFC27F-4003-44AA-99B8-69CD31ED088B\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-9199CA54-7287-4F51-B61C-E08A2FF4B035\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 445,\r\n            \"y\": 285.2656236961484\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 445,\r\n            \"y\": 253.195306632668\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 79\r\n          },\r\n          {\r\n            \"x\": 20,\r\n            \"y\": 11\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-9199CA54-7287-4F51-B61C-E08A2FF4B035\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-9199CA54-7287-4F51-B61C-E08A2FF4B057\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-9199CA54-7287-4F51-B61C-E08A2FF4B057\",\r\n          \"name\": \"Wait timeout exceeded\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": {\r\n            \"expression\": {\r\n              \"type\": \"static\",\r\n              \"staticValue\": \"${cmsContract.properties.status == \\\"LINE MANAGER APPROVAL\\\"}\"\r\n            }\r\n          },\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 958.96875,\r\n            \"y\": 164.2029742974038\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 317.1135215535006,\r\n            \"y\": 65\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 15.999999999999998,\r\n            \"y\": 15.999999999999998\r\n          },\r\n          {\r\n            \"x\": 486,\r\n            \"y\": 65\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-9608443B-A9B9-4476-9863-3BC649920E67\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"Wait timeout exceeded\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": {\r\n            \"expression\": {\r\n              \"type\": \"static\",\r\n              \"staticValue\": \"${cmsContract.properties.status == \\\"RISK MANAGER APPROVAL\\\"}\"\r\n            }\r\n          },\r\n          \"defaultflow\": false,\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 959,\r\n            \"y\": 314.80276107788086\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 655.5,\r\n            \"y\": 65\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 16,\r\n            \"y\": 16\r\n          },\r\n          {\r\n            \"x\": 655.5,\r\n            \"y\": 65\r\n          },\r\n          {\r\n            \"x\": 1,\r\n            \"y\": 40\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-B03121B6-10EE-4D8E-BFD3-A6156A311F32\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-338BF5D8-4C4D-4F7B-806E-A220CC32F253\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"Not solvent\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": {\r\n            \"expression\": {\r\n              \"type\": \"static\",\r\n              \"staticValue\": \"${!solvent}\"\r\n            }\r\n          },\r\n          \"defaultflow\": false,\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-813D6462-240D-4F87-86A6-F0B343DB651B\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 890,\r\n            \"y\": 90\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 175.1494140625,\r\n            \"y\": 50.5\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 20.5,\r\n            \"y\": 20.5\r\n          },\r\n          {\r\n            \"x\": 890,\r\n            \"y\": 50.5\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 1\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-813D6462-240D-4F87-86A6-F0B343DB651B\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-D8B65818-C1ED-45AE-BE4E-E6DC8586ABD9\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-D8B65818-C1ED-45AE-BE4E-E6DC8586ABD9\",\r\n          \"name\": \"Wait\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"timercycledefinition\": \"\",\r\n          \"timerdatedefinition\": \"\",\r\n          \"timerdurationdefinition\": \"PT5M\",\r\n          \"timerenddatedefinition\": \"\",\r\n          \"cancelactivity\": true,\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": {\r\n            \"executionListeners\": []\r\n          }\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"BoundaryTimerEvent\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-9199CA54-7287-4F51-B61C-E08A2FF4B057\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 318.4131314527657,\r\n            \"y\": 187.2505069331095\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 287.4131314527657,\r\n            \"y\": 156.2505069331095\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 44,\r\n            \"y\": 5.50000596046425\r\n          }\r\n        ]\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-32478872-C584-4B6A-84D7-1679CADF7CC0\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-1A9380E9-CC92-44FC-82AB-1CDBD83551D5\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 734.234375,\r\n            \"y\": 370\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 705.765625,\r\n            \"y\": 370\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-1A9380E9-CC92-44FC-82AB-1CDBD83551D5\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-B95D272A-3391-4D1C-8D05-E9451BC3E836\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\"\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-FADFD865-1F38-4E89-A316-64F9F902FC97\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 870.1328125,\r\n            \"y\": 370\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 835.21875,\r\n            \"y\": 370\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 40\r\n          },\r\n          {\r\n            \"x\": 20,\r\n            \"y\": 20\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-FADFD865-1F38-4E89-A316-64F9F902FC97\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-AC8797D2-D4F9-4A2B-BB7E-2F5E6332096D\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"\",\r\n          \"name\": \"Approved\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"\",\r\n          \"defaultflow\": true,\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-954EEBE4-464A-4885-BD09-2364A6A772E7\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 890.5,\r\n            \"y\": 515.0000000000002\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 715.1851831683842,\r\n            \"y\": 390.27734375\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 20.5,\r\n            \"y\": 20.5\r\n          },\r\n          {\r\n            \"x\": 890.5,\r\n            \"y\": 475\r\n          },\r\n          {\r\n            \"x\": 715.1851831683842,\r\n            \"y\": 475\r\n          },\r\n          {\r\n            \"x\": 50,\r\n            \"y\": 1\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-954EEBE4-464A-4885-BD09-2364A6A772E7\"\r\n        }\r\n      },\r\n      {\r\n        \"resourceId\": \"sid-87065CE0-E606-434C-9477-5F5A6B5ACA2E\",\r\n        \"properties\": {\r\n          \"generalgroupheader\": \"\",\r\n          \"overrideid\": \"sid-87065CE0-E606-434C-9477-5F5A6B5ACA2E\",\r\n          \"name\": \"Rejected\",\r\n          \"detailsgroupheader\": \"\",\r\n          \"mandatoryinfo\": \"\",\r\n          \"conditionsequenceflow\": \"${approvalStatus == \\\"rejected\\\"}\",\r\n          \"defaultflow\": \"false\",\r\n          \"skipexpression\": \"\",\r\n          \"executiongroupheader\": \"\",\r\n          \"executionlisteners\": \"\",\r\n          \"showdiamondmarker\": false\r\n        },\r\n        \"stencil\": {\r\n          \"id\": \"SequenceFlow\"\r\n        },\r\n        \"childShapes\": [],\r\n        \"outgoing\": [\r\n          {\r\n            \"resourceId\": \"sid-813D6462-240D-4F87-86A6-F0B343DB651B\"\r\n          }\r\n        ],\r\n        \"bounds\": {\r\n          \"lowerRight\": {\r\n            \"x\": 840,\r\n            \"y\": 305.5\r\n          },\r\n          \"upperLeft\": {\r\n            \"x\": 465.0859375,\r\n            \"y\": 130\r\n          }\r\n        },\r\n        \"dockers\": [\r\n          {\r\n            \"x\": 20.5,\r\n            \"y\": 20.5\r\n          },\r\n          {\r\n            \"x\": 537,\r\n            \"y\": 305.5\r\n          },\r\n          {\r\n            \"x\": 537,\r\n            \"y\": 130\r\n          },\r\n          {\r\n            \"x\": 1,\r\n            \"y\": 40\r\n          }\r\n        ],\r\n        \"target\": {\r\n          \"resourceId\": \"sid-813D6462-240D-4F87-86A6-F0B343DB651B\"\r\n        }\r\n      }\r\n    ],\r\n    \"stencil\": {\r\n      \"id\": \"BPMNDiagram\"\r\n    },\r\n    \"stencilset\": {\r\n      \"namespace\": \"http://b3mn.org/stencilset/bpmn2.0#\",\r\n      \"url\": \"../editor/stencilsets/bpmn2.0/bpmn2.0.json\"\r\n    }\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "{{apigee_host}}/workflow/v1/runtime/models",
+							"host": [
+								"{{apigee_host}}"
+							],
+							"path": [
+								"workflow",
+								"v1",
+								"runtime",
+								"models"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all process models",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{apigee_host}}/workflow/v1/runtime/models",
+							"host": [
+								"{{apigee_host}}"
+							],
+							"path": [
+								"workflow",
+								"v1",
+								"runtime",
+								"models"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get 'Contract Approval' process model",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{apigee_host}}/workflow/v1/runtime/models/82159320-7c5c-11ec-8720-eeee0affb931?modelType=json",
+							"host": [
+								"{{apigee_host}}"
+							],
+							"path": [
+								"workflow",
+								"v1",
+								"runtime",
+								"models",
+								"82159320-7c5c-11ec-8720-eeee0affb931"
+							],
+							"query": [
+								{
+									"key": "modelType",
+									"value": "json"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all tasks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{apigee_host}}/workflow/v1/tasks?sort=createTime&order=desc&includeProcessVariables=true",
+							"host": [
+								"{{apigee_host}}"
+							],
+							"path": [
+								"workflow",
+								"v1",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "createTime"
+								},
+								{
+									"key": "order",
+									"value": "desc"
+								},
+								{
+									"key": "includeProcessVariables",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete process model",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{apigee_host}}/workflow/v1/runtime/models/84ab7656-8049-11ec-8720-eeee0affb931",
+							"host": [
+								"{{apigee_host}}"
+							],
+							"path": [
+								"workflow",
+								"v1",
+								"runtime",
+								"models",
+								"84ab7656-8049-11ec-8720-eeee0affb931"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get access token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"access_token\", pm.response.json().access_token);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"client_id\": \"{{client_id}}\",\n    \"client_secret\": \"{{client_secret}}\",\n    \"grant_type\": \"password\",\n    \"username\": \"{{username}}\",\n    \"password\": \"{{password}}\"\n}"
+				},
+				"url": {
+					"raw": "{{apigee_host}}/tenants/{{tenant_id}}/oauth2/token",
+					"host": [
+						"{{apigee_host}}"
+					],
+					"path": [
+						"tenants",
+						"{{tenant_id}}",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

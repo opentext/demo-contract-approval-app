@@ -97,8 +97,18 @@
    margin-inline-end: 5px;
  }
  
+
+.contract-details {
+  height: 520px;
+  width: 600px;
+  th {
+    font-weight: bold;
+  }
+}
+ 
  
 .add-contract {
+  height: 400px;
   .file-input {
     visibility:hidden;
     width:0px;

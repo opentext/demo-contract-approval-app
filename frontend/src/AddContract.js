@@ -8,25 +8,40 @@ import {
 	Dialog,
 	DialogActions,
 	DialogContent,
-	DialogTitle
+	DialogTitle,
+	FormControlLabel,
+	InputLabel,
+	MenuItem,
+	Radio,
+	RadioGroup,
+	Select,
+	FormControl,
 } from "@material-ui/core";
+import ApplicationContext from './context/ApplicationContext';
 
-export default class AddContract extends React.Component {
+class AddContract extends React.Component {
+	static contextType = ApplicationContext;
+
 	constructor(props) {
 		super(props);
 
+		this.handleChangeContractType = this.handleChangeContractType.bind(this);
 		this.handleChangeContractName = this.handleChangeContractName.bind(this);
 		this.handleChangeContractValue = this.handleChangeContractValue.bind(this);
 		this.handleChangeContractRequesterEmail = this.handleChangeContractRequesterEmail.bind(this);
-		this.handleChangeContractRequesterEmail = this.handleChangeContractRequesterEmail.bind(this);
+		this.handleChangeContractMonthlyInstallments = this.handleChangeContractMonthlyInstallments.bind(this);
+		this.handleChangeContractYearlyIncome = this.handleChangeContractYearlyIncome.bind(this);
 		this.canSubmit = this.canSubmit.bind(this);
 
 		this.state = {
 			showBackdrop: false,
 			selectedContract: {
+				newContractType: '',
 				newContractName: '',
 				newContractValue: '',
 				newContractRequesterEmail: '',
+				newContractMonthlyInstallments: '',
+				newContractYearlyIncome: '',
 				selectedFile: ''
 			},
 			riskGuard: {
@@ -38,8 +53,12 @@ export default class AddContract extends React.Component {
 
 	closeDialog() {
 		this.setState({
+			newContractType: '',
 			newContractName: '',
 			newContractValue: '',
+			newContractRequesterEmail: '',
+			newContractMonthlyInstallments: '',
+			newContractYearlyIncome: '',
 			showBackdrop: false
 		});
 		this.props.onClose();
@@ -58,6 +77,14 @@ export default class AddContract extends React.Component {
 		this.fileNameText = element;
 	}
 
+	handleChangeContractType(event) {
+		this.setState({
+			newContractType: event.target.value,
+			newContractMonthlyInstallments: '',
+			newContractYearlyIncome: ''
+		});
+	}
+
 	handleChangeContractName(event) {
 		this.setState({
 			newContractName: event.target.value
@@ -73,6 +100,18 @@ export default class AddContract extends React.Component {
 	handleChangeContractRequesterEmail(event) {
 		this.setState({
 			newContractRequesterEmail: event.target.value
+		});
+	}
+
+	handleChangeContractMonthlyInstallments(event) {
+		this.setState({
+			newContractMonthlyInstallments: event.target.value
+		});
+	}
+
+	handleChangeContractYearlyIncome(event) {
+		this.setState({
+			newContractYearlyIncome: event.target.value
 		});
 	}
 
@@ -99,6 +138,85 @@ export default class AddContract extends React.Component {
 			});
 		});
 
+		// Check for application root folder, and if not existing, create it
+		if (this.context.appRootFolderId === '') {
+			await axios.get(
+				'/api/cms/instances/folder/cms_folder?filter=name eq \'Contract Approval App\''
+			).then(res => {
+				if (res.data._embedded) {
+					let appRootFolderId = res.data._embedded.collection[0].id;
+					const { updateAppRootFolderId } = this.context;
+					updateAppRootFolderId(appRootFolderId);
+				}
+			});
+		};
+
+		if (this.context.appRootFolderId === '') {
+			await axios.post(
+				'/api/cms/instances/folder/cms_folder',
+				{
+					"name": "Contract Approval App",
+				}
+			).then(res => {
+				if (res.data) {
+					let appRootFolderId = res.data.id;
+					const { updateAppRootFolderId } = this.context;
+					updateAppRootFolderId(appRootFolderId);
+				}
+			}).catch(error => {
+				const statusCode = error.response.status;
+				let errorMessage;
+				if (statusCode === 401) {
+					// Unauthorized access
+					errorMessage = 'Error creating App Root Folder: You are not authorized to access this resource. Your session might have timed out.';
+				} else {
+					errorMessage = `Error creating App Root Folder: ${JSON.stringify(error.response.data, null, 2)}`;
+				}
+				this.props.onAddContract("Error creating contract: " + errorMessage);
+			})
+		};
+
+		// Check for customer folder, and if not existing, create it
+		const appRootFolderId = this.context.appRootFolderId;
+		const customerEmail = this.state.newContractRequesterEmail;
+
+		let parentFolderId = '';
+		await axios.get(
+			`/api/cms/instances/folder/ca_customer?filter=parent_folder_id eq '${appRootFolderId}' and name eq '${encodeURIComponent(customerEmail)}'`
+		).then(res => {
+			if (res.data._embedded) {
+				parentFolderId = res.data._embedded.collection[0].id;
+			}
+		});
+
+		if (parentFolderId === '') {
+			await axios.post(
+				'/api/cms/instances/folder/ca_customer',
+				{
+					"name": customerEmail,
+					"parent_folder_id": appRootFolderId,
+					"properties": {
+						"customer_email": customerEmail
+					}
+				}
+			).then(res => {
+				if (res.data) {
+					parentFolderId = res.data.id;
+				}
+			}).catch(error => {
+				const statusCode = error.response.status;
+				let errorMessage;
+				if (statusCode === 401) {
+					// Unauthorized access
+					errorMessage = 'Error creating Customer Folder: You are not authorized to access this resource. Your session might have timed out.';
+				} else {
+					errorMessage = `Error creating Customer Folder: ${JSON.stringify(error.response.data, null, 2)}`;
+				}
+				this.props.onAddContract("Error creating contract: " + errorMessage);
+			})
+		};
+
+
 		// Adding Contract
 		axios.post(
 			'/api/css/uploadcontent?avs-scan=false',
@@ -108,12 +226,20 @@ export default class AddContract extends React.Component {
 				},
 			}
 		).then(res => {
+			let cmsType;
+			if (this.isLoanContract()) {
+				cmsType = 'ca_loan_contract'
+			} else {
+				cmsType = 'ca_contract'
+			}
+
 			// Setting metadata
 			return axios({
 				method: 'post',
-				url: '/api/cms/instances/file/ot2_app_contract',
+				url: `/api/cms/instances/file/${cmsType}`,
 				data: {
 					"name": this.state.newContractName,
+					"parent_folder_id": parentFolderId,
 					"renditions": [
 						{
 							"name": res.data.entries[0].fileName,
@@ -122,11 +248,45 @@ export default class AddContract extends React.Component {
 						}
 					],
 					"properties": {
-						"contract_value": parseInt(this.state.newContractValue, 10),
-						"contract_status": "CREATED",
-						"contract_requester_email": this.state.newContractRequesterEmail,
-						"contract_risk": this.state.contractRisk,
-						"extracted_terms": this.state.extractedTerms
+						"value": parseInt(this.state.newContractValue, 10),
+						"status": "CREATED",
+						"requester_email": customerEmail,
+						"risk_classification": this.state.contractRisk,
+						"extracted_terms": this.state.extractedTerms,
+						...this.isLoanContract() && {
+							"monthly_installments": parseInt(this.state.newContractMonthlyInstallments),
+							"yearly_income": parseInt(this.state.newContractYearlyIncome)
+						}
+					},
+					"traits": {
+						"ca_approval": {
+							"Automatic Approval": {
+								"is_required": true,
+								"has_been_granted": false,
+								"approver": "",
+								"approver_role": "",
+							},
+							"Line Manager Approval": {
+								"is_required": false,
+								"has_been_granted": false,
+								"approver": "",
+								"approver_role": "",
+							},
+							"Risk Manager Approval": {
+								"is_required": false,
+								"has_been_granted": false,
+								"approver": "",
+								"approver_role": "",
+							},
+							...this.isLoanContract() && {
+								"Solvency Check": {
+									"is_required": true,
+									"has_been_granted": false,
+									"approver": "",
+									"approver_role": "",
+								}
+							}
+						}
 					}
 				},
 			})
@@ -152,7 +312,23 @@ export default class AddContract extends React.Component {
 	}
 
 	canSubmit() {
-		return this.state.newContractName && this.state.newContractValue > 0 && this.state.selectedFile && this.state.newContractRequesterEmail;
+		return (
+			this.state.newContractName &&
+			this.state.newContractValue > 0 &&
+			this.state.selectedFile &&
+			this.state.newContractRequesterEmail &&
+			(
+				!this.isLoanContract() ||
+				(
+					this.state.newContractMonthlyInstallments > 0 &&
+					this.state.newContractYearlyIncome > 0
+				)
+			)
+		);
+	}
+
+	isLoanContract() {
+		return this.state.newContractType === "loan-contract";
 	}
 
 	render() {
@@ -167,11 +343,22 @@ export default class AddContract extends React.Component {
 						</div>
 						<div id="fileName" className="inline margin-start" ref={this.setFileNameInputRef} />
 					</div>
+					<br />
+					<RadioGroup
+						row
+						defaultValue="standard-contract"
+						name="contract-types-radio-buttons-group"
+						onChange={this.handleChangeContractType}
+					>
+						<FormControlLabel value="standard-contract" control={<Radio />} label="Standard Contract" size="small" />
+						<FormControlLabel value="loan-contract" control={<Radio />} label="Loan Contract" />
+					</RadioGroup>
 					<TextField
 						margin="dense"
 						id="contract-name"
 						label="Document name"
 						type="text"
+						defaultValue=""
 						fullWidth
 						onChange={this.handleChangeContractName}
 
@@ -186,11 +373,47 @@ export default class AddContract extends React.Component {
 						onChange={this.handleChangeContractValue}
 
 					/>
+					{
+						this.isLoanContract() &&
+						<>
+							<FormControl fullWidth>
+							<InputLabel id="contract-monthly-installments-label">Monthly installments</InputLabel>
+								<Select
+									margin="dense"
+									labelId="contract-monthly-installments-label"
+									id="contract-monthly-installments"
+									label="Monthly installments"
+									type="number"
+									defaultValue=""
+									onChange={this.handleChangeContractMonthlyInstallments}
+								>
+									<MenuItem value={12}>12</MenuItem>
+									<MenuItem value={24}>24</MenuItem>
+									<MenuItem value={36}>36</MenuItem>
+									<MenuItem value={48}>48</MenuItem>
+									<MenuItem value={60}>60</MenuItem>
+									<MenuItem value={72}>72</MenuItem>
+									<MenuItem value={84}>84</MenuItem>
+								</Select>
+							</FormControl>
+							<TextField
+								margin="dense"
+								id="contract-yearly-income"
+								label="Yearly income"
+								type="number"
+								defaultValue=""
+								InputProps={{ inputProps: { min: 1 } }}
+								fullWidth
+								onChange={this.handleChangeContractYearlyIncome}
+							/>
+						</>
+					}
 					<TextField
 						margin="dense"
 						id="contract-requester-email"
 						label="Contract requester email"
 						type="text"
+						defaultValue=""
 						fullWidth
 						onChange={this.handleChangeContractRequesterEmail}
 
@@ -200,10 +423,10 @@ export default class AddContract extends React.Component {
 					<Button onClick={() => { this.submitContract() }} variant="contained" color="primary"
 						disabled={!this.canSubmit()}>
 						Add
-	          </Button>
+					</Button>
 					<Button onClick={() => { this.closeDialog() }} color="primary">
 						Cancel
-	          </Button>
+					</Button>
 				</DialogActions>
 				<Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
 					<CircularProgress color="inherit" />
@@ -212,3 +435,5 @@ export default class AddContract extends React.Component {
 		)
 	}
 }
+
+export default AddContract;
