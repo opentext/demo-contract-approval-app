@@ -1,0 +1,85 @@
+{
+  "id": "a29fb0c2-f754-4a89-b1c2-c211131b0883",
+  "schemaId": "https://www.opentext.com/ot2/devx/cms/1.0.0/CMSType",
+  "data": {
+    "category": "file",
+    "name": "contract",
+    "display_name": "Contract",
+    "namespace": "9d95fbc9-b1e9-4946-956f-d38bcc4569f4",
+    "attributes": [
+      {
+        "data_type": "string",
+        "display_name": "Requester email",
+        "name": "requester_email",
+        "size": 256,
+        "searchable": true,
+        "sortable": true,
+        "required": true,
+        "validators": [],
+        "ot2mc-row-id": "54fbd3ef-544f-4be2-a0ff-77210ac11027"
+      },
+      {
+        "data_type": "string",
+        "display_name": "Status",
+        "name": "status",
+        "size": 32,
+        "searchable": true,
+        "sortable": true,
+        "validators": [],
+        "ot2mc-row-id": "d89607e4-772b-4298-a109-a3c4891a1d84"
+      },
+      {
+        "data_type": "integer",
+        "display_name": "Value",
+        "name": "value",
+        "searchable": true,
+        "sortable": true,
+        "required": true,
+        "validators": [],
+        "ot2mc-row-id": "ff186f82-b033-4988-9b1e-4a86a6fe46dc"
+      },
+      {
+        "data_type": "integer",
+        "display_name": "Risk classification",
+        "name": "risk_classification",
+        "searchable": true,
+        "sortable": true,
+        "validators": [],
+        "ot2mc-row-id": "8d32f224-60a6-40c6-9d6a-368150442b45"
+      },
+      {
+        "data_type": "string",
+        "display_name": "Extracted terms",
+        "name": "extracted_terms",
+        "repeating": true,
+        "size": 256,
+        "validators": [],
+        "ot2mc-row-id": "c27c653c-3070-4eec-a503-884de9456aa2"
+      }
+    ],
+    "description": "Contract Type",
+    "operations": [],
+    "indexes": [],
+    "methods": [],
+    "scripts": [],
+    "required_traits": [
+      {
+        "instance_name": "Automatic Approval",
+        "trait_name": "c59a5284-c317-4ba4-b94b-faa7db0d0081",
+        "ot2mc-row-id": "b61ae539-f077-4cd0-b752-cffac828bbfe"
+      },
+      {
+        "instance_name": "Line Manager Approval",
+        "trait_name": "c59a5284-c317-4ba4-b94b-faa7db0d0081",
+        "ot2mc-row-id": "1c3800fd-ff4d-4792-a118-a71677e2dfa2"
+      },
+      {
+        "instance_name": "Risk Manager Approval",
+        "trait_name": "c59a5284-c317-4ba4-b94b-faa7db0d0081",
+        "ot2mc-row-id": "fb3244e2-e003-4970-8875-4792830a7210"
+      }
+    ],
+    "non_auditable_actions": []
+  },
+  "serviceName": "cms"
+}

@@ -29,7 +29,7 @@ export class RiskClassification extends Component {
     render() {
         return (
             <div>
-                {riskClassifications[this.state.row.properties.contract_risk - 1]}
+                {riskClassifications[this.state.row.properties.risk_classification - 1]}
                 <IconButton size="small" variant="outlined" color="primary" title="Show extracted personal data" onClick={() => { this.showExtractedPersonalData(this.state.row) }}>
                     <InfoIcon />
                 </IconButton>

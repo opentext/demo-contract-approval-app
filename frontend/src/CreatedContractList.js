@@ -113,7 +113,7 @@ class CreatedContractList extends React.Component {
 			this.setState({ showBackdrop: true });
 			axios({
 				method: 'get',
-				url: '/api/cms/instances/file/ot2_app_contract/?include-total=true&sortby=create_time desc&filter=contract_status eq "CREATED"&page='
+				url: '/api/cms/instances/file/ca_contract/?include-total=true&sortby=create_time desc&filter=status eq "CREATED"&page='
 					+ (this.state.pageNumber + 1),
 			}).then(res => {
 				this.setState({
@@ -127,11 +127,7 @@ class CreatedContractList extends React.Component {
 				} else {
 					errorMessage += error.message;
 				}
-				this.setState({
-					snackBarSeverity: 'error',
-					snackBarMessage: errorMessage,
-					showSnackBar: true
-				});
+				this.raiseError(errorMessage);
 			}).finally(() => {
 				this.setState({ showBackdrop: false });
 			})
@@ -150,7 +146,7 @@ class CreatedContractList extends React.Component {
 	startContractForApproval(contractId) {
 		this.setState({ showBackdrop: true });
 		let data = {
-				"processDefinitionKey": "approveContractId",
+				"processDefinitionKey": "contract_approval",
 				"name": "Approve contract",
 				"outcome": "none",
 				"variables": [
@@ -177,11 +173,7 @@ class CreatedContractList extends React.Component {
 			} else {
 				errorMessage += error.message;
 			}
-			this.setState({
-				snackBarSeverity: 'error',
-				snackBarMessage: errorMessage,
-				showSnackBar: true
-			});
+			this.raiseError(errorMessage);
 		}).finally(() => {
 			this.setState({ showBackdrop: false });
 		})
@@ -201,6 +193,14 @@ class CreatedContractList extends React.Component {
 	openContractDialog() {
 		this.setState({
 			openAddContract: true
+		});
+	}
+
+	raiseError(errorMessage) {
+		this.setState({
+		  snackBarSeverity: 'error',
+		  snackBarMessage: errorMessage,
+		  showSnackBar: true
 		});
 	}
 
@@ -229,7 +229,7 @@ class CreatedContractList extends React.Component {
 										{row.name}
 									</TableCell>
 									<TableCell align="left">{this.getDateValue(row.create_time)}</TableCell>
-									<TableCell align="left">{row.properties.contract_value}</TableCell>
+									<TableCell align="left">{row.properties.value}</TableCell>
 									<TableCell align="left"><RiskClassification row={row} /></TableCell>
 									<TableCell align="left">
 										<Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentDialogView(row._links['urn:eim:linkrel:download-media'].href) }}>Original</Button>
@@ -248,7 +248,7 @@ class CreatedContractList extends React.Component {
 					</Table>
 				</TableContainer>
 				<Pagination pageNumber={this.state.pageNumber} count={this.state.count} handlePageNumber={this.handlePageNumber} />
-				<ContractDetails open={this.state.openContractDetails} selectedContract={this.state.selectedContract} onClose={this.handleCloseContractDetails} />
+				<ContractDetails open={this.state.openContractDetails} selectedContract={this.state.selectedContract} raiseError={this.raiseError} onClose={this.handleCloseContractDetails} />
 				<AddContract open={this.state.openAddContract} onAddContract={this.handleContractAdded} onClose={this.handleCloseAddContract} />
 				<DocumentDialogView open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
 				<Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>

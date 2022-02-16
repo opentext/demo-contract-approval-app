@@ -6,7 +6,7 @@ const replace = require('replace-in-file');
 const fs = require('fs')
 
 const { tasksGetObjects, tasksUpdate } = require("./services/Tasks");
-const { cmsGetObjects, cmsCreateInstance } = require("./services/CMS");
+const { cmsGetObjects, cmsGetObject, cmsCreateInstance } = require("./services/CMS");
 const { cssDownloadContent, cssUploadContent } = require("./services/CSS");
 const { rgGetToken, rgProcessDoc } = require("./services/RiskGuard");
 const { workflowCreateInstance } = require("./services/Workflow");
@@ -38,8 +38,6 @@ if (process.env.NODE_ENV === "production") {
 }
 app.use(bodyParser.json());
 app.use(fileUpload());
-
-const displayConfig = !process.argv.includes('--no-config-allowed');
 
 /**
  * Returns the Authorization header
@@ -133,18 +131,6 @@ app.get("/session", async (req, res) => {
 });
 
 /**
- * Returns whether the UI must display the configuration.
- * @returns 200 status code when the UI must display the configuration options.
- */
-app.get("/display-configuration", async (req, res) => {
-  if (displayConfig) {
-    res.sendStatus(200);
-  } else {
-    res.sendStatus(403);
-  }
-});
-
-/**
  * Logs the user out and clears the cookie.
  * @returns a 200 status code
  */
@@ -160,14 +146,10 @@ app.post("/logout", async (req, res) => {
  * @returns 200 status code
  */
 app.post("/configuration", async (req, res) => {
-  if (!displayConfig) {
-    res.sendStatus(403);
-  } else {
-    console.log('Saving configuration...');
-    let configuration = req.body;
-    await saveConfiguration(configuration);
-    res.status(200).send({message: `Configuration saved successfully.`});
-  }
+  console.log('Saving configuration...');
+  let configuration = req.body;
+  await saveConfiguration(configuration);
+  res.status(200).send({message: `Configuration saved successfully.`});
 });
 
 /**
@@ -175,11 +157,7 @@ app.post("/configuration", async (req, res) => {
  * @returns 200 when there is a configuration, 204 otherwise.
  */
 app.get("/configuration", async (req, res) => {
-  if (!displayConfig) {
-    res.sendStatus(403);
-  } else {
-    process.env.CLIENT_ID && process.env.CLIENT_SECRET && process.env.TENANT_ID ? res.sendStatus(200) : res.sendStatus(204);
-  }
+  process.env.CLIENT_ID && process.env.CLIENT_SECRET && process.env.TENANT_ID ? res.sendStatus(200) : res.sendStatus(204);
 });
 
 /**
@@ -187,24 +165,20 @@ app.get("/configuration", async (req, res) => {
  * @returns 200 when the configuration was saved successfully
  */
 app.put("/configuration", async (req, res) => {
-  if (!displayConfig) {
-    res.sendStatus(403);
-  } else {
-    const errorMessage = 'The file does not appear to be valid JSON.';
-    try {
-      const file = req.files.file;
-      console.log(`Processing configuration file ${file.name}...`);
-      if (file.mimetype !== "application/json") {
-        res.status(400).send(errorMessage);
-      }
-      const configuration = JSON.parse(file.data);
-      await saveConfiguration(configuration);
-      console.log('Configuration file processed successfully => ' + JSON.stringify(configuration, null, 2));
-      res.status(200).send({message: `Configuration file ${file.name} processed successfully.`});
-    } catch (error) {
-      console.error(errorMessage, error);
+  const errorMessage = 'The file does not appear to be valid JSON.';
+  try {
+    const file = req.files.file;
+    console.log(`Processing configuration file ${file.name}...`);
+    if (file.mimetype !== "application/json") {
       res.status(400).send(errorMessage);
     }
+    const configuration = JSON.parse(file.data);
+    await saveConfiguration(configuration);
+    console.log('Configuration file processed successfully => ' + JSON.stringify(configuration, null, 2));
+    res.status(200).send({message: `Configuration file ${file.name} processed successfully.`});
+  } catch (error) {
+    console.error(errorMessage, error);
+    res.status(400).send(errorMessage);
   }
 });
 
@@ -233,11 +207,23 @@ app.post("/api/tasks/:task_id", async (req, res) => {
 });
 
 /**
- * Gets the contract metadata from the OT2 Content Metadata service.
+ * Gets the contract metadata for all contract from the OT2 Content Metadata service.
  */
 app.get("/api/cms/instances/:category/:type", async (req, res) => {
   try {
     let responseBody = await cmsGetObjects(req, req.params.category, req.params.type, getAuthorizationWithToken());
+    res.send(responseBody);
+  } catch (err) {
+    res.status(err.status).send(err.description);
+  }
+});
+
+/**
+ * Gets the contract metadata for one contract from the OT2 Content Metadata service.
+ */
+ app.get("/api/cms/instances/:category/:type/:id", async (req, res) => {
+  try {
+    let responseBody = await cmsGetObject(req, req.params.category, req.params.type, req.params.id, getAuthorizationWithToken());
     res.send(responseBody);
   } catch (err) {
     res.status(err.status).send(err.description);

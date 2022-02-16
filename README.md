@@ -1,7 +1,7 @@
-OT2 Contract Approval Demo Application
+IMaaS Contract Approval Demo Application
 --------
 
-This is a demo application to demonstrate how to consume OT2 services.
+This is a demo application to demonstrate how to consume IMaaS services.
 
 ## Prerequisites
 NodeJs version >= 14.2.0 and < 15 
@@ -9,18 +9,9 @@ NodeJs version >= 14.2.0 and < 15
 ## Credentials
 
 The credentials can be configured from inside the running application. In the login dialog there is a wrench icon that 
-displays the following 2 options.
-- upload an ot2_config.json file. This option automatically configures the credentials based on the file uploaded.
-
-- manually configure the credentials. This option allows the user to manually enter the details. Bear in mind that once
-entered, the details cannot be recovered for security reasons.
+allows to manually configure the credentials. Bear in mind that once entered, the details cannot be recovered for
+security reasons.
   
-The configuration dialog can be disabled by running the backend using the following flag.
-
-```--no-config-allowed```
-
-More information on this flag and how to run a production build can be found at https://confluence.opentext.com/x/USoFHg
-
 ## Installation steps
 
 ### Download and install npm and Node.js

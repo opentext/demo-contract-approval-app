@@ -1,0 +1,14 @@
+{
+  "projectName": "contract_approval",
+  "application": {
+    "id": "5e2844c0-ff50-44a5-a771-fc06c96780a7",
+    "name": "contract_approval",
+    "displayName": "Contract Approval",
+    "description": "Contract Approval Application built on top of the OpenText IMaaS Platform",
+    "version": "1.0",
+    "vendor": "Innovate Corp"
+  },
+  "modelFolders": [
+    "./otresources"
+  ]
+}

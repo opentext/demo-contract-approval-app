@@ -15,6 +15,7 @@ import LoginDialog from './LoginDialog.js';
 import TasksList from './TasksList.js';
 import CreatedContractList from './CreatedContractList';
 import ContractList from './ContractList';
+import { ApplicationProvider } from './context/ApplicationContext';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -85,18 +86,24 @@ class App extends React.Component {
             value={this.state.value}
             onChange={this.handleChange}>
             <Tab className="tab-caption" label="Created Contracts" />
-            <Tab className="tab-caption" label="Manager Tasks" />
+            <Tab className="tab-caption" label="Line Manager Tasks" />
+            <Tab className="tab-caption" label="Risk Manager Tasks" />
             <Tab className="tab-caption" label="All Contracts" />
           </Tabs>
-          <TabPanel value={this.state.value} index={0}>
-            <CreatedContractList />
-          </TabPanel>
-          <TabPanel value={this.state.value} index={1}>
-            <TasksList />
-          </TabPanel>
-          <TabPanel value={this.state.value} index={2}>
-            <ContractList />
-          </TabPanel>
+          <ApplicationProvider>
+            <TabPanel value={this.state.value} index={0}>
+              <CreatedContractList />
+            </TabPanel>
+            <TabPanel value={this.state.value} index={1}>
+              <TasksList taskname="Line Manager Approval" />
+            </TabPanel>
+            <TabPanel value={this.state.value} index={2}>
+              <TasksList taskname="Risk Manager Approval" />
+            </TabPanel>
+            <TabPanel value={this.state.value} index={3}>
+              <ContractList />
+            </TabPanel>
+          </ApplicationProvider>
         </div>
         <LoginDialog open={!isLoggedIn} />
       </div>
