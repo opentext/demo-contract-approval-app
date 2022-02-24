@@ -35,21 +35,21 @@ export default class TaskDetails extends React.Component {
 
   getContractName(task) {
     if (task && task.variables[0]) {
-      return task.variables.find(q => q.name === "cmsContract").value.name;
+      return task.variables.find(q => q.name === "contract").value.name;
     }
     return "";
   }
 
   getRequesterEmail(task) {
     if (task && task.variables[0]) {
-      return task.variables.find(q => q.name === "cmsContract").value.properties.requester_email;
+      return task.variables.find(q => q.name === "contract").value.properties.requester_email;
     }
     return "";
   }
 
   getContractValue(task) {
     if (task && task.variables[0]) {
-      return task.variables.find(q => q.name === "cmsContract").value.properties.value;
+      return task.variables.find(q => q.name === "contract").value.properties.value;
     }
     return "";
   }

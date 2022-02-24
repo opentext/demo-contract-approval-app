@@ -1,10 +1,10 @@
 {
-  "id": "c59a5284-c317-4ba4-b94b-faa7db0d0081",
+  "id": "1b42a482-41de-4c26-a7a0-2ceff39e0f29",
   "schemaId": "https://www.opentext.com/ot2/devx/cms/1.0.0/CMSTrait",
   "data": {
     "name": "approval",
     "display_name": "Approval",
-    "namespace": "9d95fbc9-b1e9-4946-956f-d38bcc4569f4",
+    "namespace": "f5840219-d3ca-4758-81ef-dd22ef10f8ba",
     "attributes": [
       {
         "data_type": "boolean",
@@ -13,7 +13,7 @@
         "searchable": true,
         "sortable": true,
         "validators": [],
-        "ot2mc-row-id": "e6908c5b-42da-4057-b379-3986e2a5fcfe"
+        "ot2mc-row-id": "40293f9e-b0e7-4e6b-ba82-7633341b158a"
       },
       {
         "data_type": "boolean",
@@ -22,7 +22,7 @@
         "searchable": true,
         "sortable": true,
         "validators": [],
-        "ot2mc-row-id": "c200648c-4674-4da2-ac15-445490265c1d"
+        "ot2mc-row-id": "7e0efe53-a090-49f4-8dd9-85ff81c563a9"
       },
       {
         "data_type": "string",
@@ -32,7 +32,7 @@
         "searchable": true,
         "sortable": true,
         "validators": [],
-        "ot2mc-row-id": "8c52ae6e-8c0d-4567-9481-0c3777b847c1"
+        "ot2mc-row-id": "ff50ae0a-1619-4f8d-9e86-f15ad07b1556"
       },
       {
         "data_type": "string",
@@ -42,7 +42,7 @@
         "searchable": true,
         "sortable": true,
         "validators": [],
-        "ot2mc-row-id": "68ee66a9-bda2-4ea4-9f9f-3d23701eacfc"
+        "ot2mc-row-id": "1d99876f-fa06-43e4-9b75-a0239fa63d6e"
       },
       {
         "data_type": "date",
@@ -51,7 +51,7 @@
         "searchable": true,
         "sortable": true,
         "validators": [],
-        "ot2mc-row-id": "2e75be80-c6a9-4d67-881e-826824ede9aa"
+        "ot2mc-row-id": "21e7ea6b-be32-4fa5-9060-a6ef2716854b"
       }
     ],
     "description": "Approval Trait",

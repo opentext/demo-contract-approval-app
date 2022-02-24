@@ -131,14 +131,14 @@ class TasksList extends React.Component {
 
   getContractName(task) {
     if (task && task.variables) {
-      return task.variables.find((q) => q.name === "cmsContract").value.name;
+      return task.variables.find((q) => q.name === "contract").value.name;
     }
     return "";
   }
 
   getContractValue(task) {
     if (task && task.variables) {
-      const found = task.variables.find((q) => q.name === "cmsContract");
+      const found = task.variables.find((q) => q.name === "contract");
       return found.value.properties ? found.value.properties.value : "";
     }
     return "";
@@ -146,7 +146,7 @@ class TasksList extends React.Component {
 
   getContract(task) {
     if (task && task.variables) {
-      const found = task.variables.find((q) => q.name === "cmsContract");
+      const found = task.variables.find((q) => q.name === "contract");
       return found.value.properties ? found.value : "";
     }
     return "";
