@@ -39,6 +39,7 @@ class CreatedContractList extends React.Component {
 		super(props);
 
 		this.state = {
+			baseUrl: '',
 			contracts: [],
 			openContractDetails: false,
 			selectedContract: { properties: {} },
@@ -93,6 +94,7 @@ class CreatedContractList extends React.Component {
 	}
 
 	componentDidMount() {
+		this.getBaseUrl();
 		this.getContracts();
 	}
 
@@ -135,6 +137,25 @@ class CreatedContractList extends React.Component {
 			this.setState({ contracts: [], count: -1 });
 		}
 	}
+	
+	getBaseUrl() {
+		axios({
+			method: 'get',
+			url: '/configuration/url',
+		}).then(res => {
+			this.setState({
+				baseUrl: res.data.base_url
+			});
+		}).catch(error => {
+			let errorMessage = 'Could not get base url: ';
+			if (error.response != null && error.response.data != null) {
+				errorMessage += error.response.data.exception;
+			} else {
+				errorMessage += error.message;
+			}
+			this.raiseError(errorMessage);
+		})
+	}
 
 	openDocumentDialogView(downloadHref) {
 		this.setState({
@@ -150,6 +171,10 @@ class CreatedContractList extends React.Component {
 				"name": "Approve contract",
 				"outcome": "none",
 				"variables": [
+					{
+						"name": "base_url",
+						"value": this.state.baseUrl
+					},
 					{
 						"name": "contract_id",
 						"value": contractId

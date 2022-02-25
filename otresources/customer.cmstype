@@ -1,11 +1,11 @@
 {
-  "id": "dbe64f37-2afd-4b64-908d-66dc466a79f3",
+  "id": "6e965b48-6015-46f3-8c58-f37d20b0d877",
   "schemaId": "https://www.opentext.com/ot2/devx/cms/1.0.0/CMSType",
   "data": {
     "category": "folder",
     "name": "customer",
     "display_name": "Customer",
-    "namespace": "9d95fbc9-b1e9-4946-956f-d38bcc4569f4",
+    "namespace": "f5840219-d3ca-4758-81ef-dd22ef10f8ba",
     "attributes": [
       {
         "data_type": "string",
@@ -16,7 +16,7 @@
         "sortable": true,
         "required": true,
         "validators": [],
-        "ot2mc-row-id": "af24e535-a021-42bf-a259-791f4256b1b3"
+        "ot2mc-row-id": "6c4f0d05-2b1e-4dac-9199-17e794e7670b"
       }
     ],
     "description": "Customer Type",

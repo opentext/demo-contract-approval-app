@@ -161,6 +161,23 @@ app.get("/configuration", async (req, res) => {
 });
 
 /**
+ * Returns the base url from the environment variables, so that it can be used by the frontend
+ */
+app.get("/configuration/url", async (req, res) => {
+  const base_url = process.env.BASE_URL;
+
+  if (base_url) {
+    let responseBody = {
+      "base_url": process.env.BASE_URL
+    }
+    res.send(responseBody);
+  }
+  else {
+    res.status(400).send("Base URL not configured");
+  }
+});
+
+/**
  * Saves the configuration to the .env file based on an ot2_config.json file uploaded.
  * @returns 200 when the configuration was saved successfully
  */
@@ -183,7 +200,7 @@ app.put("/configuration", async (req, res) => {
 });
 
 /**
- * Gets the list of tasks from the Workflow service.
+ * Gets the list of tasks from the Workflow Service.
  */
 app.get("/api/tasks", async (req, res) => {
   try {
@@ -195,7 +212,7 @@ app.get("/api/tasks", async (req, res) => {
 });
 
 /**
- * Updates a task in the Workflow service based on the parameters passed in the body as JSON.
+ * Updates a task in the Workflow Service based on the parameters passed in the body as JSON.
  */
 app.post("/api/tasks/:task_id", async (req, res) => {
   try {
@@ -207,7 +224,7 @@ app.post("/api/tasks/:task_id", async (req, res) => {
 });
 
 /**
- * Gets the contract metadata for all contract from the OT2 Content Metadata service.
+ * Gets the metadata for all type instances of a specific category and type from the Content Metadata Service.
  */
 app.get("/api/cms/instances/:category/:type", async (req, res) => {
   try {
@@ -219,7 +236,7 @@ app.get("/api/cms/instances/:category/:type", async (req, res) => {
 });
 
 /**
- * Gets the contract metadata for one contract from the OT2 Content Metadata service.
+ * Gets the metadata for one type instance from the Content Metadata Service.
  */
  app.get("/api/cms/instances/:category/:type/:id", async (req, res) => {
   try {
@@ -231,7 +248,7 @@ app.get("/api/cms/instances/:category/:type", async (req, res) => {
 });
 
 /**
- * Links a file uploaded to the OT2 Content Storage service to a contract in the OT2 Content Metadata service.
+ * Creates a new type instance in the Content Metadata Service.
  */
 app.post("/api/cms/instances/:category/:type", async (req, res) => {
   try {
@@ -243,7 +260,7 @@ app.post("/api/cms/instances/:category/:type", async (req, res) => {
 });
 
 /**
- * Creates a new instance of a workflow in the Workflow service which in this context will request a contract approval.
+ * Creates a new instance of a workflow in the Workflow Service which in this context will request a contract approval.
  */
 app.post("/api/workflow/createinstance", async (req, res) => {
   try {
@@ -255,7 +272,7 @@ app.post("/api/workflow/createinstance", async (req, res) => {
 });
 
 /**
- * Downloads the contract from the OT2 Content Storage service.
+ * Downloads the contract content from the Content Storage Service.
  */
 app.get("/api/css/downloadcontent/:contentId/download", async (req, res) => {
   try {
@@ -267,7 +284,7 @@ app.get("/api/css/downloadcontent/:contentId/download", async (req, res) => {
 });
 
 /**
- * Uploads a contract to the OT2 Content Storage service.
+ * Uploads a contract to the Content Storage Service.
  */
 app.post("/api/css/uploadcontent", async (req, res) => {
   try {
@@ -279,7 +296,7 @@ app.post("/api/css/uploadcontent", async (req, res) => {
 });
 
 /**
- * Processes file with Risk Guard.
+ * Processes a file with Magellan Risk Guard.
  */
  /**/
  app.post("/api/rg/process", async (req, res) => {
