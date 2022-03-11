@@ -88,7 +88,7 @@ export default class ContractList extends React.Component {
       } else {
         errorMessage += error.message;
       }
-      this.raiseError(errorMessage);
+      this.raiseError(this, errorMessage);
     }).finally(() => {
       this.setState({ showBackdrop: false });
     })
@@ -117,8 +117,8 @@ export default class ContractList extends React.Component {
     this.setState({ showSnackBar: false });
   }
 
-  raiseError(errorMessage) {
-    this.setState({
+  raiseError(component, errorMessage) {
+    component.setState({
       snackBarSeverity: 'error',
       snackBarMessage: errorMessage,
       showSnackBar: true
@@ -166,7 +166,7 @@ export default class ContractList extends React.Component {
         </TableContainer>
         <Pagination pageNumber={this.state.pageNumber} count={this.state.count} handlePageNumber={this.handlePageNumber} />
         <ContractDetails
-          open={this.state.contractDetailsOpen} selectedContract={this.state.selectedContract} raiseError={this.raiseError} onClose={this.handleCloseContractDetails} />
+          open={this.state.contractDetailsOpen} selectedContract={this.state.selectedContract} parent={this} raiseError={this.raiseError} onClose={this.handleCloseContractDetails} />
         <DocumentDialogView open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
         <Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
           <CircularProgress color="inherit" />

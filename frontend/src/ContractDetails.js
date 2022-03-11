@@ -75,7 +75,7 @@ export default class ContractDetails extends React.Component {
 
 	raiseError(errorMessage) {
 		this.closeDialog();
-		this.props.raiseError(errorMessage);
+		this.props.raiseError(this.props.parent, errorMessage);
 	}
 
 	handleChange = (event, newValue) => {
