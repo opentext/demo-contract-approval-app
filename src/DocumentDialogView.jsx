@@ -10,6 +10,8 @@ import {
 	DialogTitle
 } from '@material-ui/core';
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 export default class DocumentDialogView extends React.Component {
 	constructor(props) {
 		super(props);
@@ -49,7 +51,8 @@ export default class DocumentDialogView extends React.Component {
 		// Calling /api/css/downloadcontent
 		axios({
 			method: 'get',
-			url: '/api/css/downloadcontent/' + this.getContentId(downloadHref),
+			url: baseUrl + '/css/v2/content/' + this.getContentId(downloadHref) + "/download",
+			headers: this.props.authContext.headers,
 			responseEncoding: 'binary',
 			responseType: 'arraybuffer'
 		}).then(file => {
@@ -88,6 +91,5 @@ export default class DocumentDialogView extends React.Component {
 				</Backdrop>
 			)
 		}
-
 	}
 }

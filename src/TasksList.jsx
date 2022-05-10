@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {
   Backdrop,
   Button,
@@ -39,6 +38,7 @@ class TasksList extends React.Component {
     this.state = {
       detailsOpen: false,
       selectedTask: { variables: [] },
+      tasks: [],
       count: -1,
       page: 0,
       openDocumentDialogView: false,
@@ -70,12 +70,16 @@ class TasksList extends React.Component {
     this.taskService.getTasks(this.state.page * 10).then(res => {
       if (res && res.data && res.data._embedded) {
         if (!res.data._links.next || res.data._embedded.tasks.length < 10) {
-          this.setState({ count: this.state.page * 10 + res.data._embedded.tasks.length });
+          this.setState({
+            count: this.state.page * 10 + res.data._embedded.tasks.length,
+            tasks: res.data._embedded.tasks
+          });
         }
-        this.props.dispatch({ type: "SET_TASKS", tasks: res.data._embedded.tasks });
       } else {
-        this.setState({ count: 0 });
-        this.props.dispatch({ type: "SET_TASKS", tasks: [] });
+        this.setState({
+          count: 0,
+          tasks: []
+        });
       }
     }).finally(() => {
       this.setState({ showBackdrop: false });
@@ -194,7 +198,7 @@ class TasksList extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {this.props.tasks.map((row) => (
+              {this.state.tasks.map((row) => (
                 <TableRow key={row.id}>
                   <TableCell align="left">{this.getContractName(row)}</TableCell>
                   <TableCell align="left">{this.getDateValue(row)}</TableCell>
@@ -225,7 +229,7 @@ class TasksList extends React.Component {
         </TableContainer>
         <Pagination pageNumber={this.state.page} count={this.state.count} handlePageNumber={this.onChangePage} />
         <TaskDetails open={this.state.detailsOpen} selectedTask={this.state.selectedTask} onClose={this.handleCloseTaskDetails} />
-        <DocumentDialogView open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
+        <DocumentDialogView authContext={this.props.authContext} open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
         <Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
           <CircularProgress color="inherit" />
         </Backdrop>
@@ -254,9 +258,4 @@ class TasksList extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  username: state.username,
-  tasks: state.tasks
-})
-
-export default connect(mapStateToProps)(TasksList);
+export default TasksList;

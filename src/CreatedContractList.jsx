@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import {connect} from 'react-redux';
 import {
 	Backdrop,
 	Button,
@@ -26,10 +25,11 @@ import DocumentDialogView from './DocumentDialogView';
 import MuiAlert from '@material-ui/lab/Alert';
 import RiskClassification from './RiskClassification';
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-
 
 /**
  * This view displays the list of created contracts. From here the user can request approval for any of them.
@@ -39,7 +39,6 @@ class CreatedContractList extends React.Component {
 		super(props);
 
 		this.state = {
-			baseUrl: '',
 			contracts: [],
 			openContractDetails: false,
 			selectedContract: { properties: {} },
@@ -74,7 +73,7 @@ class CreatedContractList extends React.Component {
 				snackBarMessage: errorMessage
 			});
 		}
-		this.setState({showSnackBar: true});
+		this.setState({ showSnackBar: true });
 	}
 
 	handleCloseAddContract() {
@@ -90,18 +89,18 @@ class CreatedContractList extends React.Component {
 	}
 
 	handleSnackBarClose() {
-		this.setState({showSnackBar: false});
+		this.setState({ showSnackBar: false });
 	}
 
 	componentDidMount() {
-		this.getBaseUrl();
 		this.getContracts();
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.addNumberOfContracts !== this.state.addNumberOfContracts
 			|| prevState.pageNumber !== this.state.pageNumber
-			|| prevProps.username !== this.props.username) {
+			//|| prevProps.username !== this.props.authContext.userName
+		) {
 			this.getContracts();
 		}
 	}
@@ -111,12 +110,13 @@ class CreatedContractList extends React.Component {
 	}
 
 	getContracts() {
-		if (this.props.username) {
+		if (this.props.authContext.userName) {
 			this.setState({ showBackdrop: true });
 			axios({
 				method: 'get',
-				url: '/api/cms/instances/file/ca_contract/?include-total=true&sortby=create_time desc&filter=status eq "CREATED"&page='
+				url: baseUrl + '/cms/instances/file/ca_contract/?include-total=true&sortby=create_time desc&filter=status eq "CREATED"&page='
 					+ (this.state.pageNumber + 1),
+				headers: this.props.authContext.headers
 			}).then(res => {
 				this.setState({
 					contracts: res.data && res.data._embedded ? res.data._embedded.collection : [],
@@ -137,25 +137,6 @@ class CreatedContractList extends React.Component {
 			this.setState({ contracts: [], count: -1 });
 		}
 	}
-	
-	getBaseUrl() {
-		axios({
-			method: 'get',
-			url: '/configuration/url',
-		}).then(res => {
-			this.setState({
-				baseUrl: res.data.base_url
-			});
-		}).catch(error => {
-			let errorMessage = 'Could not get base url: ';
-			if (error.response != null && error.response.data != null) {
-				errorMessage += error.response.data.exception;
-			} else {
-				errorMessage += error.message;
-			}
-			this.raiseError(this, errorMessage);
-		})
-	}
 
 	openDocumentDialogView(downloadHref) {
 		this.setState({
@@ -167,24 +148,25 @@ class CreatedContractList extends React.Component {
 	startContractForApproval(contractId) {
 		this.setState({ showBackdrop: true });
 		let data = {
-				"processDefinitionKey": "contract_approval",
-				"name": "Approve contract",
-				"outcome": "none",
-				"variables": [
-					{
-						"name": "base_url",
-						"value": this.state.baseUrl
-					},
-					{
-						"name": "contract_id",
-						"value": contractId
-					}
-				],
-				"returnVariables": true
-			}
+			"processDefinitionKey": "contract_approval",
+			"name": "Approve contract",
+			"outcome": "none",
+			"variables": [
+				{
+					"name": "base_url",
+					"value": baseUrl
+				},
+				{
+					"name": "contract_id",
+					"value": contractId
+				}
+			],
+			"returnVariables": true
+		}
 		axios({
 			method: 'post',
-			url: '/api/workflow/createinstance',
+			url: baseUrl + '/workflow/v1/process-instances',
+			headers: this.props.authContext.headers,
 			data: data
 		}).then(() => {
 			this.setState({ snackBarMessage: 'Approval requested successfully.' });
@@ -223,16 +205,16 @@ class CreatedContractList extends React.Component {
 
 	raiseError(component, errorMessage) {
 		component.setState({
-		  snackBarSeverity: 'error',
-		  snackBarMessage: errorMessage,
-		  showSnackBar: true
+			snackBarSeverity: 'error',
+			snackBarMessage: errorMessage,
+			showSnackBar: true
 		});
 	}
 
 	render() {
 		return (
 			<div>
-				<Button variant="contained" color="primary" disabled={!this.props.username} startIcon={<AddIcon />} onClick={() => this.openContractDialog()} style={{ margin: "0.25rem" }}>Add</Button>
+				<Button variant="contained" color="primary" disabled={!this.props.authContext.userName} startIcon={<AddIcon />} onClick={() => this.openContractDialog()} style={{ margin: "0.25rem" }}>Add</Button>
 				<div className='content-header'>All created contracts</div>
 				<TableContainer component={Paper}>
 					<Table size="small" aria-label="a dense table">
@@ -273,9 +255,9 @@ class CreatedContractList extends React.Component {
 					</Table>
 				</TableContainer>
 				<Pagination pageNumber={this.state.pageNumber} count={this.state.count} handlePageNumber={this.handlePageNumber} />
-				<ContractDetails open={this.state.openContractDetails} selectedContract={this.state.selectedContract} parent={this} raiseError={this.raiseError} onClose={this.handleCloseContractDetails} />
-				<AddContract open={this.state.openAddContract} onAddContract={this.handleContractAdded} onClose={this.handleCloseAddContract} />
-				<DocumentDialogView open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
+				<ContractDetails authContext={this.props.authContext} open={this.state.openContractDetails} selectedContract={this.state.selectedContract} parent={this} raiseError={this.raiseError} onClose={this.handleCloseContractDetails} />
+				<AddContract authContext={this.props.authContext} open={this.state.openAddContract} onAddContract={this.handleContractAdded} onClose={this.handleCloseAddContract} />
+				<DocumentDialogView authContext={this.props.authContext} open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
 				<Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
 					<CircularProgress color="inherit" />
 				</Backdrop>
@@ -304,8 +286,4 @@ class CreatedContractList extends React.Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	username: state.username,
-})
-
-export default connect(mapStateToProps)(CreatedContractList);
+export default CreatedContractList;

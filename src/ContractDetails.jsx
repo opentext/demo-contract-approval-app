@@ -16,21 +16,9 @@ import {
 	Tabs,
 	TextField
 } from '@material-ui/core';
+import TabPanel from './TabPanel';
 
-function TabPanel(props) {
-	const { children, value, index, ...other } = props;
-	return (
-		<div
-		role="tabpanel"
-		hidden={value !== index}
-		{...other}
-		>
-		{value === index && (
-			<div>{children}</div>
-		)}
-		</div>
-	);
-}
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 function getApprovals(trait) {
 	let approvals = [];
@@ -102,7 +90,8 @@ export default class ContractDetails extends React.Component {
 	async fetchSelectedContract() {
 		await axios({
 			method: 'get',
-			url: `/api/cms/instances/file/${this.props.selectedContract.type}/${this.props.selectedContract.id}`,
+			url: `${baseUrl}/cms/instances/file/${this.props.selectedContract.type}/${this.props.selectedContract.id}`,
+			headers: this.props.authContext.headers
 		}).then(res => {
 			this.setState({
 				selectedContract: res.data
