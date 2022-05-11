@@ -120,4 +120,3 @@ export default class TaskDetails extends React.Component {
     )
   }
 }
-

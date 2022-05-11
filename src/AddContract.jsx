@@ -17,7 +17,10 @@ import {
 	Select,
 	FormControl,
 } from "@material-ui/core";
+import RiskGuard from './services/riskguard/RiskGuard';
 import ApplicationContext from './context/ApplicationContext';
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 class AddContract extends React.Component {
 	static contextType = ApplicationContext;
@@ -117,31 +120,20 @@ class AddContract extends React.Component {
 
 	async submitContract() {
 		this.setState({ showBackdrop: true });
-		const formData = new FormData();
-		formData.append(
-			'file',
-			this.state.selectedFile,
-			this.state.selectedFile.name,
-		);
-
-		await axios.post(
-			'/api/rg/process',
-			formData, {
-				headers: {
-					'Content-Type': 'multipart/form-data'
-				},
-			}
-		).then(res => {
-			this.setState({
-				contractRisk: res.data.riskClassification,
-				extractedTerms: res.data.extractedTerms
-			});
+		const riskGuardService = new RiskGuard(this.props);
+		const risk = await riskGuardService.processDoc(this.state.selectedFile, this.state.selectedFile.name);
+		this.setState({
+			contractRisk: risk.data.riskClassification,
+			extractedTerms: risk.data.extractedTerms
 		});
 
 		// Check for application root folder, and if not existing, create it
 		if (this.context.appRootFolderId === '') {
 			await axios.get(
-				'/api/cms/instances/folder/cms_folder?filter=name eq \'Contract Approval App\''
+				baseUrl + '/cms/instances/folder/cms_folder?filter=name eq \'Contract Approval App\'',
+				{
+					headers: this.props.authContext.headers
+				}
 			).then(res => {
 				if (res.data._embedded) {
 					let appRootFolderId = res.data._embedded.collection[0].id;
@@ -153,9 +145,12 @@ class AddContract extends React.Component {
 
 		if (this.context.appRootFolderId === '') {
 			await axios.post(
-				'/api/cms/instances/folder/cms_folder',
+				baseUrl + '/cms/instances/folder/cms_folder',
 				{
 					"name": "Contract Approval App",
+				},
+				{
+					headers: this.props.authContext.headers
 				}
 			).then(res => {
 				if (res.data) {
@@ -182,7 +177,10 @@ class AddContract extends React.Component {
 
 		let parentFolderId = '';
 		await axios.get(
-			`/api/cms/instances/folder/ca_customer?filter=parent_folder_id eq '${appRootFolderId}' and name eq '${encodeURIComponent(customerEmail)}'`
+			`${baseUrl}/cms/instances/folder/ca_customer?filter=parent_folder_id eq '${appRootFolderId}' and name eq '${encodeURIComponent(customerEmail)}'`,
+			{
+				headers: this.props.authContext.headers
+			}
 		).then(res => {
 			if (res.data._embedded) {
 				parentFolderId = res.data._embedded.collection[0].id;
@@ -191,13 +189,16 @@ class AddContract extends React.Component {
 
 		if (parentFolderId === '') {
 			await axios.post(
-				'/api/cms/instances/folder/ca_customer',
+				baseUrl + '/cms/instances/folder/ca_customer',
 				{
 					"name": customerEmail,
 					"parent_folder_id": appRootFolderId,
 					"properties": {
 						"customer_email": customerEmail
 					}
+				},
+				{
+					headers: this.props.authContext.headers
 				}
 			).then(res => {
 				if (res.data) {
@@ -218,11 +219,19 @@ class AddContract extends React.Component {
 
 
 		// Adding Contract
+		const formData = new FormData();
+		formData.append(
+			'file',
+			this.state.selectedFile,
+			this.state.selectedFile.name,
+		);
 		axios.post(
-			'/api/css/uploadcontent?avs-scan=false',
-			formData, {
+			baseUrl +  '/css/v2/tenant/' + process.env.REACT_APP_TENANT_ID + '/content?avs-scan=false',
+			formData,
+			{
 				headers: {
-					'Content-Type': 'multipart/form-data'
+					'Content-Type': 'multipart/form-data',
+					'Authorization': this.props.authContext.headers.Authorization
 				},
 			}
 		).then(res => {
@@ -236,7 +245,8 @@ class AddContract extends React.Component {
 			// Setting metadata
 			return axios({
 				method: 'post',
-				url: `/api/cms/instances/file/${cmsType}`,
+				url: `${baseUrl}/cms/instances/file/${cmsType}`,
+				headers: this.props.authContext.headers,
 				data: {
 					"name": this.state.newContractName,
 					"parent_folder_id": parentFolderId,

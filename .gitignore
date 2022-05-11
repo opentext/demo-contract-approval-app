@@ -9,7 +9,6 @@
 node_modules
 
 # App specific
-.env
 build
 
 # Test dump

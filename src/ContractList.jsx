@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import {
   Button,
   IconButton,
@@ -17,8 +16,11 @@ import ContractDetails from './ContractDetails';
 import Pagination from './Pagination';
 import DocumentDialogView from './DocumentDialogView';
 import MuiAlert from "@material-ui/lab/Alert";
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import CloseIcon from "@material-ui/icons/Close";
 import RiskClassification from './RiskClassification';
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -75,7 +77,8 @@ export default class ContractList extends React.Component {
     this.setState({ showBackdrop: true });
     axios({
       method: 'get',
-      url: '/api/cms/instances/file/ca_contract/?include-total=true&sortby=create_time desc&page=' + (this.state.pageNumber + 1),
+      url: baseUrl + '/cms/instances/file/ca_contract/?include-total=true&sortby=create_time desc&page=' + (this.state.pageNumber + 1),
+      headers: this.props.authContext.headers
     }).then(res => {
       this.setState({
         contracts: res.data && res.data._embedded ? res.data._embedded.collection : [],
@@ -166,26 +169,26 @@ export default class ContractList extends React.Component {
         </TableContainer>
         <Pagination pageNumber={this.state.pageNumber} count={this.state.count} handlePageNumber={this.handlePageNumber} />
         <ContractDetails
-          open={this.state.contractDetailsOpen} selectedContract={this.state.selectedContract} parent={this} raiseError={this.raiseError} onClose={this.handleCloseContractDetails} />
-        <DocumentDialogView open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
+          authContext={this.props.authContext} open={this.state.contractDetailsOpen} selectedContract={this.state.selectedContract} parent={this} raiseError={this.raiseError} onClose={this.handleCloseContractDetails} />
+        <DocumentDialogView authContext={this.props.authContext} open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
         <Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
           <CircularProgress color="inherit" />
         </Backdrop>
         <Snackbar
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            open={this.state.showSnackBar}
-            autoHideDuration={5000}
-            onClose={this.handleSnackBarClose}
-            action={
-              <React.Fragment>
-                <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleSnackBarClose}>
-                  <CloseIcon fontSize="small" />
-                </IconButton>
-              </React.Fragment>
-            }
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          open={this.state.showSnackBar}
+          autoHideDuration={5000}
+          onClose={this.handleSnackBarClose}
+          action={
+            <React.Fragment>
+              <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleSnackBarClose}>
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </React.Fragment>
+          }
         >
           <Alert onClose={this.handleSnackBarClose} severity={this.state.snackBarSeverity}>
             {this.state.snackBarMessage}

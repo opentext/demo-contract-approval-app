@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default class Tasks {
-  url = "/api/tasks";
+  url = process.env.REACT_APP_BASE_URL + "/workflow/v1/tasks";
 
   constructor(props) {
     this.props = props;
@@ -10,7 +10,8 @@ export default class Tasks {
   async getTasks(offset) {
     return axios({
       method: 'get',
-      url: this.url + '?sort=createTime&order=desc&name=' + encodeURIComponent(this.props.taskname) +'&candidateOrAssigned=' + encodeURIComponent(this.props.username) + '&includeProcessVariables=true' + (offset ? '&offset=' + offset : ''),
+      url: this.url + '?sort=createTime&order=desc&name=' + encodeURIComponent(this.props.taskname) +'&candidateOrAssigned=' + encodeURIComponent(this.props.authContext.userName) + '&includeProcessVariables=true' + (offset ? '&offset=' + offset : ''),
+      headers: this.props.authContext.headers
     }).catch(error => {
       alert(error.response != null && error.response.data != null ? error.response.data : error.message);
     });
@@ -20,9 +21,10 @@ export default class Tasks {
     return axios({
       method: 'post',
       url: this.url + '/' + taskId,
+      headers: this.props.authContext.headers,
       data: {
         "action": "claim",
-        "assignee": this.props.username
+        "assignee": this.props.authContext.userName
       }
     }).catch(error => {
       alert(error.response != null && error.response.data != null ? error.response.data : error.message);
@@ -33,6 +35,7 @@ export default class Tasks {
     return axios({
       method: 'post',
       url: this.url + '/' + taskId,
+      headers: this.props.authContext.headers,
       data: {
         "action": "complete",
         "outcome": approved ? "approved" : "rejected"
