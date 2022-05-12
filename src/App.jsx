@@ -53,7 +53,7 @@ function App() {
   }
 
   const authContext = {
-    userName: authService.getUser().name,
+    userName: authService.getUser().preferred_username,
     idToken: authService.getAuthTokens().id_token,
     headers: {
       Authorization: `Bearer ${authService.getAuthTokens().access_token}`
