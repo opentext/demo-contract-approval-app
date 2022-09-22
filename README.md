@@ -1,7 +1,7 @@
-Cloud Developer Contract Approval Demo Application
+Contract Approval Demo Application
 --------
 
-This is a demo application to demonstrate how to consume OpenText Cloud Developer services.
+This is a demo application to demonstrate how to consume OpenText IM services.
 
 ## Prerequisites
 NodeJs version >= 14.2.0 and < 15 
