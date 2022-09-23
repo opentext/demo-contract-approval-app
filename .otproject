@@ -4,7 +4,7 @@
     "id": "9755ff64-ea83-4353-bde9-d440f5ef7c64",
     "name": "contract_approval",
     "displayName": "Contract Approval",
-    "description": "Contract Approval Application built on top of the OpenText IMaaS Platform",
+    "description": "Contract Approval Application built on top of the OpenText Cloud Platform",
     "version": "1.0",
     "vendor": "My Company"
   },
