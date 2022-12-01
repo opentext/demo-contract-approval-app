@@ -1,6 +1,6 @@
 {
   "id": "1b42a482-41de-4c26-a7a0-2ceff39e0f29",
-  "schemaId": "https://www.opentext.com/ot2/devx/cms/1.0.0/CMSTrait",
+  "schemaId": "https://www.opentext.com/ocp/devx/metadata/1.0.0/Trait",
   "data": {
     "name": "approval",
     "display_name": "Approval",

@@ -27,7 +27,7 @@ import RiskClassification from './RiskClassification';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-function Alert(props) {
+const Alert = (props) => {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
@@ -40,6 +40,9 @@ class CreatedContractList extends React.Component {
 
 		this.state = {
 			contracts: [],
+			lineManagerAclId: '',
+			riskManagerAclId: '',
+			completedAclId: '',
 			openContractDetails: false,
 			selectedContract: { properties: {} },
 			openAddContract: false,
@@ -47,7 +50,8 @@ class CreatedContractList extends React.Component {
 			pageNumber: 0,
 			count: -1,
 			openDocumentDialogView: false,
-			downloadHref: '',
+			fileId: '',
+			fileName: '',
 			showBackdrop: false,
 			showSnackBar: false,
 			snackBarMessage: '',
@@ -93,13 +97,13 @@ class CreatedContractList extends React.Component {
 	}
 
 	componentDidMount() {
+		this.getAcls();
 		this.getContracts();
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.addNumberOfContracts !== this.state.addNumberOfContracts
 			|| prevState.pageNumber !== this.state.pageNumber
-			//|| prevProps.username !== this.props.authContext.userName
 		) {
 			this.getContracts();
 		}
@@ -138,15 +142,62 @@ class CreatedContractList extends React.Component {
 		}
 	}
 
-	openDocumentDialogView(downloadHref) {
+	getAcls() {
+		if (this.state.lineManagerAclId.length === 0 || this.state.riskManagerAclId.length === 0 || this.state.completedAclId === 0) {
+			axios({
+				method: 'get',
+				url: baseUrl + '/cms/permissions?filter=name eq "line_manager_approval" or name eq "risk_manager_approval" or name eq "completed"',
+				headers: this.props.authContext.headers
+			}).then(res => {
+				const acls = res.data._embedded.collection;
+				acls.forEach((acl) => {
+					switch(acl.name) {
+						case "line_manager_approval":
+							this.setState({
+								lineManagerAclId: acl.id
+							});
+							break;
+						case "risk_manager_approval":
+							this.setState({
+								riskManagerAclId: acl.id
+							});
+							break;
+						case "completed":
+							this.setState({
+								completedAclId: acl.id
+							});
+							break;
+						default:
+					}
+				});
+
+				if (this.state.lineManagerAclId.length === 0 || this.state.riskManagerAclId.length === 0 || this.state.completedAclId === 0) {
+					let errorMessage = 'Not all required ACLs exist in the repository';
+					this.raiseError(this, errorMessage);
+				}
+			}).catch(error => {
+				let errorMessage = 'Could not get ACLs: ';
+				if (error.response != null && error.response.data != null) {
+					errorMessage += error.response.data.exception;
+				} else {
+					errorMessage += error.message;
+				}
+				this.raiseError(this, errorMessage);
+			});
+		}
+	}
+
+	openDocumentDialogView(fileId, fileName) {
 		this.setState({
 			openDocumentDialogView: true,
-			downloadHref: downloadHref
+			fileId: fileId,
+			fileName: fileName
 		});
 	}
 
 	startContractForApproval(contractId) {
 		this.setState({ showBackdrop: true });
+
 		let data = {
 			"processDefinitionKey": "contract_approval",
 			"name": "Approve contract",
@@ -159,6 +210,18 @@ class CreatedContractList extends React.Component {
 				{
 					"name": "contract_id",
 					"value": contractId
+				},
+				{
+					"name": "line_manager_approval_acl_id",
+					"value": this.state.lineManagerAclId
+				},
+				{
+					"name": "risk_manager_approval_acl_id",
+					"value": this.state.riskManagerAclId
+				},
+				{
+					"name": "completed_acl_id",
+					"value": this.state.completedAclId
 				}
 			],
 			"returnVariables": true
@@ -239,7 +302,7 @@ class CreatedContractList extends React.Component {
 									<TableCell align="left">{row.properties.value}</TableCell>
 									<TableCell align="left"><RiskClassification row={row} /></TableCell>
 									<TableCell align="left">
-										<Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentDialogView(row._links['urn:eim:linkrel:download-media'].href) }}>Original</Button>
+										<Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentDialogView(row.id, row.name) }}>Original</Button>
 									</TableCell>
 									<TableCell align="left">
 										<Button size="small" variant="outlined" color="primary" onClick={() => { this.startContractForApproval(row.id) }}>Request approval</Button>
@@ -255,9 +318,9 @@ class CreatedContractList extends React.Component {
 					</Table>
 				</TableContainer>
 				<Pagination pageNumber={this.state.pageNumber} count={this.state.count} handlePageNumber={this.handlePageNumber} />
-				<ContractDetails authContext={this.props.authContext} open={this.state.openContractDetails} selectedContract={this.state.selectedContract} parent={this} raiseError={this.raiseError} onClose={this.handleCloseContractDetails} />
+				<ContractDetails open={this.state.openContractDetails} selectedContract={this.state.selectedContract} parent={this} parentRaiseError={this.raiseError} onClose={this.handleCloseContractDetails} />
 				<AddContract authContext={this.props.authContext} open={this.state.openAddContract} onAddContract={this.handleContractAdded} onClose={this.handleCloseAddContract} />
-				<DocumentDialogView authContext={this.props.authContext} open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
+				<DocumentDialogView open={this.state.openDocumentDialogView} fileId={this.state.fileId} onClose={this.handleCloseDocumentDialogView} />
 				<Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
 					<CircularProgress color="inherit" />
 				</Backdrop>

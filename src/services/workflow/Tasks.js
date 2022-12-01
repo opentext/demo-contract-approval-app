@@ -38,7 +38,13 @@ export default class Tasks {
       headers: this.props.authContext.headers,
       data: {
         "action": "complete",
-        "outcome": approved ? "approved" : "rejected"
+        "outcome": approved ? "approved" : "rejected",
+        "variables": [
+          {
+              "name": "approver",
+              "value": this.props.authContext.userName
+          }
+      ]
       }
     });
   }

@@ -217,6 +217,18 @@ class AddContract extends React.Component {
 			})
 		};
 
+		// Get the ID of the 'Created' ACL
+		let aclId = '';
+		await axios.get(
+			`${baseUrl}/cms/permissions?filter=name eq 'created'`,
+			{
+				headers: this.props.authContext.headers
+			}
+		).then(res => {
+			if (res.data._embedded) {
+				aclId = res.data._embedded.collection[0].id;
+			}
+		});
 
 		// Adding Contract
 		const formData = new FormData();
@@ -250,11 +262,17 @@ class AddContract extends React.Component {
 				data: {
 					"name": this.state.newContractName,
 					"parent_folder_id": parentFolderId,
+					"acl_id": aclId,
 					"renditions": [
 						{
 							"name": res.data.entries[0].fileName,
 							"rendition_type": "primary",
 							"blob_id": res.data.entries[0].id
+						},
+						{
+						  "name": "Brava rendition",
+						  "mime_type": "application/vnd.blazon+json",
+						  "rendition_type": "SECONDARY"
 						}
 					],
 					"properties": {

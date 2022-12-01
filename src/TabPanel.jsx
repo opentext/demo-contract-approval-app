@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+function TabPanel ({ children, value, index, ...other }) {
 
     return (
         <div

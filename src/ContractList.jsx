@@ -22,7 +22,7 @@ import RiskClassification from './RiskClassification';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-function Alert(props) {
+const Alert= (props) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
@@ -40,7 +40,8 @@ export default class ContractList extends React.Component {
       pageNumber: 0,
       count: -1,
       openDocumentDialogView: false,
-      downloadHref: '',
+      fileId: '',
+      fileName: '',
       showBackdrop: false,
       showSnackBar: false,
       snackBarMessage: '',
@@ -66,10 +67,11 @@ export default class ContractList extends React.Component {
     this.setState({ openDocumentDialogView: false })
   }
 
-  openDocumentDialogView(downloadHref) {
+  openDocumentDialogView(fileId, fileName) {
     this.setState({
       openDocumentDialogView: true,
-      downloadHref: downloadHref
+      fileId: fileId,
+      fileName: fileName
     });
   }
 
@@ -155,7 +157,7 @@ export default class ContractList extends React.Component {
                   <TableCell align="left">{row.properties ? row.properties.value : ''}</TableCell>
                   <TableCell align="left"><RiskClassification row={row} /></TableCell>
                   <TableCell align="left">
-                    <Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentDialogView(row._links['urn:eim:linkrel:download-media'].href) }}>Original</Button>
+                    <Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentDialogView(row.id, row.name) }}>Original</Button>
                   </TableCell>
                   <TableCell align="left">
                     <IconButton size="small" variant="outlined" color="primary" title="Show details" onClick={() => { this.showDetails(row) }}>
@@ -168,9 +170,8 @@ export default class ContractList extends React.Component {
           </Table>
         </TableContainer>
         <Pagination pageNumber={this.state.pageNumber} count={this.state.count} handlePageNumber={this.handlePageNumber} />
-        <ContractDetails
-          authContext={this.props.authContext} open={this.state.contractDetailsOpen} selectedContract={this.state.selectedContract} parent={this} raiseError={this.raiseError} onClose={this.handleCloseContractDetails} />
-        <DocumentDialogView authContext={this.props.authContext} open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
+        <ContractDetails open={this.state.contractDetailsOpen} selectedContract={this.state.selectedContract} parent={this} parentRaiseError={this.raiseError} onClose={this.handleCloseContractDetails} />
+        <DocumentDialogView open={this.state.openDocumentDialogView} fileId={this.state.fileId} onClose={this.handleCloseDocumentDialogView} />
         <Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
           <CircularProgress color="inherit" />
         </Backdrop>
@@ -195,7 +196,6 @@ export default class ContractList extends React.Component {
           </Alert>
         </Snackbar>
       </div>
-
     );
   }
 }

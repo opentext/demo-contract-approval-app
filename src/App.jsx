@@ -1,38 +1,23 @@
 import React, { useState } from 'react';
 import {
-  AuthProvider,
-  AuthService,
-  useAuth,
-} from 'react-oauth2-pkce';
-import {
   Tab,
   Tabs
 } from "@material-ui/core";
 
-import './style/App.scss';
+import './style/App.css';
+import { AuthProvider, authService, login, logout, logoutWithIdTokenHint, useAuth } from './authorization/ocpRestClient';
 import Header from './Header';
 import TabPanel from './TabPanel';
 import TasksList from './TasksList';
 import CreatedContractList from './CreatedContractList';
 import ContractList from './ContractList';
 import { ApplicationProvider } from './context/ApplicationContext';
-
-const authService = new AuthService({
-  clientId: process.env.REACT_APP_CLIENT_ID,
-  authorizeEndpoint: process.env.REACT_APP_BASE_URL + '/tenants/' + process.env.REACT_APP_TENANT_ID + '/oauth2/auth',
-  tokenEndpoint: process.env.REACT_APP_BASE_URL + '/tenants/' + process.env.REACT_APP_TENANT_ID + '/oauth2/token',
-  logoutEndpoint: process.env.REACT_APP_BASE_URL + '/tenants/' + process.env.REACT_APP_TENANT_ID + '/oauth2/logout',
-  redirectUri: process.env.REACT_APP_REDIRECT_URI,
-  scopes: ['openid'],
-});
+import jwtDecode from 'jwt-decode';
 
 function App() {
   const [value, setValue] = useState(0);
 
   const { authService } = useAuth();
-
-  const login = async () => authService.authorize();
-  const logout = async (shouldEndSession) => authService.logout(shouldEndSession);
 
   if (authService.isPending()) {
     return (
@@ -52,9 +37,15 @@ function App() {
     );
   }
 
+  const groups = jwtDecode(authService.getAuthTokens().id_token).grp.map(function (group) {
+    const fullGroupName = JSON.stringify(group);
+    return (fullGroupName.substring(1, fullGroupName.indexOf('@')));
+  });
+
   const authContext = {
     userName: authService.getUser().preferred_username,
     idToken: authService.getAuthTokens().id_token,
+    groups: groups,
     headers: {
       Authorization: `Bearer ${authService.getAuthTokens().access_token}`
     }
@@ -64,12 +55,7 @@ function App() {
     setValue(newValue);
   }
 
-  // This custom logout is required, as the standard PKCE React library (react-oauth2-pkce) doesn't support the id_token_hint mechanism (which is what the OpenText Developer Cloud uses).
-  // A request with the owners of the react-oauth2-pkce library has been logged to add the id_token_hint support. Feel free to inquire on the matter yourself.
-  const logoutWithIdTokenHint = (shouldEndSession, idToken) => {
-    logout(shouldEndSession);
-    window.location.replace(process.env.REACT_APP_BASE_URL + '/tenants/' + process.env.REACT_APP_TENANT_ID + '/oauth2/logout?id_token_hint=' + encodeURIComponent(idToken) + '&post_logout_redirect_uri=' + encodeURIComponent(process.env.REACT_APP_REDIRECT_URI));
-  }
+  let tabIndex = 0;
 
   return (
     <div className="App">
@@ -77,35 +63,56 @@ function App() {
         authContext={authContext}
         logout={logoutWithIdTokenHint}
       />
-      <div className="page-content">
-        <Tabs orientation="horizontal"
-          value={value}
-          onChange={handleChange}>
-          <Tab className="tab-caption" label="Created Contracts" />
-          <Tab className="tab-caption" label="Line Manager Tasks" />
-          <Tab className="tab-caption" label="Risk Manager Tasks" />
-          <Tab className="tab-caption" label="All Contracts" />
-        </Tabs>
-        <ApplicationProvider>
-          <TabPanel value={value} index={0}>
-            <CreatedContractList authContext={authContext} />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <TasksList authContext={authContext} taskname="Line Manager Approval" />
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <TasksList authContext={authContext} taskname="Risk Manager Approval" />
-          </TabPanel>
-          <TabPanel value={value} index={3}>
-            <ContractList authContext={authContext} />
-          </TabPanel>
-        </ApplicationProvider>
-      </div>
+      {
+        authContext.groups.includes("contract_approval_users")
+        ?
+        <div className="page-content">
+          <Tabs orientation="horizontal"
+            value={value}
+            onChange={handleChange}>
+            <Tab className="tab-caption" label="Created Contracts" />
+            {
+              authContext.groups.includes("line_managers") &&
+              <Tab className="tab-caption" label="Line Manager Tasks" />
+            }
+            {
+              authContext.groups.includes("risk_managers") &&
+              <Tab className="tab-caption" label="Risk Manager Tasks" />
+            }
+            <Tab className="tab-caption" label="All Contracts" />
+          </Tabs>
+          <ApplicationProvider>
+            <TabPanel value={value} index={tabIndex ++}>
+              <CreatedContractList authContext={authContext} />
+            </TabPanel>
+            {
+              authContext.groups.includes("line_managers") &&
+              <TabPanel value={value} index={tabIndex ++}>
+                <TasksList authContext={authContext} taskname="Line Manager Approval" />
+              </TabPanel>
+            }
+            {
+              authContext.groups.includes("risk_managers") &&
+              <TabPanel value={value} index={tabIndex ++}>
+                <TasksList authContext={authContext} taskname="Risk Manager Approval" />
+              </TabPanel>
+            }
+            <TabPanel value={value} index={tabIndex ++}>
+              <ContractList authContext={authContext} />
+            </TabPanel>
+          </ApplicationProvider>
+        </div>
+        :
+        <div className="page-content">
+          <p>You are not authorized to use this application</p>
+          <button style={{ margin: "0.50rem" }} onClick={() => { logoutWithIdTokenHint(true, authContext.idToken); }}>Logout</button>
+        </div>
+      }
     </div>
   );
 }
 
-function WrappedSecuredApp() {
+const WrappedSecuredApp = () => {
   return (
     <AuthProvider authService={authService} >
       <App />
