@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Menu, MenuItem } from "@material-ui/core";
 
-function Header(props) {
+function Header({ authContext, logout }) {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClick = (event) => {
@@ -13,7 +13,7 @@ function Header(props) {
     }
 
     const logUserOut = () => {
-        props.logout(true, props.authContext.idToken);
+        logout(true, authContext.idToken);
         handleClose();
     }
 
@@ -23,7 +23,7 @@ function Header(props) {
             <div className="header-title">Contract Approval</div>
             <div className="header-menu">
                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                    {props.authContext.userName}
+                    {authContext.userName}
                 </Button>
                 <Menu
                     anchorOrigin={{ vertical: "bottom", horizontal: "center" }}

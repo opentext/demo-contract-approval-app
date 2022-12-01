@@ -24,7 +24,7 @@ import DocumentDialogView from './DocumentDialogView';
 import MuiAlert from "@material-ui/lab/Alert";
 import RiskClassification from './RiskClassification';
 
-function Alert(props) {
+const Alert = (props) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
@@ -42,7 +42,8 @@ class TasksList extends React.Component {
       count: -1,
       page: 0,
       openDocumentDialogView: false,
-      downloadHref: '',
+			fileId: '',
+			fileName: '',
       showBackdrop: false,
       showSnackBar: false,
       snackBarMessage: '',
@@ -172,12 +173,13 @@ class TasksList extends React.Component {
     this.setState({ showSnackBar: false });
   }
 
-  openDocumentDialogView(downloadHref) {
-    this.setState({
-      openDocumentDialogView: true,
-      downloadHref: downloadHref
-    });
-  }
+  openDocumentDialogView(fileId, fileName) {
+		this.setState({
+			openDocumentDialogView: true,
+			fileId: fileId,
+			fileName: fileName
+		});
+	}
 
   render() {
     return (
@@ -206,7 +208,7 @@ class TasksList extends React.Component {
                   <TableCell align="left"><RiskClassification row={this.getContract(row)} /></TableCell>
                   <TableCell align="left">{row.assignee || ""}</TableCell>
                   <TableCell align="left">
-                    <Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentDialogView(row.variables.find((q) => q.name === "contractDownloadLink").value) }}>Original</Button>
+                    <Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentDialogView(this.getContract(row).id, this.getContractName(row)) }}>Original</Button>
                   </TableCell>
                   <TableCell align="left">
                     {!row.assignee
@@ -229,7 +231,7 @@ class TasksList extends React.Component {
         </TableContainer>
         <Pagination pageNumber={this.state.page} count={this.state.count} handlePageNumber={this.onChangePage} />
         <TaskDetails open={this.state.detailsOpen} selectedTask={this.state.selectedTask} onClose={this.handleCloseTaskDetails} />
-        <DocumentDialogView authContext={this.props.authContext} open={this.state.openDocumentDialogView} downloadHref={this.state.downloadHref} onClose={this.handleCloseDocumentDialogView} />
+        <DocumentDialogView open={this.state.openDocumentDialogView} fileId={this.state.fileId} onClose={this.handleCloseDocumentDialogView} />
         <Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
           <CircularProgress color="inherit" />
         </Backdrop>

@@ -14,7 +14,7 @@ export default class Pagination extends React.Component {
 				count={this.props.count}
 				rowsPerPage={10}
 				page={this.props.pageNumber}
-				onChangePage={this.onChangePage}
+				onPageChange={this.onChangePage}
 			/>
 		)
 	}

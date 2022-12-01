@@ -1,95 +1,87 @@
-import React from 'react'
-import axios from 'axios';
-import PDFViewer from 'pdf-viewer-reactjs';
+import React, { useState, useEffect, useRef } from 'react'
 import {
-	Backdrop,
-	Button, CircularProgress,
 	Dialog,
-	DialogActions,
 	DialogContent,
-	DialogTitle
 } from '@material-ui/core';
+
+import {
+	axios,
+	useAuth
+} from './authorization/ocpRestClient';
+import FileViewer from "./FileViewer";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-export default class DocumentDialogView extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			document: { url: '', base64: '' },
-			downloadHref: '',
-			fileName: ''
-		}
-	}
+function DocumentDialogView({ fileId, open, onClose }) {
+	const openRef = useRef(open);
+	const [publicationData, setPublicationData] = useState('');
+	const { authService } = useAuth();
 
-	componentDidUpdate(prevProps, prevState) {
-		if (prevProps.open !== this.props.open) {
-			if (this.props.open) {
-				this.setState({
-					downloadHref: this.props.downloadHref
-				});
-				this.downloadDocument(this.props.downloadHref);
+	useEffect (() => {
+		const getPublicationData = (fileId) => {
+			let publicationData = "";
+			axios({
+				method: 'get',
+				url: baseUrl + '/cms/instances/file/ca_contract/' + fileId + '/contents',
+				headers: {
+					Authorization: `Bearer ${authService.getAuthTokens().access_token}`
+				}
+			}).then((result) => {
+				let blobId = "";
+				if(result && result.data && result.data._embedded && result.data._embedded.collection) {
+					let fileContents = result.data._embedded.collection;
+					fileContents.forEach(content => {
+						if(content.name === "Brava rendition"){
+								blobId = content.blob_id;
+						}
+					});
+				} 
+				if (blobId) {
+						axios({
+							method: 'get',
+							url: baseUrl + '/css/v2/content/' + blobId + '/download?avs-scan=false',
+							headers: {
+								Authorization: `Bearer ${authService.getAuthTokens().access_token}`
+							}
+						}).then((publicationResult)=>{
+							if(publicationResult.data.status === "Complete") {
+								publicationData = publicationResult;
+								if(publicationData) {
+									setPublicationData(publicationData.data);
+								}
+							}
+					}).catch(error => {
+						alert(error.response != null && error.response.data != null ? error.response.data : error.message);
+					});
+				}
+			})
+			.catch(error => {
+				alert(error.response != null && error.response.data != null ? error.response.data : error.message);
+			});
+		};
+
+		if (openRef.current !== open) {
+			openRef.current = open;
+			if (open) {
+				getPublicationData(fileId);
 			}
 		}
-	}
+	}, [authService, fileId, open]);
 
-	closeDialog() {
-		this.setState({
-			document: { url: '', base64: '' },
-			downloadHref: '',
-			fileName: ''
-		});
-		this.props.onClose();
-	}
+	return (
+		<Dialog
+			open={open}
+			aria-labelledby="customized-dialog-title"
+			fullScreen={true}
+			maxWidth='md'>
+			<DialogContent>
+				<FileViewer
+					closeDialog={onClose}
+					publicationData={publicationData}
+				/>
+			</DialogContent>
+		</Dialog>
+	)
+};
 
-	getContentId(url) {
-		return url.replace(/^.*\/content\//, "");
-	}
-
-	downloadDocument(downloadHref) {
-		axios.defaults.baseURL = '';
-		// Calling /api/css/downloadcontent
-		axios({
-			method: 'get',
-			url: baseUrl + '/css/v2/content/' + this.getContentId(downloadHref) + "/download",
-			headers: this.props.authContext.headers,
-			responseEncoding: 'binary',
-			responseType: 'arraybuffer'
-		}).then(file => {
-			this.setState({
-				document: { base64: new Buffer(file.data).toString('base64') },
-			})
-		}).catch(error => {
-			alert("Error " + error.response.status + " in downloading: " + error.response.statusText);
-		});
-	}
-
-	render() {
-		if (this.state.document.base64) {
-			return (
-				<Dialog
-					open={this.props.open}
-					aria-labelledby="form-dialog-title"
-					fullWidth={true}
-					maxWidth='md'>
-					<DialogTitle id="customized-dialog-title">{this.state.fileName}</DialogTitle>
-					<DialogContent>
-						<PDFViewer document={this.state.document} />
-					</DialogContent>
-					<DialogActions>
-						<Button onClick={() => { this.closeDialog() }} variant="contained" color="primary">
-							Close
-					</Button>
-					</DialogActions>
-				</Dialog>
-			)
-		}
-		else {
-			return (
-				<Backdrop style={{zIndex: 9999}} open={this.props.open}>
-					<CircularProgress color="inherit"/>
-				</Backdrop>
-			)
-		}
-	}
-}
+export default DocumentDialogView;

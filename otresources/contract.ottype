@@ -1,6 +1,6 @@
 {
   "id": "cf1359bf-c5aa-462d-97e6-6bc98352742b",
-  "schemaId": "https://www.opentext.com/ot2/devx/cms/1.0.0/CMSType",
+  "schemaId": "https://www.opentext.com/ocp/devx/metadata/1.0.0/Type",
   "data": {
     "category": "file",
     "name": "contract",
@@ -79,7 +79,8 @@
         "ot2mc-row-id": "42b958e1-6dac-45d2-a46c-0391b1f68732"
       }
     ],
-    "non_auditable_actions": []
+    "non_auditable_actions": [],
+    "events": []
   },
   "serviceName": "cms"
 }

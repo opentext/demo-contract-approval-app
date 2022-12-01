@@ -1,7 +1,7 @@
-Contract Approval Demo Application
+IMaaS Contract Approval Demo Application
 --------
 
-This is a demo application to demonstrate how to consume OpenText IM services.
+This is a demo application to demonstrate how to consume IMaaS services.
 
 ## Prerequisites
 NodeJs version >= 14.2.0 and < 15 

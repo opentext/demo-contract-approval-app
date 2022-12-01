@@ -16,3 +16,5 @@ docs/.trash
 
 # Sonarqube local scans
 .scannerwork
+package-lock.json
+.env.backup
