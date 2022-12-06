@@ -51,26 +51,40 @@ const logoutWithIdTokenHint = (shouldEndSession, idToken) => {
 //     (error) => Promise.reject(error)
 // );
   
+// Promise that resolves when the acces_token is refreshed.
+let tokenRefreshPromise = undefined;
+
+// Count the number of pending requests that are waiting for a token refresh
+let tokenRefreshWaitCount = 0;
+
 axios.interceptors.response.use(
     (response) => response,
     async (error) => {
         const config = error?.config;
 
         if (error?.response?.status === 401 && !config?.sent) {
-        config.sent = true;
-
-        await authService.fetchToken(authService.getAuthTokens().refresh_token, true).then((authTokens) => {
-            if (authTokens.access_token) {
-                config.headers = {
-                    ...config.headers,
-                    Authorization: `Bearer ${authTokens.access_token}`,
-                };
+            config.sent = true;
+            tokenRefreshWaitCount++;
+            
+            if (tokenRefreshWaitCount === 1) {
+                // Only create a new tokenRefreshPromise for the first 401 after the previous refresh.
+                tokenRefreshPromise = authService.fetchToken(authService.getAuthTokens().refresh_token, true);
             }
-        });
+            // Wait for the refreshed token before retrying.
+            await tokenRefreshPromise.then((authTokens) => {
+                if (authTokens.access_token) {
+                    config.headers = {
+                        ...config.headers,
+                        Authorization: `Bearer ${authTokens.access_token}`,
+                    };
+                }
+            });
+            tokenRefreshWaitCount--;
 
-        return axios(config);
+            // Retry the request
+            return axios(config);
         }
-        
+    
         return Promise.reject(error);
     }
 );

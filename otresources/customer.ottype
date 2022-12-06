@@ -24,7 +24,7 @@
     "indexes": [
       {
         "name": "customer_email",
-        "unique": true,
+        "unique": false,
         "columns": [
           "customer_email"
         ],
@@ -34,7 +34,8 @@
     "methods": [],
     "scripts": [],
     "required_traits": [],
-    "non_auditable_actions": []
+    "non_auditable_actions": [],
+    "events": []
   },
   "serviceName": "cms"
 }
