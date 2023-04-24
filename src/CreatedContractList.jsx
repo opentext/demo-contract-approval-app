@@ -25,7 +25,7 @@ import DocumentDialogView from './DocumentDialogView';
 import MuiAlert from '@material-ui/lab/Alert';
 import RiskClassification from './RiskClassification';
 
-const baseUrl = process.env.REACT_APP_BASE_URL;
+const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
 
 const Alert = (props) => {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;

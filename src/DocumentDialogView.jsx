@@ -10,7 +10,7 @@ import {
 } from './authorization/ocpRestClient';
 import FileViewer from "./FileViewer";
 
-const baseUrl = process.env.REACT_APP_BASE_URL;
+const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
 
 function DocumentDialogView({ fileId, open, onClose }) {
 	const openRef = useRef(open);
@@ -39,7 +39,7 @@ function DocumentDialogView({ fileId, open, onClose }) {
 				if (blobId) {
 						axios({
 							method: 'get',
-							url: baseUrl + '/css/v2/content/' + blobId + '/download?avs-scan=false',
+							url: process.env.REACT_APP_CSS_SERVICE_URL +  '/v2/content/' + blobId + '/download',
 							headers: {
 								Authorization: `Bearer ${authService.getAuthTokens().access_token}`
 							}

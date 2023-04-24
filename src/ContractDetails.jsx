@@ -22,7 +22,7 @@ import {
 } from './authorization/ocpRestClient';
 import TabPanel from './TabPanel';
 
-const baseUrl = process.env.REACT_APP_BASE_URL;
+const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
 
 function ContractDetails ({ parentRaiseError, parent, open, onClose, selectedContract }) {
 	const openRef = useRef(open);
