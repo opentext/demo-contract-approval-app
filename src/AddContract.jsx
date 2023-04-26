@@ -20,7 +20,7 @@ import {
 import RiskGuard from './services/riskguard/RiskGuard';
 import ApplicationContext from './context/ApplicationContext';
 
-const baseUrl = process.env.REACT_APP_BASE_URL;
+const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
 
 class AddContract extends React.Component {
 	static contextType = ApplicationContext;
@@ -238,7 +238,7 @@ class AddContract extends React.Component {
 			this.state.selectedFile.name,
 		);
 		axios.post(
-			baseUrl +  '/css/v2/tenant/' + process.env.REACT_APP_TENANT_ID + '/content?avs-scan=false',
+			process.env.REACT_APP_CSS_SERVICE_URL +  '/v2/tenant/' + process.env.REACT_APP_TENANT_ID + '/content',
 			formData,
 			{
 				headers: {

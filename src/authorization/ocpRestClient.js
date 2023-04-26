@@ -7,9 +7,9 @@ import {
 
 const authService = new AuthService({
     clientId: process.env.REACT_APP_CLIENT_ID,
-    authorizeEndpoint: process.env.REACT_APP_BASE_URL + '/tenants/' + process.env.REACT_APP_TENANT_ID + '/oauth2/auth',
-    tokenEndpoint: process.env.REACT_APP_BASE_URL + '/tenants/' + process.env.REACT_APP_TENANT_ID + '/oauth2/token',
-    logoutEndpoint: process.env.REACT_APP_BASE_URL + '/tenants/' + process.env.REACT_APP_TENANT_ID + '/oauth2/logout',
+    authorizeEndpoint: process.env.REACT_APP_BASE_SERVICE_URL + '/tenants/' + process.env.REACT_APP_TENANT_ID + '/oauth2/auth',
+    tokenEndpoint: process.env.REACT_APP_BASE_SERVICE_URL + '/tenants/' + process.env.REACT_APP_TENANT_ID + '/oauth2/token',
+    logoutEndpoint: process.env.REACT_APP_BASE_SERVICE_URL + '/tenants/' + process.env.REACT_APP_TENANT_ID + '/oauth2/logout',
     redirectUri: process.env.REACT_APP_REDIRECT_URI,
     scopes: ['openid', 'otds:groups'],
 });
@@ -22,7 +22,7 @@ const logout = async (shouldEndSession) => authService.logout(shouldEndSession);
 const logoutWithIdTokenHint = (shouldEndSession, idToken) => {
     logout(shouldEndSession);
     window.sessionStorage.removeItem("ca_token_expiration_time");
-    window.location.replace(process.env.REACT_APP_BASE_URL + '/tenants/' + process.env.REACT_APP_TENANT_ID + '/oauth2/logout?id_token_hint=' + encodeURIComponent(idToken) + '&post_logout_redirect_uri=' + encodeURIComponent(process.env.REACT_APP_REDIRECT_URI));
+    window.location.replace(process.env.REACT_APP_BASE_SERVICE_URL + '/tenants/' + process.env.REACT_APP_TENANT_ID + '/oauth2/logout?id_token_hint=' + encodeURIComponent(idToken) + '&post_logout_redirect_uri=' + encodeURIComponent(process.env.REACT_APP_REDIRECT_URI));
 }
 
 // If you want to test (access) token expiry, you can enable this interceptor method and look at the developer tools console in your browser

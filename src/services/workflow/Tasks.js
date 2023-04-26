@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default class Tasks {
-  url = process.env.REACT_APP_BASE_URL + "/workflow/v1/tasks";
+  url = process.env.REACT_APP_BASE_SERVICE_URL + "/workflow/v1/tasks";
 
   constructor(props) {
     this.props = props;

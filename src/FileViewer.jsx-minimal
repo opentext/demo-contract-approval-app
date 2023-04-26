@@ -15,7 +15,7 @@ function FileViewer({ closeDialog, publicationData}) {
   const loadBravaViewer = useCallback(() => {
     axios
       .get(
-        process.env.REACT_APP_BASE_URL + "/viewer/api/v1/viewers/brava-view-1.x/loader",
+        process.env.REACT_APP_BASE_SERVICE_URL + "/viewer/api/v1/viewers/brava-view-1.x/loader",
         {
           headers: {
             Authorization: `Bearer ${authService.getAuthTokens().access_token}`

@@ -10,7 +10,7 @@ export default class RiskGuard {
     form.append('File', fileData, fileName);
     let postRequest = {
       method: "post",
-      url: process.env.REACT_APP_BASE_URL + '/mtm-riskguard/api/v1/process',
+      url: process.env.REACT_APP_BASE_SERVICE_URL + '/mtm-riskguard/api/v1/process',
       headers: {
 				'Authorization': this.props.authContext.headers.Authorization,
 				'Content-Type': 'multipart/form-data',
