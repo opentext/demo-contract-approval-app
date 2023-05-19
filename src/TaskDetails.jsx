@@ -1,122 +1,118 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   TextField,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle
+  DialogTitle,
 } from '@material-ui/core';
 
-export default class TaskDetails extends React.Component {
-  constructor(props) {
-    super(props);
+function TaskDetails({ open, selectedTask, onClose }) {
+  const closeDialog = () => onClose();
 
-    this.state = {
-      selectedTask: props.selectedTask
-    };
-  }
+  const getDateValue = (dt) => (dt ? new Date(Date.parse(dt)).toLocaleString() : '');
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.open !== this.props.open || prevProps.selectedTask !== this.props.selectedTask) {
-      this.setState({
-        selectedTask: this.props.selectedTask
-      });
-    }
-  }
-
-  closeDialog() {
-    this.props.onClose();
-  }
-
-  getDateValue(dt) {
-    return dt ? new Date(Date.parse(dt)).toLocaleString() : '';
-  }
-
-  getContractName(task) {
+  const getContractName = (task) => {
     if (task && task.variables[0]) {
-      return task.variables.find(q => q.name === "contract").value.name;
+      return task.variables.find((q) => q.name === 'contract').value.name;
     }
-    return "";
-  }
+    return '';
+  };
 
-  getRequesterEmail(task) {
+  const getRequesterEmail = (task) => {
     if (task && task.variables[0]) {
-      return task.variables.find(q => q.name === "contract").value.properties.requester_email;
+      return task.variables.find((q) => q.name === 'contract').value.properties.requester_email;
     }
-    return "";
-  }
+    return '';
+  };
 
-  getContractValue(task) {
+  const getContractValue = (task) => {
     if (task && task.variables[0]) {
-      return task.variables.find(q => q.name === "contract").value.properties.value;
+      return task.variables.find((q) => q.name === 'contract').value.properties.value;
     }
-    return "";
-  }
+    return '';
+  };
 
-  render() {
-    return (
-      <Dialog open={this.props.open} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Task details</DialogTitle>
-        <DialogContent>
-          <TextField
-            margin="dense"
-            id="name"
-            label="Task name"
-            value={this.state.selectedTask.name}
-            type="text"
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            id="assignee"
-            label="Assignee"
-            value={this.state.selectedTask.assignee || ""}
-            type="text"
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            id="createTime"
-            label="Creation date"
-            value={this.getDateValue(this.state.selectedTask.createTime)}
-            type="text"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            id="cmsName"
-            label="Contract name"
-            value={this.getContractName(this.state.selectedTask)}
-            type="text"
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            id="cmsEmail"
-            label="Requester email address"
-            value={this.getRequesterEmail(this.state.selectedTask)}
-            type="text"
-            fullWidth
-          />
-          <TextField
-            margin="dense"
-            id="cmsValue"
-            label="Contract value"
-            value={this.getContractValue(this.state.selectedTask)}
-            type="text"
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => { this.closeDialog() }} variant="contained" color="primary">
-            Close
-            </Button>
-        </DialogActions>
-      </Dialog>
-    )
-  }
+  return (
+    <Dialog open={open} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">Task details</DialogTitle>
+      <DialogContent>
+        <TextField
+          margin="dense"
+          id="name"
+          label="Task name"
+          value={selectedTask.name}
+          type="text"
+          fullWidth
+        />
+        <TextField
+          margin="dense"
+          id="assignee"
+          label="Assignee"
+          value={selectedTask.assignee || ''}
+          type="text"
+          fullWidth
+        />
+        <TextField
+          margin="dense"
+          id="createTime"
+          label="Creation date"
+          value={getDateValue(selectedTask.createTime)}
+          type="text"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          fullWidth
+        />
+        <TextField
+          margin="dense"
+          id="cmsName"
+          label="Contract name"
+          value={getContractName(selectedTask)}
+          type="text"
+          fullWidth
+        />
+        <TextField
+          margin="dense"
+          id="cmsEmail"
+          label="Requester email address"
+          value={getRequesterEmail(selectedTask)}
+          type="text"
+          fullWidth
+        />
+        <TextField
+          margin="dense"
+          id="cmsValue"
+          label="Contract value"
+          value={getContractValue(selectedTask)}
+          type="text"
+          fullWidth
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => closeDialog()} variant="contained" color="primary">
+          Close
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
 }
+
+TaskDetails.propTypes = {
+  open: PropTypes.bool.isRequired,
+  selectedTask: PropTypes.shape({
+    name: PropTypes.string,
+    assignee: PropTypes.string,
+    createTime: PropTypes.string,
+    variables: PropTypes.arrayOf(
+      PropTypes.shape({
+        // eslint-disable-next-line react/forbid-prop-types
+        value: PropTypes.any.isRequired,
+      }),
+    ),
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+};
+
+export default TaskDetails;

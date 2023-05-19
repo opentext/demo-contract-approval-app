@@ -1,21 +1,27 @@
-import React from 'react'
+import { PropTypes } from 'prop-types';
 import TablePagination from '@material-ui/core/TablePagination';
-export default class Pagination extends React.Component {
 
-	onChangePage = (event, page) => {
-		this.props.handlePageNumber(page);
-	}
+function Pagination({ pageNumber, count, handlePageNumber }) {
+  const onChangePage = (page) => {
+    handlePageNumber(page);
+  };
 
-	render() {
-		return (
-			<TablePagination
-				rowsPerPageOptions={[10]}
-				component="div"
-				count={this.props.count}
-				rowsPerPage={10}
-				page={this.props.pageNumber}
-				onPageChange={this.onChangePage}
-			/>
-		)
-	}
+  return (
+    <TablePagination
+      rowsPerPageOptions={[10]}
+      component="div"
+      count={count}
+      rowsPerPage={10}
+      page={pageNumber}
+      onPageChange={onChangePage}
+    />
+  );
 }
+
+Pagination.propTypes = {
+  pageNumber: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
+  handlePageNumber: PropTypes.func.isRequired,
+};
+
+export default Pagination;

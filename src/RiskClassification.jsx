@@ -1,43 +1,43 @@
-import React, { Component } from 'react';
+import { useState } from 'react';
+import { PropTypes } from 'prop-types';
 import { IconButton } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import ExtractedPersonalData from './ExtractedPersonalData';
 
 const riskClassifications = ['NONE', 'LOW', 'MEDIUM', 'HIGH', 'VERY HIGH'];
 
-export class RiskClassification extends Component {
-	constructor(props) {
-		super(props);
+function RiskClassification({ row }) {
+  const [openExtractedPersonalData, setOpenExtratedPersonalData] = useState(false);
 
-		this.state = {
-			openExtractedPersonalData: false,
-            row: props.row
-		};
-		this.handleCloseExtractedPersonalData = this.handleCloseExtractedPersonalData.bind(this);
-	}
+  const showExtractedPersonalData = () => {
+    setOpenExtratedPersonalData(true);
+  };
 
-	showExtractedPersonalData() {
-		this.setState({
-			openExtractedPersonalData: true
-		});
-	}
+  const handleCloseExtractedPersonalData = () => {
+    setOpenExtratedPersonalData(false);
+  };
 
-    handleCloseExtractedPersonalData() {
-		this.setState({ openExtractedPersonalData: false })
-	}
-
-    render() {
-        return (
-            <div>
-                {riskClassifications[this.state.row.properties.risk_classification - 1]}
-                <IconButton size="small" variant="outlined" color="primary" title="Show extracted personal data" onClick={() => { this.showExtractedPersonalData(this.state.row) }}>
-                    <InfoIcon />
-                </IconButton>
-                <ExtractedPersonalData open={this.state.openExtractedPersonalData} selectedContract={this.state.row} onClose={this.handleCloseExtractedPersonalData} />
-            </div>
-        )
-    }
+  return (
+    <div>
+      {riskClassifications[row.properties.risk_classification - 1]}
+      <IconButton size="small" variant="outlined" color="primary" title="Show extracted personal data" onClick={() => showExtractedPersonalData(row)}>
+        <InfoIcon />
+      </IconButton>
+      <ExtractedPersonalData
+        open={openExtractedPersonalData}
+        selectedContract={row}
+        onClose={handleCloseExtractedPersonalData}
+      />
+    </div>
+  );
 }
 
-export default RiskClassification
+RiskClassification.propTypes = {
+  row: PropTypes.shape({
+    properties: PropTypes.shape({
+      risk_classification: PropTypes.number.isRequired,
+    }),
+  }).isRequired,
+};
 
+export default RiskClassification;

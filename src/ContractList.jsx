@@ -1,5 +1,11 @@
-import React from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import axios from 'axios';
+import { PropTypes } from 'prop-types';
 import {
   Button,
   IconButton,
@@ -9,33 +15,26 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper, Backdrop, CircularProgress, Snackbar
+  Paper, Backdrop, CircularProgress, Snackbar,
 } from '@material-ui/core';
-
-import ContractDetails from './ContractDetails';
-import Pagination from './Pagination';
-import DocumentDialogView from './DocumentDialogView';
-import MuiAlert from "@material-ui/lab/Alert";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import CloseIcon from "@material-ui/icons/Close";
+import CloseIcon from '@material-ui/icons/Close';
+import Alert from './Alert';
+import ContractDetails from './ContractDetails';
+import DocumentDialogView from './DocumentDialogView';
+import Pagination from './Pagination';
 import RiskClassification from './RiskClassification';
 
 const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
 
-const Alert= (props) => {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
 /**
  * This view displays all the contracts.
  */
-export default class ContractList extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+function ContractList({ authContext }) {
+  const [state, setState] = useState(
+    {
       contracts: [],
-      contractDetailsOpen: false,
+      openContractDetails: false,
       selectedContract: { properties: {} },
       pageNumber: 0,
       count: -1,
@@ -45,157 +44,187 @@ export default class ContractList extends React.Component {
       showBackdrop: false,
       showSnackBar: false,
       snackBarMessage: '',
-      snackBarSeverity: 'success'
-    };
+      snackBarSeverity: 'success',
+    },
+  );
 
-    this.handleCloseContractDetails = this.handleCloseContractDetails.bind(this);
-    this.handleCloseDocumentDialogView = this.handleCloseDocumentDialogView.bind(this);
-    this.handleSnackBarClose = this.handleSnackBarClose.bind(this);
-  }
+  const didMountRef = useRef(false);
+  const pageNumberRef = useRef(state.pageNumber);
 
-  componentDidMount() {
-    this.getContracts();
-  }
+  const raiseError = useCallback((errorMessage) => {
+    setState((prevState) => ({
+      ...prevState,
+      snackBarSeverity: 'error',
+      snackBarMessage: errorMessage,
+      showSnackBar: true,
+    }));
+  }, []);
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.pageNumber !== this.state.pageNumber) {
-      this.getContracts();
-    }
-  }
-
-  handleCloseDocumentDialogView() {
-    this.setState({ openDocumentDialogView: false })
-  }
-
-  openDocumentDialogView(fileId, fileName) {
-    this.setState({
-      openDocumentDialogView: true,
-      fileId: fileId,
-      fileName: fileName
-    });
-  }
-
-  getContracts() {
-    this.setState({ showBackdrop: true });
+  const getContracts = useCallback(() => {
+    setState((prevState) => ({ ...prevState, showBackdrop: true }));
     axios({
       method: 'get',
-      url: baseUrl + '/cms/instances/file/ca_contract/?include-total=true&sortby=create_time desc&page=' + (this.state.pageNumber + 1),
-      headers: this.props.authContext.headers
-    }).then(res => {
-      this.setState({
+      url: `${baseUrl}/cms/instances/file/ca_contract/?include-total=true&sortby=create_time desc&page=${state.pageNumber + 1}`,
+      headers: authContext.headers,
+    }).then((res) => {
+      setState((prevState) => ({
+        ...prevState,
+        // eslint-disable-next-line no-underscore-dangle
         contracts: res.data && res.data._embedded ? res.data._embedded.collection : [],
-        count: res.data.total
-      });
-    }).catch(error => {
+        count: res.data.total,
+      }));
+    }).catch((error) => {
       let errorMessage = 'Could not get contracts: ';
       if (error.response != null && error.response.data != null) {
         errorMessage += error.response.data.exception;
       } else {
         errorMessage += error.message;
       }
-      this.raiseError(this, errorMessage);
+      raiseError(this, errorMessage);
     }).finally(() => {
-      this.setState({ showBackdrop: false });
-    })
-  }
+      setState((prevState) => ({ ...prevState, showBackdrop: false }));
+    });
+  }, [raiseError, authContext.headers, state.pageNumber]);
 
-  showDetails(contract) {
-    this.setState({
+  const handleCloseDocumentDialogView = () => {
+    setState((prevState) => ({ ...prevState, openDocumentDialogView: false }));
+  };
+
+  const openDocumentDialogView = (fileId, fileName) => {
+    setState((prevState) => ({
+      ...prevState,
+      openDocumentDialogView: true,
+      fileId,
+      fileName,
+    }));
+  };
+
+  const showDetails = (contract) => {
+    setState((prevState) => ({
+      ...prevState,
       selectedContract: contract,
-      contractDetailsOpen: true
-    });
-  }
+      openContractDetails: true,
+    }));
+  };
 
-  getDateValue(dt) {
-    return dt ? new Date(Date.parse(dt)).toLocaleString() : '';
-  }
+  const getDateValue = (dt) => (dt ? new Date(Date.parse(dt)).toLocaleString() : '');
 
-  handlePageNumber = (pageNumber) => {
-    this.setState({ pageNumber: pageNumber });
-  }
+  const handlePageNumber = (pageNumber) => {
+    setState((prevState) => ({ ...prevState, pageNumber }));
+  };
 
-  handleCloseContractDetails() {
-    this.setState({ contractDetailsOpen: false });
-  }
+  const handleCloseContractDetails = () => {
+    setState((prevState) => ({ ...prevState, openContractDetails: false }));
+  };
 
-  handleSnackBarClose() {
-    this.setState({ showSnackBar: false });
-  }
+  const handleSnackBarClose = () => {
+    setState((prevState) => ({ ...prevState, showSnackBar: false }));
+  };
 
-  raiseError(component, errorMessage) {
-    component.setState({
-      snackBarSeverity: 'error',
-      snackBarMessage: errorMessage,
-      showSnackBar: true
-    });
-  }
+  useEffect(() => {
+    if (didMountRef.current) {
+      if (pageNumberRef.current !== state.pageNumber) {
+        getContracts();
+        pageNumberRef.current = state.pageNumber;
+      }
+    } else {
+      getContracts();
+      didMountRef.current = true;
+    }
+  }, [state.pageNumber, getContracts]);
 
-  render() {
-    return (
-      <div>
-        <div className='content-header'>All contracts</div>
+  return (
+    <div>
+      <div className="content-header">All contracts</div>
 
-        <TableContainer component={Paper}>
-          <Table size="small" aria-label="a dense table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Contract name</TableCell>
-                <TableCell align="left">Creation date</TableCell>
-                <TableCell align="left">Status</TableCell>
-                <TableCell align="left">Value</TableCell>
-                <TableCell align="left">Risk classification</TableCell>
-                <TableCell align="left">View document</TableCell>
-                <TableCell align="left" />
+      <TableContainer component={Paper}>
+        <Table size="small" aria-label="a dense table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Contract name</TableCell>
+              <TableCell align="left">Creation date</TableCell>
+              <TableCell align="left">Status</TableCell>
+              <TableCell align="left">Value</TableCell>
+              <TableCell align="left">Risk classification</TableCell>
+              <TableCell align="left">View document</TableCell>
+              <TableCell align="left" />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {state.contracts.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell component="th" scope="row">{row.name}</TableCell>
+                <TableCell align="left">{getDateValue(row.create_time)}</TableCell>
+                <TableCell align="left">{row.properties ? row.properties.status : ''}</TableCell>
+                <TableCell align="left">{row.properties ? row.properties.value : ''}</TableCell>
+                <TableCell align="left"><RiskClassification row={row} /></TableCell>
+                <TableCell align="left">
+                  <Button size="small" variant="outlined" color="primary" onClick={() => openDocumentDialogView(row.id, row.name)}>Original</Button>
+                </TableCell>
+                <TableCell align="left">
+                  <IconButton size="small" variant="outlined" color="primary" title="Show details" onClick={() => showDetails(row)}>
+                    <ArrowForwardIosIcon />
+                  </IconButton>
+                </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.state.contracts.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell component="th" scope="row">{row.name}</TableCell>
-                  <TableCell align="left">{this.getDateValue(row.create_time)}</TableCell>
-                  <TableCell align="left">{row.properties ? row.properties.status : ''}</TableCell>
-                  <TableCell align="left">{row.properties ? row.properties.value : ''}</TableCell>
-                  <TableCell align="left"><RiskClassification row={row} /></TableCell>
-                  <TableCell align="left">
-                    <Button size="small" variant="outlined" color="primary" onClick={() => { this.openDocumentDialogView(row.id, row.name) }}>Original</Button>
-                  </TableCell>
-                  <TableCell align="left">
-                    <IconButton size="small" variant="outlined" color="primary" title="Show details" onClick={() => { this.showDetails(row) }}>
-                      <ArrowForwardIosIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Pagination pageNumber={this.state.pageNumber} count={this.state.count} handlePageNumber={this.handlePageNumber} />
-        <ContractDetails open={this.state.contractDetailsOpen} selectedContract={this.state.selectedContract} parent={this} parentRaiseError={this.raiseError} onClose={this.handleCloseContractDetails} />
-        <DocumentDialogView open={this.state.openDocumentDialogView} fileId={this.state.fileId} onClose={this.handleCloseDocumentDialogView} />
-        <Backdrop style={{ zIndex: 9999 }} open={this.state.showBackdrop}>
-          <CircularProgress color="inherit" />
-        </Backdrop>
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          open={this.state.showSnackBar}
-          autoHideDuration={5000}
-          onClose={this.handleSnackBarClose}
-          action={
-            <React.Fragment>
-              <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleSnackBarClose}>
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </React.Fragment>
-          }
-        >
-          <Alert onClose={this.handleSnackBarClose} severity={this.state.snackBarSeverity}>
-            {this.state.snackBarMessage}
-          </Alert>
-        </Snackbar>
-      </div>
-    );
-  }
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Pagination
+        pageNumber={state.pageNumber}
+        count={state.count}
+        handlePageNumber={handlePageNumber}
+      />
+      <ContractDetails
+        open={state.openContractDetails}
+        selectedContract={state.selectedContract}
+        parentRaiseError={raiseError}
+        onClose={handleCloseContractDetails}
+      />
+      <DocumentDialogView
+        open={state.openDocumentDialogView}
+        fileId={state.fileId}
+        onClose={handleCloseDocumentDialogView}
+      />
+      <Backdrop style={{ zIndex: 9999 }} open={state.showBackdrop}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        open={state.showSnackBar}
+        autoHideDuration={5000}
+        onClose={handleSnackBarClose}
+        action={
+          (
+            <IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackBarClose}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          )
+        }
+      >
+        <Alert onClose={handleSnackBarClose} severity={state.snackBarSeverity}>
+          {state.snackBarMessage}
+        </Alert>
+      </Snackbar>
+    </div>
+  );
 }
+
+ContractList.propTypes = {
+  authContext: PropTypes.shape({
+    userName: PropTypes.string.isRequired,
+    idToken: PropTypes.string.isRequired,
+    groups: PropTypes.arrayOf(
+      PropTypes.string.isRequired,
+    ),
+    headers: PropTypes.shape({
+      Authorization: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};
+
+export default ContractList;

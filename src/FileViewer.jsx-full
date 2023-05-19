@@ -1,18 +1,25 @@
-import React, { useEffect, useState, useCallback } from "react";
-
 import {
-	axios,
-	useAuth
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import PropTypes from 'prop-types';
+import {
+  axios,
+  useAuth,
 } from './authorization/ocpRestClient';
-import "./FileViewer.css";
+import './FileViewer.css';
 
-const VIEWER_ID = "file-viewer-root";
+const VIEWER_ID = 'file-viewer-root';
 
-function FileViewer({ closeDialog, publicationData}) {
+function FileViewer({ closeDialog, publicationData }) {
   const [bravaApi, setBravaApi] = useState(null);
   const { authService } = useAuth();
-  const publicationStatus = "Complete";
+  const didMountRef = useRef(false);
+  const publicationStatus = 'Complete';
 
+  // eslint-disable-next-line no-unused-vars
   const toolbarAccessible = {
     a11y: true,
     left: [
@@ -25,10 +32,10 @@ function FileViewer({ closeDialog, publicationData}) {
       { component: 'PageTextButton' },
       { component: 'ExportButton', format: 'print' },
       { component: 'ExportButton', format: 'pdf' },
-      { component: 'ExportButton', format: 'tiff' }
+      { component: 'ExportButton', format: 'tiff' },
     ],
     center: [],
-    right: [{ component: 'CloseButton', size: 18 }]
+    right: [{ component: 'CloseButton', size: 18 }],
   };
   const toolbarWithMarkupStuff = {
     left: [
@@ -56,23 +63,23 @@ function FileViewer({ closeDialog, publicationData}) {
       { component: 'SearchToggleButton', size: 20 },
       { component: 'SettingsButton' },
       { component: 'ToggleSidebarButton', side: 'rightTabContainer', closedIcon: 'Metadata' },
-      { component: 'CloseButton', size: 18 }
-    ]
+      { component: 'CloseButton', size: 18 },
+    ],
   };
-  
+
   const searchOptions = [
     'MatchCaseOption',
     'WholeWordOption',
     'Divider',
     'SearchDirectionOption',
     'Divider',
-    'IncludeMarkupsOption'
+    'IncludeMarkupsOption',
   ];
-  
+
   const tabContainerEmpty = {
     sidebarName: 'tabContainerEmpty',
     primary: 'primary',
-    tabs: []
+    tabs: [],
   };
   const tabContainerWithMarkups = {
     sidebarName: 'tabContainerWithMarkups',
@@ -92,13 +99,14 @@ function FileViewer({ closeDialog, publicationData}) {
         title: 'tab.bookmarks',
         layoutKey: 'bookmarks',
         // props: {
-        //   pids: window.samplePublication ? [window.samplePublication.id] : window.binderPublications.map(m => m.id)
+        //   pids: window.samplePublication
+        //     ? [window.samplePublication.id] : window.binderPublications.map(m => m.id)
         // }
       },
-      { component: 'LayersPane', title: 'tab.layers' }
-    ]
+      { component: 'LayersPane', title: 'tab.layers' },
+    ],
   };
-  
+
   const measureTools = [
     {
       title: 'toolPalette.takeoff',
@@ -106,62 +114,62 @@ function FileViewer({ closeDialog, publicationData}) {
         {
           label: 'measureCalibration',
           tool: 'measureCalibration',
-          icon: 'MeasureCalibration'
+          icon: 'MeasureCalibration',
         },
         {
           label: 'measureLine',
           tool: 'measureLine',
-          icon: 'MeasureLine'
+          icon: 'MeasureLine',
         },
         {
           label: 'measurePolyline',
           tool: 'measurePolyline',
-          icon: 'MeasurePolyline'
+          icon: 'MeasurePolyline',
         },
         {
           label: 'measurePolygon',
           tool: 'measurePolygon',
-          icon: 'MeasurePolygon'
+          icon: 'MeasurePolygon',
         },
         {
           label: 'measureRectangle',
           tool: 'measureRectangle',
-          icon: 'MeasureRectangle'
+          icon: 'MeasureRectangle',
         },
         {
           label: 'measureEllipse',
           tool: 'measureEllipse',
-          icon: 'MeasureEllipse'
+          icon: 'MeasureEllipse',
         },
         {
           label: 'measureItemCount',
           tool: 'measureItemCount',
-          icon: 'MeasureItemCount'
-        }
-      ]
-    }
+          icon: 'MeasureItemCount',
+        },
+      ],
+    },
   ];
-  
+
   const rightTabContainer = [
     { component: 'MarkupDetails', title: 'tab.markups' },
     { component: 'MetadataPane', title: 'tab.metadata' },
-    { component: 'NavigationPane', title: 'tab.navigation', layoutKey: 'markupFilters' }
+    { component: 'NavigationPane', title: 'tab.navigation', layoutKey: 'markupFilters' },
   ];
-  
+
   const markupFilters = [
     { component: 'ResetFilter' },
     { component: 'AuthorsFilter' },
     { component: 'TypesFilter' },
-    { component: 'KeywordsFilter' }
+    { component: 'KeywordsFilter' },
   ];
-  
+
   const pdfExportActions = [
     { id: 'newFile', message: 'Back to Content Server as a new file' },
     { id: 'newVersion', message: 'Back to Content Server as a new version of the current file' },
     { id: 'newRendition', message: 'Back to Content Server as a rendition of the current version' },
-    { id: 'download', default: true, message: 'Download to my browser' }
+    { id: 'download', default: true, message: 'Download to my browser' },
   ];
-  
+
   const pdfExportDefaults = {
     pageSizeName: '',
     pagesToExport: 'all',
@@ -181,7 +189,7 @@ function FileViewer({ closeDialog, publicationData}) {
         color: '#FF0000',
         italic: true,
         bold: true,
-        underline: true
+        underline: true,
       },
       TopLeft: { text: '', size: 48, font: 'cursive' },
       TopCenter: { text: '', size: 48, font: 'cursive' },
@@ -194,10 +202,10 @@ function FileViewer({ closeDialog, publicationData}) {
       LeftBottom: { text: '', size: 48, font: 'cursive' },
       RightTop: { text: '', size: 48, font: 'cursive' },
       RightCenter: { text: '', size: 48, font: 'cursive' },
-      RightBottom: { text: '', size: 48, font: 'cursive' }
-    }
+      RightBottom: { text: '', size: 48, font: 'cursive' },
+    },
   };
-  
+
   const pdfExport = {
     submitButtonLabel: 'publish',
     tabs: [
@@ -211,9 +219,9 @@ function FileViewer({ closeDialog, publicationData}) {
             layout: [
               {
                 component: 'FormColumns',
-                fields: ['ColorConversion', 'ApplyLineWeights', 'null', 'ForceThinLines']
-              }
-            ]
+                fields: ['ColorConversion', 'ApplyLineWeights', 'null', 'ForceThinLines'],
+              },
+            ],
           },
           {
             component: 'FieldSet',
@@ -222,24 +230,24 @@ function FileViewer({ closeDialog, publicationData}) {
             layout: [
               {
                 component: 'FormColumns',
-                fields: ['BurninMarkups', 'AppendComments', 'MarkupsAsComments', 'AppendReasons']
-              }
-            ]
-          }
-        ]
+                fields: ['BurninMarkups', 'AppendComments', 'MarkupsAsComments', 'AppendReasons'],
+              },
+            ],
+          },
+        ],
       },
       {
         title: 'tab.exportSecurity',
-        layout: [{ component: 'FormSection', fields: ['SecurityPassword', 'PermissionsPassword'] }]
+        layout: [{ component: 'FormSection', fields: ['SecurityPassword', 'PermissionsPassword'] }],
       },
       {
         title: 'tab.exportBannerWatermark',
-        layout: [{ component: 'BannerWatermark' }]
+        layout: [{ component: 'BannerWatermark' }],
       },
-      { title: 'tab.exportAction', layout: [{ component: 'FormSection', fields: ['SuccessAction'] }] }
-    ]
+      { title: 'tab.exportAction', layout: [{ component: 'FormSection', fields: ['SuccessAction'] }] },
+    ],
   };
-  
+
   const tiffExportDefaults = {
     successAction: 'download',
     pagesToExport: 'all',
@@ -247,12 +255,12 @@ function FileViewer({ closeDialog, publicationData}) {
     compressionType: 'lzw',
     dotsPerInch: 200,
     bitsPerPixel: 'max24bpp',
-    rotateToOrientation: 'portrait'
+    rotateToOrientation: 'portrait',
   };
-  
+
   const tiffExportDisabled = [];
   const tiffExportHidden = [];
-  
+
   const tiffExport = {
     submitButtonLabel: 'publish',
     tabs: [
@@ -266,9 +274,9 @@ function FileViewer({ closeDialog, publicationData}) {
             layout: [
               {
                 component: 'FormColumns',
-                fields: ['ColorConversion', 'ColorDepth', 'ApplyLineWeights', 'null', 'ForceThinLines']
-              }
-            ]
+                fields: ['ColorConversion', 'ColorDepth', 'ApplyLineWeights', 'null', 'ForceThinLines'],
+              },
+            ],
           },
           {
             component: 'FieldSet',
@@ -277,20 +285,20 @@ function FileViewer({ closeDialog, publicationData}) {
             layout: [
               {
                 component: 'FormColumns',
-                fields: ['BurninMarkups', 'AppendComments', 'MarkupsAsComments', 'AppendReasons']
-              }
-            ]
-          }
-        ]
+                fields: ['BurninMarkups', 'AppendComments', 'MarkupsAsComments', 'AppendReasons'],
+              },
+            ],
+          },
+        ],
       },
       {
         title: 'tab.exportBannerWatermark',
-        layout: [{ component: 'BannerWatermark' }]
+        layout: [{ component: 'BannerWatermark' }],
       },
-      { title: 'tab.exportAction', layout: [{ component: 'FormSection', fields: ['SuccessAction'] }] }
-    ]
+      { title: 'tab.exportAction', layout: [{ component: 'FormSection', fields: ['SuccessAction'] }] },
+    ],
   };
-  
+
   const printExportDefaults = {
     successAction: 'print',
     pagesToExport: 'all',
@@ -298,9 +306,9 @@ function FileViewer({ closeDialog, publicationData}) {
     colorConversion: 'original',
     isoConformance: 'none',
     includeLayers: 'all',
-    rotateToOrientation: 'original'
+    rotateToOrientation: 'original',
   };
-  
+
   const printExport = {
     submitButtonLabel: 'print',
     tabs: [
@@ -309,7 +317,7 @@ function FileViewer({ closeDialog, publicationData}) {
         layout: [
           {
             component: 'FormColumns',
-            fields: ['PageOutput', 'PageSize', 'Orientation']
+            fields: ['PageOutput', 'PageSize', 'Orientation'],
           },
           {
             component: 'FieldSet',
@@ -317,9 +325,9 @@ function FileViewer({ closeDialog, publicationData}) {
             layout: [
               {
                 component: 'FormColumns',
-                fields: ['ColorConversion', 'ApplyLineWeights', 'null', 'ForceThinLines']
-              }
-            ]
+                fields: ['ColorConversion', 'ApplyLineWeights', 'null', 'ForceThinLines'],
+              },
+            ],
           },
           {
             component: 'FieldSet',
@@ -328,19 +336,19 @@ function FileViewer({ closeDialog, publicationData}) {
             layout: [
               {
                 component: 'FormColumns',
-                fields: ['BurninMarkups', 'AppendComments', 'MarkupsAsComments', 'AppendReasons']
-              }
-            ]
-          }
-        ]
+                fields: ['BurninMarkups', 'AppendComments', 'MarkupsAsComments', 'AppendReasons'],
+              },
+            ],
+          },
+        ],
       },
       {
         title: 'tab.exportBannerWatermark',
-        layout: [{ component: 'BannerWatermark' }]
-      }
-    ]
+        layout: [{ component: 'BannerWatermark' }],
+      },
+    ],
   };
-  
+
   const pageOutputOptions = [{ value: 'all' }, { value: 'current' }, { value: 'markup' }, { value: 'designated' }];
   const pageSizeOptions = [
     { value: '', label: 'Original page size' },
@@ -388,7 +396,7 @@ function FileViewer({ closeDialog, publicationData}) {
     { value: 'ISO B6 Portrait', label: 'ISO B6 Portrait (125 X 176 mm)' },
     { value: 'ISO B7 Portrait', label: 'ISO B7 Portrait (88 X 125 mm)' },
     { value: 'JIS B4', label: 'JIS B4 (364 X 257 mm)' },
-    { value: 'JIS B5', label: 'JIS B5 (182 X 257 mm)' }
+    { value: 'JIS B5', label: 'JIS B5 (182 X 257 mm)' },
   ];
   const isoOptions = [
     { label: 'PDF Standard', value: 'none' },
@@ -399,13 +407,13 @@ function FileViewer({ closeDialog, publicationData}) {
     { label: 'PDF/A-3a compatible', value: 'a3a' },
     { label: 'PDF/A-3b compatible', value: 'a3b' },
     { label: 'PDF/A-3u compatible', value: 'a3u' },
-    { label: 'PDF/E compatible', value: 'e' }
+    { label: 'PDF/E compatible', value: 'e' },
   ];
   const orientationOptions = [
     { value: 'original' },
     { value: 'portrait' },
     { value: 'landscape' },
-    { value: 'outputsize' }
+    { value: 'outputsize' },
   ];
   const layerOptions = [{ value: 'all' }, { value: 'visible' }, { value: 'none' }];
   const coloringOptions = [{ value: 'original' }, { value: 'convertMonochrome' }, { value: 'convertGrayscale' }];
@@ -413,7 +421,7 @@ function FileViewer({ closeDialog, publicationData}) {
     { value: 'serif', label: 'Serif' },
     { value: 'sans-serif', label: 'Sans-Serif' },
     { value: 'cursive', label: 'Cursive' },
-    { value: 'monospace', label: 'Monospace' }
+    { value: 'monospace', label: 'Monospace' },
   ];
   const compressionOptions = [{ value: 'jpg' }, { value: 'lzw' }, { value: 'packbits' }, { value: 'ccitt' }];
   const colorConversionOptions = [{ value: 'original' }, { value: 'convertMonochrome' }, { value: 'convertGrayscale' }];
@@ -424,7 +432,7 @@ function FileViewer({ closeDialog, publicationData}) {
     { value: 'max8bpp' },
     { value: 'force8bpp' },
     { value: 'max24bpp' },
-    { value: 'force24bpp' }
+    { value: 'force24bpp' },
   ];
   const markupTools = [
     {
@@ -433,9 +441,9 @@ function FileViewer({ closeDialog, publicationData}) {
         {
           label: 'select markup',
           tool: 'select',
-          icon: 'Select'
-        }
-      ]
+          icon: 'Select',
+        },
+      ],
     },
     {
       title: 'toolPalette.annotations', // "Annotations" are the subset of "markups" used for drawing shapes
@@ -446,242 +454,244 @@ function FileViewer({ closeDialog, publicationData}) {
         //   className: 'test-markup-button',
         //   props: {
         //     title: '%User Stamp',
+        // eslint-disable-next-line max-len
         //     text: 'Date: %Date\nTime: %Time\nUser: %User\nRole: %DBString(role)\nStatus: %DBUpdateString(status)'
         //   }
         // },
-        { label: 'custom2', tool: 'text', icon: 'Text', props: { text: '%User' } },
-        { label: 'text', tool: 'text', icon: 'Text', props: {} },
-        { label: 'arrow', tool: 'arrow', icon: 'Arrow', props: {} },
-        { label: 'ellipse', tool: 'ellipse', icon: 'Ellipse', props: {} },
-        { label: 'arc', tool: 'arc', icon: 'Arc', props: {} },
-        { label: 'scratchout', tool: 'scratchout', icon: 'Scratchout', props: {} },
-        { label: 'cloudRectangle', tool: 'cloudRectangle', icon: 'CloudRectangle', props: {} },
-        { label: 'cloudPolygon', tool: 'cloudPolygon', icon: 'CloudPolygon', props: {} },
-        { label: 'openSketch', tool: 'openSketch', icon: 'OpenSketch' },
-        { label: 'closedSketch', tool: 'closedSketch', icon: 'ClosedSketch' },
-        { label: 'line', tool: 'line', icon: 'Line', props: {} },
         {
-          label: 'polyline',
-          tool: 'polyline',
-          icon: 'Polyline',
-          props: { closed: false }
-        },
-        { label: 'crossout', tool: 'crossout', icon: 'Crossout', props: {} },
-        { label: 'rectangle', tool: 'rectangle', icon: 'Rectangle', props: {} },
-        {
-          label: 'polygon',
-          tool: 'polygon',
-          icon: 'Polygon',
-          props: { closed: true }
+          label: 'custom2', tool: 'text', icon: 'Text', props: { text: '%User' },
         },
         {
-          label: 'highlight',
-          tool: 'highlight',
-          icon: 'Highlight'
+          label: 'text', tool: 'text', icon: 'Text', props: {},
         },
         {
-          label: 'roundedRectangle',
-          tool: 'roundedRectangle',
-          icon: 'RoundedRectangle'
+          label: 'arrow', tool: 'arrow', icon: 'Arrow', props: {},
         },
         {
-          label: 'changemark',
-          tool: 'changemark',
-          icon: 'Changemark',
-          props: { fill: '#f05822dd' } // OpenText "Burnt" color
+          label: 'ellipse', tool: 'ellipse', icon: 'Ellipse', props: {},
         },
         {
-          label: 'raster',
-          tool: 'raster',
-          icon: 'Raster'
+          label: 'arc', tool: 'arc', icon: 'Arc', props: {},
         },
         {
-          label: 'stamp',
-          tool: 'stamp',
-          icon: 'Stamp'
-        }
-      ]
+          label: 'scratchout', tool: 'scratchout', icon: 'Scratchout', props: {},
+        },
+        {
+          label: 'cloudRectangle', tool: 'cloudRectangle', icon: 'CloudRectangle', props: {},
+        },
+        {
+          label: 'cloudPolygon', tool: 'cloudPolygon', icon: 'CloudPolygon', props: {},
+        },
+        {
+          label: 'openSketch', tool: 'openSketch', icon: 'OpenSketch',
+        },
+        {
+          label: 'closedSketch', tool: 'closedSketch', icon: 'ClosedSketch',
+        },
+        {
+          label: 'line', tool: 'line', icon: 'Line', props: {},
+        },
+        {
+          label: 'polyline', tool: 'polyline', icon: 'Polyline', props: { closed: false },
+        },
+        {
+          label: 'crossout', tool: 'crossout', icon: 'Crossout', props: {},
+        },
+        {
+          label: 'rectangle', tool: 'rectangle', icon: 'Rectangle', props: {},
+        },
+        {
+          label: 'polygon', tool: 'polygon', icon: 'Polygon', props: { closed: true },
+        },
+        {
+          label: 'highlight', tool: 'highlight', icon: 'Highlight',
+        },
+        {
+          label: 'roundedRectangle', tool: 'roundedRectangle', icon: 'RoundedRectangle',
+        },
+        {
+          label: 'changemark', tool: 'changemark', icon: 'Changemark', props: { fill: '#f05822dd' }, // OpenText "Burnt" color
+        },
+        {
+          label: 'raster', tool: 'raster', icon: 'Raster',
+        },
+        {
+          label: 'stamp', tool: 'stamp', icon: 'Stamp',
+        },
+      ],
     },
     {
       title: 'toolPalette.text', // "text editing" are the subset of "markups" used for marking text content
       tools: [
         {
-          label: 'textScratch',
-          tool: 'textScratch',
-          icon: 'TextScratchout'
+          label: 'textScratch', tool: 'textScratch', icon: 'TextScratchout',
         },
         {
-          label: 'textUnderline',
-          tool: 'textUnderline',
-          icon: 'TextUnderline'
+          label: 'textUnderline', tool: 'textUnderline', icon: 'TextUnderline',
         },
         {
-          label: 'textStrike',
-          tool: 'textStrike',
-          icon: 'TextStrikeThrough'
+          label: 'textStrike', tool: 'textStrike', icon: 'TextStrikeThrough',
         },
         {
-          label: 'textHighlight',
-          tool: 'textHighlight',
-          icon: 'TextHighlight'
-        }
-      ]
+          label: 'textHighlight', tool: 'textHighlight', icon: 'TextHighlight',
+        },
+      ],
     },
     {
       title: 'toolPalette.redactions', // "redactions" are the subset of "markups" used for marking text content
       tools: [
         {
-          label: 'redactionRectangle',
-          tool: 'redactionRectangle',
-          icon: 'RedactArea'
+          label: 'redactionRectangle', tool: 'redactionRectangle', icon: 'RedactArea',
         },
         {
-          label: 'redactionText',
-          tool: 'redactionText',
-          icon: 'RedactText'
+          label: 'redactionText', tool: 'redactionText', icon: 'RedactText',
         },
         {
-          label: 'peekRectangle',
-          tool: 'peekRectangle',
-          icon: 'RedactPeek'
-        }
-      ]
-    }
+          label: 'peekRectangle', tool: 'peekRectangle', icon: 'RedactPeek',
+        },
+      ],
+    },
   ];
 
   const loadBravaViewer = useCallback(() => {
     axios
       .get(
-        process.env.REACT_APP_BASE_SERVICE_URL + "/viewer/api/v1/viewers/brava-view-1.x/loader",
+        `${process.env.REACT_APP_BASE_SERVICE_URL}/viewer/api/v1/viewers/brava-view-1.x/loader`,
         {
           headers: {
-            Authorization: `Bearer ${authService.getAuthTokens().access_token}`
-          }
-        }
+            Authorization: `Bearer ${authService.getAuthTokens().access_token}`,
+          },
+        },
       )
       .then((res) => {
         if (res.data) {
-          const scriptEl = document.createElement("script");
+          const scriptEl = document.createElement('script');
           scriptEl.appendChild(document.createTextNode(res.data));
-          document.getElementsByTagName("head")[0].appendChild(scriptEl);
+          document.getElementsByTagName('head')[0].appendChild(scriptEl);
         }
       });
   }, [authService]);
 
-  useEffect(() => {
-    window.addEventListener("bravaReady", function (event) {
-        const currentOrigin = window.location.origin;
-        if (event.origin && event.origin !== currentOrigin) {
-          return;
-        }
-        if (event.target && event.target.origin === currentOrigin) {
-          window.addEventListener(event["detail"] + "-close", function() {
-            closeDialog();
-          });
-          setBravaApi(window[event["detail"]]);
-        }
-    });
-    loadBravaViewer();
-  }, [closeDialog, loadBravaViewer]);
+  const closeDialogEventListener = () => {
+    closeDialog();
+  };
 
-  useEffect(() => {
-    if (bravaApi) {
-      bravaApi.setHttpHeaders({
-          Authorization: `Bearer ${authService.getAuthTokens().access_token}`
-      });
-
-      bravaApi.setScreenBanner(
-        "Viewer Service by OpenText | Document Viewed at %Time"
-      );
-      bravaApi.enableMarkup(true);
-      // bravaApi.enableMarkupEvents(true);
-      bravaApi.editableMarkupPredicate = () => true;
-      bravaApi.commentableMarkupPredicate = () => true;
-      bravaApi.visibleToolPropertyPredicate = () => true;
-      bravaApi.deletableMarkupPredicate = () => true;
-      bravaApi.deletableStampPredicate = () => true;
-      bravaApi.editableStampPredicate = () => true;
-      bravaApi.addableStampPredicate = () => true;
-      bravaApi.visibleCommandPredicate = () => true;
-
-      //console.log(window.ViewerAuthority);
-    
-      bravaApi.setSearchHost(window.ViewerAuthority);
-      bravaApi.setMarkupHost(window.ViewerAuthority);
-      bravaApi.setUserName("Alex");
-      // bravaApi.setTitle("Some Title");
-      bravaApi.setScale("1.5")
-      bravaApi.setScreenWatermark("ORIGINAL");
-
-      bravaApi.setLayout({
-        onSearchClearSetActiveTab: {
-          layoutKey: 'tabContainerWithMarkups',
-          title: 'tab.thumbnails'
-        },
-        onSearchResultsSetActiveTab: {
-          layoutKey: 'tabContainerWithMarkups',
-          title: 'tab.searchResults'
-        },
-        topToolbar: 'toolbarWithMarkupStuff',
-        toolbarWithMarkupStuff: toolbarWithMarkupStuff,
-        mainContainer: [
-          { component: 'TabContainer', layoutKey: 'tabContainerWithMarkups' },
-          { component: 'PageContainer' }
-        ],
-        tabContainerWithMarkups: tabContainerWithMarkups,
-        tabContainerEmpty: tabContainerEmpty,
-        measureTools: measureTools,
-        rightTabContainer: rightTabContainer,
-        markupTools: markupTools,
-        markupFilters: markupFilters,
-        searchOptions: searchOptions,
-        pdfExport: pdfExport,
-        tiffExport: tiffExport,
-        printExport: printExport,
-        pdfExportActions: pdfExportActions,
-        pdfExportDefaults: pdfExportDefaults,
-        tiffExportDefaults: tiffExportDefaults,
-        printExportDefaults: printExportDefaults,
-        tiffExportDisabled: tiffExportDisabled,
-        tiffExportHidden: tiffExportHidden,
-        exportDialogs: ['pdf', 'tiff', 'print'],
-        pageSizeOptions: pageSizeOptions,
-        isoOptions: isoOptions,
-        orientationOptions: orientationOptions,
-        layerOptions: layerOptions,
-        coloringOptions: coloringOptions,
-        fontOptions: fontOptions,
-        compressionOptions: compressionOptions,
-        colorConversionOptions: colorConversionOptions,
-        colorDepthOptions: colorDepthOptions,
-        pageOutputOptions: pageOutputOptions,
-        settings: {
-          tabs: [
-            {
-              title: 'tab.coloring',
-              component: 'Coloring'
-            },
-            {
-              title: 'tab.measure',
-              component: 'Measure'
-            },
-            {
-              title: 'tab.display',
-              component: 'Display'
-            }
-          ]
-        }
-      });
-      bravaApi.addPublication(publicationData, true);
-      bravaApi.render(VIEWER_ID); 
+  const bravaReadyEventListener = (event) => {
+    const currentOrigin = window.location.origin;
+    if (event.origin && event.origin !== currentOrigin) {
+      return;
     }
-  }, [bravaApi, publicationData, authService]);
+    if (event.target && event.target.origin === currentOrigin) {
+      window.addEventListener(`${event.detail}-close`, closeDialogEventListener);
+      setBravaApi(window[event.detail]);
+    }
+  };
 
-  if (publicationStatus !== "Complete") {
+  useEffect(() => {
+    if (didMountRef.current) {
+      if (bravaApi) {
+        bravaApi.setHttpHeaders({
+          Authorization: `Bearer ${authService.getAuthTokens().access_token}`,
+        });
+        bravaApi.setScreenBanner('Viewer Service by OpenText | Document Viewed at %Time');
+        bravaApi.enableMarkup(true);
+        // bravaApi.enableMarkupEvents(true);
+        bravaApi.editableMarkupPredicate = () => true;
+        bravaApi.commentableMarkupPredicate = () => true;
+        bravaApi.visibleToolPropertyPredicate = () => true;
+        bravaApi.deletableMarkupPredicate = () => true;
+        bravaApi.deletableStampPredicate = () => true;
+        bravaApi.editableStampPredicate = () => true;
+        bravaApi.addableStampPredicate = () => true;
+        bravaApi.visibleCommandPredicate = () => true;
+        // console.log(window.ViewerAuthority);
+        bravaApi.setSearchHost(window.ViewerAuthority);
+        bravaApi.setMarkupHost(window.ViewerAuthority);
+        bravaApi.setUserName('Alex');
+        // bravaApi.setTitle("Some Title");
+        bravaApi.setScale('1.5"');
+        bravaApi.setScreenWatermark('ORIGINAL');
+
+        bravaApi.setLayout({
+          onSearchClearSetActiveTab: {
+            layoutKey: 'tabContainerWithMarkups',
+            title: 'tab.thumbnails',
+          },
+          onSearchResultsSetActiveTab: {
+            layoutKey: 'tabContainerWithMarkups',
+            title: 'tab.searchResults',
+          },
+          topToolbar: 'toolbarWithMarkupStuff',
+          toolbarWithMarkupStuff,
+          mainContainer: [
+            { component: 'TabContainer', layoutKey: 'tabContainerWithMarkups' },
+            { component: 'PageContainer' },
+          ],
+          tabContainerWithMarkups,
+          tabContainerEmpty,
+          measureTools,
+          rightTabContainer,
+          markupTools,
+          markupFilters,
+          searchOptions,
+          pdfExport,
+          tiffExport,
+          printExport,
+          pdfExportActions,
+          pdfExportDefaults,
+          tiffExportDefaults,
+          printExportDefaults,
+          tiffExportDisabled,
+          tiffExportHidden,
+          exportDialogs: ['pdf', 'tiff', 'print'],
+          pageSizeOptions,
+          isoOptions,
+          orientationOptions,
+          layerOptions,
+          coloringOptions,
+          fontOptions,
+          compressionOptions,
+          colorConversionOptions,
+          colorDepthOptions,
+          pageOutputOptions,
+          settings: {
+            tabs: [
+              {
+                title: 'tab.coloring',
+                component: 'Coloring',
+              },
+              {
+                title: 'tab.measure',
+                component: 'Measure',
+              },
+              {
+                title: 'tab.display',
+                component: 'Display',
+              },
+            ],
+          },
+        });
+        bravaApi.addPublication(publicationData, true);
+        bravaApi.render(VIEWER_ID);
+      }
+    } else {
+      window.addEventListener('bravaReady', bravaReadyEventListener);
+      loadBravaViewer();
+      didMountRef.current = true;
+    }
+  }, [bravaApi, publicationData, authService, loadBravaViewer]);
+
+  if (publicationStatus !== 'Complete') {
     return null;
   }
 
-  return <div id={VIEWER_ID}></div>;
+  return <div id={VIEWER_ID} />;
+}
+
+FileViewer.propTypes = {
+  closeDialog: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  publicationData: PropTypes.any.isRequired,
 };
 
 export default FileViewer;

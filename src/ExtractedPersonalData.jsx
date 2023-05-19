@@ -1,59 +1,52 @@
-import React from 'react'
+import PropTypes from 'prop-types';
 import {
-	Button,
-	Dialog,
-	DialogActions,
-	DialogContent,
-	DialogTitle
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
 } from '@material-ui/core';
 
-export default class ExtractedPersonalData extends React.Component {
-	constructor(props) {
-		super(props);
+function ExtractedPersonalData({ open, selectedContract, onClose }) {
+  const formatExtractedTerms = (arr) => {
+    if (arr) {
+      return arr.map((str, index) => (str.startsWith('**')
+        // eslint-disable-next-line react/no-array-index-key
+        ? <p key={index}><b>{str.substring(2)}</b></p>
+        // eslint-disable-next-line react/no-array-index-key
+        : <p key={index}>{`- ${str}`}</p>
+      ));
+    }
+    return '';
+  };
 
-		this.state = {
-			selectedContract: {
-				name: '',
-				properties: {},
-				create_time: ''
-			}
-		}
-	}
+  const closeDialog = () => onClose();
 
-	formatExtractedTerms(arr) {
-		if (arr) {
-			return arr.map(str => str.startsWith("**") ? <b><p>{str.substring(2)}</p></b>:<p>- {str}</p>);
-		}
-		return '';
-	}
-
-	componentDidUpdate(prevProps, prevState, snapshot) {
-		if (prevProps.open !== this.props.open
-			|| prevProps.selectedContract !== this.props.selectedContract) {
-			this.setState({
-				selectedContract: this.props.selectedContract
-			});
-		}
-	}
-
-	closeDialog() {
-		this.props.onClose();
-	}
-
-	render() {
-		return (
-			<Dialog open={this.props.open} aria-labelledby="form-dialog-title">
-				<DialogTitle id="form-dialog-title">Extracted Terms</DialogTitle>
-				<DialogContent>
-					<div>{this.formatExtractedTerms(this.state.selectedContract.properties.extracted_terms)}</div>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={() => { this.closeDialog() }} variant="contained" color="primary">
-						Close
-					</Button>
-				</DialogActions>
-			</Dialog>
-		)
-	}
+  return (
+    <Dialog open={open} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">Extracted Terms</DialogTitle>
+      <DialogContent>
+        <div>{formatExtractedTerms(selectedContract.properties.extracted_terms)}</div>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => closeDialog()} variant="contained" color="primary">
+          Close
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
 }
 
+ExtractedPersonalData.propTypes = {
+  open: PropTypes.bool.isRequired,
+  selectedContract: PropTypes.shape({
+    properties: PropTypes.shape({
+      extracted_terms: PropTypes.arrayOf(
+        PropTypes.string.isRequired,
+      ),
+    }),
+  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+};
+
+export default ExtractedPersonalData;

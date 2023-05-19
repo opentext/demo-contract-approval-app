@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import { createContext, useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
 
-const ApplicationContext = React.createContext();
+const ApplicationContext = createContext({
+  appRootFolderId: '',
+  updateAppRootFolderId: () => {},
+});
 
-export const ApplicationProvider = ({ children }) => {
-    const [appRootFolderId, setAppRootFolderId] = useState('');
+export function ApplicationProvider({ children }) {
+  const [appRootFolderId, setAppRootFolderId] = useState('');
+  const updateAppRootFolderId = (newAppRootFolderId) => {
+    setAppRootFolderId(newAppRootFolderId);
+  };
+  const value = useMemo(() => ({ appRootFolderId, updateAppRootFolderId }), [appRootFolderId]);
 
-    const updateAppRootFolderId = (appRootFolderId) => {
-        setAppRootFolderId(appRootFolderId);
-    }
-
-    return <ApplicationContext.Provider value={{ appRootFolderId: appRootFolderId, updateAppRootFolderId }}>
-        {children}
-    </ApplicationContext.Provider>;
+  return (
+    <ApplicationContext.Provider value={value}>
+      {children}
+    </ApplicationContext.Provider>
+  );
 }
+
+ApplicationProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default ApplicationContext;
