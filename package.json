@@ -15,7 +15,6 @@
     "prop-types": "15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-oauth2-pkce": "^2.0.7",
     "react-router-dom": "6.11.1",
     "react-scripts": "4.0.3"
   },

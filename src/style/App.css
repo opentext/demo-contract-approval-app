@@ -103,3 +103,11 @@
 .add-contract .margin-start {
   margin-inline-start: 5px;
 }
+.loading {
+  display: flex;
+  height: calc(100vh - 4rem);
+  background-color: #fff;
+  overflow-y: auto;
+  justify-content: center;
+  align-items: center;
+}

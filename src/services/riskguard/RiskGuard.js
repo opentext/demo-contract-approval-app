@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 class RiskGuard {
-  constructor(authContext) {
+  constructor(userData) {
     this.url = `${process.env.REACT_APP_BASE_SERVICE_URL}/mtm-riskguard/api/v1/process`;
-    this.authContext = authContext;
+    this.userData = userData;
   }
 
   static calculateRisk(rgResponse) {
@@ -111,7 +111,7 @@ class RiskGuard {
       method: 'post',
       url: this.url,
       headers: {
-        Authorization: this.authContext.headers.Authorization,
+        Authorization: `Bearer ${this.userData.access_token}`,
         'Content-Type': 'multipart/form-data',
       },
       data: form,

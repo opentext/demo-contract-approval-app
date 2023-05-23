@@ -1,5 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
+import { AuthContext } from 'oidc-react';
 import {
   Backdrop,
   Button,
@@ -19,7 +25,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import CloseIcon from '@material-ui/icons/Close';
 import Alert from './Alert';
 import Pagination from './Pagination';
-import Tasks from './services/workflow/Tasks';
+import Tasks from '../services/workflow/Tasks';
 import TaskDetails from './TaskDetails';
 import DocumentDialogView from './DocumentDialogView';
 import RiskClassification from './RiskClassification';
@@ -27,7 +33,8 @@ import RiskClassification from './RiskClassification';
 /**
  * This view displays the list of contracts pending for approval.
  */
-function TasksList({ authContext, taskName }) {
+function TasksList({ taskName }) {
+  const { userData } = useContext(AuthContext);
   const [state, setState] = useState(
     {
       detailsOpen: false,
@@ -48,7 +55,7 @@ function TasksList({ authContext, taskName }) {
   const didMountRef = useRef(false);
   const pageNumberRef = useRef(state.pageNumber);
 
-  const taskService = new Tasks(authContext, taskName);
+  const taskService = new Tasks(userData, taskName);
 
   const getTasks = () => {
     setState((prevState) => ({ ...prevState, showBackdrop: true }));
@@ -275,16 +282,6 @@ function TasksList({ authContext, taskName }) {
 }
 
 TasksList.propTypes = {
-  authContext: PropTypes.shape({
-    userName: PropTypes.string.isRequired,
-    idToken: PropTypes.string.isRequired,
-    groups: PropTypes.arrayOf(
-      PropTypes.string.isRequired,
-    ),
-    headers: PropTypes.shape({
-      Authorization: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
   taskName: PropTypes.string.isRequired,
 };
 

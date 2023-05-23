@@ -1,17 +1,19 @@
 import axios from 'axios';
 
 class Tasks {
-  constructor(authContext, taskName) {
+  constructor(userData, taskName) {
     this.url = `${process.env.REACT_APP_BASE_SERVICE_URL}/workflow/v1/tasks`;
-    this.authContext = authContext;
+    this.userData = userData;
     this.taskName = taskName;
   }
 
   async getTasks(offset) {
     return axios({
       method: 'get',
-      url: `${this.url}?sort=createTime&order=desc&name=${encodeURIComponent(this.taskName)}&candidateOrAssigned=${encodeURIComponent(this.authContext.userName)}&includeProcessVariables=true${(offset ? `&offset=${offset}` : '')}`,
-      headers: this.authContext.headers,
+      url: `${this.url}?sort=createTime&order=desc&name=${encodeURIComponent(this.taskName)}&candidateOrAssigned=${encodeURIComponent(this.userData.profile.preferred_username)}&includeProcessVariables=true${(offset ? `&offset=${offset}` : '')}`,
+      headers: {
+        Authorization: `Bearer ${this.userData.access_token}`,
+      },
     }).catch((error) => {
       // eslint-disable-next-line no-alert
       alert(
@@ -24,10 +26,12 @@ class Tasks {
     return axios({
       method: 'post',
       url: `${this.url}/${taskId}`,
-      headers: this.authContext.headers,
+      headers: {
+        Authorization: `Bearer ${this.userData.access_token}`,
+      },
       data: {
         action: 'claim',
-        assignee: this.authContext.userName,
+        assignee: this.userData.profile.preferred_username,
       },
     }).catch((error) => {
       // eslint-disable-next-line no-alert
@@ -41,14 +45,16 @@ class Tasks {
     return axios({
       method: 'post',
       url: `${this.url}/${taskId}`,
-      headers: this.authContext.headers,
+      headers: {
+        Authorization: `Bearer ${this.userData.access_token}`,
+      },
       data: {
         action: 'complete',
         outcome: approved ? 'approved' : 'rejected',
         variables: [
           {
             name: 'approver',
-            value: this.authContext.userName,
+            value: this.userData.profile.preferred_username,
           },
         ],
       },

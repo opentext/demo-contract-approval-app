@@ -1,5 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { AuthContext } from 'oidc-react';
 import {
   Button,
   Dialog,
@@ -16,10 +23,6 @@ import {
   Tabs,
   TextField,
 } from '@material-ui/core';
-import {
-  axios,
-  useAuth,
-} from './authorization/ocpRestClient';
 import TabPanel from './TabPanel';
 
 const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
@@ -30,8 +33,7 @@ function ContractDetails({
   parentRaiseError,
   onClose,
 }) {
-  const openRef = useRef(open);
-  const selectedContractRef = useRef(selectedContract);
+  const { userData } = useContext(AuthContext);
   const [value, setValue] = useState(0);
   const [contract, setContract] = useState({
     name: '',
@@ -40,7 +42,8 @@ function ContractDetails({
     create_time: '',
   });
   const [contractAcl, setContractAcl] = useState();
-  const { authService } = useAuth();
+  const openRef = useRef(open);
+  const selectedContractRef = useRef(selectedContract);
 
   const getApprovals = (trait) => {
     const approvals = [];
@@ -85,7 +88,7 @@ function ContractDetails({
         method: 'get',
         url: `${baseUrl}/cms/instances/file/${selectedContract.type}/${selectedContract.id}`,
         headers: {
-          Authorization: `Bearer ${authService.getAuthTokens().access_token}`,
+          Authorization: `Bearer ${userData.access_token}`,
         },
       }).then((res) => {
         setContract(res.data);
@@ -105,7 +108,7 @@ function ContractDetails({
         method: 'get',
         url: `${baseUrl}/cms/instances/file/${selectedContract.type}/${selectedContract.id}/acl`,
         headers: {
-          Authorization: `Bearer ${authService.getAuthTokens().access_token}`,
+          Authorization: `Bearer ${userData.access_token}`,
         },
       }).then((res) => {
         setContractAcl(res.data);
@@ -127,7 +130,7 @@ function ContractDetails({
       fetchSelectedContract();
       fetchAclForSelectedContract();
     }
-  }, [open, selectedContract, authService, onClose, parentRaiseError]);
+  }, [open, selectedContract, userData.access_token, onClose, parentRaiseError]);
 
   return (
     <div>

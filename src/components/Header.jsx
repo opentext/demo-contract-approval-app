@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import { AuthContext } from 'oidc-react';
+
 import { Button, Menu, MenuItem } from '@material-ui/core';
 
-function Header({ authContext, logout }) {
+function Header({ logout }) {
+  const { userData } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -14,7 +17,7 @@ function Header({ authContext, logout }) {
   };
 
   const logUserOut = () => {
-    logout(true, authContext.idToken);
+    logout();
     handleClose();
   };
 
@@ -24,7 +27,7 @@ function Header({ authContext, logout }) {
       <div className="header-title">Contract Approval</div>
       <div className="header-menu">
         <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-          {authContext.userName}
+          {userData.profile.preferred_username}
         </Button>
         <Menu
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
@@ -42,16 +45,6 @@ function Header({ authContext, logout }) {
 }
 
 Header.propTypes = {
-  authContext: PropTypes.shape({
-    userName: PropTypes.string.isRequired,
-    idToken: PropTypes.string.isRequired,
-    groups: PropTypes.arrayOf(
-      PropTypes.string.isRequired,
-    ),
-    headers: PropTypes.shape({
-      Authorization: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
   logout: PropTypes.func.isRequired,
 };
 

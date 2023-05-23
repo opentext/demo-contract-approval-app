@@ -1,117 +1,98 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAuth } from 'oidc-react';
 import jwtDecode from 'jwt-decode';
 import {
+  CircularProgress,
   Tab,
   Tabs,
 } from '@material-ui/core';
-
 import './style/App.css';
-import {
-  login,
-  logout,
-  logoutWithIdTokenHint,
-  useAuth,
-} from './authorization/ocpRestClient';
-import Header from './Header';
-import TabPanel from './TabPanel';
-import TasksList from './TasksList';
-import CreatedContractList from './CreatedContractList';
-import ContractList from './ContractList';
+import Header from './components/Header';
+import TabPanel from './components/TabPanel';
+import TasksList from './components/TasksList';
+import CreatedContractList from './components/CreatedContractList';
+import ContractList from './components/ContractList';
 import { ApplicationProvider } from './context/ApplicationContext';
 
 function App() {
-  const [value, setValue] = useState(0);
+  const { userData, signOutRedirect } = useAuth();
+  const [tabValue, setTabValue] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [groups, setGroups] = useState([]);
 
-  const { authService } = useAuth();
+  const handleTabChange = (event, newTabValue) => {
+    setTabValue(newTabValue);
+  };
 
-  if (authService.isPending()) {
+  useEffect(() => {
+    if (userData) {
+      setGroups(
+        jwtDecode(userData.id_token)
+          .grp
+          .map((group) => group.substring(0, group.indexOf('@'))),
+      );
+      setIsLoading(false);
+    }
+  }, [userData]);
+
+  if (isLoading) {
     return (
-      <div className="page-content">
-        <p>Loading...</p>
-        <button type="button" style={{ margin: '0.50rem' }} onClick={() => { logout(true); login(); }}>Reset</button>
+      <div className="loading">
+        <CircularProgress color="inherit" />
       </div>
     );
   }
-
-  if (!authService.isAuthenticated()) {
-    login();
-    return (
-      <div className="page-content">
-        <p>Logging in ...</p>
-      </div>
-    );
-  }
-
-  const groups = jwtDecode(authService.getAuthTokens().id_token).grp.map((group) => {
-    const fullGroupName = JSON.stringify(group);
-    return (fullGroupName.substring(1, fullGroupName.indexOf('@')));
-  });
-
-  const authContext = {
-    userName: authService.getUser().preferred_username,
-    idToken: authService.getAuthTokens().id_token,
-    groups,
-    headers: {
-      Authorization: `Bearer ${authService.getAuthTokens().access_token}`,
-    },
-  };
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   let tabIndex = 0;
-
   return (
     <div className="App">
       <Header
-        authContext={authContext}
-        logout={logoutWithIdTokenHint}
+        logout={signOutRedirect}
       />
       {
-        authContext.groups.includes('contract_approval_users')
+        groups.includes('contract_approval_users')
           ? (
             <div className="page-content">
               <Tabs
                 orientation="horizontal"
-                value={value}
-                onChange={handleChange}
+                value={tabValue}
+                onChange={handleTabChange}
               >
                 <Tab className="tab-caption" label="Created Contracts" />
                 {
-                  authContext.groups.includes('line_managers')
+                  groups.includes('line_managers')
                   && <Tab className="tab-caption" label="Line Manager Tasks" />
                 }
                 {
-                  authContext.groups.includes('risk_managers')
+                  groups.includes('risk_managers')
                   && <Tab className="tab-caption" label="Risk Manager Tasks" />
                 }
                 <Tab className="tab-caption" label="All Contracts" />
               </Tabs>
               <ApplicationProvider>
-                <TabPanel value={value} index={tabIndex}>
-                  <CreatedContractList authContext={authContext} />
+                <TabPanel value={tabValue} index={tabIndex}>
+                  <CreatedContractList />
                 </TabPanel>
                 {
-                  authContext.groups.includes('line_managers')
+                  groups.includes('line_managers')
                   && (
                     // eslint-disable-next-line no-plusplus
-                    <TabPanel value={value} index={++tabIndex}>
-                      <TasksList authContext={authContext} taskName="Line Manager Approval" />
+                    <TabPanel value={tabValue} index={++tabIndex}>
+                      <TasksList taskName="Line Manager Approval" />
                     </TabPanel>
                   )
                 }
                 {
-                  authContext.groups.includes('risk_managers')
+                  groups.includes('risk_managers')
                   && (
                     // eslint-disable-next-line no-plusplus
-                    <TabPanel value={value} index={++tabIndex}>
-                      <TasksList authContext={authContext} taskName="Risk Manager Approval" />
+                    <TabPanel value={tabValue} index={++tabIndex}>
+                      <TasksList taskName="Risk Manager Approval" />
                     </TabPanel>
                   )
                 }
-                <TabPanel value={value} index={tabIndex + 1}>
-                  <ContractList authContext={authContext} />
+                <TabPanel value={tabValue} index={tabIndex + 1}>
+                  <ContractList />
                 </TabPanel>
               </ApplicationProvider>
             </div>
@@ -119,7 +100,9 @@ function App() {
           : (
             <div className="page-content">
               <p>You are not authorized to use this application</p>
-              <button type="button" style={{ margin: '0.50rem' }} onClick={() => { logoutWithIdTokenHint(true, authContext.idToken); }}>Logout</button>
+              <button type="button" style={{ margin: '0.50rem' }} onClick={signOutRedirect}>
+                Logout
+              </button>
             </div>
           )
       }

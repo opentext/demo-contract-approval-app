@@ -1,12 +1,11 @@
+import { AuthProvider } from 'oidc-react';
 import App from './App';
-import {
-  AuthProvider,
-  authService,
-} from './authorization/ocpRestClient';
+import OidcConfig from './authorization/OidcConfig';
 
 function WrappedSecuredApp() {
   return (
-    <AuthProvider authService={authService}>
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <AuthProvider {...OidcConfig}>
       <App />
     </AuthProvider>
   );

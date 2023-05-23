@@ -1,21 +1,25 @@
 import {
   useCallback,
+  useContext,
   useEffect,
   useRef,
   useState,
 } from 'react';
 import axios from 'axios';
-import { PropTypes } from 'prop-types';
+import { AuthContext } from 'oidc-react';
 import {
+  Backdrop,
   Button,
+  CircularProgress,
   IconButton,
+  Paper,
+  Snackbar,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper, Backdrop, CircularProgress, Snackbar,
 } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import CloseIcon from '@material-ui/icons/Close';
@@ -30,7 +34,8 @@ const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
 /**
  * This view displays all the contracts.
  */
-function ContractList({ authContext }) {
+function ContractList() {
+  const { userData } = useContext(AuthContext);
   const [state, setState] = useState(
     {
       contracts: [],
@@ -47,7 +52,6 @@ function ContractList({ authContext }) {
       snackBarSeverity: 'success',
     },
   );
-
   const didMountRef = useRef(false);
   const pageNumberRef = useRef(state.pageNumber);
 
@@ -65,7 +69,9 @@ function ContractList({ authContext }) {
     axios({
       method: 'get',
       url: `${baseUrl}/cms/instances/file/ca_contract/?include-total=true&sortby=create_time desc&page=${state.pageNumber + 1}`,
-      headers: authContext.headers,
+      headers: {
+        Authorization: `Bearer ${userData.access_token}`,
+      },
     }).then((res) => {
       setState((prevState) => ({
         ...prevState,
@@ -84,7 +90,7 @@ function ContractList({ authContext }) {
     }).finally(() => {
       setState((prevState) => ({ ...prevState, showBackdrop: false }));
     });
-  }, [raiseError, authContext.headers, state.pageNumber]);
+  }, [raiseError, userData.access_token, state.pageNumber]);
 
   const handleCloseDocumentDialogView = () => {
     setState((prevState) => ({ ...prevState, openDocumentDialogView: false }));
@@ -213,18 +219,5 @@ function ContractList({ authContext }) {
     </div>
   );
 }
-
-ContractList.propTypes = {
-  authContext: PropTypes.shape({
-    userName: PropTypes.string.isRequired,
-    idToken: PropTypes.string.isRequired,
-    groups: PropTypes.arrayOf(
-      PropTypes.string.isRequired,
-    ),
-    headers: PropTypes.shape({
-      Authorization: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
-};
 
 export default ContractList;

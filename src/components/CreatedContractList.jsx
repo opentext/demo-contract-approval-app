@@ -1,11 +1,12 @@
 import {
   useCallback,
+  useContext,
   useEffect,
   useRef,
   useState,
 } from 'react';
 import axios from 'axios';
-import { PropTypes } from 'prop-types';
+import { AuthContext } from 'oidc-react';
 import {
   Backdrop,
   Button,
@@ -26,8 +27,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import Alert from './Alert';
 import ContractDetails from './ContractDetails';
 import AddContract from './AddContract';
-import Pagination from './Pagination';
 import DocumentDialogView from './DocumentDialogView';
+import Pagination from './Pagination';
 import RiskClassification from './RiskClassification';
 
 const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
@@ -36,7 +37,8 @@ const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
  * This view displays the list of created contracts.
  * From here the user can request approval for any of them.
  */
-function CreatedContractList({ authContext }) {
+function CreatedContractList() {
+  const { userData } = useContext(AuthContext);
   const [state, setState] = useState(
     {
       contracts: [],
@@ -58,7 +60,6 @@ function CreatedContractList({ authContext }) {
       snackBarSeverity: 'success',
     },
   );
-
   const didMountRef = useRef(false);
   const addNumberOfContractsRef = useRef(state.addNumberOfContracts);
   const pageNumberRef = useRef(state.pageNumber);
@@ -83,7 +84,9 @@ function CreatedContractList({ authContext }) {
       axios({
         method: 'get',
         url: `${baseUrl}/cms/permissions?filter=name eq "line_manager_approval" or name eq "risk_manager_approval" or name eq "completed"`,
-        headers: authContext.headers,
+        headers: {
+          Authorization: `Bearer ${userData.access_token}`,
+        },
       }).then((res) => {
         // eslint-disable-next-line no-underscore-dangle
         const acls = res.data._embedded.collection;
@@ -121,15 +124,17 @@ function CreatedContractList({ authContext }) {
         raiseError(errorMessage);
       });
     }
-  }, [raiseError, state, authContext.headers]);
+  }, [raiseError, state, userData.access_token]);
 
   const getContracts = useCallback(() => {
-    if (authContext.userName) {
+    if (userData.profile.preferred_username) {
       setState((prevState) => ({ ...prevState, showBackdrop: true }));
       axios({
         method: 'get',
         url: `${baseUrl}/cms/instances/file/ca_contract/?include-total=true&sortby=create_time desc&filter=status eq "CREATED"&page=${state.pageNumber + 1}`,
-        headers: authContext.headers,
+        headers: {
+          Authorization: `Bearer ${userData.access_token}`,
+        },
       }).then((res) => {
         setState((prevState) => ({
           ...prevState,
@@ -151,7 +156,12 @@ function CreatedContractList({ authContext }) {
     } else {
       setState((prevState) => ({ ...prevState, contracts: [], count: -1 }));
     }
-  }, [raiseError, authContext.headers, authContext.userName, state.pageNumber]);
+  }, [
+    raiseError,
+    userData.access_token,
+    userData.profile.preferred_username,
+    state.pageNumber,
+  ]);
 
   const handleContractAdded = (errorMessage) => {
     if (!errorMessage) {
@@ -235,7 +245,9 @@ function CreatedContractList({ authContext }) {
     axios({
       method: 'post',
       url: `${baseUrl}/workflow/v1/process-instances`,
-      headers: authContext.headers,
+      headers: {
+        Authorization: `Bearer ${userData.access_token}`,
+      },
       data,
     }).then(() => {
       setState((prevState) => ({ ...prevState, snackBarMessage: 'Approval requested successfully.' }));
@@ -287,7 +299,7 @@ function CreatedContractList({ authContext }) {
 
   return (
     <div>
-      <Button variant="contained" color="primary" disabled={!authContext.userName} startIcon={<AddIcon />} onClick={() => openContractDialog()} style={{ margin: '0.25rem' }}>Add</Button>
+      <Button variant="contained" color="primary" disabled={!userData.profile.preferred_username} startIcon={<AddIcon />} onClick={() => openContractDialog()} style={{ margin: '0.25rem' }}>Add</Button>
       <div className="content-header">All created contracts</div>
       <TableContainer component={Paper}>
         <Table size="small" aria-label="a dense table">
@@ -339,7 +351,6 @@ function CreatedContractList({ authContext }) {
         onClose={handleCloseContractDetails}
       />
       <AddContract
-        authContext={authContext}
         open={state.openAddContract}
         onAddContract={handleContractAdded}
         onClose={handleCloseAddContract}
@@ -375,18 +386,5 @@ function CreatedContractList({ authContext }) {
     </div>
   );
 }
-
-CreatedContractList.propTypes = {
-  authContext: PropTypes.shape({
-    userName: PropTypes.string.isRequired,
-    idToken: PropTypes.string.isRequired,
-    groups: PropTypes.arrayOf(
-      PropTypes.string.isRequired,
-    ),
-    headers: PropTypes.shape({
-      Authorization: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
-};
 
 export default CreatedContractList;

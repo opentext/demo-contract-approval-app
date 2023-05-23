@@ -1,6 +1,7 @@
 import { useContext, useRef, useState } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { AuthContext } from 'oidc-react';
 import {
   Button,
   Backdrop,
@@ -18,17 +19,17 @@ import {
   Select,
   FormControl,
 } from '@material-ui/core';
-import ApplicationContext from './context/ApplicationContext';
-import RiskGuard from './services/riskguard/RiskGuard';
+import ApplicationContext from '../context/ApplicationContext';
+import RiskGuard from '../services/riskguard/RiskGuard';
 
 const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
 
 function AddContract({
-  authContext,
   open,
   onAddContract,
   onClose,
 }) {
+  const { userData } = useContext(AuthContext);
   const { appRootFolderId, updateAppRootFolderId } = useContext(ApplicationContext);
   const [state, setState] = useState(
     {
@@ -50,7 +51,7 @@ function AddContract({
   );
   const fileNameELementRef = useRef();
 
-  const riskGuardService = new RiskGuard(authContext);
+  const riskGuardService = new RiskGuard(userData);
 
   let tempAppRootFolderId = appRootFolderId;
 
@@ -130,7 +131,6 @@ function AddContract({
     const risk = await riskGuardService.processDoc(
       state.selectedFile,
       state.selectedFile.name,
-      authContext.headers.Authorization,
     );
     setState((prevState) => ({
       ...prevState,
@@ -143,7 +143,9 @@ function AddContract({
       await axios.get(
         `${baseUrl}/cms/instances/folder/cms_folder?filter=name eq 'Contract Approval App'`,
         {
-          headers: authContext.headers,
+          headers: {
+            Authorization: `Bearer ${userData.access_token}`,
+          },
         },
       ).then((res) => {
         // eslint-disable-next-line no-underscore-dangle
@@ -162,7 +164,9 @@ function AddContract({
           name: 'Contract Approval App',
         },
         {
-          headers: authContext.headers,
+          headers: {
+            Authorization: `Bearer ${userData.access_token}`,
+          },
         },
       ).then((res) => {
         if (res.data) {
@@ -189,7 +193,9 @@ function AddContract({
     await axios.get(
       `${baseUrl}/cms/instances/folder/ca_customer?filter=parent_folder_id eq '${tempAppRootFolderId}' and name eq '${encodeURIComponent(customerEmail)}'`,
       {
-        headers: authContext.headers,
+        headers: {
+          Authorization: `Bearer ${userData.access_token}`,
+        },
       },
     ).then((res) => {
       // eslint-disable-next-line no-underscore-dangle
@@ -210,7 +216,9 @@ function AddContract({
           },
         },
         {
-          headers: authContext.headers,
+          headers: {
+            Authorization: `Bearer ${userData.access_token}`,
+          },
         },
       ).then((res) => {
         if (res.data) {
@@ -234,7 +242,9 @@ function AddContract({
     await axios.get(
       `${baseUrl}/cms/permissions?filter=name eq 'created'`,
       {
-        headers: authContext.headers,
+        headers: {
+          Authorization: `Bearer ${userData.access_token}`,
+        },
       },
     ).then((res) => {
       // eslint-disable-next-line no-underscore-dangle
@@ -257,7 +267,7 @@ function AddContract({
       {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: authContext.headers.Authorization,
+          Authorization: `Bearer ${userData.access_token}`,
         },
       },
     ).then((res) => {
@@ -272,7 +282,9 @@ function AddContract({
       return axios({
         method: 'post',
         url: `${baseUrl}/cms/instances/file/${cmsType}`,
-        headers: authContext.headers,
+        headers: {
+          Authorization: `Bearer ${userData.access_token}`,
+        },
         data: {
           name: state.newContractName,
           parent_folder_id: parentFolderId,
@@ -466,16 +478,6 @@ function AddContract({
 }
 
 AddContract.propTypes = {
-  authContext: PropTypes.shape({
-    userName: PropTypes.string.isRequired,
-    idToken: PropTypes.string.isRequired,
-    groups: PropTypes.arrayOf(
-      PropTypes.string.isRequired,
-    ),
-    headers: PropTypes.shape({
-      Authorization: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
   open: PropTypes.bool.isRequired,
   onAddContract: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,

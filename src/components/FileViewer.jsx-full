@@ -1,21 +1,20 @@
 import {
   useCallback,
+  useContext,
   useEffect,
   useRef,
   useState,
 } from 'react';
 import PropTypes from 'prop-types';
-import {
-  axios,
-  useAuth,
-} from './authorization/ocpRestClient';
-import './FileViewer.css';
+import axios from 'axios';
+import { AuthContext } from 'oidc-react';
+import '../style/FileViewer.css';
 
 const VIEWER_ID = 'file-viewer-root';
 
 function FileViewer({ closeDialog, publicationData }) {
+  const { userData } = useContext(AuthContext);
   const [bravaApi, setBravaApi] = useState(null);
-  const { authService } = useAuth();
   const didMountRef = useRef(false);
   const publicationStatus = 'Complete';
 
@@ -559,7 +558,7 @@ function FileViewer({ closeDialog, publicationData }) {
         `${process.env.REACT_APP_BASE_SERVICE_URL}/viewer/api/v1/viewers/brava-view-1.x/loader`,
         {
           headers: {
-            Authorization: `Bearer ${authService.getAuthTokens().access_token}`,
+            Authorization: `Bearer ${userData.access_token}`,
           },
         },
       )
@@ -570,7 +569,7 @@ function FileViewer({ closeDialog, publicationData }) {
           document.getElementsByTagName('head')[0].appendChild(scriptEl);
         }
       });
-  }, [authService]);
+  }, [userData.access_token]);
 
   const closeDialogEventListener = () => {
     closeDialog();
@@ -591,7 +590,7 @@ function FileViewer({ closeDialog, publicationData }) {
     if (didMountRef.current) {
       if (bravaApi) {
         bravaApi.setHttpHeaders({
-          Authorization: `Bearer ${authService.getAuthTokens().access_token}`,
+          Authorization: `Bearer ${userData.access_token}`,
         });
         bravaApi.setScreenBanner('Viewer Service by OpenText | Document Viewed at %Time');
         bravaApi.enableMarkup(true);
@@ -607,7 +606,7 @@ function FileViewer({ closeDialog, publicationData }) {
         // console.log(window.ViewerAuthority);
         bravaApi.setSearchHost(window.ViewerAuthority);
         bravaApi.setMarkupHost(window.ViewerAuthority);
-        bravaApi.setUserName('Alex');
+        bravaApi.setUserName(userData.profile.preferred_username);
         // bravaApi.setTitle("Some Title");
         bravaApi.setScale('1.5"');
         bravaApi.setScreenWatermark('ORIGINAL');
@@ -679,7 +678,13 @@ function FileViewer({ closeDialog, publicationData }) {
       loadBravaViewer();
       didMountRef.current = true;
     }
-  }, [bravaApi, publicationData, authService, loadBravaViewer]);
+  }, [
+    bravaApi,
+    publicationData,
+    userData.access_token,
+    userData.profile.preferred_username,
+    loadBravaViewer,
+  ]);
 
   if (publicationStatus !== 'Complete') {
     return null;

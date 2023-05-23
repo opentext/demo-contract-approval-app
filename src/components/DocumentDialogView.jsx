@@ -1,21 +1,24 @@
-import { useState, useEffect, useRef } from 'react';
+import {
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+} from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { AuthContext } from 'oidc-react';
 import {
   Dialog,
   DialogContent,
 } from '@material-ui/core';
-import {
-  axios,
-  useAuth,
-} from './authorization/ocpRestClient';
 import FileViewer from './FileViewer';
 
 const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
 
 function DocumentDialogView({ open, fileId, onClose }) {
-  const openRef = useRef(open);
+  const { userData } = useContext(AuthContext);
   const [publicationData, setPublicationData] = useState('');
-  const { authService } = useAuth();
+  const openRef = useRef(open);
 
   useEffect(() => {
     const getPublicationData = () => {
@@ -23,7 +26,7 @@ function DocumentDialogView({ open, fileId, onClose }) {
         method: 'get',
         url: `${baseUrl}/cms/instances/file/ca_contract/${fileId}/contents`,
         headers: {
-          Authorization: `Bearer ${authService.getAuthTokens().access_token}`,
+          Authorization: `Bearer ${userData.access_token}`,
         },
       }).then((result) => {
         let blobId = '';
@@ -41,7 +44,7 @@ function DocumentDialogView({ open, fileId, onClose }) {
             method: 'get',
             url: `${process.env.REACT_APP_CSS_SERVICE_URL}/v2/content/${blobId}/download`,
             headers: {
-              Authorization: `Bearer ${authService.getAuthTokens().access_token}`,
+              Authorization: `Bearer ${userData.access_token}`,
             },
           }).then((publicationResult) => {
             if (publicationResult.data.status === 'Complete') {
@@ -72,7 +75,7 @@ function DocumentDialogView({ open, fileId, onClose }) {
         getPublicationData();
       }
     }
-  }, [authService, fileId, open]);
+  }, [userData.access_token, fileId, open]);
 
   return (
     <Dialog
