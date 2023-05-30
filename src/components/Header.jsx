@@ -1,11 +1,10 @@
-import { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
-import { AuthContext } from 'oidc-react';
+import { useState } from 'react';
+import { useAuth } from 'react-oidc-context';
 
 import { Button, Menu, MenuItem } from '@material-ui/core';
 
-function Header({ logout }) {
-  const { userData } = useContext(AuthContext);
+function Header() {
+  const { signoutRedirect, user } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -17,7 +16,7 @@ function Header({ logout }) {
   };
 
   const logUserOut = () => {
-    logout();
+    signoutRedirect();
     handleClose();
   };
 
@@ -27,7 +26,7 @@ function Header({ logout }) {
       <div className="header-title">Contract Approval</div>
       <div className="header-menu">
         <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-          {userData.profile.preferred_username}
+          {user.profile.preferred_username}
         </Button>
         <Menu
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
@@ -43,9 +42,5 @@ function Header({ logout }) {
     </header>
   );
 }
-
-Header.propTypes = {
-  logout: PropTypes.func.isRequired,
-};
 
 export default Header;

@@ -1,4 +1,4 @@
-import { AuthProvider } from 'oidc-react';
+import { AuthProvider } from 'react-oidc-context';
 import App from './App';
 import OidcConfig from './authorization/OidcConfig';
 

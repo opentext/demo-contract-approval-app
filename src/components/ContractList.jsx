@@ -1,12 +1,11 @@
 import {
   useCallback,
-  useContext,
   useEffect,
   useRef,
   useState,
 } from 'react';
 import axios from 'axios';
-import { AuthContext } from 'oidc-react';
+import { useAuth } from 'react-oidc-context';
 import {
   Backdrop,
   Button,
@@ -35,7 +34,7 @@ const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
  * This view displays all the contracts.
  */
 function ContractList() {
-  const { userData } = useContext(AuthContext);
+  const { user } = useAuth();
   const [state, setState] = useState(
     {
       contracts: [],
@@ -70,7 +69,7 @@ function ContractList() {
       method: 'get',
       url: `${baseUrl}/cms/instances/file/ca_contract/?include-total=true&sortby=create_time desc&page=${state.pageNumber + 1}`,
       headers: {
-        Authorization: `Bearer ${userData.access_token}`,
+        Authorization: `Bearer ${user.access_token}`,
       },
     }).then((res) => {
       setState((prevState) => ({
@@ -90,7 +89,7 @@ function ContractList() {
     }).finally(() => {
       setState((prevState) => ({ ...prevState, showBackdrop: false }));
     });
-  }, [raiseError, userData.access_token, state.pageNumber]);
+  }, [raiseError, user.access_token, state.pageNumber]);
 
   const handleCloseDocumentDialogView = () => {
     setState((prevState) => ({ ...prevState, openDocumentDialogView: false }));

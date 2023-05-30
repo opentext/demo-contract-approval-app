@@ -1,19 +1,18 @@
 import {
   useCallback,
-  useContext,
   useEffect,
   useRef,
   useState,
 } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { AuthContext } from 'oidc-react';
+import { useAuth } from 'react-oidc-context';
 import '../style/FileViewer.css';
 
 const VIEWER_ID = 'file-viewer-root';
 
 function FileViewer({ closeDialog, publicationData }) {
-  const { userData } = useContext(AuthContext);
+  const { user } = useAuth();
   const [bravaApi, setBravaApi] = useState(null);
   const didMountRef = useRef(false);
   const publicationStatus = 'Complete';
@@ -159,7 +158,7 @@ function FileViewer({ closeDialog, publicationData }) {
         `${process.env.REACT_APP_BASE_SERVICE_URL}/viewer/api/v1/viewers/brava-view-1.x/loader`,
         {
           headers: {
-            Authorization: `Bearer ${userData.access_token}`,
+            Authorization: `Bearer ${user.access_token}`,
           },
         },
       )
@@ -170,7 +169,7 @@ function FileViewer({ closeDialog, publicationData }) {
           document.getElementsByTagName('head')[0].appendChild(scriptEl);
         }
       });
-  }, [userData.access_token]);
+  }, [user.access_token]);
 
   const closeDialogEventListener = () => {
     closeDialog();
@@ -191,7 +190,7 @@ function FileViewer({ closeDialog, publicationData }) {
     if (didMountRef.current) {
       if (bravaApi) {
         bravaApi.setHttpHeaders({
-          Authorization: `Bearer ${userData.access_token}`,
+          Authorization: `Bearer ${user.access_token}`,
         });
         bravaApi.setScreenBanner('Viewer Service by OpenText | Document Viewed at %Time');
         bravaApi.enableMarkup(true);
@@ -203,7 +202,7 @@ function FileViewer({ closeDialog, publicationData }) {
         bravaApi.editableStampPredicate = () => true;
         bravaApi.addableStampPredicate = () => true;
         bravaApi.setMarkupHost(window.ViewerAuthority);
-        bravaApi.setUserName(userData.profile.preferred_username);
+        bravaApi.setUserName(user.profile.preferred_username);
         bravaApi.setScreenWatermark('ORIGINAL');
         bravaApi.setLayout({
           topToolbar: 'toolbarWithMarkupStuff',
@@ -226,8 +225,8 @@ function FileViewer({ closeDialog, publicationData }) {
   }, [
     bravaApi,
     publicationData,
-    userData.access_token,
-    userData.profile.preferred_username,
+    user.access_token,
+    user.profile.preferred_username,
     loadBravaViewer,
   ]);
 

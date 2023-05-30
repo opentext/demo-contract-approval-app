@@ -1,11 +1,10 @@
 import {
-  useContext,
   useEffect,
   useRef,
   useState,
 } from 'react';
 import PropTypes from 'prop-types';
-import { AuthContext } from 'oidc-react';
+import { useAuth } from 'react-oidc-context';
 import {
   Backdrop,
   Button,
@@ -34,7 +33,7 @@ import RiskClassification from './RiskClassification';
  * This view displays the list of contracts pending for approval.
  */
 function TasksList({ taskName }) {
-  const { userData } = useContext(AuthContext);
+  const { user } = useAuth();
   const [state, setState] = useState(
     {
       detailsOpen: false,
@@ -55,7 +54,7 @@ function TasksList({ taskName }) {
   const didMountRef = useRef(false);
   const pageNumberRef = useRef(state.pageNumber);
 
-  const taskService = new Tasks(userData, taskName);
+  const taskService = new Tasks(user, taskName);
 
   const getTasks = () => {
     setState((prevState) => ({ ...prevState, showBackdrop: true }));

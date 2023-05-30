@@ -1,7 +1,7 @@
 import { useContext, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { AuthContext } from 'oidc-react';
+import { useAuth } from 'react-oidc-context';
 import {
   Button,
   Backdrop,
@@ -29,7 +29,7 @@ function AddContract({
   onAddContract,
   onClose,
 }) {
-  const { userData } = useContext(AuthContext);
+  const { user } = useAuth();
   const { appRootFolderId, updateAppRootFolderId } = useContext(ApplicationContext);
   const [state, setState] = useState(
     {
@@ -51,7 +51,7 @@ function AddContract({
   );
   const fileNameELementRef = useRef();
 
-  const riskGuardService = new RiskGuard(userData);
+  const riskGuardService = new RiskGuard(user);
 
   let tempAppRootFolderId = appRootFolderId;
 
@@ -144,7 +144,7 @@ function AddContract({
         `${baseUrl}/cms/instances/folder/cms_folder?filter=name eq 'Contract Approval App'`,
         {
           headers: {
-            Authorization: `Bearer ${userData.access_token}`,
+            Authorization: `Bearer ${user.access_token}`,
           },
         },
       ).then((res) => {
@@ -165,7 +165,7 @@ function AddContract({
         },
         {
           headers: {
-            Authorization: `Bearer ${userData.access_token}`,
+            Authorization: `Bearer ${user.access_token}`,
           },
         },
       ).then((res) => {
@@ -194,7 +194,7 @@ function AddContract({
       `${baseUrl}/cms/instances/folder/ca_customer?filter=parent_folder_id eq '${tempAppRootFolderId}' and name eq '${encodeURIComponent(customerEmail)}'`,
       {
         headers: {
-          Authorization: `Bearer ${userData.access_token}`,
+          Authorization: `Bearer ${user.access_token}`,
         },
       },
     ).then((res) => {
@@ -217,7 +217,7 @@ function AddContract({
         },
         {
           headers: {
-            Authorization: `Bearer ${userData.access_token}`,
+            Authorization: `Bearer ${user.access_token}`,
           },
         },
       ).then((res) => {
@@ -243,7 +243,7 @@ function AddContract({
       `${baseUrl}/cms/permissions?filter=name eq 'created'`,
       {
         headers: {
-          Authorization: `Bearer ${userData.access_token}`,
+          Authorization: `Bearer ${user.access_token}`,
         },
       },
     ).then((res) => {
@@ -267,7 +267,7 @@ function AddContract({
       {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${userData.access_token}`,
+          Authorization: `Bearer ${user.access_token}`,
         },
       },
     ).then((res) => {
@@ -283,7 +283,7 @@ function AddContract({
         method: 'post',
         url: `${baseUrl}/cms/instances/file/${cmsType}`,
         headers: {
-          Authorization: `Bearer ${userData.access_token}`,
+          Authorization: `Bearer ${user.access_token}`,
         },
         data: {
           name: state.newContractName,

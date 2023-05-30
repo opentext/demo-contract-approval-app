@@ -1,12 +1,11 @@
 import {
   useCallback,
-  useContext,
   useEffect,
   useRef,
   useState,
 } from 'react';
 import axios from 'axios';
-import { AuthContext } from 'oidc-react';
+import { useAuth } from 'react-oidc-context';
 import {
   Backdrop,
   Button,
@@ -38,7 +37,7 @@ const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
  * From here the user can request approval for any of them.
  */
 function CreatedContractList() {
-  const { userData } = useContext(AuthContext);
+  const { user } = useAuth();
   const [state, setState] = useState(
     {
       contracts: [],
@@ -85,7 +84,7 @@ function CreatedContractList() {
         method: 'get',
         url: `${baseUrl}/cms/permissions?filter=name eq "line_manager_approval" or name eq "risk_manager_approval" or name eq "completed"`,
         headers: {
-          Authorization: `Bearer ${userData.access_token}`,
+          Authorization: `Bearer ${user.access_token}`,
         },
       }).then((res) => {
         // eslint-disable-next-line no-underscore-dangle
@@ -124,16 +123,16 @@ function CreatedContractList() {
         raiseError(errorMessage);
       });
     }
-  }, [raiseError, state, userData.access_token]);
+  }, [raiseError, state, user.access_token]);
 
   const getContracts = useCallback(() => {
-    if (userData.profile.preferred_username) {
+    if (user.profile.preferred_username) {
       setState((prevState) => ({ ...prevState, showBackdrop: true }));
       axios({
         method: 'get',
         url: `${baseUrl}/cms/instances/file/ca_contract/?include-total=true&sortby=create_time desc&filter=status eq "CREATED"&page=${state.pageNumber + 1}`,
         headers: {
-          Authorization: `Bearer ${userData.access_token}`,
+          Authorization: `Bearer ${user.access_token}`,
         },
       }).then((res) => {
         setState((prevState) => ({
@@ -158,8 +157,8 @@ function CreatedContractList() {
     }
   }, [
     raiseError,
-    userData.access_token,
-    userData.profile.preferred_username,
+    user.access_token,
+    user.profile.preferred_username,
     state.pageNumber,
   ]);
 
@@ -246,7 +245,7 @@ function CreatedContractList() {
       method: 'post',
       url: `${baseUrl}/workflow/v1/process-instances`,
       headers: {
-        Authorization: `Bearer ${userData.access_token}`,
+        Authorization: `Bearer ${user.access_token}`,
       },
       data,
     }).then(() => {
@@ -299,7 +298,7 @@ function CreatedContractList() {
 
   return (
     <div>
-      <Button variant="contained" color="primary" disabled={!userData.profile.preferred_username} startIcon={<AddIcon />} onClick={() => openContractDialog()} style={{ margin: '0.25rem' }}>Add</Button>
+      <Button variant="contained" color="primary" disabled={!user.profile.preferred_username} startIcon={<AddIcon />} onClick={() => openContractDialog()} style={{ margin: '0.25rem' }}>Add</Button>
       <div className="content-header">All created contracts</div>
       <TableContainer component={Paper}>
         <Table size="small" aria-label="a dense table">

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useAuth } from 'oidc-react';
+import { useAuth } from 'react-oidc-context';
 import jwtDecode from 'jwt-decode';
 import {
   CircularProgress,
   Tab,
   Tabs,
 } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import './style/App.css';
 import Header from './components/Header';
 import TabPanel from './components/TabPanel';
@@ -15,9 +16,17 @@ import ContractList from './components/ContractList';
 import { ApplicationProvider } from './context/ApplicationContext';
 
 function App() {
-  const { userData, signOutRedirect } = useAuth();
+  const {
+    activeNavigator,
+    error,
+    isAuthenticated,
+    isLoading,
+    user,
+    signinRedirect,
+    signoutRedirect,
+  } = useAuth();
+  const [isAppLoaded, setIsAppLoaded] = useState(false);
   const [tabValue, setTabValue] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
   const [groups, setGroups] = useState([]);
 
   const handleTabChange = (event, newTabValue) => {
@@ -25,17 +34,43 @@ function App() {
   };
 
   useEffect(() => {
-    if (userData) {
-      setGroups(
-        jwtDecode(userData.id_token)
-          .grp
-          .map((group) => group.substring(0, group.indexOf('@'))),
-      );
-      setIsLoading(false);
+    if (!isLoading) {
+      if (!isAuthenticated) {
+        signinRedirect();
+      } else if (!isAppLoaded && isAuthenticated) {
+        setGroups(
+          jwtDecode(user.id_token)
+            .grp
+            .map((group) => group.substring(0, group.indexOf('@'))),
+        );
+        setIsAppLoaded(true);
+      }
     }
-  }, [userData]);
+  }, [isAuthenticated, isLoading, isAppLoaded]);
 
-  if (isLoading) {
+  switch (activeNavigator) {
+    case 'signoutRedirect':
+      return (
+        <div className="loading">
+          <CircularProgress color="inherit" />
+        </div>
+      );
+    default:
+  }
+
+  if (error) {
+    return (
+      <div className="error">
+        <Alert severity="error">
+          Authentication error:
+          {' '}
+          {error.message}
+        </Alert>
+      </div>
+    );
+  }
+
+  if (!isAppLoaded) {
     return (
       <div className="loading">
         <CircularProgress color="inherit" />
@@ -46,9 +81,7 @@ function App() {
   let tabIndex = 0;
   return (
     <div className="App">
-      <Header
-        logout={signOutRedirect}
-      />
+      <Header />
       {
         groups.includes('contract_approval_users')
           ? (
@@ -100,7 +133,7 @@ function App() {
           : (
             <div className="page-content">
               <p>You are not authorized to use this application</p>
-              <button type="button" style={{ margin: '0.50rem' }} onClick={signOutRedirect}>
+              <button type="button" style={{ margin: '0.50rem' }} onClick={signoutRedirect}>
                 Logout
               </button>
             </div>
