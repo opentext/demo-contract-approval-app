@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './style/index.css';
-import App from './App';
+import WrappedSecuredApp from './WrappedSecuredApp';
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+  <WrappedSecuredApp />,
+  document.getElementById('root'),
 );
