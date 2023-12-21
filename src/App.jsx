@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from 'react-oidc-context';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import {
   CircularProgress,
   Tab,

@@ -1,38 +1,42 @@
 {
   "name": "contract-approval",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "engines": {
-    "node": ">=17.0.0"
+    "node": ">=20.0.0"
   },
   "dependencies": {
+    "@emotion/react": "11.11.1",
+    "@emotion/styled": "11.11.0",
     "@material-ui/core": "4.12.4",
     "@material-ui/icons": "4.11.3",
     "@material-ui/lab": "4.0.0-alpha.61",
-    "axios": "1.2.0",
-    "jwt-decode": "3.1.2",
+    "@mui/icons-material": "5.15.1",
+    "@mui/lab": "5.0.0-alpha.157",
+    "@mui/material": "5.15.1",
+    "@mui/styles": "5.15.1",
+    "axios": "1.6.2",
+    "jwt-decode": "4.0.0",
     "prop-types": "15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-oidc-context": "2.2.2",
-    "react-router-dom": "6.11.1",
-    "react-scripts": "4.0.3"
+    "react-oidc-context": "2.3.1",
+    "react-router-dom": "6.21.1",
+    "react-scripts": "5.0.1"
   },
   "devDependencies": {
-    "@babel/core": "7.20.5",
-    "@babel/preset-react": "7.18.6",
-    "eslint": "7.32.0",
+    "eslint": "8.56.0",
     "eslint-config-airbnb": "19.0.4",
-    "eslint-config-prettier": "8.8.0",
-    "eslint-plugin-import": "2.27.5",
-    "eslint-plugin-jsx-a11y": "6.7.1",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-jsx-a11y": "6.8.0",
     "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-prettier": "5.1.1",
     "eslint-plugin-promise": "6.1.1",
-    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react": "7.33.2",
     "eslint-plugin-react-hooks": "4.6.0",
-    "prettier": "2.8.8",
-    "typescript": "4.9.3"
+    "prettier": "3.1.1",
+    "typescript": "3.5.0 - 5.3.3"
   },
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
