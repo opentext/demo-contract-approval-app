@@ -138,7 +138,7 @@ function ContractDetails({
         <Dialog open={open} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">Contract details</DialogTitle>
           <DialogContent className="contract-details">
-            <Tabs orientation="horizontal" value={value} onChange={handleChange}>
+            <Tabs orientation="horizontal" value={value} onChange={handleChange} style={{ marginBottom: '20px' }}>
               <Tab className="tab-caption" label="Properties" />
               <Tab className="tab-caption" label="Permissions" />
               <Tab className="tab-caption" label="Approvals" />

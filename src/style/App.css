@@ -31,7 +31,7 @@
   right: 50px;
   top: 15px;
 }
-.page-header .header-menu > button > span.MuiButton-label {
+.page-header .header-menu > button {
   color: white;
 }
 .login-dialog .title-icon {
