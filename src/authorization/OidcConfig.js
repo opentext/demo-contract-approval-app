@@ -5,6 +5,9 @@ const OidcConfig = {
   response_type: 'code',
   scope: 'openid otds:groups',
   post_logout_redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+  onSigninCallback: () => {
+    window.history.replaceState({}, document.title, window.location.pathname);
+  },
 };
 
 export default OidcConfig;
