@@ -18,7 +18,8 @@ import {
   RadioGroup,
   Select,
   FormControl,
-} from '@material-ui/core';
+} from '@mui/material';
+import { CloudUpload } from '@mui/icons-material';
 import ApplicationContext from '../context/ApplicationContext';
 import RiskGuard from '../services/riskguard/RiskGuard';
 
@@ -370,13 +371,11 @@ function AddContract({
     <Dialog open={open} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Add Contract</DialogTitle>
       <DialogContent className="add-contract">
+        <Button component="label" variant="contained" startIcon={<CloudUpload />}>
+          Select Document
+          <input id="files" type="file" accept="application/pdf" className="file-input" onChange={selectFile} />
+        </Button>
         <div>
-          <div className="inline">
-            <label htmlFor="files" className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary">
-              Select Document
-              <input id="files" type="file" accept="application/pdf" className="file-input" onChange={selectFile} />
-            </label>
-          </div>
           <div id="fileName" className="inline margin-start" ref={setFileNameInputRef} />
         </div>
         <br />

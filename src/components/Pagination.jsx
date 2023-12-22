@@ -1,5 +1,5 @@
 import { PropTypes } from 'prop-types';
-import TablePagination from '@material-ui/core/TablePagination';
+import { TablePagination } from '@mui/material';
 
 function Pagination({ pageNumber, count, handlePageNumber }) {
   const onChangePage = (page) => {

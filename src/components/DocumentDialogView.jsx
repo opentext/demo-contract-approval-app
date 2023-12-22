@@ -9,7 +9,7 @@ import { useAuth } from 'react-oidc-context';
 import {
   Dialog,
   DialogContent,
-} from '@material-ui/core';
+} from '@mui/material';
 import FileViewer from './FileViewer';
 
 const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;

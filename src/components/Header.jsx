@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from 'react-oidc-context';
-
-import { Button, Menu, MenuItem } from '@material-ui/core';
+import { Button, Menu, MenuItem } from '@mui/material';
 
 function Header() {
   const { signoutRedirect, user } = useAuth();
@@ -30,7 +29,6 @@ function Header() {
         </Button>
         <Menu
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-          getContentAnchorEl={null}
           anchorEl={anchorEl}
           keepMounted
           open={Boolean(anchorEl)}

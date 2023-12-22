@@ -5,7 +5,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-} from '@material-ui/core';
+} from '@mui/material';
 
 function ExtractedPersonalData({ open, selectedContract, onClose }) {
   const formatExtractedTerms = (arr) => {

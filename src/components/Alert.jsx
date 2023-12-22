@@ -1,4 +1,4 @@
-import MuiAlert from '@material-ui/lab/Alert';
+import MuiAlert from '@mui/material/Alert';
 
 function Alert(props) {
   // eslint-disable-next-line react/jsx-props-no-spreading

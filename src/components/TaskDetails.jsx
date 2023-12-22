@@ -6,7 +6,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-} from '@material-ui/core';
+} from '@mui/material';
 
 function TaskDetails({ open, selectedTask, onClose }) {
   const closeDialog = () => onClose();

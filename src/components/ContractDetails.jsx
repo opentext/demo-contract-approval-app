@@ -21,7 +21,7 @@ import {
   TableRow,
   Tabs,
   TextField,
-} from '@material-ui/core';
+} from '@mui/material';
 import TabPanel from './TabPanel';
 
 const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;

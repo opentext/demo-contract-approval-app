@@ -19,9 +19,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from '@material-ui/core';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import CloseIcon from '@material-ui/icons/Close';
+} from '@mui/material';
+import { ArrowForwardIos, Close } from '@mui/icons-material';
+
 import Alert from './Alert';
 import ContractDetails from './ContractDetails';
 import DocumentDialogView from './DocumentDialogView';
@@ -168,7 +168,7 @@ function ContractList() {
                 </TableCell>
                 <TableCell align="left">
                   <IconButton size="small" variant="outlined" color="primary" title="Show details" onClick={() => showDetails(row)}>
-                    <ArrowForwardIosIcon />
+                    <ArrowForwardIos />
                   </IconButton>
                 </TableCell>
               </TableRow>
@@ -206,7 +206,7 @@ function ContractList() {
         action={
           (
             <IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackBarClose}>
-              <CloseIcon fontSize="small" />
+              <Close fontSize="small" />
             </IconButton>
           )
         }
