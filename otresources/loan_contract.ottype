@@ -1,7 +1,8 @@
 {
   "id": "004abc09-fba2-493e-bbc3-ee4a4b503218",
-  "schemaId": "https://www.opentext.com/ocp/devx/metadata/1.0.0/Type",
+  "schemaId": "https://www.opentext.com/ocp/devx/metadata/1.0.1/Type",
   "data": {
+    "actions": [],
     "category": "file",
     "name": "loan_contract",
     "display_name": "Loan Contract",
@@ -38,8 +39,7 @@
         "ot2mc-row-id": "2029c644-d82a-492c-aa0c-c113236fadec"
       }
     ],
-    "non_auditable_actions": [],
-    "events": []
+    "non_auditable_actions": []
   },
   "serviceName": "cms"
 }

@@ -26,6 +26,9 @@ Deploy the application project (cf. user guide).
 ## Credentials
 
 The API client credentials need to be configured from within the application code. Please replace the placeholders for the tenant id and client public id in the `.env` file with the tenant id and the client public id for the deployed application project (returned when deploying the project to the OpenText Cloud Platform).
+
+## Public Service Client redirect URL
+In the Admin Center (organization link available under the Console tab when logged in to developer.opentext.com), navigate to /[you organization name]/Apps/Contract Approval/Clients and add https://localhost:4000 as redirect URL for the Public service client.
   
 ## Download and install Node.js
 
@@ -42,4 +45,4 @@ npm install
 npm start
 ```
 
-The application will be automatically opened in the browser at http://localhost:4000
+The application will be automatically opened in the browser at https://localhost:4000
