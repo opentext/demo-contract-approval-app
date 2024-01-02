@@ -95,6 +95,9 @@
         "outgoing": [
           {
             "resourceId": "sid-C59122FA-75A2-4BF9-9265-6079E45E6221"
+          },
+          {
+            "resourceId": "sid-0606BF5D-F7CF-4D13-BDA6-7A9D17DC9647"
           }
         ],
         "bounds": {
@@ -388,6 +391,140 @@
         }
       },
       {
+        "resourceId": "sid-189A2661-9CBF-4BE9-AA75-CBD4F4DDBC94",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "executiongroupheader": "",
+          "executionlisteners": ""
+        },
+        "stencil": {
+          "id": "EndNoneEvent"
+        },
+        "childShapes": [],
+        "outgoing": [],
+        "bounds": {
+          "lowerRight": {
+            "x": 583,
+            "y": 83.59660170409659
+          },
+          "upperLeft": {
+            "x": 555,
+            "y": 55.596601704096585
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-7C17C664-9569-48E3-A2C0-83CB34F641CA",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-7C17C664-9569-48E3-A2C0-83CB34F641CA",
+          "name": "",
+          "detailsgroupheader": "",
+          "text": "Output parameters:\napprovalStatus"
+        },
+        "stencil": {
+          "id": "TextAnnotation"
+        },
+        "childShapes": [],
+        "outgoing": [],
+        "bounds": {
+          "lowerRight": {
+            "x": 664.1127040258144,
+            "y": 210.5516987738969
+          },
+          "upperLeft": {
+            "x": 540,
+            "y": 165
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-0606BF5D-F7CF-4D13-BDA6-7A9D17DC9647",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "timercycledefinition": "",
+          "timerdatedefinition": "",
+          "timerdurationdefinition": "PT1M",
+          "timerenddatedefinition": "",
+          "cancelactivity": true,
+          "executiongroupheader": "",
+          "executionlisteners": {
+            "executionListeners": [
+              {
+                "event": "end",
+                "implementation": "${execution.setVariable(\"approvalStatus\" , \"expired\")}",
+                "className": "",
+                "expression": "${execution.setVariable(\"approvalStatus\" , \"expired\")}",
+                "delegateExpression": "",
+                "isMailNotification": false,
+                "isExecuteScriptEnabled": false,
+                "scriptInfo": {
+                  "scriptType": "javascript",
+                  "script": ""
+                },
+                "mailInfo": {
+                  "mailtaskheaders": "",
+                  "mailtaskto": "",
+                  "mailtaskfrom": "",
+                  "mailtaskcc": "",
+                  "mailtaskbcc": "",
+                  "mailtasksubject": "",
+                  "mailtasktext": "",
+                  "mailtasktextvar": "",
+                  "mailtaskhtml": "",
+                  "mailtaskhtmlvar": "",
+                  "mailtaskcharset": ""
+                },
+                "publishToEventService": false,
+                "additionalTracing": false,
+                "eventTypeId": "",
+                "eventInfo": {
+                  "eventData": ""
+                },
+                "tracingInfo": {
+                  "tracingData": ""
+                },
+                "fields": [],
+                "$$hashKey": "uiGrid-001Q"
+              }
+            ]
+          }
+        },
+        "stencil": {
+          "id": "BoundaryTimerEvent"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-88766134-4CE9-492A-A5B0-49CE9D084CF7"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 370.95888016958,
+            "y": 117.21844076563735
+          },
+          "upperLeft": {
+            "x": 339.95888016958,
+            "y": 86.21844076563735
+          }
+        },
+        "dockers": [
+          {
+            "x": 93.046875,
+            "y": 67.40339829590341
+          }
+        ]
+      },
+      {
         "resourceId": "sid-C59122FA-75A2-4BF9-9265-6079E45E6221",
         "properties": {
           "generalgroupheader": "",
@@ -433,32 +570,6 @@
         "target": {
           "resourceId": "sid-0A2A6B06-2CBF-424F-995A-756686B885BB"
         }
-      },
-      {
-        "resourceId": "sid-189A2661-9CBF-4BE9-AA75-CBD4F4DDBC94",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "",
-          "name": "",
-          "executiongroupheader": "",
-          "executionlisteners": ""
-        },
-        "stencil": {
-          "id": "EndNoneEvent"
-        },
-        "childShapes": [],
-        "outgoing": [],
-        "bounds": {
-          "lowerRight": {
-            "x": 583,
-            "y": 83.59660170409659
-          },
-          "upperLeft": {
-            "x": 555,
-            "y": 55.596601704096585
-          }
-        },
-        "dockers": []
       },
       {
         "resourceId": "sid-3D8503F3-306F-431B-967F-AAC5D08E0E15",
@@ -508,30 +619,59 @@
         }
       },
       {
-        "resourceId": "sid-7C17C664-9569-48E3-A2C0-83CB34F641CA",
+        "resourceId": "sid-88766134-4CE9-492A-A5B0-49CE9D084CF7",
         "properties": {
           "generalgroupheader": "",
-          "overrideid": "sid-7C17C664-9569-48E3-A2C0-83CB34F641CA",
+          "overrideid": "",
           "name": "",
           "detailsgroupheader": "",
-          "text": "Output parameters:\napprovalStatus"
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": false,
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": ""
         },
         "stencil": {
-          "id": "TextAnnotation"
+          "id": "SequenceFlow"
         },
         "childShapes": [],
-        "outgoing": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-189A2661-9CBF-4BE9-AA75-CBD4F4DDBC94"
+          }
+        ],
         "bounds": {
           "lowerRight": {
-            "x": 679.1127040258144,
-            "y": 180.5516987738969
+            "x": 569,
+            "y": 145
           },
           "upperLeft": {
-            "x": 555,
-            "y": 135
+            "x": 355.8079955725876,
+            "y": 84.14564983539174
           }
         },
-        "dockers": []
+        "dockers": [
+          {
+            "x": 16,
+            "y": 16
+          },
+          {
+            "x": 355.8079955725876,
+            "y": 145
+          },
+          {
+            "x": 569,
+            "y": 145
+          },
+          {
+            "x": 14,
+            "y": 14
+          }
+        ],
+        "target": {
+          "resourceId": "sid-189A2661-9CBF-4BE9-AA75-CBD4F4DDBC94"
+        }
       }
     ],
     "stencil": {
