@@ -162,11 +162,11 @@
         "bounds": {
           "lowerRight": {
             "x": 685.0049468231755,
-            "y": 430.88273348583994
+            "y": 370.88273348583994
           },
           "upperLeft": {
             "x": 585.0049468231755,
-            "y": 350.88273348583994
+            "y": 290.88273348583994
           }
         },
         "dockers": []
@@ -224,11 +224,11 @@
         "bounds": {
           "lowerRight": {
             "x": 810.6362697811244,
-            "y": 430.88273348583994
+            "y": 370.88273348583994
           },
           "upperLeft": {
             "x": 710.6362697811245,
-            "y": 350.88273348583994
+            "y": 290.88273348583994
           }
         },
         "dockers": []
@@ -263,11 +263,11 @@
         "bounds": {
           "lowerRight": {
             "x": 190,
-            "y": 364.04381380013547
+            "y": 304.04381380013547
           },
           "upperLeft": {
             "x": 150,
-            "y": 324.04381380013547
+            "y": 264.04381380013547
           }
         },
         "dockers": []
@@ -297,16 +297,19 @@
           },
           {
             "resourceId": "sid-AF0CB919-AAA8-4FEC-A6F6-4B300B15F09B"
+          },
+          {
+            "resourceId": "sid-DDA6FC58-4C33-414A-88F4-9086404A23CF"
           }
         ],
         "bounds": {
           "lowerRight": {
             "x": 320.72934565291257,
-            "y": 412.1761835476052
+            "y": 352.1761835476052
           },
           "upperLeft": {
             "x": 280.72934565291257,
-            "y": 372.1761835476052
+            "y": 312.1761835476052
           }
         },
         "dockers": []
@@ -332,20 +335,23 @@
         "childShapes": [],
         "outgoing": [
           {
-            "resourceId": "sid-6DEFD65B-6202-4A86-97E5-5FE56CCB1BE3"
+            "resourceId": "sid-F535A4CD-C6AD-44B0-8594-E6654C7CFE41"
           },
           {
-            "resourceId": "sid-F535A4CD-C6AD-44B0-8594-E6654C7CFE41"
+            "resourceId": "sid-8D6E064C-6A6B-4FFE-9440-770EDBD6579B"
+          },
+          {
+            "resourceId": "sid-6DEFD65B-6202-4A86-97E5-5FE56CCB1BE3"
           }
         ],
         "bounds": {
           "lowerRight": {
             "x": 445.7350595801597,
-            "y": 462.1761835476052
+            "y": 402.1761835476052
           },
           "upperLeft": {
             "x": 405.7350595801597,
-            "y": 422.1761835476052
+            "y": 362.1761835476052
           }
         },
         "dockers": []
@@ -403,11 +409,11 @@
         "bounds": {
           "lowerRight": {
             "x": 936.267592739074,
-            "y": 538.8428437922225
+            "y": 578.8428437922225
           },
           "upperLeft": {
             "x": 836.267592739074,
-            "y": 458.84284379222254
+            "y": 498.84284379222254
           }
         },
         "dockers": []
@@ -456,11 +462,11 @@
         "bounds": {
           "lowerRight": {
             "x": 936.267592739074,
-            "y": 430.88273348583994
+            "y": 370.88273348583994
           },
           "upperLeft": {
             "x": 836.267592739074,
-            "y": 350.88273348584016
+            "y": 290.88273348584016
           }
         },
         "dockers": []
@@ -517,12 +523,12 @@
         ],
         "bounds": {
           "lowerRight": {
-            "x": 936.2675927390735,
-            "y": 325.25476165149394
+            "x": 805,
+            "y": 480
           },
           "upperLeft": {
-            "x": 836.2675927390735,
-            "y": 245.25476165149394
+            "x": 705,
+            "y": 400
           }
         },
         "dockers": []
@@ -639,11 +645,11 @@
         "bounds": {
           "lowerRight": {
             "x": 1061.8989156970222,
-            "y": 430.88273348583994
+            "y": 370.88273348583994
           },
           "upperLeft": {
             "x": 961.8989156970222,
-            "y": 350.88273348583994
+            "y": 290.88273348583994
           }
         },
         "dockers": []
@@ -674,11 +680,11 @@
         "bounds": {
           "lowerRight": {
             "x": 961.8241801665737,
-            "y": 390.88273348584005
+            "y": 330.88273348584005
           },
           "upperLeft": {
             "x": 936.3423282695225,
-            "y": 390.88273348583994
+            "y": 330.88273348583994
           }
         },
         "dockers": [
@@ -1000,12 +1006,12 @@
         ],
         "bounds": {
           "lowerRight": {
-            "x": 886.267592739074,
-            "y": 350.88273348584016
+            "x": 861.267592739074,
+            "y": 440
           },
           "upperLeft": {
-            "x": 886.2675927390737,
-            "y": 325.81511992813705
+            "x": 805.8129340964408,
+            "y": 371.43052463048184
           }
         },
         "dockers": [
@@ -1014,8 +1020,12 @@
             "y": 40
           },
           {
-            "x": 50,
-            "y": 1
+            "x": 861.267592739074,
+            "y": 440
+          },
+          {
+            "x": 25,
+            "y": 78.99999999999977
           }
         ],
         "target": {
@@ -1191,11 +1201,11 @@
         "bounds": {
           "lowerRight": {
             "x": 836.1928572086249,
-            "y": 390.88273348584005
+            "y": 330.88273348584005
           },
           "upperLeft": {
             "x": 810.7110053115734,
-            "y": 390.88273348583994
+            "y": 330.88273348583994
           }
         },
         "dockers": [
@@ -1210,58 +1220,6 @@
         ],
         "target": {
           "resourceId": "sid-67A33D8D-5E9C-48C3-A33D-650E5E385B7E"
-        }
-      },
-      {
-        "resourceId": "sid-F535A4CD-C6AD-44B0-8594-E6654C7CFE41",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "sid-F535A4CD-C6AD-44B0-8594-E6654C7CFE41",
-          "name": "Approved",
-          "detailsgroupheader": "",
-          "mandatoryinfo": "",
-          "conditionsequenceflow": "",
-          "defaultflow": true,
-          "skipexpression": "",
-          "executiongroupheader": "",
-          "executionlisteners": "",
-          "showdiamondmarker": false
-        },
-        "stencil": {
-          "id": "SequenceFlow"
-        },
-        "childShapes": [],
-        "outgoing": [
-          {
-            "resourceId": "sid-1B10A752-B448-46F4-BFF9-4ADF16969307"
-          }
-        ],
-        "bounds": {
-          "lowerRight": {
-            "x": 537.0619245842561,
-            "y": 442.6761835476052
-          },
-          "upperLeft": {
-            "x": 446.2834270027388,
-            "y": 409.72322845038536
-          }
-        },
-        "dockers": [
-          {
-            "x": 20.5,
-            "y": 20.5
-          },
-          {
-            "x": 537.0619245842561,
-            "y": 442.6761835476052
-          },
-          {
-            "x": 19.046875,
-            "y": 36.745238348506064
-          }
-        ],
-        "target": {
-          "resourceId": "sid-1B10A752-B448-46F4-BFF9-4ADF16969307"
         }
       },
       {
@@ -1309,58 +1267,6 @@
         ],
         "target": {
           "resourceId": "sid-89F156BF-1B67-441F-9AFF-DBE605E9C71A"
-        }
-      },
-      {
-        "resourceId": "sid-6DEFD65B-6202-4A86-97E5-5FE56CCB1BE3",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "sid-6DEFD65B-6202-4A86-97E5-5FE56CCB1BE3",
-          "name": "Rejected",
-          "detailsgroupheader": "",
-          "mandatoryinfo": "",
-          "conditionsequenceflow": "${approvalStatus == \"rejected\"}",
-          "defaultflow": "false",
-          "skipexpression": "",
-          "executiongroupheader": "",
-          "executionlisteners": "",
-          "showdiamondmarker": false
-        },
-        "stencil": {
-          "id": "SequenceFlow"
-        },
-        "childShapes": [],
-        "outgoing": [
-          {
-            "resourceId": "sid-1DFAC63F-982F-4023-891E-C45781C81A8F"
-          }
-        ],
-        "bounds": {
-          "lowerRight": {
-            "x": 836.267592739074,
-            "y": 478.84284379222254
-          },
-          "upperLeft": {
-            "x": 426.15181256995515,
-            "y": 462.6157401857505
-          }
-        },
-        "dockers": [
-          {
-            "x": 20.41675298979544,
-            "y": 36.978541837220746
-          },
-          {
-            "x": 426.15181256995515,
-            "y": 478.84284379222254
-          },
-          {
-            "x": 1,
-            "y": 20
-          }
-        ],
-        "target": {
-          "resourceId": "sid-1DFAC63F-982F-4023-891E-C45781C81A8F"
         }
       },
       {
@@ -1435,11 +1341,11 @@
         "bounds": {
           "lowerRight": {
             "x": 558.0150495842561,
-            "y": 410.88273348583994
+            "y": 350.88273348583994
           },
           "upperLeft": {
             "x": 518.0150495842561,
-            "y": 370.88273348583994
+            "y": 310.88273348583994
           }
         },
         "dockers": []
@@ -1471,11 +1377,11 @@
         "bounds": {
           "lowerRight": {
             "x": 584.7296953375671,
-            "y": 390.88273348583994
+            "y": 330.88273348583994
           },
           "upperLeft": {
             "x": 558.2019181616886,
-            "y": 390.88273348583994
+            "y": 330.88273348583994
           }
         },
         "dockers": [
@@ -1519,11 +1425,11 @@
         "bounds": {
           "lowerRight": {
             "x": 886.267592739074,
-            "y": 458.20124078909777
+            "y": 498.03797892889156
           },
           "upperLeft": {
             "x": 886.267592739074,
-            "y": 431.5243364889648
+            "y": 371.687598349171
           }
         },
         "dockers": [
@@ -1567,11 +1473,11 @@
         "bounds": {
           "lowerRight": {
             "x": 710.5615342506755,
-            "y": 390.88273348583994
+            "y": 330.88273348583994
           },
           "upperLeft": {
             "x": 685.0796823536243,
-            "y": 390.88273348583994
+            "y": 330.88273348583994
           }
         },
         "dockers": [
@@ -1607,11 +1513,11 @@
         "bounds": {
           "lowerRight": {
             "x": 1133,
-            "y": 404.88273348583994
+            "y": 344.88273348583994
           },
           "upperLeft": {
             "x": 1105,
-            "y": 376.88273348583994
+            "y": 316.88273348583994
           }
         },
         "dockers": []
@@ -1642,11 +1548,11 @@
         "bounds": {
           "lowerRight": {
             "x": 1104.6123644621277,
-            "y": 390.88273348583994
+            "y": 330.88273348583994
           },
           "upperLeft": {
             "x": 1062.2658217429257,
-            "y": 390.88273348583994
+            "y": 330.88273348583994
           }
         },
         "dockers": [
@@ -1717,11 +1623,11 @@
         "bounds": {
           "lowerRight": {
             "x": 220,
-            "y": 290
+            "y": 230
           },
           "upperLeft": {
             "x": 120,
-            "y": 210
+            "y": 150
           }
         },
         "dockers": []
@@ -1753,11 +1659,11 @@
         "bounds": {
           "lowerRight": {
             "x": 538.5150495842561,
-            "y": 370.85059590627117
+            "y": 310.85059590627117
           },
           "upperLeft": {
             "x": 189.7136548617005,
-            "y": 344.04381380013547
+            "y": 284.04381380013547
           }
         },
         "dockers": [
@@ -1767,7 +1673,7 @@
           },
           {
             "x": 538.5150495842561,
-            "y": 344.04381380013547
+            "y": 284.04381380013547
           },
           {
             "x": 20.5,
@@ -1805,11 +1711,11 @@
         "bounds": {
           "lowerRight": {
             "x": 836.267592739074,
-            "y": 518.8428437922225
+            "y": 558.8428437922225
           },
           "upperLeft": {
             "x": 170,
-            "y": 364.16245770551996
+            "y": 304.3656205964541
           }
         },
         "dockers": [
@@ -1819,111 +1725,11 @@
           },
           {
             "x": 170,
-            "y": 518.8428437922225
+            "y": 558.8428437922225
           },
           {
             "x": 1,
             "y": 60
-          }
-        ],
-        "target": {
-          "resourceId": "sid-1DFAC63F-982F-4023-891E-C45781C81A8F"
-        }
-      },
-      {
-        "resourceId": "sid-592D7D1D-7527-47B8-9682-89203B60BA98",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "sid-592D7D1D-7527-47B8-9682-89203B60BA98",
-          "name": "Approved",
-          "detailsgroupheader": "",
-          "mandatoryinfo": "",
-          "conditionsequenceflow": "",
-          "defaultflow": true,
-          "skipexpression": "",
-          "executiongroupheader": "",
-          "executionlisteners": "",
-          "showdiamondmarker": false
-        },
-        "stencil": {
-          "id": "SequenceFlow"
-        },
-        "childShapes": [],
-        "outgoing": [
-          {
-            "resourceId": "sid-1B10A752-B448-46F4-BFF9-4ADF16969307"
-          }
-        ],
-        "bounds": {
-          "lowerRight": {
-            "x": 518.4681855081855,
-            "y": 392.62063622551693
-          },
-          "upperLeft": {
-            "x": 320.75011207154375,
-            "y": 392.2170503183408
-          }
-        },
-        "dockers": [
-          {
-            "x": 20,
-            "y": 20
-          },
-          {
-            "x": 4.046875,
-            "y": 21.745238348506064
-          }
-        ],
-        "target": {
-          "resourceId": "sid-1B10A752-B448-46F4-BFF9-4ADF16969307"
-        }
-      },
-      {
-        "resourceId": "sid-AF0CB919-AAA8-4FEC-A6F6-4B300B15F09B",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "sid-AF0CB919-AAA8-4FEC-A6F6-4B300B15F09B",
-          "name": "Rejected",
-          "detailsgroupheader": "",
-          "mandatoryinfo": "",
-          "conditionsequenceflow": "${approvalStatus == \"rejected\"}",
-          "defaultflow": "false",
-          "skipexpression": "",
-          "executiongroupheader": "",
-          "executionlisteners": "",
-          "showdiamondmarker": false
-        },
-        "stencil": {
-          "id": "SequenceFlow"
-        },
-        "childShapes": [],
-        "outgoing": [
-          {
-            "resourceId": "sid-1DFAC63F-982F-4023-891E-C45781C81A8F"
-          }
-        ],
-        "bounds": {
-          "lowerRight": {
-            "x": 836.267592739074,
-            "y": 498.84284379222254
-          },
-          "upperLeft": {
-            "x": 300.72934565291257,
-            "y": 412.34284906030985
-          }
-        },
-        "dockers": [
-          {
-            "x": 20,
-            "y": 20
-          },
-          {
-            "x": 300.72934565291257,
-            "y": 498.84284379222254
-          },
-          {
-            "x": 1,
-            "y": 40
           }
         ],
         "target": {
@@ -2003,19 +1809,16 @@
         "outgoing": [
           {
             "resourceId": "sid-D1236EFB-BEA4-4C3B-8AE1-37D8741E9B6A"
-          },
-          {
-            "resourceId": "sid-18FFBE55-B845-4264-A88C-8C06CC9FAF4E"
           }
         ],
         "bounds": {
           "lowerRight": {
             "x": 350.72934565291257,
-            "y": 290
+            "y": 230
           },
           "upperLeft": {
             "x": 250.72934565291257,
-            "y": 210
+            "y": 150
           }
         },
         "dockers": []
@@ -2047,11 +1850,11 @@
         "bounds": {
           "lowerRight": {
             "x": 300.72934565291257,
-            "y": 372.04487131378335
+            "y": 312.04487131378335
           },
           "upperLeft": {
             "x": 300.72934565291257,
-            "y": 290.2323200294202
+            "y": 230.23232002942018
           }
         },
         "dockers": [
@@ -2141,19 +1944,16 @@
         "outgoing": [
           {
             "resourceId": "sid-1686166B-AFC7-4262-81EE-8E87806E9018"
-          },
-          {
-            "resourceId": "sid-25D796E9-472C-4DAD-BE9E-D09B3DF21D41"
           }
         ],
         "bounds": {
           "lowerRight": {
             "x": 475.7350595801597,
-            "y": 290
+            "y": 230
           },
           "upperLeft": {
             "x": 375.7350595801597,
-            "y": 210
+            "y": 150
           }
         },
         "dockers": []
@@ -2185,11 +1985,11 @@
         "bounds": {
           "lowerRight": {
             "x": 425.7350595801597,
-            "y": 422.0291606041545
+            "y": 362.0291606041545
           },
           "upperLeft": {
             "x": 425.7350595801597,
-            "y": 290.59834446698284
+            "y": 230.59834446698284
           }
         },
         "dockers": [
@@ -2204,58 +2004,6 @@
         ],
         "target": {
           "resourceId": "sid-D2C94AD8-63E8-4ECA-B9A5-D4A9A8FA71BF"
-        }
-      },
-      {
-        "resourceId": "sid-8D6E064C-6A6B-4FFE-9440-770EDBD6579B",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "sid-8D6E064C-6A6B-4FFE-9440-770EDBD6579B",
-          "name": "Timeout exceeded",
-          "detailsgroupheader": "",
-          "mandatoryinfo": "",
-          "conditionsequenceflow": "${contract.properties.status == \"RISK MANAGER APPROVAL\"}",
-          "defaultflow": "false",
-          "skipexpression": "",
-          "executiongroupheader": "",
-          "executionlisteners": "",
-          "showdiamondmarker": false
-        },
-        "stencil": {
-          "id": "SequenceFlow"
-        },
-        "childShapes": [],
-        "outgoing": [
-          {
-            "resourceId": "sid-E01868D9-808B-46D6-B1F5-DA5BD8DC8B62"
-          }
-        ],
-        "bounds": {
-          "lowerRight": {
-            "x": 861.2675927390735,
-            "y": 245.25476165149394
-          },
-          "upperLeft": {
-            "x": 485.86551065358515,
-            "y": 210.02833202828708
-          }
-        },
-        "dockers": [
-          {
-            "x": 15.999999999999998,
-            "y": 16
-          },
-          {
-            "x": 861.2675927390735,
-            "y": 210.6917761347172
-          },
-          {
-            "x": 25,
-            "y": 1.0000000000000007
-          }
-        ],
-        "target": {
-          "resourceId": "sid-E01868D9-808B-46D6-B1F5-DA5BD8DC8B62"
         }
       },
       {
@@ -2285,11 +2033,11 @@
         "bounds": {
           "lowerRight": {
             "x": 170,
-            "y": 323.941164121983
+            "y": 263.941164121983
           },
           "upperLeft": {
             "x": 170,
-            "y": 290.6747339469322
+            "y": 230.67473394693215
           }
         },
         "dockers": [
@@ -2304,62 +2052,6 @@
         ],
         "target": {
           "resourceId": "sid-EC5DC59E-EE73-4E07-BFFF-F0F9AF1DCE36"
-        }
-      },
-      {
-        "resourceId": "sid-DDA6FC58-4C33-414A-88F4-9086404A23CF",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "sid-DDA6FC58-4C33-414A-88F4-9086404A23CF",
-          "name": "Timeout exceeded",
-          "detailsgroupheader": "",
-          "mandatoryinfo": "",
-          "conditionsequenceflow": "${contract.properties.status == \"LINE MANAGER APPROVAL\"}",
-          "defaultflow": "false",
-          "skipexpression": "",
-          "executiongroupheader": "",
-          "executionlisteners": "",
-          "showdiamondmarker": false
-        },
-        "stencil": {
-          "id": "SequenceFlow"
-        },
-        "childShapes": [],
-        "outgoing": [
-          {
-            "resourceId": "sid-E01868D9-808B-46D6-B1F5-DA5BD8DC8B62"
-          }
-        ],
-        "bounds": {
-          "lowerRight": {
-            "x": 886.2675927390735,
-            "y": 245.16458167103156
-          },
-          "upperLeft": {
-            "x": 356.50880181665497,
-            "y": 175.62213444894357
-          }
-        },
-        "dockers": [
-          {
-            "x": 15.5,
-            "y": 15.5
-          },
-          {
-            "x": 471.046875,
-            "y": 175.62213444894357
-          },
-          {
-            "x": 886.2675927390735,
-            "y": 175.62213444894357
-          },
-          {
-            "x": 50,
-            "y": 50.759816056479714
-          }
-        ],
-        "target": {
-          "resourceId": "sid-E01868D9-808B-46D6-B1F5-DA5BD8DC8B62"
         }
       },
       {
@@ -2394,11 +2086,11 @@
         "bounds": {
           "lowerRight": {
             "x": 660.5000000000001,
-            "y": 209.97897679638982
+            "y": 149.74537394521937
           },
           "upperLeft": {
             "x": 167.46385112449389,
-            "y": 90.59153505950977
+            "y": 90.17395186122044
           }
         },
         "dockers": [
@@ -2408,11 +2100,11 @@
           },
           {
             "x": 660.5000000000001,
-            "y": 134
+            "y": 119.79830085204833
           },
           {
             "x": 167.46385112449389,
-            "y": 134
+            "y": 119.79830085204833
           },
           {
             "x": 47.463851124493885,
@@ -2455,11 +2147,11 @@
         "bounds": {
           "lowerRight": {
             "x": 660.5000000000001,
-            "y": 209.78125
+            "y": 149.84925662277115
           },
           "upperLeft": {
             "x": 301.2186195284187,
-            "y": 90.36479807319296
+            "y": 89.73473888457853
           }
         },
         "dockers": [
@@ -2469,11 +2161,11 @@
           },
           {
             "x": 660.5000000000001,
-            "y": 135
+            "y": 119.79830085204833
           },
           {
             "x": 301.2186195284187,
-            "y": 135
+            "y": 119.79830085204833
           },
           {
             "x": 50.489273875506115,
@@ -2516,11 +2208,11 @@
         "bounds": {
           "lowerRight": {
             "x": 660.5,
-            "y": 210
+            "y": 150
           },
           "upperLeft": {
             "x": 425.7350595801597,
-            "y": 90.36479807319296
+            "y": 89.73473888457853
           }
         },
         "dockers": [
@@ -2530,11 +2222,11 @@
           },
           {
             "x": 660.5,
-            "y": 135
+            "y": 119.79830085204833
           },
           {
             "x": 425.7350595801597,
-            "y": 135
+            "y": 119.79830085204833
           },
           {
             "x": 50,
@@ -2546,92 +2238,56 @@
         }
       },
       {
-        "resourceId": "sid-18FFBE55-B845-4264-A88C-8C06CC9FAF4E",
+        "resourceId": "sid-6DEFD65B-6202-4A86-97E5-5FE56CCB1BE3",
         "properties": {
           "generalgroupheader": "",
-          "overrideid": "sid-18FFBE55-B845-4264-A88C-8C06CC9FAF4E",
-          "name": "",
+          "overrideid": "sid-6DEFD65B-6202-4A86-97E5-5FE56CCB1BE3",
+          "name": "Rejected",
           "detailsgroupheader": "",
           "mandatoryinfo": "",
-          "timercycledefinition": "",
-          "timerdatedefinition": "",
-          "timerdurationdefinition": "PT5M",
-          "timerenddatedefinition": "",
-          "cancelactivity": true,
+          "conditionsequenceflow": "${approvalStatus == \"rejected\"}",
+          "defaultflow": "false",
+          "skipexpression": "",
           "executiongroupheader": "",
-          "executionlisteners": {
-            "executionListeners": []
-          }
+          "executionlisteners": "",
+          "showdiamondmarker": false
         },
         "stencil": {
-          "id": "BoundaryTimerEvent"
+          "id": "SequenceFlow"
         },
         "childShapes": [],
         "outgoing": [
           {
-            "resourceId": "sid-DDA6FC58-4C33-414A-88F4-9086404A23CF"
+            "resourceId": "sid-1DFAC63F-982F-4023-891E-C45781C81A8F"
           }
         ],
         "bounds": {
           "lowerRight": {
-            "x": 356.8567807152428,
-            "y": 225.20067311596594
+            "x": 836.267592739074,
+            "y": 518.8428437922225
           },
           "upperLeft": {
-            "x": 325.8567807152428,
-            "y": 194.20067311596594
+            "x": 426.15181256995515,
+            "y": 402.5194031061243
           }
         },
         "dockers": [
           {
-            "x": 89.31752934708743,
-            "y": 1
-          }
-        ]
-      },
-      {
-        "resourceId": "sid-25D796E9-472C-4DAD-BE9E-D09B3DF21D41",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "sid-25D796E9-472C-4DAD-BE9E-D09B3DF21D41",
-          "name": "",
-          "detailsgroupheader": "",
-          "mandatoryinfo": "",
-          "timercycledefinition": "",
-          "timerdatedefinition": "",
-          "timerdurationdefinition": "PT5M",
-          "timerenddatedefinition": "",
-          "cancelactivity": true,
-          "executiongroupheader": "",
-          "executionlisteners": {
-            "executionListeners": []
-          }
-        },
-        "stencil": {
-          "id": "BoundaryTimerEvent"
-        },
-        "childShapes": [],
-        "outgoing": [
+            "x": 20.41675298979544,
+            "y": 35.55859243961265
+          },
           {
-            "resourceId": "sid-8D6E064C-6A6B-4FFE-9440-770EDBD6579B"
+            "x": 426.15181256995515,
+            "y": 518.8428437922225
+          },
+          {
+            "x": 1,
+            "y": 20
           }
         ],
-        "bounds": {
-          "lowerRight": {
-            "x": 485.3591440003228,
-            "y": 225.00092779144558
-          },
-          "upperLeft": {
-            "x": 454.3591440003228,
-            "y": 194.00092779144558
-          }
-        },
-        "dockers": [
-          {
-            "x": 90.31181541984029,
-            "y": 3
-          }
-        ]
+        "target": {
+          "resourceId": "sid-1DFAC63F-982F-4023-891E-C45781C81A8F"
+        }
       },
       {
         "resourceId": "sid-E66C8731-5117-4417-8AC3-48BDD0C3AD8E",
@@ -2659,8 +2315,8 @@
         ],
         "bounds": {
           "lowerRight": {
-            "x": 722,
-            "y": 350.7293965927406
+            "x": 707.046875,
+            "y": 290.2516149828616
           },
           "upperLeft": {
             "x": 629.1818437701637,
@@ -2673,16 +2329,16 @@
             "y": 20.5
           },
           {
-            "x": 722,
+            "x": 707.046875,
             "y": 70.09660170409664
           },
           {
-            "x": 722,
-            "y": 309
+            "x": 707.046875,
+            "y": 252
           },
           {
             "x": 629.1818437701637,
-            "y": 309
+            "y": 252
           },
           {
             "x": 44.17689694698822,
@@ -2691,6 +2347,357 @@
         ],
         "target": {
           "resourceId": "sid-C70A9A00-AEA0-4639-A9CD-D52FE3401D4C"
+        }
+      },
+      {
+        "resourceId": "sid-AF0CB919-AAA8-4FEC-A6F6-4B300B15F09B",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-AF0CB919-AAA8-4FEC-A6F6-4B300B15F09B",
+          "name": "Rejected",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "${approvalStatus == \"rejected\"}",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-1DFAC63F-982F-4023-891E-C45781C81A8F"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 836.267592739074,
+            "y": 538.8428437922225
+          },
+          "upperLeft": {
+            "x": 300.72934565291257,
+            "y": 352.55118294553813
+          }
+        },
+        "dockers": [
+          {
+            "x": 20,
+            "y": 20
+          },
+          {
+            "x": 300.72934565291257,
+            "y": 538.8428437922225
+          },
+          {
+            "x": 1,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-1DFAC63F-982F-4023-891E-C45781C81A8F"
+        }
+      },
+      {
+        "resourceId": "sid-592D7D1D-7527-47B8-9682-89203B60BA98",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-592D7D1D-7527-47B8-9682-89203B60BA98",
+          "name": "Approved",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": true,
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-1B10A752-B448-46F4-BFF9-4ADF16969307"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 518.4681855081855,
+            "y": 332.62063622551693
+          },
+          "upperLeft": {
+            "x": 320.75011207154375,
+            "y": 332.2170503183408
+          }
+        },
+        "dockers": [
+          {
+            "x": 20,
+            "y": 20
+          },
+          {
+            "x": 4.046875,
+            "y": 21.745238348506064
+          }
+        ],
+        "target": {
+          "resourceId": "sid-1B10A752-B448-46F4-BFF9-4ADF16969307"
+        }
+      },
+      {
+        "resourceId": "sid-F535A4CD-C6AD-44B0-8594-E6654C7CFE41",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-F535A4CD-C6AD-44B0-8594-E6654C7CFE41",
+          "name": "Approved",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": true,
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-1B10A752-B448-46F4-BFF9-4ADF16969307"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 537.0619245842561,
+            "y": 382.6761835476052
+          },
+          "upperLeft": {
+            "x": 446.2834270027388,
+            "y": 349.72322845038536
+          }
+        },
+        "dockers": [
+          {
+            "x": 20.5,
+            "y": 20.5
+          },
+          {
+            "x": 537.0619245842561,
+            "y": 382.6761835476052
+          },
+          {
+            "x": 19.046875,
+            "y": 36.745238348506064
+          }
+        ],
+        "target": {
+          "resourceId": "sid-1B10A752-B448-46F4-BFF9-4ADF16969307"
+        }
+      },
+      {
+        "resourceId": "sid-79C3577E-D10D-44B4-87E9-89203FF3DA30",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-E01868D9-808B-46D6-B1F5-DA5BD8DC8B62"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 704.425788703592,
+            "y": 440.42192027491734
+          },
+          "upperLeft": {
+            "x": 645.722648796408,
+            "y": 440.19526722508266
+          }
+        },
+        "dockers": [
+          {
+            "x": 20.5,
+            "y": 20.5
+          },
+          {
+            "x": 50,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-E01868D9-808B-46D6-B1F5-DA5BD8DC8B62"
+        }
+      },
+      {
+        "resourceId": "sid-29CBEED3-B318-49EF-9DF7-61E5BE0D79CC",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "sequencefloworder": "",
+          "executiongroupheader": "",
+          "asynchronousdefinition": "false",
+          "exclusivedefinition": "false"
+        },
+        "stencil": {
+          "id": "InclusiveGateway"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-79C3577E-D10D-44B4-87E9-89203FF3DA30"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 645,
+            "y": 460
+          },
+          "upperLeft": {
+            "x": 605,
+            "y": 420
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-DDA6FC58-4C33-414A-88F4-9086404A23CF",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-DDA6FC58-4C33-414A-88F4-9086404A23CF",
+          "name": "Expired",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": {
+            "expression": {
+              "type": "static",
+              "staticValue": "${approvalStatus == \"expired\"}"
+            }
+          },
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-29CBEED3-B318-49EF-9DF7-61E5BE0D79CC"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 624.8613821970014,
+            "y": 494
+          },
+          "upperLeft": {
+            "x": 307.4080016042249,
+            "y": 346.82622000783374
+          }
+        },
+        "dockers": [
+          {
+            "x": 20.5,
+            "y": 20.5
+          },
+          {
+            "x": 371.671875,
+            "y": 494
+          },
+          {
+            "x": 623.7379625538945,
+            "y": 494
+          },
+          {
+            "x": 20.5,
+            "y": 20.5
+          }
+        ],
+        "target": {
+          "resourceId": "sid-29CBEED3-B318-49EF-9DF7-61E5BE0D79CC"
+        }
+      },
+      {
+        "resourceId": "sid-8D6E064C-6A6B-4FFE-9440-770EDBD6579B",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "sid-8D6E064C-6A6B-4FFE-9440-770EDBD6579B",
+          "name": "Expired",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": {
+            "expression": {
+              "type": "static",
+              "staticValue": "${approvalStatus == \"expired\"}"
+            }
+          },
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "showdiamondmarker": false
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-29CBEED3-B318-49EF-9DF7-61E5BE0D79CC"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 604.1796875,
+            "y": 440.5
+          },
+          "upperLeft": {
+            "x": 429.8039808076975,
+            "y": 399.5682292312194
+          }
+        },
+        "dockers": [
+          {
+            "x": 18.883029260904664,
+            "y": 33.24586899724784
+          },
+          {
+            "x": 481,
+            "y": 440.5
+          },
+          {
+            "x": 20.5,
+            "y": 20.5
+          }
+        ],
+        "target": {
+          "resourceId": "sid-29CBEED3-B318-49EF-9DF7-61E5BE0D79CC"
         }
       }
     ],
