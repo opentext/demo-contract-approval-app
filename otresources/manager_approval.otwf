@@ -452,7 +452,7 @@
           "mandatoryinfo": "",
           "timercycledefinition": "",
           "timerdatedefinition": "",
-          "timerdurationdefinition": "PT1M",
+          "timerdurationdefinition": "PT5M",
           "timerenddatedefinition": "",
           "cancelactivity": true,
           "executiongroupheader": "",
