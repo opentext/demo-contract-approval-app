@@ -335,7 +335,7 @@ function AddContract({
               },
               ...isLoanContract() && {
                 'Solvency Check': {
-                  is_required: true,
+                  is_required: false,
                   has_been_granted: false,
                   approver: '',
                   approver_role: '',

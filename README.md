@@ -26,6 +26,15 @@ Deploy the application project (cf. user guide).
 ## Credentials
 
 The API client credentials need to be configured from within the application code. Please replace the placeholders for the tenant id and client public id in the `.env` file with the tenant id and the client public id for the deployed application project (returned when deploying the project to the OpenText Cloud Platform).
+
+## Public Service Client redirect URL
+In the Admin Center (organization link available under the Console tab when logged in to developer.opentext.com), navigate to `/[your organization name]/Apps/Contract Approval/Clients` and add `https://localhost:4000` as redirect URL for the Public service client.
+
+## Add user(s) to application groups
+To be able to fully test the application, you need a user in the line_managers and risk_managers groups. You can optionally also add a user in the administrators and/or contract_approval_users groups. For basic testing, you could also just add one single user to both the line_managers and risk_managers groups, which will result in showing both the Line Manager and Risk Manager tasks tabs in the application. This allows the single user to approve/reject as both Line Manager and Risk Manager.\
+\
+To add a user to an application group, proceed as follows:\
+In the Admin Center, navigate to `/[your organization name]/Tenants/[your tenant name]/Apps/Contract Approval` and select `Groups` from the `User management` section. Edit both the `line_managers` and `risk_managers` groups to add your user(s). 
   
 ## Download and install Node.js
 
@@ -42,4 +51,4 @@ npm install
 npm start
 ```
 
-The application will be automatically opened in the browser at http://localhost:4000
+The application will be automatically opened in the browser at https://localhost:4000

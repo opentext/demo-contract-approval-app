@@ -40,8 +40,7 @@ function CreatedContractList() {
   const [state, setState] = useState(
     {
       contracts: [],
-      lineManagerAclId: '',
-      riskManagerAclId: '',
+      pendingApprovalAclId: '',
       completedAclId: '',
       openContractDetails: false,
       selectedContract: { properties: {} },
@@ -73,15 +72,13 @@ function CreatedContractList() {
 
   const getAcls = useCallback(() => {
     if (
-      state.lineManagerAclId.length === 0
-      || state.riskManagerAclId.length === 0
+      state.pendingApprovalAclId.length === 0
       || state.completedAclId.length === 0) {
-      let lineManagerAclFound = false;
-      let riskManagerAclFound = false;
+      let pendingApprovalAclFound = false;
       let completedAclFound = false;
       axios({
         method: 'get',
-        url: `${baseUrl}/cms/permissions?filter=name eq "line_manager_approval" or name eq "risk_manager_approval" or name eq "completed"`,
+        url: `${baseUrl}/cms/permissions?filter=name eq "pending_approval" or name eq "completed"`,
         headers: {
           Authorization: `Bearer ${user.access_token}`,
         },
@@ -90,13 +87,9 @@ function CreatedContractList() {
         const acls = res.data._embedded.collection;
         acls.forEach((acl) => {
           switch (acl.name) {
-            case 'line_manager_approval':
-              setState((prevState) => ({ ...prevState, lineManagerAclId: acl.id }));
-              lineManagerAclFound = true;
-              break;
-            case 'risk_manager_approval':
-              setState((prevState) => ({ ...prevState, riskManagerAclId: acl.id }));
-              riskManagerAclFound = true;
+            case 'pending_approval':
+              setState((prevState) => ({ ...prevState, pendingApprovalAclId: acl.id }));
+              pendingApprovalAclFound = true;
               break;
             case 'completed':
               setState((prevState) => ({ ...prevState, completedAclId: acl.id }));
@@ -106,9 +99,7 @@ function CreatedContractList() {
           }
         });
 
-        if (!lineManagerAclFound
-          || !riskManagerAclFound
-          || !completedAclFound) {
+        if (!pendingApprovalAclFound || !completedAclFound) {
           const errorMessage = 'Not all required ACLs exist in the repository';
           raiseError(errorMessage);
         }
@@ -225,12 +216,8 @@ function CreatedContractList() {
           value: contractId,
         },
         {
-          name: 'line_manager_approval_acl_id',
-          value: state.lineManagerAclId,
-        },
-        {
-          name: 'risk_manager_approval_acl_id',
-          value: state.riskManagerAclId,
+          name: 'pending_approval_acl_id',
+          value: state.pendingApprovalAclId,
         },
         {
           name: 'completed_acl_id',
