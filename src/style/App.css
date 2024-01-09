@@ -84,25 +84,27 @@
   max-width: 100%;
 }
 .contract-details {
-  height: 520px;
-  width: 800px;
+  height: 614px;
+  width: 780px;
 }
 .contract-details th {
   font-weight: bold;
 }
 .add-contract {
-  height: 400px;
+  height: 462px;
+  width: 700px;
+}
+.add-contract .select-document-button {
+  margin-bottom: 20px;
 }
 .add-contract .file-input {
   visibility: hidden;
   width: 0px;
 }
-.add-contract .inline {
-  display: inline;
+.add-contract .add-contract-filename {
+  margin-left: 10px;
 }
-.add-contract .margin-start {
-  margin-inline-start: 5px;
-}
+
 .loading {
   display: flex;
   height: calc(100vh - 4rem);
