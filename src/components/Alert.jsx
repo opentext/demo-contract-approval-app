@@ -1,8 +1,9 @@
-import MuiAlert from '@material-ui/lab/Alert';
+import React from 'react';
+import MuiAlert from '@mui/material/Alert';
 
-function Alert(props) {
+const Alert = React.forwardRef(
   // eslint-disable-next-line react/jsx-props-no-spreading
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+  (props, ref) => <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />,
+);
 
 export default Alert;

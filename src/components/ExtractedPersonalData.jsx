@@ -5,16 +5,16 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-} from '@material-ui/core';
+} from '@mui/material';
 
 function ExtractedPersonalData({ open, selectedContract, onClose }) {
   const formatExtractedTerms = (arr) => {
     if (arr) {
       return arr.map((str, index) => (str.startsWith('**')
         // eslint-disable-next-line react/no-array-index-key
-        ? <p key={index}><b>{str.substring(2)}</b></p>
+        ? <p style={{ lineHeight: '1em' }} key={index}><b>{str.substring(2)}</b></p>
         // eslint-disable-next-line react/no-array-index-key
-        : <p key={index}>{`- ${str}`}</p>
+        : <p style={{ lineHeight: '1em' }} key={index}>{`- ${str}`}</p>
       ));
     }
     return '';

@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from 'react-oidc-context';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import {
-  CircularProgress,
-  Tab,
-  Tabs,
-} from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+  Alert, CircularProgress, Tab, Tabs,
+} from '@mui/material';
+
 import './style/App.css';
 import Header from './components/Header';
 import TabPanel from './components/TabPanel';

@@ -19,9 +19,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from '@material-ui/core';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import CloseIcon from '@material-ui/icons/Close';
+} from '@mui/material';
+import { ArrowForwardIos, Close } from '@mui/icons-material';
+
 import Alert from './Alert';
 import Pagination from './Pagination';
 import Tasks from '../services/workflow/Tasks';
@@ -232,7 +232,7 @@ function TasksList({ taskName }) {
                 </TableCell>
                 <TableCell align="center">
                   <IconButton size="small" variant="outlined" color="primary" title="Show details" onClick={() => showDetails(row)}>
-                    <ArrowForwardIosIcon />
+                    <ArrowForwardIos />
                   </IconButton>
                 </TableCell>
               </TableRow>
@@ -268,7 +268,7 @@ function TasksList({ taskName }) {
         onClose={handleSnackBarClose}
         action={(
           <IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackBarClose}>
-            <CloseIcon fontSize="small" />
+            <Close fontSize="small" />
           </IconButton>
         )}
       >
