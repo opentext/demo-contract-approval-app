@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { PropTypes } from 'prop-types';
-import { IconButton } from '@material-ui/core';
-import InfoIcon from '@material-ui/icons/Info';
+import { IconButton } from '@mui/material';
+import { Info } from '@mui/icons-material';
+
 import ExtractedPersonalData from './ExtractedPersonalData';
 
 const riskClassifications = ['NONE', 'LOW', 'MEDIUM', 'HIGH', 'VERY HIGH'];
@@ -21,7 +22,7 @@ function RiskClassification({ row }) {
     <div>
       {riskClassifications[row.properties.risk_classification - 1]}
       <IconButton size="small" variant="outlined" color="primary" title="Show extracted personal data" onClick={() => showExtractedPersonalData(row)}>
-        <InfoIcon />
+        <Info />
       </IconButton>
       <ExtractedPersonalData
         open={openExtractedPersonalData}

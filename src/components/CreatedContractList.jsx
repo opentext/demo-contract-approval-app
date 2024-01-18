@@ -19,10 +19,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from '@material-ui/core';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import AddIcon from '@material-ui/icons/Add';
-import CloseIcon from '@material-ui/icons/Close';
+} from '@mui/material';
+import { Add, ArrowForwardIos, Close } from '@mui/icons-material';
+
 import Alert from './Alert';
 import ContractDetails from './ContractDetails';
 import AddContract from './AddContract';
@@ -285,7 +284,7 @@ function CreatedContractList() {
 
   return (
     <div>
-      <Button variant="contained" color="primary" disabled={!user.profile.preferred_username} startIcon={<AddIcon />} onClick={() => openContractDialog()} style={{ margin: '0.25rem' }}>Add</Button>
+      <Button variant="contained" color="primary" disabled={!user.profile.preferred_username} startIcon={<Add />} onClick={() => openContractDialog()} style={{ margin: '0.25rem' }}>Add</Button>
       <div className="content-header">All created contracts</div>
       <TableContainer component={Paper}>
         <Table size="small" aria-label="a dense table">
@@ -317,7 +316,7 @@ function CreatedContractList() {
                 </TableCell>
                 <TableCell align="left">
                   <IconButton size="small" variant="outlined" color="primary" title="Show details" onClick={() => showDetails(row)}>
-                    <ArrowForwardIosIcon />
+                    <ArrowForwardIos />
                   </IconButton>
                 </TableCell>
               </TableRow>
@@ -360,7 +359,7 @@ function CreatedContractList() {
         action={
           (
             <IconButton size="small" aria-label="close" color="inherit" onClick={handleSnackBarClose}>
-              <CloseIcon fontSize="small" />
+              <Close fontSize="small" />
             </IconButton>
           )
         }
