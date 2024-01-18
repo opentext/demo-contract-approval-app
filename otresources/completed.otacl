@@ -44,7 +44,7 @@
         "ot2mc-row-id": "98d24ce3-7020-485b-a868-d805b0b1ca23"
       }
     ],
-    "description": "ACL for objects that are completed/finished (i.e.: in \"Approved\", \"Rejected\" or \"Expired\" state)"
+    "description": "ACL for objects that are completed/finished (i.e., in \"Approved\", \"Rejected\" or \"Expired\" state)"
   },
   "serviceName": "security"
 }
