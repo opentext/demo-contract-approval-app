@@ -11,6 +11,9 @@ node_modules
 # App specific
 build
 
+# local .env overwrite
+*.local
+
 # Test dump
 docs/.trash
 

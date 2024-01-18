@@ -1,6 +1,0 @@
-{
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "local>ot2/dev-env/pipeline-common//renovate/team-shared-config"
-  ]
-}
