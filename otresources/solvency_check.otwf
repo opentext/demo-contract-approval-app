@@ -238,7 +238,7 @@
           "executiongroupheader": "",
           "asynchronousdefinition": "false",
           "isforcompensation": "false",
-          "exclusivedefinition": "false",
+          "exclusivedefinition": "true",
           "skipexpression": "",
           "executionlisteners": "",
           "multiinstancegroupheader": "",
@@ -413,7 +413,7 @@
         "properties": {
           "generalgroupheader": "",
           "overrideid": "",
-          "name": "",
+          "name": "End",
           "executiongroupheader": "",
           "executionlisteners": ""
         },

@@ -1771,7 +1771,7 @@
 													"response": []
 												},
 												{
-													"name": "Update 'Contract' type instance (passing all properties) Copy",
+													"name": "Update 'Contract' type instance (passing all properties)",
 													"request": {
 														"method": "PUT",
 														"header": [
@@ -1806,7 +1806,7 @@
 													"response": []
 												},
 												{
-													"name": "Update 'Contract' type instance (passing only updated properties) Copy",
+													"name": "Update 'Contract' type instance (passing only updated properties)",
 													"request": {
 														"method": "PATCH",
 														"header": [
@@ -2689,47 +2689,6 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"client_id\": \"{{client_id}}\",\n    \"client_secret\": \"{{client_secret}}\",\n    \"grant_type\": \"client_credentials\"\n}"
-				},
-				"url": {
-					"raw": "{{auth_service_url}}/oauth2/token",
-					"host": [
-						"{{auth_service_url}}"
-					],
-					"path": [
-						"oauth2",
-						"token"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get access token with username/password",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.environment.set(\"access_token\", pm.response.json().access_token);",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"client_id\": \"{{client_id}}\",\n    \"client_secret\": \"{{client_secret}}\",\n    \"grant_type\": \"password\",\n    \"username\": \"{{username}}\",\n    \"password\": \"{{password}}\"\n}"
 				},
 				"url": {
 					"raw": "{{auth_service_url}}/oauth2/token",
