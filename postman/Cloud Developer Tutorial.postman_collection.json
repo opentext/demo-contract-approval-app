@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "5e410834-b8c0-4cdd-afd0-8b933705d4af",
+		"_postman_id": "cdae66f3-5c75-41b4-96e2-b2d863a33b34",
 		"name": "Cloud Developer Tutorial",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "18017683"
+		"_exporter_id": "32743108"
 	},
 	"item": [
 		{
@@ -257,7 +257,7 @@
 					"name": "traits",
 					"item": [
 						{
-							"name": "Get all trait definitions",
+							"name": "Get all traits",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -298,7 +298,7 @@
 							"response": []
 						},
 						{
-							"name": "Get 'Approval' trait definition",
+							"name": "Get 'Approval' trait",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -334,7 +334,7 @@
 							"response": []
 						},
 						{
-							"name": "Get attributes for 'Approval' trait definition",
+							"name": "Get attributes for 'Approval' trait",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -382,10 +382,10 @@
 									"name": "Contract",
 									"item": [
 										{
-											"name": "type definitions",
+											"name": "types",
 											"item": [
 												{
-													"name": "Get 'Contract' type definition",
+													"name": "Get 'Contract' type",
 													"protocolProfileBehavior": {
 														"disableBodyPruning": true
 													},
@@ -421,7 +421,7 @@
 													"response": []
 												},
 												{
-													"name": "Get attributes for 'Contract' type definition",
+													"name": "Get attributes for 'Contract' type",
 													"protocolProfileBehavior": {
 														"disableBodyPruning": true
 													},
@@ -458,7 +458,7 @@
 													"response": []
 												},
 												{
-													"name": "Get required traits for 'Contract' type definition",
+													"name": "Get required traits for 'Contract' type",
 													"protocolProfileBehavior": {
 														"disableBodyPruning": true
 													},
@@ -893,10 +893,10 @@
 									"name": "Loan Contract",
 									"item": [
 										{
-											"name": "type definitions",
+											"name": "types",
 											"item": [
 												{
-													"name": "Get 'Loan Contract' type definition",
+													"name": "Get 'Loan Contract' type",
 													"protocolProfileBehavior": {
 														"disableBodyPruning": true
 													},
@@ -932,7 +932,7 @@
 													"response": []
 												},
 												{
-													"name": "Get attributes for 'Loan Contract' type definition",
+													"name": "Get attributes for 'Loan Contract' type",
 													"protocolProfileBehavior": {
 														"disableBodyPruning": true
 													},
@@ -969,7 +969,7 @@
 													"response": []
 												},
 												{
-													"name": "Get required traits for 'Loan Contract' type definition",
+													"name": "Get required traits for 'Loan Contract' type",
 													"protocolProfileBehavior": {
 														"disableBodyPruning": true
 													},
@@ -1401,7 +1401,7 @@
 									]
 								},
 								{
-									"name": "Get all type definitions of 'file' category",
+									"name": "Get all types of 'file' category",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
@@ -1498,10 +1498,10 @@
 									"name": "Customer",
 									"item": [
 										{
-											"name": "type definitions",
+											"name": "types",
 											"item": [
 												{
-													"name": "Get 'Customer' type definition",
+													"name": "Get 'Customer' type",
 													"protocolProfileBehavior": {
 														"disableBodyPruning": true
 													},
@@ -1537,7 +1537,7 @@
 													"response": []
 												},
 												{
-													"name": "Get attributes for 'Customer' type definition",
+													"name": "Get attributes for 'Customer' type",
 													"protocolProfileBehavior": {
 														"disableBodyPruning": true
 													},
@@ -2126,7 +2126,7 @@
 									]
 								},
 								{
-									"name": "Get all type definitions of 'folder' category",
+									"name": "Get all types of 'folder' category",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
