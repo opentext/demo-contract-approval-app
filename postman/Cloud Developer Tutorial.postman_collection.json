@@ -2452,6 +2452,52 @@
 					"response": []
 				},
 				{
+					"name": "Get 'Required Approvals' decision model",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{access_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{decsion_service_url}}/runtime/decision-models?namespace=contract_approval&key=required_approvals",
+							"host": [
+								"{{decsion_service_url}}"
+							],
+							"path": [
+								"runtime",
+								"decision-models"
+							],
+							"query": [
+								{
+									"key": "namespace",
+									"value": "contract_approval"
+								},
+								{
+									"key": "key",
+									"value": "required_approvals"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Execute decision",
 					"request": {
 						"method": "POST",
