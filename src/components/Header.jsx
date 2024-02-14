@@ -21,7 +21,7 @@ function Header() {
 
   return (
     <header className="page-header">
-      <div className="logo logo-ot-appworks" />
+      <div className="logo logo-ot" />
       <div className="header-title">Contract Approval</div>
       <div className="header-menu">
         <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
