@@ -1,5 +1,5 @@
 {
-  "id": "473fcd21-8d4c-4540-a922-9eac9b5919e3",
+  "id": "51bd0f86-f261-48a1-a19a-3b28146c4c0d",
   "schemaId": "https://www.opentext.com/ocp/devx/workflow/1.0.0/Flow",
   "data": {
     "modelId": 1,
@@ -20,99 +20,32 @@
       "detailsgroupheader": "",
       "process_version": "",
       "process_namespace": "f5840219-d3ca-4758-81ef-dd22ef10f8ba",
-      "process_historylevel": "",
+      "process_historylevel": "audit",
       "dataproperties": "",
       "process_potentialstarteruser": "",
       "process_potentialstartergroup": "",
-      "signaldefinitions": "[]",
-      "messagedefinitions": "[]",
-      "escalationdefinitions": "[]",
+      "signaldefinitions": "",
+      "messagedefinitions": "",
+      "escalationdefinitions": "",
       "duedatedefinition": "",
       "executiongroupheader": "",
       "isasynchistoryenable": true,
       "isexecutable": true,
-      "eventlisteners": "{\"eventListeners\":[]}",
-      "executionlisteners": "{\"executionListeners\":[]}",
-      "documentation": "My Process",
-      "iseagerexecutionfetch": false,
-      "messages": []
+      "eventlisteners": "",
+      "executionlisteners": "",
+      "documentation": "My Process"
     },
     "childShapes": [
       {
-        "resourceId": "sid-16F73BE3-B1CE-4501-9CF8-8176AAAB7109",
+        "resourceId": "startEvent1",
         "properties": {
           "generalgroupheader": "",
-          "overrideid": "sid-16F73BE3-B1CE-4501-9CF8-8176AAAB7109",
-          "name": "Update Solvency Check trait",
-          "detailsgroupheader": "",
-          "authenticationdetails": {
-            "useCurrentAuthToken": true
-          },
-          "httptaskrequestmethod": "PATCH",
-          "httptaskrequesturl": "${base_url}/cms/instances/file/ca_contract/${contract_id}",
-          "httptaskrequestheaders": "Content-Type: application/json",
-          "httptaskrequestbody": "{\n  \"traits\": {\n    \"ca_approval\": {\n      \"Solvency Check\": {\n        \"is_required\": true,\n        \"has_been_granted\": ${solvent},\n        \"approver\": \"SYSTEM\",\n        \"approver_role\": \"Solvency Check\",\n        \"approval_date\": \"${contract.update_time}\"\n      }\n    }\n  }\n}",
-          "httptaskrequestbodyencoding": "",
-          "httptaskrequesttimeout": "",
-          "httptaskdisallowredirects": "",
-          "httptaskfailstatuscodes": "",
-          "httptaskhandlestatuscodes": "",
-          "httptaskignoreexception": "",
-          "httptaskresponsevariablename": "contract",
-          "httptasksaverequestvariables": "",
-          "httptasksaveresponseparameters": "",
-          "httptaskresultvariableprefix": "",
-          "httptasksaveresponseparameterstransient": "",
-          "httptasksaveresponseasjson": true,
-          "executiongroupheader": "",
-          "asynchronousdefinition": false,
-          "isforcompensation": false,
-          "exclusivedefinition": true,
-          "skipexpression": "",
-          "executionlisteners": {
-            "executionListeners": []
-          },
-          "multiinstancegroupheader": "",
-          "multiinstance_type": "None",
-          "multiinstance_cardinality": "",
-          "multiinstance_collection": "",
-          "multiinstance_variable": "",
-          "multiinstance_condition": ""
-        },
-        "stencil": {
-          "id": "HttpTask"
-        },
-        "childShapes": [],
-        "outgoing": [
-          {
-            "resourceId": "sid-A6EE789E-8A12-4AC1-87D9-82E58562FA6E"
-          }
-        ],
-        "bounds": {
-          "lowerRight": {
-            "x": 500,
-            "y": 109.5966017040966
-          },
-          "upperLeft": {
-            "x": 400,
-            "y": 29.5966017040966
-          }
-        },
-        "dockers": []
-      },
-      {
-        "resourceId": "sid-343EF12E-1443-4E2E-B7B6-22E877C40E9D",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "sid-343EF12E-1443-4E2E-B7B6-22E877C40E9D",
+          "overrideid": "",
           "name": "Start",
           "detailsgroupheader": "",
           "initiator": "",
           "executiongroupheader": "",
-          "executionlisteners": {
-            "executionListeners": []
-          },
-          "interrupting": true
+          "executionlisteners": ""
         },
         "stencil": {
           "id": "StartNoneEvent"
@@ -120,97 +53,23 @@
         "childShapes": [],
         "outgoing": [
           {
-            "resourceId": "sid-DB98C9EF-F212-42C3-9778-F719116E3B94"
+            "resourceId": "sid-9EE187E3-1613-4518-A5F4-D91FF87ED52A"
           }
         ],
         "bounds": {
           "lowerRight": {
-            "x": 60.30303001111898,
-            "y": 84.5966017040966
-          },
-          "upperLeft": {
-            "x": 30.303030011118977,
-            "y": 54.5966017040966
-          }
-        },
-        "dockers": []
-      },
-      {
-        "resourceId": "sid-7407FAFE-BE36-4FEA-9F1D-C52D3F1E5A9F",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "sid-7407FAFE-BE36-4FEA-9F1D-C52D3F1E5A9F",
-          "name": "",
-          "detailsgroupheader": "",
-          "text": "Input parameters:\nbase_url\ncontract_id\ncontract"
-        },
-        "stencil": {
-          "id": "TextAnnotation"
-        },
-        "childShapes": [],
-        "outgoing": [],
-        "bounds": {
-          "lowerRight": {
-            "x": 191.11270402581442,
-            "y": 188.55169877389687
+            "x": 60,
+            "y": 75
           },
           "upperLeft": {
             "x": 30,
-            "y": 135
+            "y": 45
           }
         },
         "dockers": []
       },
       {
-        "resourceId": "sid-DB98C9EF-F212-42C3-9778-F719116E3B94",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "sid-DB98C9EF-F212-42C3-9778-F719116E3B94",
-          "name": "",
-          "detailsgroupheader": "",
-          "mandatoryinfo": "",
-          "conditionsequenceflow": "",
-          "defaultflow": "false",
-          "skipexpression": "",
-          "executiongroupheader": "",
-          "executionlisteners": "",
-          "showdiamondmarker": false
-        },
-        "stencil": {
-          "id": "SequenceFlow"
-        },
-        "childShapes": [],
-        "outgoing": [
-          {
-            "resourceId": "sid-3852BC93-FB7F-4195-9271-F6339BD1545F"
-          }
-        ],
-        "bounds": {
-          "lowerRight": {
-            "x": 104.1818181270848,
-            "y": 69.5966017040966
-          },
-          "upperLeft": {
-            "x": 61.27272704011043,
-            "y": 69.5966017040966
-          }
-        },
-        "dockers": [
-          {
-            "x": 15.000000000000002,
-            "y": 15
-          },
-          {
-            "x": 14,
-            "y": 40.00000000000003
-          }
-        ],
-        "target": {
-          "resourceId": "sid-3852BC93-FB7F-4195-9271-F6339BD1545F"
-        }
-      },
-      {
-        "resourceId": "sid-3852BC93-FB7F-4195-9271-F6339BD1545F",
+        "resourceId": "sid-2080AD0E-84F2-48D5-B5F1-35375FE07B00",
         "properties": {
           "generalgroupheader": "",
           "overrideid": "",
@@ -238,7 +97,7 @@
           "executiongroupheader": "",
           "asynchronousdefinition": "false",
           "isforcompensation": "false",
-          "exclusivedefinition": "true",
+          "exclusivedefinition": true,
           "skipexpression": "",
           "executionlisteners": "",
           "multiinstancegroupheader": "",
@@ -254,23 +113,23 @@
         "childShapes": [],
         "outgoing": [
           {
-            "resourceId": "sid-80058AD5-71DD-4615-A0A5-59741D33058D"
+            "resourceId": "sid-D321C747-C718-4B12-A91D-0E4EC31EF6F1"
           }
         ],
         "bounds": {
           "lowerRight": {
-            "x": 204.99999999999997,
-            "y": 109.59660170409663
+            "x": 190,
+            "y": 100
           },
           "upperLeft": {
-            "x": 105,
-            "y": 29.59660170409657
+            "x": 90,
+            "y": 20
           }
         },
         "dockers": []
       },
       {
-        "resourceId": "sid-80058AD5-71DD-4615-A0A5-59741D33058D",
+        "resourceId": "sid-9EE187E3-1613-4518-A5F4-D91FF87ED52A",
         "properties": {
           "generalgroupheader": "",
           "overrideid": "",
@@ -289,23 +148,23 @@
         "childShapes": [],
         "outgoing": [
           {
-            "resourceId": "sid-BB56C8BD-EBA0-47B7-AC9C-49DD0CB34439"
+            "resourceId": "sid-2080AD0E-84F2-48D5-B5F1-35375FE07B00"
           }
         ],
         "bounds": {
           "lowerRight": {
-            "x": 254.78125,
-            "y": 69.5966017040966
+            "x": 89.2734375,
+            "y": 60
           },
           "upperLeft": {
-            "x": 205.21875,
-            "y": 69.5966017040966
+            "x": 60.84375,
+            "y": 60
           }
         },
         "dockers": [
           {
-            "x": 49.999999999999986,
-            "y": 40.00000000000003
+            "x": 15,
+            "y": 15
           },
           {
             "x": 50,
@@ -313,73 +172,24 @@
           }
         ],
         "target": {
-          "resourceId": "sid-BB56C8BD-EBA0-47B7-AC9C-49DD0CB34439"
+          "resourceId": "sid-2080AD0E-84F2-48D5-B5F1-35375FE07B00"
         }
       },
       {
-        "resourceId": "sid-20E44451-29D6-4C7D-BFDA-1B00105A286F",
+        "resourceId": "sid-818495DE-5E2A-47DF-9C14-613C94A6A2D6",
         "properties": {
           "generalgroupheader": "",
           "overrideid": "",
-          "name": "",
-          "detailsgroupheader": "",
-          "mandatoryinfo": "",
-          "conditionsequenceflow": "",
-          "defaultflow": "false",
-          "skipexpression": "",
-          "executiongroupheader": "",
-          "executionlisteners": ""
-        },
-        "stencil": {
-          "id": "SequenceFlow"
-        },
-        "childShapes": [],
-        "outgoing": [
-          {
-            "resourceId": "sid-16F73BE3-B1CE-4501-9CF8-8176AAAB7109"
-          }
-        ],
-        "bounds": {
-          "lowerRight": {
-            "x": 399.15625,
-            "y": 69.5966017040966
-          },
-          "upperLeft": {
-            "x": 355.84375,
-            "y": 69.5966017040966
-          }
-        },
-        "dockers": [
-          {
-            "x": 49.999999999999986,
-            "y": 40
-          },
-          {
-            "x": 50,
-            "y": 40
-          }
-        ],
-        "target": {
-          "resourceId": "sid-16F73BE3-B1CE-4501-9CF8-8176AAAB7109"
-        }
-      },
-      {
-        "resourceId": "sid-BB56C8BD-EBA0-47B7-AC9C-49DD0CB34439",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "sid-BB56C8BD-EBA0-47B7-AC9C-49DD0CB34439",
           "name": "Calculate solvency",
           "detailsgroupheader": "",
           "scriptformat": "JavaScript",
           "scripttext": "const contractDetails = JSON.parse(execution.getVariable(\"contract\"));\nconst monthlyPayments = contractDetails.properties.value / contractDetails.properties.monthly_installments;\nconst monthlyBudget = contractDetails.properties.yearly_income / 12 / 4;\n\nexecution.setVariable(\"solvent\", monthlyBudget >= monthlyPayments);",
-          "scriptautostorevariables": false,
+          "scriptautostorevariables": "false",
           "executiongroupheader": "",
-          "asynchronousdefinition": false,
-          "isforcompensation": false,
+          "asynchronousdefinition": "false",
+          "isforcompensation": "false",
           "exclusivedefinition": true,
-          "executionlisteners": {
-            "executionListeners": []
-          },
+          "executionlisteners": "",
           "multiinstancegroupheader": "",
           "multiinstance_type": "None",
           "multiinstance_cardinality": "",
@@ -393,23 +203,177 @@
         "childShapes": [],
         "outgoing": [
           {
-            "resourceId": "sid-20E44451-29D6-4C7D-BFDA-1B00105A286F"
+            "resourceId": "sid-7DF03023-11E3-43BB-89A0-39BB1C86D7EC"
           }
         ],
         "bounds": {
           "lowerRight": {
-            "x": 355,
-            "y": 109.5966017040966
+            "x": 325,
+            "y": 100
           },
           "upperLeft": {
-            "x": 255,
-            "y": 29.5966017040966
+            "x": 225,
+            "y": 20
           }
         },
         "dockers": []
       },
       {
-        "resourceId": "sid-9020D2C7-A8CB-42BA-8351-8BE44670036C",
+        "resourceId": "sid-D321C747-C718-4B12-A91D-0E4EC31EF6F1",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": ""
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-818495DE-5E2A-47DF-9C14-613C94A6A2D6"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 224.4296875,
+            "y": 60
+          },
+          "upperLeft": {
+            "x": 190.5703125,
+            "y": 60
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 40
+          },
+          {
+            "x": 50,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-818495DE-5E2A-47DF-9C14-613C94A6A2D6"
+        }
+      },
+      {
+        "resourceId": "sid-C2491579-6C29-40B9-9283-22CADF3E6C64",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "Update Solvency Check trait",
+          "detailsgroupheader": "",
+          "authenticationdetails": {
+            "useCurrentAuthToken": true
+          },
+          "httptaskrequestmethod": "PATCH",
+          "httptaskrequesturl": "${base_url}/cms/instances/file/ca_contract/${contract_id}",
+          "httptaskrequestheaders": "Content-Type: application/json",
+          "httptaskrequestbody": "{\n  \"traits\": {\n    \"ca_approval\": {\n      \"Solvency Check\": {\n        \"is_required\": true,\n        \"has_been_granted\": ${solvent},\n        \"approver\": \"SYSTEM\",\n        \"approver_role\": \"Solvency Check\",\n        \"approval_date\": \"${contract.update_time}\"\n      }\n    }\n  }\n}",
+          "httptaskrequestbodyencoding": "",
+          "httptaskrequesttimeout": "",
+          "httptaskdisallowredirects": "",
+          "httptaskfailstatuscodes": "",
+          "httptaskhandlestatuscodes": "",
+          "httptaskignoreexception": "",
+          "httptaskresponsevariablename": "contract",
+          "httptasksaverequestvariables": "",
+          "httptasksaveresponseparameters": "",
+          "httptaskresultvariableprefix": "",
+          "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasjson": true,
+          "executiongroupheader": "",
+          "asynchronousdefinition": "false",
+          "isforcompensation": "false",
+          "exclusivedefinition": true,
+          "skipexpression": "",
+          "executionlisteners": "",
+          "multiinstancegroupheader": "",
+          "multiinstance_type": "None",
+          "multiinstance_cardinality": "",
+          "multiinstance_collection": "",
+          "multiinstance_variable": "",
+          "multiinstance_condition": ""
+        },
+        "stencil": {
+          "id": "HttpTask"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-2CCBCB61-DB63-4CBA-8F51-DA8B9C4CF61C"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 460,
+            "y": 100
+          },
+          "upperLeft": {
+            "x": 360,
+            "y": 20
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-7DF03023-11E3-43BB-89A0-39BB1C86D7EC",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "mandatoryinfo": "",
+          "conditionsequenceflow": "",
+          "defaultflow": "false",
+          "skipexpression": "",
+          "executiongroupheader": "",
+          "executionlisteners": ""
+        },
+        "stencil": {
+          "id": "SequenceFlow"
+        },
+        "childShapes": [],
+        "outgoing": [
+          {
+            "resourceId": "sid-C2491579-6C29-40B9-9283-22CADF3E6C64"
+          }
+        ],
+        "bounds": {
+          "lowerRight": {
+            "x": 359.4296875,
+            "y": 60
+          },
+          "upperLeft": {
+            "x": 325.5703125,
+            "y": 60
+          }
+        },
+        "dockers": [
+          {
+            "x": 50,
+            "y": 40
+          },
+          {
+            "x": 50,
+            "y": 40
+          }
+        ],
+        "target": {
+          "resourceId": "sid-C2491579-6C29-40B9-9283-22CADF3E6C64"
+        }
+      },
+      {
+        "resourceId": "sid-34025790-5755-4057-B9C4-D4B3E6C4841B",
         "properties": {
           "generalgroupheader": "",
           "overrideid": "",
@@ -424,18 +388,18 @@
         "outgoing": [],
         "bounds": {
           "lowerRight": {
-            "x": 572,
-            "y": 83.5966017040966
+            "x": 523.046875,
+            "y": 74
           },
           "upperLeft": {
-            "x": 544,
-            "y": 55.5966017040966
+            "x": 495.046875,
+            "y": 46
           }
         },
         "dockers": []
       },
       {
-        "resourceId": "sid-A6EE789E-8A12-4AC1-87D9-82E58562FA6E",
+        "resourceId": "sid-2CCBCB61-DB63-4CBA-8F51-DA8B9C4CF61C",
         "properties": {
           "generalgroupheader": "",
           "overrideid": "",
@@ -454,22 +418,22 @@
         "childShapes": [],
         "outgoing": [
           {
-            "resourceId": "sid-9020D2C7-A8CB-42BA-8351-8BE44670036C"
+            "resourceId": "sid-34025790-5755-4057-B9C4-D4B3E6C4841B"
           }
         ],
         "bounds": {
           "lowerRight": {
-            "x": 543.5,
-            "y": 69.5966017040966
+            "x": 494.118408203125,
+            "y": 60
           },
           "upperLeft": {
-            "x": 500.78125,
-            "y": 69.5966017040966
+            "x": 460.5234375,
+            "y": 60
           }
         },
         "dockers": [
           {
-            "x": 49.999999999999986,
+            "x": 50,
             "y": 40
           },
           {
@@ -478,14 +442,40 @@
           }
         ],
         "target": {
-          "resourceId": "sid-9020D2C7-A8CB-42BA-8351-8BE44670036C"
+          "resourceId": "sid-34025790-5755-4057-B9C4-D4B3E6C4841B"
         }
       },
       {
-        "resourceId": "sid-B030FD13-9ABF-4B34-9AFE-AC5F3FBD3287",
+        "resourceId": "sid-8C1B8FBF-4490-407D-9102-CA23747514D7",
         "properties": {
           "generalgroupheader": "",
-          "overrideid": "sid-B030FD13-9ABF-4B34-9AFE-AC5F3FBD3287",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "text": "Input parameters:\nbase_url\ncontract_id\ncontract"
+        },
+        "stencil": {
+          "id": "TextAnnotation"
+        },
+        "childShapes": [],
+        "outgoing": [],
+        "bounds": {
+          "lowerRight": {
+            "x": 154,
+            "y": 196
+          },
+          "upperLeft": {
+            "x": 30,
+            "y": 135
+          }
+        },
+        "dockers": []
+      },
+      {
+        "resourceId": "sid-7293C7DC-BF8D-40F2-8BDB-FEB8F2227983",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
           "name": "",
           "detailsgroupheader": "",
           "text": "Output parameters:\nsolvent"
@@ -497,12 +487,12 @@
         "outgoing": [],
         "bounds": {
           "lowerRight": {
-            "x": 701.1127040258144,
-            "y": 188.55169877389687
+            "x": 632.046875,
+            "y": 170
           },
           "upperLeft": {
-            "x": 540,
-            "y": 135
+            "x": 499.046875,
+            "y": 120
           }
         },
         "dockers": []
