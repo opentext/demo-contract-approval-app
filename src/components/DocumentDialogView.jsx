@@ -29,9 +29,7 @@ function DocumentDialogView({ open, fileId, onClose }) {
         },
       }).then((result) => {
         let blobId = '';
-        // eslint-disable-next-line no-underscore-dangle
         if (result && result.data && result.data._embedded && result.data._embedded.collection) {
-          // eslint-disable-next-line no-underscore-dangle
           result.data._embedded.collection.forEach((content) => {
             if (content.name === 'Brava rendition') {
               blobId = content.blob_id;

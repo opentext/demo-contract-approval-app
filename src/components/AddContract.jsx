@@ -149,9 +149,7 @@ function AddContract({
           },
         },
       ).then((res) => {
-        // eslint-disable-next-line no-underscore-dangle
         if (res.data._embedded) {
-          // eslint-disable-next-line no-underscore-dangle
           tempAppRootFolderId = res.data._embedded.collection[0].id;
           updateAppRootFolderId(tempAppRootFolderId);
         }
@@ -199,9 +197,7 @@ function AddContract({
         },
       },
     ).then((res) => {
-      // eslint-disable-next-line no-underscore-dangle
       if (res.data._embedded) {
-        // eslint-disable-next-line no-underscore-dangle
         parentFolderId = res.data._embedded.collection[0].id;
       }
     });
@@ -248,9 +244,7 @@ function AddContract({
         },
       },
     ).then((res) => {
-      // eslint-disable-next-line no-underscore-dangle
       if (res.data._embedded) {
-        // eslint-disable-next-line no-underscore-dangle
         aclId = res.data._embedded.collection[0].id;
       }
     });

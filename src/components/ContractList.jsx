@@ -74,7 +74,6 @@ function ContractList() {
     }).then((res) => {
       setState((prevState) => ({
         ...prevState,
-        // eslint-disable-next-line no-underscore-dangle
         contracts: res.data && res.data._embedded ? res.data._embedded.collection : [],
         count: res.data.total,
       }));
