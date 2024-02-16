@@ -2,8 +2,8 @@ import { PropTypes } from 'prop-types';
 import { TablePagination } from '@mui/material';
 
 function Pagination({ pageNumber, count, handlePageNumber }) {
-  const onChangePage = (page) => {
-    handlePageNumber(page);
+  const onChangePage = (event, newPage) => {
+    handlePageNumber(newPage);
   };
 
   return (

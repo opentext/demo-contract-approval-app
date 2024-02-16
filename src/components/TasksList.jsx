@@ -1,4 +1,5 @@
 import {
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -56,21 +57,15 @@ function TasksList({ taskName }) {
 
   const taskService = new Tasks(user, taskName);
 
-  const getTasks = () => {
+  const getTasks = useCallback(() => {
     setState((prevState) => ({ ...prevState, showBackdrop: true }));
     taskService.getTasks(state.pageNumber * 10).then((res) => {
-      // eslint-disable-next-line no-underscore-dangle
       if (res && res.data && res.data._embedded) {
-        // eslint-disable-next-line no-underscore-dangle
-        if (!res.data._links.next || res.data._embedded.tasks.length < 10) {
-          setState((prevState) => ({
-            ...prevState,
-            // eslint-disable-next-line no-underscore-dangle
-            count: state.pageNumber * 10 + res.data._embedded.tasks.length,
-            // eslint-disable-next-line no-underscore-dangle
-            tasks: res.data._embedded.tasks,
-          }));
-        }
+        setState((prevState) => ({
+          ...prevState,
+          count: res.data.page.totalElements,
+          tasks: res.data._embedded.tasks,
+        }));
       } else {
         setState((prevState) => ({
           ...prevState,
@@ -81,10 +76,12 @@ function TasksList({ taskName }) {
     }).finally(() => {
       setState((prevState) => ({ ...prevState, showBackdrop: false }));
     });
-  };
+  }, [
+    state.pageNumber,
+  ]);
 
-  const onChangePage = (page) => {
-    setState((prevState) => ({ ...prevState, page }));
+  const onChangePage = (pageNumber) => {
+    setState((prevState) => ({ ...prevState, pageNumber }));
   };
 
   const claimTask = (taskId) => {
