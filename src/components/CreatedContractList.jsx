@@ -83,7 +83,6 @@ function CreatedContractList() {
           Authorization: `Bearer ${user.access_token}`,
         },
       }).then((res) => {
-        // eslint-disable-next-line no-underscore-dangle
         const acls = res.data._embedded.collection;
         acls.forEach((acl) => {
           switch (acl.name) {
@@ -127,7 +126,6 @@ function CreatedContractList() {
       }).then((res) => {
         setState((prevState) => ({
           ...prevState,
-          // eslint-disable-next-line no-underscore-dangle
           contracts: res.data && res.data._embedded ? res.data._embedded.collection : [],
           count: res.data.total,
         }));
