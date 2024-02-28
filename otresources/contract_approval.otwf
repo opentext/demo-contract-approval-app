@@ -663,7 +663,7 @@
             ]
           },
           "callactivityinheritvariables": true,
-          "callactivitysamedeployment": true,
+          "callactivitysamedeployment": false,
           "callactivityfallbacktodefaulttenant": "false",
           "callactivityidvariablename": "",
           "callactivityprocessinstancename": "",
@@ -750,7 +750,7 @@
             ]
           },
           "callactivityinheritvariables": true,
-          "callactivitysamedeployment": true,
+          "callactivitysamedeployment": false,
           "callactivityfallbacktodefaulttenant": "false",
           "callactivityidvariablename": "",
           "callactivityprocessinstancename": "",
