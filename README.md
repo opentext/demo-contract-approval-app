@@ -12,12 +12,12 @@ Install VS Code from the following URL: https://code.visualstudio.com/download
 From the extensions View in VS Code, install the `OpenText Cloud Developer Tools - Extension Pack`.
 
 ## Tutorial
-We recommend you go through the detailed tutorial (that explains how to build the Contract Approval application). The tutorial is available under `HELP AND FEEDBACK` in the OpenText Cloud Developer Tools view.
+We recommend you go through the detailed tutorial (that explains how to build the Contract Approval application). The tutorial is available under `HELP AND FEEDBACK` in the OpenText Cloud Developer Tools view (Ot icon in the VS Code Activity Bar) or via this link: https://mimage.opentext.com/ot/2/devx/vscode/latest/vscode-tutorial.pdf.
 Although highly recommended, in case you don't want to go through the tutorial (yet), you can alternatively proceed with the below steps.
 
 ## Configure Organization Profile
 
-To allow deploying the application to your developer organization in the OpenText Cloud Platform, add an organization profile as described in the user guide. The user guide is available under `HELP AND FEEDBACK` in the OpenText Cloud Developer Tools view (OT icon in the VS Code Activity Bar). 
+To allow deploying the application to your developer organization in the OpenText Cloud Platform, add an organization profile as described in the user guide. The user guide is available under `HELP AND FEEDBACK` in the OpenText Cloud Developer Tools view (Ot icon in the VS Code Activity Bar) or via this link: https://mimage.opentext.com/ot/2/devx/vscode/latest/vscode-userguide.pdf. 
 
 ## Deployment
 
