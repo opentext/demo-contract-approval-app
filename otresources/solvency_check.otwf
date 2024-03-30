@@ -69,66 +69,6 @@
         "dockers": []
       },
       {
-        "resourceId": "sid-2080AD0E-84F2-48D5-B5F1-35375FE07B00",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "",
-          "name": "Update Solvency Check trait",
-          "detailsgroupheader": "",
-          "authenticationdetails": {
-            "useCurrentAuthToken": true
-          },
-          "httptaskrequestmethod": "PATCH",
-          "httptaskrequesturl": "${base_url}/cms/instances/file/ca_contract/${contract_id}",
-          "httptaskrequestheaders": "Content-Type: application/json",
-          "httptaskrequestbody": "{\n  \"traits\": {\n    \"ca_approval\": {\n      \"Solvency Check\": {\n        \"is_required\": true\n      }\n    }\n  }\n}",
-          "httptaskrequestbodyencoding": "",
-          "httptaskrequesttimeout": "",
-          "httptaskdisallowredirects": "",
-          "httptaskfailstatuscodes": "",
-          "httptaskhandlestatuscodes": "",
-          "httptaskignoreexception": "",
-          "httptaskresponsevariablename": "contract",
-          "httptasksaverequestvariables": "",
-          "httptasksaveresponseparameters": "",
-          "httptaskresultvariableprefix": "",
-          "httptasksaveresponseparameterstransient": "",
-          "httptasksaveresponseasjson": true,
-          "executiongroupheader": "",
-          "asynchronousdefinition": "false",
-          "isforcompensation": "false",
-          "exclusivedefinition": "false",
-          "skipexpression": "",
-          "executionlisteners": "",
-          "multiinstancegroupheader": "",
-          "multiinstance_type": "None",
-          "multiinstance_cardinality": "",
-          "multiinstance_collection": "",
-          "multiinstance_variable": "",
-          "multiinstance_condition": ""
-        },
-        "stencil": {
-          "id": "HttpTask"
-        },
-        "childShapes": [],
-        "outgoing": [
-          {
-            "resourceId": "sid-D321C747-C718-4B12-A91D-0E4EC31EF6F1"
-          }
-        ],
-        "bounds": {
-          "lowerRight": {
-            "x": 190,
-            "y": 100
-          },
-          "upperLeft": {
-            "x": 90,
-            "y": 20
-          }
-        },
-        "dockers": []
-      },
-      {
         "resourceId": "sid-9EE187E3-1613-4518-A5F4-D91FF87ED52A",
         "properties": {
           "generalgroupheader": "",
@@ -140,7 +80,8 @@
           "defaultflow": "false",
           "skipexpression": "",
           "executiongroupheader": "",
-          "executionlisteners": ""
+          "executionlisteners": "",
+          "showdiamondmarker": false
         },
         "stencil": {
           "id": "SequenceFlow"
@@ -148,16 +89,16 @@
         "childShapes": [],
         "outgoing": [
           {
-            "resourceId": "sid-2080AD0E-84F2-48D5-B5F1-35375FE07B00"
+            "resourceId": "sid-818495DE-5E2A-47DF-9C14-613C94A6A2D6"
           }
         ],
         "bounds": {
           "lowerRight": {
-            "x": 89.2734375,
+            "x": 90,
             "y": 60
           },
           "upperLeft": {
-            "x": 60.84375,
+            "x": 60,
             "y": 60
           }
         },
@@ -167,13 +108,39 @@
             "y": 15
           },
           {
-            "x": 50,
+            "x": 19,
             "y": 40
           }
         ],
         "target": {
-          "resourceId": "sid-2080AD0E-84F2-48D5-B5F1-35375FE07B00"
+          "resourceId": "sid-818495DE-5E2A-47DF-9C14-613C94A6A2D6"
         }
+      },
+      {
+        "resourceId": "sid-8C1B8FBF-4490-407D-9102-CA23747514D7",
+        "properties": {
+          "generalgroupheader": "",
+          "overrideid": "",
+          "name": "",
+          "detailsgroupheader": "",
+          "text": "Input parameters:\nbase_url\ncontract_id\ncontract"
+        },
+        "stencil": {
+          "id": "TextAnnotation"
+        },
+        "childShapes": [],
+        "outgoing": [],
+        "bounds": {
+          "lowerRight": {
+            "x": 154,
+            "y": 196
+          },
+          "upperLeft": {
+            "x": 30,
+            "y": 135
+          }
+        },
+        "dockers": []
       },
       {
         "resourceId": "sid-818495DE-5E2A-47DF-9C14-613C94A6A2D6",
@@ -208,62 +175,15 @@
         ],
         "bounds": {
           "lowerRight": {
-            "x": 325,
+            "x": 190,
             "y": 100
           },
           "upperLeft": {
-            "x": 225,
+            "x": 90,
             "y": 20
           }
         },
         "dockers": []
-      },
-      {
-        "resourceId": "sid-D321C747-C718-4B12-A91D-0E4EC31EF6F1",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "",
-          "name": "",
-          "detailsgroupheader": "",
-          "mandatoryinfo": "",
-          "conditionsequenceflow": "",
-          "defaultflow": "false",
-          "skipexpression": "",
-          "executiongroupheader": "",
-          "executionlisteners": ""
-        },
-        "stencil": {
-          "id": "SequenceFlow"
-        },
-        "childShapes": [],
-        "outgoing": [
-          {
-            "resourceId": "sid-818495DE-5E2A-47DF-9C14-613C94A6A2D6"
-          }
-        ],
-        "bounds": {
-          "lowerRight": {
-            "x": 224.4296875,
-            "y": 60
-          },
-          "upperLeft": {
-            "x": 190.5703125,
-            "y": 60
-          }
-        },
-        "dockers": [
-          {
-            "x": 50,
-            "y": 40
-          },
-          {
-            "x": 50,
-            "y": 40
-          }
-        ],
-        "target": {
-          "resourceId": "sid-818495DE-5E2A-47DF-9C14-613C94A6A2D6"
-        }
       },
       {
         "resourceId": "sid-C2491579-6C29-40B9-9283-22CADF3E6C64",
@@ -315,11 +235,11 @@
         ],
         "bounds": {
           "lowerRight": {
-            "x": 460,
+            "x": 325,
             "y": 100
           },
           "upperLeft": {
-            "x": 360,
+            "x": 225,
             "y": 20
           }
         },
@@ -350,11 +270,11 @@
         ],
         "bounds": {
           "lowerRight": {
-            "x": 359.4296875,
+            "x": 224.4296875,
             "y": 60
           },
           "upperLeft": {
-            "x": 325.5703125,
+            "x": 190.5703125,
             "y": 60
           }
         },
@@ -388,11 +308,11 @@
         "outgoing": [],
         "bounds": {
           "lowerRight": {
-            "x": 523.046875,
+            "x": 388.046875,
             "y": 74
           },
           "upperLeft": {
-            "x": 495.046875,
+            "x": 360.046875,
             "y": 46
           }
         },
@@ -423,11 +343,11 @@
         ],
         "bounds": {
           "lowerRight": {
-            "x": 494.118408203125,
+            "x": 359.118408203125,
             "y": 60
           },
           "upperLeft": {
-            "x": 460.5234375,
+            "x": 325.5234375,
             "y": 60
           }
         },
@@ -446,32 +366,6 @@
         }
       },
       {
-        "resourceId": "sid-8C1B8FBF-4490-407D-9102-CA23747514D7",
-        "properties": {
-          "generalgroupheader": "",
-          "overrideid": "",
-          "name": "",
-          "detailsgroupheader": "",
-          "text": "Input parameters:\nbase_url\ncontract_id\ncontract"
-        },
-        "stencil": {
-          "id": "TextAnnotation"
-        },
-        "childShapes": [],
-        "outgoing": [],
-        "bounds": {
-          "lowerRight": {
-            "x": 154,
-            "y": 196
-          },
-          "upperLeft": {
-            "x": 30,
-            "y": 135
-          }
-        },
-        "dockers": []
-      },
-      {
         "resourceId": "sid-7293C7DC-BF8D-40F2-8BDB-FEB8F2227983",
         "properties": {
           "generalgroupheader": "",
@@ -487,11 +381,11 @@
         "outgoing": [],
         "bounds": {
           "lowerRight": {
-            "x": 632.046875,
+            "x": 497.046875,
             "y": 170
           },
           "upperLeft": {
-            "x": 499.046875,
+            "x": 364.046875,
             "y": 120
           }
         },
