@@ -8,7 +8,7 @@
     "key": "required_approvals",
     "description": "Decision table to determine the required approval steps for the contract",
     "namespace": "f5840219-d3ca-4758-81ef-dd22ef10f8ba",
-    "hitIndicator": "COLLECT",
+    "hitIndicator": "RULE ORDER",
     "inputExpressions": [
       {
         "id": "input_1702985941643",
