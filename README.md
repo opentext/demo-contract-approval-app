@@ -7,9 +7,9 @@ This is a demo application to demonstrate how to consume the IM services from th
 
 Install VS Code from the following URL: https://code.visualstudio.com/download
 
-## Install the VS Code Extension Pack
+## Install the OpenText Thrust Studio Extension Pack
 
-From the extensions View in VS Code, install the `OpenText Cloud Developer Tools - Extension Pack`.
+From the extensions View in VS Code, install the `OpenText™ Thrust Studio` extension pack.
 
 ## Tutorial
 We recommend you go through the detailed tutorial (that explains how to build the Contract Approval application). The tutorial is available under `HELP AND FEEDBACK` in the OpenText Cloud Developer Tools view (Ot icon in the VS Code Activity Bar) or via this link: https://mimage.opentext.com/ot/2/devx/vscode/latest/vscode-tutorial.pdf.
