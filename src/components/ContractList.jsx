@@ -74,12 +74,12 @@ function ContractList() {
     }).then((res) => {
       setState((prevState) => ({
         ...prevState,
-        contracts: res.data && res.data._embedded ? res.data._embedded.collection : [],
+        contracts: res.data?._embedded ? res.data._embedded.collection : [],
         count: res.data.total,
       }));
     }).catch((error) => {
       let errorMessage = 'Could not get contracts: ';
-      if (error.response != null && error.response.data != null) {
+      if (error.response?.data != null) {
         errorMessage += error.response.data.exception;
       } else {
         errorMessage += error.message;

@@ -46,14 +46,12 @@ function App() {
     }
   }, [isAuthenticated, isLoading, isAppLoaded]);
 
-  switch (activeNavigator) {
-    case 'signoutRedirect':
-      return (
-        <div className="loading">
-          <CircularProgress color="inherit" />
-        </div>
-      );
-    default:
+  if (activeNavigator === 'signoutRedirect') {
+    return (
+      <div className="loading">
+        <CircularProgress color="inherit" />
+      </div>
+    );
   }
 
   if (error) {

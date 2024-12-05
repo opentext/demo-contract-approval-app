@@ -8,20 +8,20 @@ import ExtractedPersonalData from './ExtractedPersonalData';
 const riskClassifications = ['NONE', 'LOW', 'MEDIUM', 'HIGH', 'VERY HIGH'];
 
 function RiskClassification({ row }) {
-  const [openExtractedPersonalData, setOpenExtratedPersonalData] = useState(false);
+  const [openExtractedPersonalData, setOpenExtractedPersonalData] = useState(false);
 
   const showExtractedPersonalData = () => {
-    setOpenExtratedPersonalData(true);
+    setOpenExtractedPersonalData(true);
   };
 
   const handleCloseExtractedPersonalData = () => {
-    setOpenExtratedPersonalData(false);
+    setOpenExtractedPersonalData(false);
   };
 
   return (
     <div>
       {riskClassifications[row.properties.risk_classification - 1]}
-      <IconButton size="small" variant="outlined" color="primary" title="Show extracted personal data" onClick={() => showExtractedPersonalData(row)}>
+      <IconButton size="small" variant="outlined" color="primary" title="Show extracted personal data" onClick={() => showExtractedPersonalData()}>
         <Info />
       </IconButton>
       <ExtractedPersonalData

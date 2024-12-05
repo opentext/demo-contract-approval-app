@@ -23,23 +23,17 @@ function DocumentDialogView({ open, fileId, onClose }) {
     const getPublicationData = () => {
       axios({
         method: 'get',
-        url: `${baseUrl}/cms/instances/file/ca_contract/${fileId}/contents`,
+        url: `${baseUrl}/cms/instances/file/ca_contract/${fileId}`,
         headers: {
           Authorization: `Bearer ${user.access_token}`,
         },
       }).then((result) => {
-        let blobId = '';
-        if (result && result.data && result.data._embedded && result.data._embedded.collection) {
-          result.data._embedded.collection.forEach((content) => {
-            if (content.name === 'Brava rendition') {
-              blobId = content.blob_id;
-            }
-          });
-        }
-        if (blobId) {
+        // eslint-disable-next-line no-underscore-dangle
+        const { href } = result.data._links['urn:eim:linkrel:download-media'];
+        if (href) {
           axios({
             method: 'get',
-            url: `${process.env.REACT_APP_CSS_SERVICE_URL}/v2/content/${blobId}/download`,
+            url: `${baseUrl}/publication/api/v1/renditions?sourceUrl=${href}`,
             headers: {
               Authorization: `Bearer ${user.access_token}`,
             },
@@ -52,7 +46,7 @@ function DocumentDialogView({ open, fileId, onClose }) {
           }).catch((error) => {
             // eslint-disable-next-line no-alert
             alert(
-              error.response != null && error.response.data != null
+              error.response?.data != null
                 ? error.response.data : error.message,
             );
           });
@@ -60,7 +54,7 @@ function DocumentDialogView({ open, fileId, onClose }) {
       }).catch((error) => {
         // eslint-disable-next-line no-alert
         alert(
-          error.response != null && error.response.data != null
+          error.response?.data != null
             ? error.response.data : error.message,
         );
       });

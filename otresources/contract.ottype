@@ -1,6 +1,6 @@
 {
   "id": "cf1359bf-c5aa-462d-97e6-6bc98352742b",
-  "schemaId": "https://www.opentext.com/ocp/devx/metadata/1.0.1/Type",
+  "schemaId": "https://www.opentext.com/ocp/devx/metadata/1.0.2/Type",
   "data": {
     "actions": [],
     "category": "file",
