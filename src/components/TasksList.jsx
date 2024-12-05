@@ -105,7 +105,7 @@ function TasksList({ taskName }) {
       })
       .catch((error) => {
         let errorMessage = `Could not ${(approve ? 'approve ' : 'reject ')} task: `;
-        if (error.response?.data != null) {
+        if (error.response?.data) {
           errorMessage += error.response.data.exception;
         } else {
           errorMessage += error.message;
@@ -140,7 +140,7 @@ function TasksList({ taskName }) {
   const getContractValue = (task) => {
     if (task?.variables) {
       const found = task.variables.find((q) => q.name === 'contract');
-      return found.value.properties ? found.value.properties.value : '';
+      return found.value.properties?.value ?? '';
     }
     return '';
   };

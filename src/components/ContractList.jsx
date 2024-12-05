@@ -74,12 +74,12 @@ function ContractList() {
     }).then((res) => {
       setState((prevState) => ({
         ...prevState,
-        contracts: res.data?._embedded ? res.data._embedded.collection : [],
+        contracts: res.data?._embedded?.collection ?? [],
         count: res.data.total,
       }));
     }).catch((error) => {
       let errorMessage = 'Could not get contracts: ';
-      if (error.response?.data != null) {
+      if (error.response?.data) {
         errorMessage += error.response.data.exception;
       } else {
         errorMessage += error.message;
@@ -159,8 +159,8 @@ function ContractList() {
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">{row.name}</TableCell>
                 <TableCell align="left">{getDateValue(row.create_time)}</TableCell>
-                <TableCell align="left">{row.properties ? row.properties.status : ''}</TableCell>
-                <TableCell align="left">{row.properties ? row.properties.value : ''}</TableCell>
+                <TableCell align="left">{row.properties?.status ?? ''}</TableCell>
+                <TableCell align="left">{row.properties?.value ?? ''}</TableCell>
                 <TableCell align="left"><RiskClassification row={row} /></TableCell>
                 <TableCell align="left">
                   <Button size="small" variant="outlined" color="primary" onClick={() => openDocumentDialogView(row.id, row.name)}>Original</Button>

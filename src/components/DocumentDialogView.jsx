@@ -45,18 +45,12 @@ function DocumentDialogView({ open, fileId, onClose }) {
             }
           }).catch((error) => {
             // eslint-disable-next-line no-alert
-            alert(
-              error.response?.data != null
-                ? error.response.data : error.message,
-            );
+            alert(error.response?.data ?? error.message);
           });
         }
       }).catch((error) => {
         // eslint-disable-next-line no-alert
-        alert(
-          error.response?.data != null
-            ? error.response.data : error.message,
-        );
+        alert(error.response?.data ?? error.message);
       });
     };
 
