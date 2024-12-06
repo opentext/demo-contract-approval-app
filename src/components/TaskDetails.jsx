@@ -14,21 +14,21 @@ function TaskDetails({ open, selectedTask, onClose }) {
   const getDateValue = (dt) => (dt ? new Date(Date.parse(dt)).toLocaleString() : '');
 
   const getContractName = (task) => {
-    if (task && task.variables[0]) {
+    if (task?.variables[0]) {
       return task.variables.find((q) => q.name === 'contract').value.name;
     }
     return '';
   };
 
   const getRequesterEmail = (task) => {
-    if (task && task.variables[0]) {
+    if (task?.variables[0]) {
       return task.variables.find((q) => q.name === 'contract').value.properties.requester_email;
     }
     return '';
   };
 
   const getContractValue = (task) => {
-    if (task && task.variables[0]) {
+    if (task?.variables[0]) {
       return task.variables.find((q) => q.name === 'contract').value.properties.value;
     }
     return '';

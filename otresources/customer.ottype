@@ -1,6 +1,6 @@
 {
   "id": "6e965b48-6015-46f3-8c58-f37d20b0d877",
-  "schemaId": "https://www.opentext.com/ocp/devx/metadata/1.0.1/Type",
+  "schemaId": "https://www.opentext.com/ocp/devx/metadata/1.0.2/Type",
   "data": {
     "actions": [],
     "category": "folder",

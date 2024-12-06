@@ -78,7 +78,7 @@ function AddContract({
     const selectedFile = event.target.files[0];
     setState((prevState) => ({ ...prevState, selectedFile }));
     fileNameELementRef.current.innerHTML = selectedFile.name;
-    if (!/\.pdf$/.test(selectedFile.name)) {
+    if (!selectedFile.name.endsWith('.pdf')) {
       fileNameELementRef.current.innerHTML += '<br/><b>Note: This application only supports pdf files.</b>';
     }
   };
@@ -127,6 +127,15 @@ function AddContract({
     )
   );
 
+  const exitAddContract = (errorMessage) => {
+    closeDialog();
+    if (errorMessage) {
+      onAddContract(errorMessage);
+    } else {
+      onAddContract();
+    }
+  };
+
   const submitContract = async () => {
     setState((prevState) => ({ ...prevState, showBackdrop: true }));
     const risk = await riskGuardService.processDoc(
@@ -141,19 +150,18 @@ function AddContract({
 
     // Check for application root folder, and if not existing, create it
     if (tempAppRootFolderId === '') {
-      await axios.get(
+      const getAppFolderResponse = await axios.get(
         `${baseUrl}/cms/instances/folder/cms_folder?filter=name eq 'Contract Approval App'`,
         {
           headers: {
             Authorization: `Bearer ${user.access_token}`,
           },
         },
-      ).then((res) => {
-        if (res.data._embedded) {
-          tempAppRootFolderId = res.data._embedded.collection[0].id;
-          updateAppRootFolderId(tempAppRootFolderId);
-        }
-      });
+      );
+      if (getAppFolderResponse?.data?._embedded) {
+        tempAppRootFolderId = getAppFolderResponse.data._embedded.collection[0].id;
+        updateAppRootFolderId(tempAppRootFolderId);
+      }
     }
 
     if (tempAppRootFolderId === '') {
@@ -181,7 +189,7 @@ function AddContract({
         } else {
           errorMessage = `Error creating App Root Folder: ${JSON.stringify(error.response.data, null, 2)}`;
         }
-        onAddContract(`Error creating contract: ${errorMessage}`);
+        exitAddContract(`Error creating contract: ${errorMessage}`);
       });
     }
 
@@ -230,70 +238,71 @@ function AddContract({
         } else {
           errorMessage = `Error creating Customer Folder: ${JSON.stringify(error.response.data, null, 2)}`;
         }
-        onAddContract(`Error creating contract: ${errorMessage}`);
+        exitAddContract(`Error creating contract: ${errorMessage}`);
       });
     }
 
     // Get the ID of the 'Created' ACL
     let aclId = '';
-    await axios.get(
+    const getAclResponse = await axios.get(
       `${baseUrl}/cms/permissions?filter=name eq 'created'`,
       {
         headers: {
           Authorization: `Bearer ${user.access_token}`,
         },
       },
-    ).then((res) => {
-      if (res.data._embedded) {
-        aclId = res.data._embedded.collection[0].id;
-      }
-    });
+    );
+    if (getAclResponse?.data?._embedded) {
+      aclId = getAclResponse.data._embedded.collection[0].id;
+    }
 
-    // Adding Contract
+    // Adding contract content file
     const formData = new FormData();
     formData.append(
       'file',
       state.selectedFile,
       state.selectedFile.name,
     );
-    axios.post(
-      `${process.env.REACT_APP_CSS_SERVICE_URL}/v2/tenant/${process.env.REACT_APP_TENANT_ID}/content`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${user.access_token}`,
-        },
-      },
-    ).then((res) => {
-      let cmsType;
-      if (isLoanContract()) {
-        cmsType = 'ca_loan_contract';
-      } else {
-        cmsType = 'ca_contract';
-      }
 
-      // Setting metadata
-      return axios({
-        method: 'post',
-        url: `${baseUrl}/cms/instances/file/${cmsType}`,
-        headers: {
-          Authorization: `Bearer ${user.access_token}`,
+    let createFileResponse;
+    try {
+      createFileResponse = await axios.post(
+        `${process.env.REACT_APP_CSS_SERVICE_URL}/v3/files/fromStream`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${user.access_token}`,
+          },
         },
-        data: {
+      );
+    } catch (error) {
+      exitAddContract(`Error saving contract content file: ${JSON.stringify(error.response.data, null, 2)}`);
+    }
+
+    // Setting contract metadata
+    const { originalFileName } = createFileResponse.data;
+    let cmsType;
+    if (isLoanContract()) {
+      cmsType = 'ca_loan_contract';
+    } else {
+      cmsType = 'ca_contract';
+    }
+
+    let createMetadataResponse;
+    try {
+      createMetadataResponse = await axios.post(
+        `${baseUrl}/cms/instances/file/${cmsType}`,
+        {
           name: state.newContractName,
           parent_folder_id: parentFolderId,
           acl_id: aclId,
           renditions: [
             {
-              name: res.data.entries[0].fileName,
+              name: originalFileName,
               rendition_type: 'primary',
-              blob_id: res.data.entries[0].id,
-            },
-            {
-              name: 'Brava rendition',
-              mime_type: 'application/vnd.blazon+json',
-              rendition_type: 'SECONDARY',
+              source: 'FILE_ID',
+              blob_id: createFileResponse.data.id,
             },
           ],
           properties: {
@@ -338,11 +347,13 @@ function AddContract({
             },
           },
         },
-      });
-    }).then(() => {
-      closeDialog();
-      onAddContract();
-    }).catch((error) => {
+        {
+          headers: {
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        },
+      );
+    } catch (error) {
       const statusCode = error.response.status;
       let errorMessage;
       if (statusCode === 400) {
@@ -354,11 +365,31 @@ function AddContract({
       } else {
         errorMessage = JSON.stringify(error.response.data, null, 2);
       }
-      onAddContract(`Error creating contract: ${errorMessage}`);
-    })
-      .finally(() => {
-        setState((prevState) => ({ ...prevState, showBackdrop: false }));
-      });
+      exitAddContract(`Error setting contract metadata: ${errorMessage}`);
+    }
+
+    // Creating and adding contract PDF rendition (for viewer)
+    try {
+      await axios.post(
+        `${baseUrl}/publication/api/v1/renditions`,
+        {
+          source: {
+            // eslint-disable-next-line no-underscore-dangle
+            url: createMetadataResponse.data._links['urn:eim:linkrel:download-media'].href,
+            formatHint: 'application/pdf',
+            filenameHint: originalFileName,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.access_token}`,
+          },
+        },
+      );
+      exitAddContract();
+    } catch (error) {
+      exitAddContract(`Error creating contract PDF rendition: ${JSON.stringify(error.response.data, null, 2)}`);
+    }
   };
 
   return (
@@ -368,6 +399,7 @@ function AddContract({
         <div className="select-document-button">
           <Button component="label" variant="contained" startIcon={<CloudUpload />}>
             Select Document
+            {' '}
             <input id="files" type="file" accept="application/pdf" className="file-input" onChange={selectFile} />
           </Button>
           <span className="add-contract-filename" id="fileName" ref={setFileNameInputRef} />

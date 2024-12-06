@@ -60,7 +60,7 @@ function TasksList({ taskName }) {
   const getTasks = useCallback(() => {
     setState((prevState) => ({ ...prevState, showBackdrop: true }));
     taskService.getTasks(state.pageNumber * 10).then((res) => {
-      if (res && res.data && res.data._embedded) {
+      if (res?.data?._embedded) {
         setState((prevState) => ({
           ...prevState,
           count: res.data.page.totalElements,
@@ -105,7 +105,7 @@ function TasksList({ taskName }) {
       })
       .catch((error) => {
         let errorMessage = `Could not ${(approve ? 'approve ' : 'reject ')} task: `;
-        if (error.response != null && error.response.data != null) {
+        if (error.response?.data) {
           errorMessage += error.response.data.exception;
         } else {
           errorMessage += error.message;
@@ -131,29 +131,29 @@ function TasksList({ taskName }) {
   };
 
   const getContractName = (task) => {
-    if (task && task.variables) {
+    if (task?.variables) {
       return task.variables.find((q) => q.name === 'contract').value.name;
     }
     return '';
   };
 
   const getContractValue = (task) => {
-    if (task && task.variables) {
+    if (task?.variables) {
       const found = task.variables.find((q) => q.name === 'contract');
-      return found.value.properties ? found.value.properties.value : '';
+      return found.value.properties?.value ?? '';
     }
     return '';
   };
 
   const getContract = (task) => {
-    if (task && task.variables) {
+    if (task?.variables) {
       const found = task.variables.find((q) => q.name === 'contract');
       return found.value.properties ? found.value : '';
     }
     return '';
   };
 
-  const getDateValue = (task) => (task && task.createTime ? new Date(Date.parse(task.createTime)).toLocaleString() : '');
+  const getDateValue = (task) => (task?.createTime ? new Date(Date.parse(task.createTime)).toLocaleString() : '');
 
   const handleCloseTaskDetails = () => {
     setState((prevState) => ({ ...prevState, detailsOpen: false }));

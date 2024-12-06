@@ -93,7 +93,7 @@ function ContractDetails({
         setContract(res.data);
       }).catch((error) => {
         let errorMessage = `Could not fetch ${selectedContract.type} with Id ${selectedContract.id}: `;
-        if (error.response != null && error.response.data != null) {
+        if (error.response?.data) {
           errorMessage += error.response.data.exception;
         } else {
           errorMessage += error.message;
@@ -113,7 +113,7 @@ function ContractDetails({
         setContractAcl(res.data);
       }).catch((error) => {
         let errorMessage = `Could not fetch ACL for ${selectedContract.type} with Id ${selectedContract.id}: `;
-        if (error.response != null && error.response.data != null) {
+        if (error.response?.data) {
           errorMessage += error.response.data.exception;
         } else {
           errorMessage += error.message;

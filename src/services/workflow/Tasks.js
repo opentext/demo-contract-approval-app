@@ -16,9 +16,7 @@ class Tasks {
       },
     }).catch((error) => {
       // eslint-disable-next-line no-alert
-      alert(
-        error.response != null && error.response.data != null ? error.response.data : error.message,
-      );
+      alert(error.response?.data ?? error.message);
     });
   }
 
@@ -35,9 +33,7 @@ class Tasks {
       },
     }).catch((error) => {
       // eslint-disable-next-line no-alert
-      alert(
-        error.response != null && error.response.data != null ? error.response.data : error.message,
-      );
+      alert(error.response?.data ?? error.message);
     });
   }
 

@@ -120,8 +120,8 @@ class RiskGuard {
     return new Promise((resolve, reject) => {
       axios(postRequest).then((postResponse) => {
         resolve({ data: RiskGuard.calculateRisk(postResponse) });
-      }).catch((response) => {
-        reject(response.response);
+      }).catch((err) => {
+        reject(new Error(err.response));
       });
     });
   }
