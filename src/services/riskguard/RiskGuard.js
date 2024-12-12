@@ -19,7 +19,7 @@ class RiskGuard {
     let riskClassification = 1;
     let personNameCount = 0;
     let phoneNumberCount = 0;
-    rgResponse.data.results.tme.result.Results.nfinder[0].nfExtract[0].ExtractedTerm.forEach(
+    rgResponse.data.results.tme.result.results.nfinder[0].nfExtract[0].extractedTerm.forEach(
       (extractedTerm) => {
         const cartridgeID = extractedTerm.CartridgeID;
         switch (cartridgeID) {
@@ -121,6 +121,7 @@ class RiskGuard {
       axios(postRequest).then((postResponse) => {
         resolve({ data: RiskGuard.calculateRisk(postResponse) });
       }).catch((err) => {
+        console.log(err);
         reject(new Error(err.response));
       });
     });
