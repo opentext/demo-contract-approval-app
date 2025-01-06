@@ -2,11 +2,11 @@ import axios from 'axios';
 
 class RiskGuard {
   constructor(user) {
-    this.url = `${process.env.REACT_APP_BASE_SERVICE_URL}/mtm-riskguard/api/v1/process`;
+    this.url = `${process.env.REACT_APP_BASE_SERVICE_URL}/mtm-riskguard/api/v1/process?fullTmeResult=true`;
     this.user = user;
   }
 
-  static calculateRisk(rgResponse) {
+  static calculateRisk(response) {
     const extractedSSN = ['**Social Security Numbers:'];
     const extractedCC = ['**Credit Card Numbers:'];
     const extractedBA = ['**Bank Accounts:'];
@@ -19,10 +19,9 @@ class RiskGuard {
     let riskClassification = 1;
     let personNameCount = 0;
     let phoneNumberCount = 0;
-    rgResponse.data.results.tme.result.Results.nfinder[0].nfExtract[0].ExtractedTerm.forEach(
+    response.data?.results?.tme?.result?.Results?.nfinder[0]?.nfExtract[0]?.ExtractedTerm?.forEach(
       (extractedTerm) => {
-        const cartridgeID = extractedTerm.CartridgeID;
-        switch (cartridgeID) {
+        switch (extractedTerm.CartridgeID) {
           case 'PN':
             if (extractedTerm.ConfidenceScore > 60) {
               if (extractedTerm.nfinderNormalized) {
@@ -121,6 +120,8 @@ class RiskGuard {
       axios(postRequest).then((postResponse) => {
         resolve({ data: RiskGuard.calculateRisk(postResponse) });
       }).catch((err) => {
+        // eslint-disable-next-line no-console
+        console.error(err);
         reject(new Error(err.response));
       });
     });

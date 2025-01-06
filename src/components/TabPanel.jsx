@@ -17,10 +17,6 @@ function TabPanel({
   );
 }
 
-TabPanel.defaultProps = {
-  children: null,
-};
-
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,

@@ -19,6 +19,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
 } from '@mui/material';
 import { ArrowForwardIos, Close } from '@mui/icons-material';
 
@@ -49,6 +50,10 @@ function ContractList() {
       showSnackBar: false,
       snackBarMessage: '',
       snackBarSeverity: 'success',
+      filters: {
+        name: '',
+        status: '',
+      },
     },
   );
   const didMountRef = useRef(false);
@@ -63,11 +68,21 @@ function ContractList() {
     }));
   }, []);
 
+  const buildFilterParam = (filterName, filterValue) => `LOWER(${filterName}) like '%${encodeURIComponent(filterValue).toLocaleLowerCase()}%'`;
+
   const getContracts = useCallback(() => {
     setState((prevState) => ({ ...prevState, showBackdrop: true }));
+    const filterParams = [];
+    if (state.filters.name) {
+      filterParams.push(buildFilterParam('name', state.filters.name));
+    }
+    if (state.filters.status) {
+      filterParams.push(buildFilterParam('status', state.filters.status));
+    }
+    const query = filterParams.length > 0 ? `&filter=${filterParams.join(' and ')}` : '';
     axios({
       method: 'get',
-      url: `${baseUrl}/cms/instances/file/ca_contract/?include-total=true&sortby=create_time desc&page=${state.pageNumber + 1}`,
+      url: `${baseUrl}/cms/instances/file/ca_contract/?include-total=true&sortby=create_time desc&page=${state.pageNumber + 1}${query}`,
       headers: {
         Authorization: `Bearer ${user.access_token}`,
       },
@@ -88,7 +103,7 @@ function ContractList() {
     }).finally(() => {
       setState((prevState) => ({ ...prevState, showBackdrop: false }));
     });
-  }, [raiseError, user.access_token, state.pageNumber]);
+  }, [raiseError, user.access_token, state.pageNumber, state.filters]);
 
   const handleCloseDocumentDialogView = () => {
     setState((prevState) => ({ ...prevState, openDocumentDialogView: false }));
@@ -139,8 +154,34 @@ function ContractList() {
 
   return (
     <div>
+      <div style={{ margin: '1rem' }}>
+        <TextField
+          label="Contract Name"
+          size="small"
+          value={state.filters.name}
+          onChange={(e) => setState((prevState) => ({
+            ...prevState,
+            filters: { ...prevState.filters, name: e.target.value },
+          }))}
+        />
+        {' '}
+        <TextField
+          label="Status"
+          size="small"
+          value={state.filters.status}
+          onChange={(e) => setState((prevState) => ({
+            ...prevState,
+            filters: { ...prevState.filters, status: e.target.value },
+          }))}
+        />
+        <Button
+          color="primary"
+          onClick={() => getContracts()}
+        >
+          Apply Filters
+        </Button>
+      </div>
       <div className="content-header">All contracts</div>
-
       <TableContainer component={Paper}>
         <Table size="small" aria-label="a dense table">
           <TableHead>
