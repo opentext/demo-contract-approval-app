@@ -2,7 +2,7 @@ import axios from 'axios';
 
 class RiskGuard {
   constructor(user) {
-    this.url = `${process.env.REACT_APP_BASE_SERVICE_URL}/mtm-riskguard/api/v1/process`;
+    this.url = `${process.env.REACT_APP_BASE_SERVICE_URL}/mtm-riskguard/api/v1/process?fullTmeResult=true`;
     this.user = user;
   }
 
@@ -19,58 +19,58 @@ class RiskGuard {
     let riskClassification = 1;
     let personNameCount = 0;
     let phoneNumberCount = 0;
-    response.data?.results?.tme?.result?.results?.nfinder[0]?.nfExtract[0]?.extractedTerm?.forEach(
+    response.data?.results?.tme?.result?.Results?.nfinder[0]?.nfExtract[0]?.ExtractedTerm?.forEach(
       (extractedTerm) => {
-        switch (extractedTerm.cartridgeID) {
+        switch (extractedTerm.CartridgeID) {
           case 'PN':
-            if (extractedTerm.confidenceScore > 60) {
+            if (extractedTerm.ConfidenceScore > 60) {
               if (extractedTerm.nfinderNormalized) {
                 extractedPN.push(extractedTerm.nfinderNormalized);
-              } else if (extractedTerm.mainTerm.value) {
-                extractedPN.push(extractedTerm.mainTerm.value);
+              } else if (extractedTerm.MainTerm.value) {
+                extractedPN.push(extractedTerm.MainTerm.value);
               }
               personNameCount += 1;
             }
             break;
           case 'Phone':
-            if (extractedTerm.confidenceScore > 60) {
+            if (extractedTerm.ConfidenceScore > 60) {
               extractedPhone.push(extractedTerm.nfinderNormalized);
               phoneNumberCount += 1;
             }
             break;
           case 'Address':
-            if (extractedTerm.confidenceScore > 60) {
+            if (extractedTerm.ConfidenceScore > 60) {
               extractedAddress.push(extractedTerm.nfinderNormalized);
             }
             break;
           case 'GL':
-            if (extractedTerm.confidenceScore > 60) {
-              extractedGL.push(extractedTerm.mainTerm.value);
+            if (extractedTerm.ConfidenceScore > 60) {
+              extractedGL.push(extractedTerm.MainTerm.value);
             }
             break;
           case 'ON':
-            if (extractedTerm.confidenceScore > 60) {
+            if (extractedTerm.ConfidenceScore > 60) {
               if (extractedTerm.nfinderNormalized) {
                 extractedON.push(extractedTerm.nfinderNormalized);
-              } else if (extractedTerm.mainTerm.value) {
-                extractedON.push(extractedTerm.mainTerm.value);
+              } else if (extractedTerm.MainTerm.value) {
+                extractedON.push(extractedTerm.MainTerm.value);
               }
             }
             break;
           case 'SSN':
-            extractedSSN.push(extractedTerm.clientNormalized);
+            extractedSSN.push(extractedTerm.ClientNormalized);
             if (riskClassification < 5) {
               riskClassification = 5;
             }
             break;
           case 'CreditCard':
-            extractedCC.push(extractedTerm.clientNormalized);
+            extractedCC.push(extractedTerm.ClientNormalized);
             if (riskClassification < 4) {
               riskClassification = 4;
             }
             break;
           case 'BankAccount':
-            extractedBA.push(extractedTerm.clientNormalized);
+            extractedBA.push(extractedTerm.ClientNormalized);
             if (riskClassification < 2) {
               riskClassification = 2;
             }
@@ -121,7 +121,7 @@ class RiskGuard {
         resolve({ data: RiskGuard.calculateRisk(postResponse) });
       }).catch((err) => {
         // eslint-disable-next-line no-console
-        console.err(err);
+        console.error(err);
         reject(new Error(err.response));
       });
     });
