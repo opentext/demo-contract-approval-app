@@ -16,6 +16,7 @@ rules:
   linebreak-style: 0
   react/react-in-jsx-scope: off
   no-underscore-dangle: ["error", { "allow": ["_embedded"] }]
+  react/require-default-props: off
 settings:
   react:
     version: detect

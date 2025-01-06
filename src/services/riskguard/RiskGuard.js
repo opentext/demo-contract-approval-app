@@ -6,7 +6,7 @@ class RiskGuard {
     this.user = user;
   }
 
-  static calculateRisk(rgResponse) {
+  static calculateRisk(response) {
     const extractedSSN = ['**Social Security Numbers:'];
     const extractedCC = ['**Credit Card Numbers:'];
     const extractedBA = ['**Bank Accounts:'];
@@ -19,59 +19,58 @@ class RiskGuard {
     let riskClassification = 1;
     let personNameCount = 0;
     let phoneNumberCount = 0;
-    rgResponse.data.results.tme.result.results.nfinder[0].nfExtract[0].extractedTerm.forEach(
+    response.data?.results?.tme?.result?.results?.nfinder[0]?.nfExtract[0]?.extractedTerm?.forEach(
       (extractedTerm) => {
-        const cartridgeID = extractedTerm.CartridgeID;
-        switch (cartridgeID) {
+        switch (extractedTerm.cartridgeID) {
           case 'PN':
-            if (extractedTerm.ConfidenceScore > 60) {
+            if (extractedTerm.confidenceScore > 60) {
               if (extractedTerm.nfinderNormalized) {
                 extractedPN.push(extractedTerm.nfinderNormalized);
-              } else if (extractedTerm.MainTerm.value) {
-                extractedPN.push(extractedTerm.MainTerm.value);
+              } else if (extractedTerm.mainTerm.value) {
+                extractedPN.push(extractedTerm.mainTerm.value);
               }
               personNameCount += 1;
             }
             break;
           case 'Phone':
-            if (extractedTerm.ConfidenceScore > 60) {
+            if (extractedTerm.confidenceScore > 60) {
               extractedPhone.push(extractedTerm.nfinderNormalized);
               phoneNumberCount += 1;
             }
             break;
           case 'Address':
-            if (extractedTerm.ConfidenceScore > 60) {
+            if (extractedTerm.confidenceScore > 60) {
               extractedAddress.push(extractedTerm.nfinderNormalized);
             }
             break;
           case 'GL':
-            if (extractedTerm.ConfidenceScore > 60) {
-              extractedGL.push(extractedTerm.MainTerm.value);
+            if (extractedTerm.confidenceScore > 60) {
+              extractedGL.push(extractedTerm.mainTerm.value);
             }
             break;
           case 'ON':
-            if (extractedTerm.ConfidenceScore > 60) {
+            if (extractedTerm.confidenceScore > 60) {
               if (extractedTerm.nfinderNormalized) {
                 extractedON.push(extractedTerm.nfinderNormalized);
-              } else if (extractedTerm.MainTerm.value) {
-                extractedON.push(extractedTerm.MainTerm.value);
+              } else if (extractedTerm.mainTerm.value) {
+                extractedON.push(extractedTerm.mainTerm.value);
               }
             }
             break;
           case 'SSN':
-            extractedSSN.push(extractedTerm.ClientNormalized);
+            extractedSSN.push(extractedTerm.clientNormalized);
             if (riskClassification < 5) {
               riskClassification = 5;
             }
             break;
           case 'CreditCard':
-            extractedCC.push(extractedTerm.ClientNormalized);
+            extractedCC.push(extractedTerm.clientNormalized);
             if (riskClassification < 4) {
               riskClassification = 4;
             }
             break;
           case 'BankAccount':
-            extractedBA.push(extractedTerm.ClientNormalized);
+            extractedBA.push(extractedTerm.clientNormalized);
             if (riskClassification < 2) {
               riskClassification = 2;
             }
@@ -121,7 +120,8 @@ class RiskGuard {
       axios(postRequest).then((postResponse) => {
         resolve({ data: RiskGuard.calculateRisk(postResponse) });
       }).catch((err) => {
-        console.log(err);
+        // eslint-disable-next-line no-console
+        console.err(err);
         reject(new Error(err.response));
       });
     });
