@@ -2,7 +2,7 @@
   "id": "51bd0f86-f261-48a1-a19a-3b28146c4c0d",
   "schemaId": "https://www.opentext.com/ocp/devx/workflow/1.0.0/Flow",
   "data": {
-    "modelId": 1,
+    "modelId": "1",
     "bounds": {
       "lowerRight": {
         "x": 1600,
@@ -14,25 +14,36 @@
       }
     },
     "properties": {
+      "tabgroupheader": "",
       "generalgroupheader": "",
       "process_id": "solvency_check",
       "name": "Solvency Check",
-      "detailsgroupheader": "",
-      "process_version": "",
-      "process_namespace": "f5840219-d3ca-4758-81ef-dd22ef10f8ba",
-      "process_historylevel": "audit",
-      "dataproperties": "",
-      "process_potentialstarteruser": "",
-      "process_potentialstartergroup": "",
+      "process_namespace": "58ba8c4f-a4d2-4c58-904c-977a93938b3b",
+      "headerseperator": "",
+      "startdefinitionsgroupheader": "",
       "signaldefinitions": "",
       "messagedefinitions": "",
       "escalationdefinitions": "",
-      "duedatedefinition": "",
+      "contextheaderseperator": "",
+      "contextgroupheader": "",
+      "dataproperties": "",
+      "executionheaderseperator": "",
       "executiongroupheader": "",
-      "isasynchistoryenable": true,
-      "isexecutable": true,
-      "eventlisteners": "",
+      "duedatedefinition": "",
       "executionlisteners": "",
+      "historygroupheader": "",
+      "process_historylevel": "audit",
+      "isasynchistoryenable": true,
+      "permissionsheaderseperator": "",
+      "permissionsgroupheader": "",
+      "process_potentialstarteruser": "",
+      "process_potentialstartergroup": "",
+      "executionheaderseperatorhidden": "",
+      "executiongroupheaderhidden": "",
+      "eventlisteners": "",
+      "detailsgroupheader": "",
+      "process_version": "",
+      "isexecutable": true,
       "documentation": "My Process"
     },
     "childShapes": [
@@ -42,10 +53,11 @@
           "generalgroupheader": "",
           "overrideid": "",
           "name": "Start",
-          "detailsgroupheader": "",
           "initiator": "",
+          "executionheaderseperator": "",
           "executiongroupheader": "",
-          "executionlisteners": ""
+          "executionlisteners": "",
+          "detailsgroupheader": ""
         },
         "stencil": {
           "id": "StartNoneEvent"
@@ -72,15 +84,18 @@
         "resourceId": "sid-9EE187E3-1613-4518-A5F4-D91FF87ED52A",
         "properties": {
           "generalgroupheader": "",
-          "overrideid": "",
           "name": "",
-          "detailsgroupheader": "",
+          "connectordetailsheaderseperator": "",
+          "connectordetailsgroupheader": "",
           "mandatoryinfo": "",
           "conditionsequenceflow": "",
           "defaultflow": "false",
           "skipexpression": "",
+          "executionheaderseperator": "",
           "executiongroupheader": "",
           "executionlisteners": "",
+          "overrideid": "",
+          "detailsgroupheader": "",
           "showdiamondmarker": false
         },
         "stencil": {
@@ -122,8 +137,10 @@
           "generalgroupheader": "",
           "overrideid": "",
           "name": "",
-          "detailsgroupheader": "",
-          "text": "Input parameters:\nbase_url\ncontract_id\ncontract"
+          "annotationheaderseperator": "",
+          "annotationgroupheader": "",
+          "text": "Input parameters:\nbase_url\ncontract_id\ncontract",
+          "detailsgroupheader": ""
         },
         "stencil": {
           "id": "TextAnnotation"
@@ -145,24 +162,30 @@
       {
         "resourceId": "sid-818495DE-5E2A-47DF-9C14-613C94A6A2D6",
         "properties": {
+          "tabgroupheader": "",
           "generalgroupheader": "",
           "overrideid": "",
           "name": "Calculate solvency",
-          "detailsgroupheader": "",
-          "scriptformat": "JavaScript",
+          "scriptheaderseperator": "",
+          "scriptgroupheader": "",
           "scripttext": "const contractDetails = JSON.parse(execution.getVariable(\"contract\"));\nconst monthlyPayments = contractDetails.properties.value / contractDetails.properties.monthly_installments;\nconst monthlyBudget = contractDetails.properties.yearly_income / 12 / 4;\n\nexecution.setVariable(\"solvent\", monthlyBudget >= monthlyPayments);",
           "scriptautostorevariables": "false",
+          "executionheaderseperator": "",
           "executiongroupheader": "",
-          "asynchronousdefinition": "false",
-          "isforcompensation": "false",
-          "exclusivedefinition": "false",
           "executionlisteners": "",
+          "scriptformat": "JavaScript",
           "multiinstancegroupheader": "",
           "multiinstance_type": "None",
           "multiinstance_cardinality": "",
           "multiinstance_collection": "",
           "multiinstance_variable": "",
-          "multiinstance_condition": ""
+          "multiinstance_condition": "",
+          "executionheaderseperatorhidden": "",
+          "executiongroupheaderhidden": "",
+          "asynchronousdefinition": "false",
+          "isforcompensation": "false",
+          "exclusivedefinition": "false",
+          "detailsgroupheader": ""
         },
         "stencil": {
           "id": "ScriptTask"
@@ -188,10 +211,12 @@
       {
         "resourceId": "sid-C2491579-6C29-40B9-9283-22CADF3E6C64",
         "properties": {
+          "tabgroupheader": "",
           "generalgroupheader": "",
           "overrideid": "",
           "name": "Update Solvency Check trait",
-          "detailsgroupheader": "",
+          "restheadersepeartor": "",
+          "restdetailsgroupheader": "",
           "authenticationdetails": {
             "useCurrentAuthToken": true
           },
@@ -199,30 +224,37 @@
           "httptaskrequesturl": "${base_url}/cms/instances/file/ca_contract/${contract_id}",
           "httptaskrequestheaders": "Content-Type: application/json",
           "httptaskrequestbody": "{\n  \"traits\": {\n    \"ca_approval\": {\n      \"Solvency Check\": {\n        \"is_required\": true,\n        \"has_been_granted\": ${solvent},\n        \"approver\": \"SYSTEM\",\n        \"approver_role\": \"Solvency Check\",\n        \"approval_date\": \"${contract.update_time}\"\n      }\n    }\n  }\n}",
+          "httptaskresponsevariablename": "contract",
+          "httptasksaveresponseasjson": true,
+          "httptasksaveresponseparameterstransient": "",
+          "executionheaderseperator": "",
+          "executiongroupheader": "",
+          "executionlisteners": "",
+          "restapidetailsgroupheader": "",
           "httptaskrequestbodyencoding": "",
           "httptaskrequesttimeout": "",
+          "httptasksaverequestvariables": "",
           "httptaskdisallowredirects": "",
           "httptaskfailstatuscodes": "",
           "httptaskhandlestatuscodes": "",
           "httptaskignoreexception": "",
-          "httptaskresponsevariablename": "contract",
-          "httptasksaverequestvariables": "",
           "httptasksaveresponseparameters": "",
           "httptaskresultvariableprefix": "",
-          "httptasksaveresponseparameterstransient": "",
-          "httptasksaveresponseasjson": true,
-          "executiongroupheader": "",
-          "asynchronousdefinition": "false",
-          "isforcompensation": "false",
-          "exclusivedefinition": "false",
-          "skipexpression": "",
-          "executionlisteners": "",
-          "multiinstancegroupheader": "",
+          "iterationheadersepeartor": "",
+          "iterationdetailsgroupheader": "",
           "multiinstance_type": "None",
           "multiinstance_cardinality": "",
           "multiinstance_collection": "",
           "multiinstance_variable": "",
-          "multiinstance_condition": ""
+          "multiinstance_condition": "",
+          "executionheaderseperatorhidden": "",
+          "executiongroupheaderhidden": "",
+          "asynchronousdefinition": "false",
+          "isforcompensation": "false",
+          "exclusivedefinition": "false",
+          "detailsgroupheader": "",
+          "skipexpression": "",
+          "multiinstancegroupheader": ""
         },
         "stencil": {
           "id": "HttpTask"
@@ -249,15 +281,18 @@
         "resourceId": "sid-7DF03023-11E3-43BB-89A0-39BB1C86D7EC",
         "properties": {
           "generalgroupheader": "",
-          "overrideid": "",
           "name": "",
-          "detailsgroupheader": "",
+          "connectordetailsheaderseperator": "",
+          "connectordetailsgroupheader": "",
           "mandatoryinfo": "",
           "conditionsequenceflow": "",
           "defaultflow": "false",
           "skipexpression": "",
+          "executionheaderseperator": "",
           "executiongroupheader": "",
-          "executionlisteners": ""
+          "executionlisteners": "",
+          "overrideid": "",
+          "detailsgroupheader": ""
         },
         "stencil": {
           "id": "SequenceFlow"
@@ -298,6 +333,7 @@
           "generalgroupheader": "",
           "overrideid": "",
           "name": "End",
+          "executionheaderseperator": "",
           "executiongroupheader": "",
           "executionlisteners": ""
         },
@@ -322,15 +358,18 @@
         "resourceId": "sid-2CCBCB61-DB63-4CBA-8F51-DA8B9C4CF61C",
         "properties": {
           "generalgroupheader": "",
-          "overrideid": "",
           "name": "",
-          "detailsgroupheader": "",
+          "connectordetailsheaderseperator": "",
+          "connectordetailsgroupheader": "",
           "mandatoryinfo": "",
           "conditionsequenceflow": "",
           "defaultflow": "false",
           "skipexpression": "",
+          "executionheaderseperator": "",
           "executiongroupheader": "",
-          "executionlisteners": ""
+          "executionlisteners": "",
+          "overrideid": "",
+          "detailsgroupheader": ""
         },
         "stencil": {
           "id": "SequenceFlow"
@@ -371,8 +410,10 @@
           "generalgroupheader": "",
           "overrideid": "",
           "name": "",
-          "detailsgroupheader": "",
-          "text": "Output parameters:\nsolvent"
+          "annotationheaderseperator": "",
+          "annotationgroupheader": "",
+          "text": "Output parameters:\nsolvent",
+          "detailsgroupheader": ""
         },
         "stencil": {
           "id": "TextAnnotation"

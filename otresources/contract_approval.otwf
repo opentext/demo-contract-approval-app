@@ -5,7 +5,7 @@
     "modelId": "1",
     "bounds": {
       "lowerRight": {
-        "x": 1600,
+        "x": 1602,
         "y": 1050
       },
       "upperLeft": {
@@ -18,7 +18,7 @@
       "generalgroupheader": "",
       "process_id": "contract_approval",
       "name": "Contract Approval",
-      "process_namespace": "f5840219-d3ca-4758-81ef-dd22ef10f8ba",
+      "process_namespace": "58ba8c4f-a4d2-4c58-904c-977a93938b3b",
       "headerseperator": "",
       "startdefinitionsgroupheader": "",
       "signaldefinitions": "",
@@ -792,24 +792,17 @@
             "inParameters": [
               {
                 "source": "",
-                "sourceExpression": "Line Manager Approval",
-                "target": "approval_task_name",
+                "sourceExpression": "Line Manager",
+                "target": "approver_role",
                 "targetExpression": "",
-                "$$hashKey": "uiGrid-002H"
-              },
-              {
-                "source": "",
-                "sourceExpression": "Line Manager Approval",
-                "target": "approval_trait_name",
-                "targetExpression": "",
-                "$$hashKey": "uiGrid-002R"
+                "$$hashKey": "uiGrid-002L"
               },
               {
                 "source": "",
                 "sourceExpression": "line_managers",
                 "target": "approver_group",
                 "targetExpression": "",
-                "$$hashKey": "uiGrid-0031"
+                "$$hashKey": "uiGrid-002N"
               }
             ]
           },
@@ -1013,24 +1006,17 @@
             "inParameters": [
               {
                 "source": "",
-                "sourceExpression": "Risk Manager Approval",
-                "target": "approval_task_name",
+                "sourceExpression": "Risk Manager",
+                "target": "approver_role",
                 "targetExpression": "",
-                "$$hashKey": "uiGrid-0049"
-              },
-              {
-                "source": "",
-                "sourceExpression": "Risk Manager Approval",
-                "target": "approval_trait_name",
-                "targetExpression": "",
-                "$$hashKey": "uiGrid-004J"
+                "$$hashKey": "uiGrid-001F"
               },
               {
                 "source": "",
                 "sourceExpression": "risk_managers",
                 "target": "approver_group",
                 "targetExpression": "",
-                "$$hashKey": "uiGrid-004T"
+                "$$hashKey": "uiGrid-001J"
               }
             ]
           },
@@ -1849,7 +1835,7 @@
           "mailtaskfrom": "",
           "mailtaskheaders": "",
           "mailtasktextvar": "",
-          "mailtaskhtml": "",
+          "mailtaskhtml": "Contract: ${contract.name}<br>\nStatus: ${contract.properties.status}",
           "mailtaskhtmlvar": "",
           "mailtaskcharset": "",
           "iterationheadersepeartor": "",
