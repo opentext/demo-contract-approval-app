@@ -5,7 +5,7 @@
     "modelId": "1",
     "bounds": {
       "lowerRight": {
-        "x": 1602,
+        "x": 1600,
         "y": 1050
       },
       "upperLeft": {
@@ -18,7 +18,7 @@
       "generalgroupheader": "",
       "process_id": "contract_approval",
       "name": "Contract Approval",
-      "process_namespace": "58ba8c4f-a4d2-4c58-904c-977a93938b3b",
+      "process_namespace": "f5840219-d3ca-4758-81ef-dd22ef10f8ba",
       "headerseperator": "",
       "startdefinitionsgroupheader": "",
       "signaldefinitions": "",
