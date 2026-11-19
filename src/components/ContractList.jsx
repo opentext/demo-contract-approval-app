@@ -27,7 +27,6 @@ import Alert from './Alert';
 import ContractDetails from './ContractDetails';
 import DocumentDialogView from './DocumentDialogView';
 import Pagination from './Pagination';
-import RiskClassification from './RiskClassification';
 
 const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
 
@@ -190,7 +189,6 @@ function ContractList() {
               <TableCell align="left">Creation date</TableCell>
               <TableCell align="left">Status</TableCell>
               <TableCell align="left">Value</TableCell>
-              <TableCell align="left">Risk classification</TableCell>
               <TableCell align="left">View document</TableCell>
               <TableCell align="left" />
             </TableRow>
@@ -202,7 +200,6 @@ function ContractList() {
                 <TableCell align="left">{getDateValue(row.create_time)}</TableCell>
                 <TableCell align="left">{row.properties?.status ?? ''}</TableCell>
                 <TableCell align="left">{row.properties?.value ?? ''}</TableCell>
-                <TableCell align="left"><RiskClassification row={row} /></TableCell>
                 <TableCell align="left">
                   <Button size="small" variant="outlined" color="primary" onClick={() => openDocumentDialogView(row.id, row.name)}>Original</Button>
                 </TableCell>

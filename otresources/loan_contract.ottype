@@ -1,6 +1,6 @@
 {
   "id": "004abc09-fba2-493e-bbc3-ee4a4b503218",
-  "schemaId": "https://www.opentext.com/ocp/devx/metadata/1.0.2/Type",
+  "schemaId": "https://www.opentext.com/ocp/devx/metadata/1.0.3/Type",
   "data": {
     "actions": [],
     "category": "file",
@@ -9,10 +9,10 @@
     "namespace": "f5840219-d3ca-4758-81ef-dd22ef10f8ba",
     "attributes": [
       {
+        "default_value": 12,
         "data_type": "integer",
         "display_name": "Monthly installments",
         "name": "monthly_installments",
-        "default_value": 12,
         "required": true,
         "validators": [],
         "ot2mc-row-id": "d57f685e-81e9-46ad-a54e-de76c6ee2ea7"

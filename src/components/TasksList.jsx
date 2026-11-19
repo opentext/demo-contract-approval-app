@@ -28,7 +28,6 @@ import Pagination from './Pagination';
 import Tasks from '../services/workflow/Tasks';
 import TaskDetails from './TaskDetails';
 import DocumentDialogView from './DocumentDialogView';
-import RiskClassification from './RiskClassification';
 
 /**
  * This view displays the list of contracts pending for approval.
@@ -197,7 +196,6 @@ function TasksList({ taskName }) {
               <TableCell align="left">Contract name</TableCell>
               <TableCell align="left">Creation date</TableCell>
               <TableCell align="left">Value</TableCell>
-              <TableCell align="left">Risk classification</TableCell>
               <TableCell align="left">Assignee</TableCell>
               <TableCell align="left">View document</TableCell>
               <TableCell align="left">Action</TableCell>
@@ -210,7 +208,6 @@ function TasksList({ taskName }) {
                 <TableCell align="left">{getContractName(row)}</TableCell>
                 <TableCell align="left">{getDateValue(row)}</TableCell>
                 <TableCell align="left">{getContractValue(row)}</TableCell>
-                <TableCell align="left"><RiskClassification row={getContract(row)} /></TableCell>
                 <TableCell align="left">{row.assignee || ''}</TableCell>
                 <TableCell align="left">
                   <Button size="small" variant="outlined" color="primary" onClick={() => openDocumentDialogView(getContract(row).id, getContractName(row))}>Original</Button>

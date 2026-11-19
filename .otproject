@@ -10,5 +10,6 @@
   },
   "modelFolders": [
     "./otresources"
-  ]
+  ],
+  "projectType": "STANDALONE"
 }

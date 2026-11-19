@@ -21,7 +21,6 @@ import {
 } from '@mui/material';
 import { CloudUpload } from '@mui/icons-material';
 import ApplicationContext from '../context/ApplicationContext';
-import RiskGuard from '../services/riskguard/RiskGuard';
 
 const baseUrl = process.env.REACT_APP_BASE_SERVICE_URL;
 
@@ -44,15 +43,9 @@ function AddContract({
         newContractYearlyIncome: '',
         selectedFile: '',
       },
-      riskGuard: {
-        contractRisk: '',
-        extractedTerms: '',
-      },
     },
   );
   const fileNameELementRef = useRef();
-
-  const riskGuardService = new RiskGuard(user);
 
   let tempAppRootFolderId = appRootFolderId;
 
@@ -138,15 +131,6 @@ function AddContract({
 
   const submitContract = async () => {
     setState((prevState) => ({ ...prevState, showBackdrop: true }));
-    const risk = await riskGuardService.processDoc(
-      state.selectedFile,
-      state.selectedFile.name,
-    );
-    setState((prevState) => ({
-      ...prevState,
-      contractRisk: risk.data.riskClassification,
-      extractedTerms: risk.data.extractedTerms,
-    }));
 
     // Check for application root folder, and if not existing, create it
     if (tempAppRootFolderId === '') {
@@ -309,8 +293,6 @@ function AddContract({
             value: parseInt(state.newContractValue, 10),
             status: 'CREATED',
             requester_email: customerEmail,
-            risk_classification: risk.data.riskClassification,
-            extracted_terms: risk.data.extractedTerms,
             ...isLoanContract() && {
               monthly_installments: parseInt(state.newContractMonthlyInstallments, 10),
               yearly_income: parseInt(state.newContractYearlyIncome, 10),
@@ -325,12 +307,6 @@ function AddContract({
                 approver_role: '',
               },
               'Line Manager Approval': {
-                is_required: false,
-                has_been_granted: false,
-                approver: '',
-                approver_role: '',
-              },
-              'Risk Manager Approval': {
                 is_required: false,
                 has_been_granted: false,
                 approver: '',

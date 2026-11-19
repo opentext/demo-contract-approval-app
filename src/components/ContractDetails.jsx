@@ -193,14 +193,6 @@ function ContractDetails({
               }
               <TextField
                 margin="dense"
-                id="contract-risk"
-                label="Risk classification"
-                value={contract.properties.risk_classification}
-                type="text"
-                fullWidth
-              />
-              <TextField
-                margin="dense"
                 id="createTime"
                 label="Creation date"
                 value={getDateValue(contract.create_time)}

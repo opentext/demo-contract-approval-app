@@ -1,7 +1,8 @@
 {
   "id": "902bf59d-9a00-47ff-b4c7-739fddc7aff4",
-  "schemaId": "https://www.opentext.com/ocp/devx/security/1.0.0/ACL",
+  "schemaId": "https://www.opentext.com/ocp/devx/security/1.0.1/ACL",
   "data": {
+    "applicable_to": "metadata",
     "name": "pending_approval",
     "permits": [
       {
@@ -38,19 +39,6 @@
           "attributes"
         ],
         "ot2mc-row-id": "2ea3be84-cf76-4753-9df8-52a0c4a3c8fb"
-      },
-      {
-        "identity_alias": "group",
-        "permission_level": "Custom",
-        "group_id": "b60cbccf-8d01-4c7f-b11b-730a4077ceb2",
-        "permissions": [
-          "read_content",
-          "modify",
-          "edit_permissions",
-          "browse",
-          "attributes"
-        ],
-        "ot2mc-row-id": "326bc6c3-16ce-4445-8122-44bf4c1dc7df"
       },
       {
         "identity_alias": "group",

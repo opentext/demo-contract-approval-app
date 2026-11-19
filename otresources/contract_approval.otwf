@@ -5,7 +5,7 @@
     "modelId": "1",
     "bounds": {
       "lowerRight": {
-        "x": 1600,
+        "x": 1642,
         "y": 1050
       },
       "upperLeft": {
@@ -24,9 +24,15 @@
       "signaldefinitions": "",
       "messagedefinitions": "",
       "escalationdefinitions": "",
+      "aclheaderseperator": "",
+      "aclpermissionsgroup": "",
+      "acls": [],
       "contextheaderseperator": "",
       "contextgroupheader": "",
       "dataproperties": "",
+      "appextensionsheaderseperator": "",
+      "appextensionsgroupheader": "",
+      "isappextensionsenable": "false",
       "executionheaderseperator": "",
       "executiongroupheader": "",
       "duedatedefinition": "",
@@ -57,6 +63,10 @@
           "executionheaderseperator": "",
           "executiongroupheader": "",
           "executionlisteners": "",
+          "formgroupheader": "",
+          "formfieldvalidation": "false",
+          "formdatavariablename": "",
+          "formkeydefinition": "",
           "detailsgroupheader": ""
         },
         "stencil": {
@@ -99,6 +109,7 @@
           "httptaskresponsevariablename": "contract",
           "httptasksaveresponseasjson": true,
           "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasbase64encoded": "false",
           "executionheaderseperator": "",
           "executiongroupheader": "",
           "executionlisteners": "",
@@ -214,10 +225,11 @@
           "httptaskrequestmethod": "POST",
           "httptaskrequesturl": "${base_url}/decision/v1/execute",
           "httptaskrequestheaders": "Content-Type: application/json",
-          "httptaskrequestbody": "{\n  \"decisionKey\": \"required_approvals\",\n  \"inputVariables\": [\n    {\n      \"name\": \"contract_type\",\n      \"value\": \"${contract.type}\",\n      \"type\": \"string\"\n    },\n    {\n      \"name\": \"contract_value\",\n      \"value\": ${contract.properties.value},\n      \"type\": \"integer\"\n    },\n    {\n      \"name\": \"risk_level\",\n      \"value\": ${contract.properties.risk_classification},\n      \"type\": \"integer\"\n    }\n  ]\n}",
+          "httptaskrequestbody": "{\n  \"decisionKey\": \"required_approvals\",\n  \"inputVariables\": [\n    {\n      \"name\": \"contract_type\",\n      \"value\": \"${contract.type}\",\n      \"type\": \"string\"\n    },\n    {\n      \"name\": \"contract_value\",\n      \"value\": ${contract.properties.value},\n      \"type\": \"integer\"\n    }\n  ]\n}",
           "httptaskresponsevariablename": "required_approvals",
           "httptasksaveresponseasjson": true,
           "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasbase64encoded": "false",
           "executionheaderseperator": "",
           "executiongroupheader": "",
           "executionlisteners": {
@@ -232,7 +244,7 @@
                 "isExecuteScriptEnabled": true,
                 "scriptInfo": {
                   "scriptType": "javascript",
-                  "script": "let solvencyCheckRequired = false;\nlet lineManagerApprovalRequired = false;\nlet riskManagerApprovalRequired = false;\nconst resultVariables = JSON.parse(execution.getVariable(\"required_approvals\")).resultVariables;\nresultVariables.forEach((approval) => {\n  switch(approval[0].value) {\n    case \"solvency_check\":\n      solvencyCheckRequired = true;\n      break;\n    case \"line_managers\":\n      lineManagerApprovalRequired = true;\n      break;\n    case \"risk_managers\": \n      riskManagerApprovalRequired = true;\n      break;\n  }\n});\nexecution.setVariable(\"solvency_check_required\", solvencyCheckRequired); execution.setVariable(\"line_manager_approval_required\", lineManagerApprovalRequired); execution.setVariable(\"risk_manager_approval_required\", riskManagerApprovalRequired);"
+                  "script": "let solvencyCheckRequired = false;\nlet lineManagerApprovalRequired = false;\nconst resultVariables = JSON.parse(execution.getVariable(\"required_approvals\")).resultVariables;\nresultVariables.forEach((approval) => {\n  switch(approval[0].value) {\n    case \"solvency_check\":\n      solvencyCheckRequired = true;\n      break;\n    case \"line_managers\":\n      lineManagerApprovalRequired = true;\n      break;\n  }\n});\nexecution.setVariable(\"solvency_check_required\", solvencyCheckRequired);\nexecution.setVariable(\"line_manager_approval_required\", lineManagerApprovalRequired);"
                 },
                 "mailInfo": {
                   "mailtaskheaders": "",
@@ -266,13 +278,13 @@
                   },
                   {
                     "name": "script",
-                    "implementation": "let solvencyCheckRequired = false;\nlet lineManagerApprovalRequired = false;\nlet riskManagerApprovalRequired = false;\nconst resultVariables = JSON.parse(execution.getVariable(\"required_approvals\")).resultVariables;\nresultVariables.forEach((approval) => {\n  switch(approval[0].value) {\n    case \"solvency_check\":\n      solvencyCheckRequired = true;\n      break;\n    case \"line_managers\":\n      lineManagerApprovalRequired = true;\n      break;\n    case \"risk_managers\": \n      riskManagerApprovalRequired = true;\n      break;\n  }\n});\nexecution.setVariable(\"solvency_check_required\", solvencyCheckRequired); execution.setVariable(\"line_manager_approval_required\", lineManagerApprovalRequired); execution.setVariable(\"risk_manager_approval_required\", riskManagerApprovalRequired);",
-                    "stringValue": "let solvencyCheckRequired = false;\nlet lineManagerApprovalRequired = false;\nlet riskManagerApprovalRequired = false;\nconst resultVariables = JSON.parse(execution.getVariable(\"required_approvals\")).resultVariables;\nresultVariables.forEach((approval) => {\n  switch(approval[0].value) {\n    case \"solvency_check\":\n      solvencyCheckRequired = true;\n      break;\n    case \"line_managers\":\n      lineManagerApprovalRequired = true;\n      break;\n    case \"risk_managers\": \n      riskManagerApprovalRequired = true;\n      break;\n  }\n});\nexecution.setVariable(\"solvency_check_required\", solvencyCheckRequired); execution.setVariable(\"line_manager_approval_required\", lineManagerApprovalRequired); execution.setVariable(\"risk_manager_approval_required\", riskManagerApprovalRequired);",
+                    "implementation": "let solvencyCheckRequired = false;\nlet lineManagerApprovalRequired = false;\nconst resultVariables = JSON.parse(execution.getVariable(\"required_approvals\")).resultVariables;\nresultVariables.forEach((approval) => {\n  switch(approval[0].value) {\n    case \"solvency_check\":\n      solvencyCheckRequired = true;\n      break;\n    case \"line_managers\":\n      lineManagerApprovalRequired = true;\n      break;\n  }\n});\nexecution.setVariable(\"solvency_check_required\", solvencyCheckRequired);\nexecution.setVariable(\"line_manager_approval_required\", lineManagerApprovalRequired);",
+                    "stringValue": "let solvencyCheckRequired = false;\nlet lineManagerApprovalRequired = false;\nconst resultVariables = JSON.parse(execution.getVariable(\"required_approvals\")).resultVariables;\nresultVariables.forEach((approval) => {\n  switch(approval[0].value) {\n    case \"solvency_check\":\n      solvencyCheckRequired = true;\n      break;\n    case \"line_managers\":\n      lineManagerApprovalRequired = true;\n      break;\n  }\n});\nexecution.setVariable(\"solvency_check_required\", solvencyCheckRequired);\nexecution.setVariable(\"line_manager_approval_required\", lineManagerApprovalRequired);",
                     "expression": "",
                     "string": ""
                   }
                 ],
-                "$$hashKey": "uiGrid-001B"
+                "$$hashKey": "uiGrid-0008"
               }
             ]
           },
@@ -392,6 +404,7 @@
           "httptaskresponsevariablename": "contract",
           "httptasksaveresponseasjson": true,
           "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasbase64encoded": "false",
           "executionheaderseperator": "",
           "executiongroupheader": "",
           "executionlisteners": "",
@@ -511,6 +524,7 @@
           "httptaskresponsevariablename": "",
           "httptasksaveresponseasjson": true,
           "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasbase64encoded": "false",
           "executionheaderseperator": "",
           "executiongroupheader": "",
           "executionlisteners": "",
@@ -636,9 +650,6 @@
           },
           {
             "resourceId": "sid-F84D4E9D-A697-4611-94BD-7A5EE3552F98"
-          },
-          {
-            "resourceId": "sid-92AA6C3F-F13A-4AE0-AD99-FD00A8335150"
           },
           {
             "resourceId": "sid-40250029-5ACD-4FB3-BE3A-A1D9CFBDAA4F"
@@ -992,157 +1003,6 @@
         }
       },
       {
-        "resourceId": "sid-21E3CAE6-CF91-4B97-B41E-63D4F7CB8236",
-        "properties": {
-          "tabgroupheader": "",
-          "generalgroupheader": "",
-          "overrideid": "",
-          "name": "Risk Manager Approval",
-          "subprocessheadersepeartor": "",
-          "subprocessgroupheader": "",
-          "callactivitycalledelementtype": "key",
-          "callactivitycalledelement": "manager_approval",
-          "callactivityinparameters": {
-            "inParameters": [
-              {
-                "source": "",
-                "sourceExpression": "Risk Manager",
-                "target": "approver_role",
-                "targetExpression": "",
-                "$$hashKey": "uiGrid-001F"
-              },
-              {
-                "source": "",
-                "sourceExpression": "risk_managers",
-                "target": "approver_group",
-                "targetExpression": "",
-                "$$hashKey": "uiGrid-001J"
-              }
-            ]
-          },
-          "callactivityoutparameters": {
-            "outParameters": [
-              {
-                "source": "approvalStatus",
-                "sourceExpression": "",
-                "target": "approvalStatus",
-                "targetExpression": "",
-                "$$hashKey": "uiGrid-005X"
-              }
-            ]
-          },
-          "callactivityinheritvariables": true,
-          "executionheaderseperator": "",
-          "executiongroupheader": "",
-          "executionlisteners": "",
-          "subprocessgroupheaderhidden": "",
-          "callactivitysamedeployment": "false",
-          "callactivityprocessinstancename": "",
-          "callactivityidvariablename": "",
-          "callactivityinheritbusinesskey": "false",
-          "callactivitybusinesskey": "",
-          "callactivitycompleteasync": "",
-          "callactivityuselocalscopeforoutparameters": "false",
-          "callactivityfallbacktodefaulttenant": "false",
-          "multiinstancegroupseperator": "",
-          "multiinstancegroupheader": "",
-          "multiinstance_type": "None",
-          "multiinstance_cardinality": "",
-          "multiinstance_collection": "",
-          "multiinstance_variable": "",
-          "multiinstance_condition": "",
-          "executionheaderseperatorhidden": "",
-          "executiongroupheaderhidden": "",
-          "asynchronousdefinition": "false",
-          "isforcompensation": "false",
-          "exclusivedefinition": "false",
-          "detailsgroupheader": ""
-        },
-        "stencil": {
-          "id": "CallActivity"
-        },
-        "childShapes": [],
-        "outgoing": [
-          {
-            "resourceId": "sid-3218E8E3-8DBD-4F05-883C-9E8659A431A7"
-          }
-        ],
-        "bounds": {
-          "lowerRight": {
-            "x": 565,
-            "y": 215
-          },
-          "upperLeft": {
-            "x": 465,
-            "y": 135
-          }
-        },
-        "dockers": []
-      },
-      {
-        "resourceId": "sid-92AA6C3F-F13A-4AE0-AD99-FD00A8335150",
-        "properties": {
-          "generalgroupheader": "",
-          "name": "",
-          "connectordetailsheaderseperator": "",
-          "connectordetailsgroupheader": "",
-          "mandatoryinfo": "",
-          "conditionsequenceflow": {
-            "expression": {
-              "type": "static",
-              "staticValue": "${risk_manager_approval_required}"
-            }
-          },
-          "defaultflow": false,
-          "skipexpression": "",
-          "executionheaderseperator": "",
-          "executiongroupheader": "",
-          "executionlisteners": "",
-          "overrideid": "",
-          "detailsgroupheader": ""
-        },
-        "stencil": {
-          "id": "SequenceFlow"
-        },
-        "childShapes": [],
-        "outgoing": [
-          {
-            "resourceId": "sid-21E3CAE6-CF91-4B97-B41E-63D4F7CB8236"
-          }
-        ],
-        "bounds": {
-          "lowerRight": {
-            "x": 665.5,
-            "y": 134.21875
-          },
-          "upperLeft": {
-            "x": 515,
-            "y": 80.796875
-          }
-        },
-        "dockers": [
-          {
-            "x": 20.5,
-            "y": 20.5
-          },
-          {
-            "x": 665.5,
-            "y": 108
-          },
-          {
-            "x": 515,
-            "y": 108
-          },
-          {
-            "x": 50,
-            "y": 40
-          }
-        ],
-        "target": {
-          "resourceId": "sid-21E3CAE6-CF91-4B97-B41E-63D4F7CB8236"
-        }
-      },
-      {
         "resourceId": "sid-B3075847-343B-48FC-BE06-459EA9F083F7",
         "properties": {
           "tabgroupheader": "",
@@ -1161,6 +1021,7 @@
           "httptaskresponsevariablename": "contract",
           "httptasksaveresponseasjson": true,
           "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasbase64encoded": "false",
           "executionheaderseperator": "",
           "executiongroupheader": "",
           "executionlisteners": "",
@@ -1455,57 +1316,6 @@
         }
       },
       {
-        "resourceId": "sid-3218E8E3-8DBD-4F05-883C-9E8659A431A7",
-        "properties": {
-          "generalgroupheader": "",
-          "name": "",
-          "connectordetailsheaderseperator": "",
-          "connectordetailsgroupheader": "",
-          "mandatoryinfo": "",
-          "conditionsequenceflow": "",
-          "defaultflow": "false",
-          "skipexpression": "",
-          "executionheaderseperator": "",
-          "executiongroupheader": "",
-          "executionlisteners": "",
-          "overrideid": "",
-          "detailsgroupheader": "",
-          "showdiamondmarker": false
-        },
-        "stencil": {
-          "id": "SequenceFlow"
-        },
-        "childShapes": [],
-        "outgoing": [
-          {
-            "resourceId": "sid-5CD3DB77-5640-4A61-9A34-D4E316449005"
-          }
-        ],
-        "bounds": {
-          "lowerRight": {
-            "x": 513.2243628296166,
-            "y": 315.67864465601735
-          },
-          "upperLeft": {
-            "x": 395.9598412719459,
-            "y": 215.51666784398265
-          }
-        },
-        "dockers": [
-          {
-            "x": 50,
-            "y": 79
-          },
-          {
-            "x": 20,
-            "y": 20
-          }
-        ],
-        "target": {
-          "resourceId": "sid-5CD3DB77-5640-4A61-9A34-D4E316449005"
-        }
-      },
-      {
         "resourceId": "sid-6C29907C-800E-4835-ACA9-C1D9FD6CEA58",
         "properties": {
           "tabgroupheader": "",
@@ -1714,6 +1524,7 @@
           "httptaskresponsevariablename": "contract",
           "httptasksaveresponseasjson": true,
           "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasbase64encoded": "false",
           "executionheaderseperator": "",
           "executiongroupheader": "",
           "executionlisteners": "",
@@ -1943,6 +1754,7 @@
           "httptaskresponsevariablename": "contract",
           "httptasksaveresponseasjson": true,
           "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasbase64encoded": "false",
           "executionheaderseperator": "",
           "executiongroupheader": "",
           "executionlisteners": "",
@@ -2071,6 +1883,7 @@
           "httptaskresponsevariablename": "contract",
           "httptasksaveresponseasjson": true,
           "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasbase64encoded": "false",
           "executionheaderseperator": "",
           "executiongroupheader": "",
           "executionlisteners": "",
@@ -2368,6 +2181,7 @@
           "httptaskresponsevariablename": "",
           "httptasksaveresponseasjson": true,
           "httptasksaveresponseparameterstransient": "",
+          "httptasksaveresponseasbase64encoded": "false",
           "executionheaderseperator": "",
           "executiongroupheader": "",
           "executionlisteners": "",

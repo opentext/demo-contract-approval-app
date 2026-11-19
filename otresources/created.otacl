@@ -1,7 +1,8 @@
 {
   "id": "59158201-d7f0-4391-a86f-751d77d80ee5",
-  "schemaId": "https://www.opentext.com/ocp/devx/security/1.0.0/ACL",
+  "schemaId": "https://www.opentext.com/ocp/devx/security/1.0.1/ACL",
   "data": {
+    "applicable_to": "metadata",
     "name": "created",
     "permits": [
       {

@@ -92,10 +92,6 @@ function App() {
                   groups.includes('line_managers')
                   && <Tab className="tab-caption" label="Line Manager Tasks" />
                 }
-                {
-                  groups.includes('risk_managers')
-                  && <Tab className="tab-caption" label="Risk Manager Tasks" />
-                }
                 <Tab className="tab-caption" label="All Contracts" />
               </Tabs>
               <ApplicationProvider>
@@ -108,15 +104,6 @@ function App() {
                     // eslint-disable-next-line no-plusplus
                     <TabPanel value={tabValue} index={++tabIndex}>
                       <TasksList taskName="Line Manager Approval" />
-                    </TabPanel>
-                  )
-                }
-                {
-                  groups.includes('risk_managers')
-                  && (
-                    // eslint-disable-next-line no-plusplus
-                    <TabPanel value={tabValue} index={++tabIndex}>
-                      <TasksList taskName="Risk Manager Approval" />
                     </TabPanel>
                   )
                 }
