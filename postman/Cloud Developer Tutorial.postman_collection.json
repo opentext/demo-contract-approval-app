@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "cdae66f3-5c75-41b4-96e2-b2d863a33b34",
+		"_postman_id": "5b4a0ac3-389a-4415-b3b7-9ace1817bd77",
 		"name": "Cloud Developer Tutorial",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "32743108"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -2524,47 +2523,6 @@
 							],
 							"path": [
 								"execute"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Magellan Risk Guard",
-			"item": [
-				{
-					"name": "Process document",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"type": "text",
-								"value": "Bearer {{access_token}}"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "File",
-									"type": "file",
-									"src": "/C:/Tutorial/vs_code_project/contract-approval/test_documents/01_standard_contracts/Standard Contract [RISK = 5-VERY HIGH].pdf"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{risk_guard_service_url}}/process",
-							"host": [
-								"{{risk_guard_service_url}}"
-							],
-							"path": [
-								"process"
 							]
 						}
 					},
